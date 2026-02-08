@@ -39,13 +39,14 @@ public class HashMap<K, V> {
 
     // Hashing function to get hash value
     private int hash(Object key, int length) {
-    if (key == null) return 0;
-    // Get the raw hash code (normally ID)
-    int hash = Math.abs(key.hashCode());
-    // Convert to index using Bitwise AND
-    return hash & (length - 1);
-}
+        if (key == null) return 0;
+        // Get the raw hash code (normally ID)
+        int hash = Math.abs(key.hashCode());
+        // Convert to index using Bitwise AND
+        return hash & (length - 1);
+    }
 
+    // Check if two keys are equal
     private boolean isKeyEqual(K k1, K k2) {
         if (k1 == k2) return true;
         else if (k1 == null || k2 == null) return false;
@@ -79,7 +80,7 @@ public class HashMap<K, V> {
         table = newTable;
     }
 
-
+    // If hash collision occurs, add node to the linked list at the index
     private void addNode(K key, V value, int nodeIndex) {
         // Check if load factor exceeded
         if (size >= table.length * LOAD_FACTOR) {
