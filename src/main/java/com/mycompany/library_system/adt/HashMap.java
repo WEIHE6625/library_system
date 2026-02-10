@@ -254,15 +254,32 @@ public class HashMap<K, V> implements MapInterface<K, V> {
         MapInterface.Entry<K, V>[] result = new MapInterface.Entry[size];
         
         int index = 0;
-        // Iterate over all map
+        // Loop over all map
         for (int i = 0; i < table.length; i++) {
             HashNode<K, V> node = table[i];
-            // Iterate over linked list
+            // Loop over linked list
             while (node != null) {
                 result[index++] = node;
                 node = node.next;
             }
         }
         return result;
+    }
+
+
+    @Override
+    public ListInterface<V> values() {
+        ArrayList<V> valuesList = new ArrayList<>();
+        
+        // Loop over all map
+        for (int i = 0; i < table.length; i++) {
+            HashNode<K, V> node = table[i];
+            // Loop over linked list
+            while (node != null) {
+                valuesList.add(node.value);
+                node = node.next;
+            }
+        }
+        return valuesList;
     }
 }

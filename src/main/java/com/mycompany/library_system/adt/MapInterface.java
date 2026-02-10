@@ -61,9 +61,14 @@ package com.mycompany.library_system.adt;
   public void putAll(MapInterface<? extends K, ? extends V> m);
 
   
-    
-  /** Returns an array of all entries in the map
-   * @return an array of all entries in the map
+  /**
+   * Returns a list of all values in the map, sorted by their keys.
+   * @return a list of all entries in the map
+  */
+  public ListInterface<V> values();
+
+  /** Returns a set of all entries in the map
+   * @return a set of all entries in the map
    */
   public Entry<K, V>[] entrySet();
   
