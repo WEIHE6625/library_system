@@ -7,7 +7,7 @@ import java.util.Arrays;
 import com.mycompany.library_system.adt.HashMap;
 import com.mycompany.library_system.adt.MapInterface;
 import com.mycompany.library_system.adt.TreeMap;
-import com.mycompany.library_system.utility.SampleEntity;
+import com.mycompany.library_system.entity.SampleEntity;
 
 /**
  * Benchmarking HashMap vs. TreeMap vs. ArrayList

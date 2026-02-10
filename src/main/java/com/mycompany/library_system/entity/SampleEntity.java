@@ -1,4 +1,4 @@
-package com.mycompany.library_system.utility;
+package com.mycompany.library_system.entity;
 
 public class SampleEntity {
     private String id;
