@@ -38,6 +38,7 @@ public class Book {
     public ListInterface<String> getCategories() { return categories; }
     public String getPublisher() { return publisher; }
     public double getPrice() { return price; }
+    // Get the publish date in different type
     public YearMonth getPublishDate() { return publishDate; }
     public int getPublishYear() { return publishDate.getYear(); }
     public int getPublishMonth() { return publishDate.getMonthValue(); }
@@ -46,6 +47,7 @@ public class Book {
     public String setDescription(String description) { return this.description = description; }
     public String setAuthor(String author) { return this.author = author; }
 
+    // If category exists, do not add and return false
     public boolean addCategories(String cat) { 
         if (this.hasCategory(cat)) return false;
         return this.categories.add(cat); 
