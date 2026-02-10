@@ -3,9 +3,10 @@ package com.mycompany.library_system.adt;
 /**
  *
  * @author wh
+ * 
+ * A simple generic HashMap class (K for Key, V for Value)
  */
-// A simple generic HashMap class (K for Key, V for Value)
-public class HashMap<K, V> {
+public class HashMap<K, V> implements MapInterface<K, V> {
 
     private static final int DEFAULT_CAPACITY = 16; // The default initial capacity (power of two).
     private static final float LOAD_FACTOR = 0.75f; // Used for rehashing.
@@ -14,7 +15,7 @@ public class HashMap<K, V> {
 
 
     // Act as the node of linked list
-    private static class HashNode<K, V> {
+    private static class HashNode<K, V> implements MapInterface.Entry<K, V> {
         final K key;
         V value;
         HashNode<K, V> next; // Pointer to the next node
@@ -23,6 +24,23 @@ public class HashMap<K, V> {
             this.key = key;
             this.value = value;
             this.next = next;
+        }
+
+        @Override
+        public V setValue(V value) {
+            V oldValue = this.value;
+            this.value = value;
+            return oldValue;
+        }
+
+        @Override
+        public K getKey() {
+            return this.key;
+        }
+
+        @Override
+        public V getValue() {
+            return this.value;
         }
     }
 
@@ -98,8 +116,8 @@ public class HashMap<K, V> {
 
 
 
-    // Add data to hashmap OR Update data if key exists
-    public void put(K key, V value) {
+    @Override
+    public V put(K key, V value) {
         // Compute Hash and Index
         int index = hash(key, table.length);
 
@@ -107,17 +125,19 @@ public class HashMap<K, V> {
         HashNode<K, V> current = table[index];
         while (current != null) {
             if (isKeyEqual(current.key, key)) {
+                V oldValue = current.value;
                 current.value = value;
-                return;
+                return oldValue;
             }
             current = current.next;
         }
 
         // If Key not found, add new node to the linked list.
         addNode(key, value, index);
+        return null;
     }
 
-    // Get the value associated with the key
+    @Override
     public V get(K key) {
         int index = hash(key, table.length);
 
@@ -134,8 +154,8 @@ public class HashMap<K, V> {
         return null;
     }
 
-    // Remove the value associated with the key
-    public void remove(K key) {
+    @Override
+    public V remove(K key) {
         int index = hash(key, table.length);
 
         HashNode<K, V> current = table[index];
@@ -143,6 +163,7 @@ public class HashMap<K, V> {
 
         while (current != null) {
             if (isKeyEqual(current.key, key)) {
+                V oldValue = current.value;
                 // If found, unlink it from list
                 // Check if it is the first node
                 if (previous == null) {
@@ -151,10 +172,97 @@ public class HashMap<K, V> {
                     previous.next = current.next;
                 }
                 size--;
-                return;
+                return oldValue;
             }
             previous = current;
             current = current.next;
         }
+        return null;
+    }
+
+
+    @Override
+    public boolean containsKey(K key) { 
+        int index = hash(key, table.length);
+        HashNode<K, V> current = table[index];
+
+        // Loop the Linked List
+        while (current != null) {
+            if (isKeyEqual(current.key, key)) {
+                return true;
+            }
+            current = current.next;
+        }
+        
+        return false;
+    }
+
+
+    @Override
+    public boolean containsValue(V value) {
+        // Check every single slot in the table
+        for (int i = 0; i < table.length; i++) {
+            HashNode<K, V> node = table[i];
+            
+            // Check every node in this linked list
+            while (node != null) {
+                if (value == null) {
+                    if (node.value == null) return true;
+                } else {
+                    if (value.equals(node.value)) return true;
+                }
+                node = node.next;
+            }
+        }
+        return false;
+    }
+
+
+    @Override
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+
+    @Override
+    public void clear() {
+        this.table = (HashNode<K, V>[]) new HashNode[DEFAULT_CAPACITY];
+        this.size = 0;
+    }
+
+
+    @Override
+    public void putAll(MapInterface<? extends K, ? extends V> m) {
+        if (m.isEmpty()) return;
+
+        HashMap<? extends K, ? extends V> otherMap = (HashMap<? extends K, ? extends V>) m;
+            
+        // Iterate over the OTHER map's internal table
+        for (int i = 0; i < otherMap.table.length; i++) {
+            HashNode<? extends K, ? extends V> node = otherMap.table[i];
+            
+            while (node != null) {
+                // Insert the key-value pair into THIS map
+                this.put(node.key, node.value);
+                node = node.next;
+            }
+        }
+    }
+
+    @Override
+    public MapInterface.Entry<K, V>[] entrySet() {
+        MapInterface.Entry<K, V>[] result = new MapInterface.Entry[size];
+        
+        int index = 0;
+        // Iterate over all map
+        for (int i = 0; i < table.length; i++) {
+            HashNode<K, V> node = table[i];
+            // Iterate over linked list
+            while (node != null) {
+                result[index++] = node;
+                node = node.next;
+            }
+        }
+        return result;
     }
 }
