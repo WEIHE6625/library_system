@@ -276,15 +276,32 @@ public class TreeMap<K extends Comparable<K>, V> implements MapInterface<K, V> {
     public MapInterface.Entry<K, V>[] entrySet() {
         MapInterface.Entry<K, V>[] result = new MapInterface.Entry[size];
         // Recursive using In-Order
-        fillEntryArray(root, result, 0);
+        fillEntrySet(root, result, 0);
         return result;
     }
 
-    private int fillEntryArray(Node<K, V> node, MapInterface.Entry<K, V>[] array, int index) {
+    @Override
+    public ListInterface<V> values() {
+        ListInterface<V> result = new ArrayList<>();
+        // Recursive using In-Order
+        fillValuesList(root, result);
+        return result;
+    }
+
+    private int fillValuesList(Node<K, V> node, ListInterface<V> list) {
+        if (node == null) return 0;
+        int count = fillValuesList(node.left, list);
+        list.add(node.value);
+        count++;
+        count += fillValuesList(node.right, list);
+        return count;
+    }
+
+    private int fillEntrySet(Node<K, V> node, MapInterface.Entry<K, V>[] set, int index) {
         if (node == null) return index;
-        index = fillEntryArray(node.left, array, index);
-        array[index++] = node;
-        index = fillEntryArray(node.right, array, index);
+        index = fillEntrySet(node.left, set, index);
+        set[index++] = node;
+        index = fillEntrySet(node.right, set, index);
         return index;
     }
 
