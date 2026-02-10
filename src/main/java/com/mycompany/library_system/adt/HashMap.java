@@ -3,8 +3,9 @@ package com.mycompany.library_system.adt;
 /**
  *
  * @author wh
+ * 
+ * A simple generic HashMap class (K for Key, V for Value)
  */
-// A simple generic HashMap class (K for Key, V for Value)
 public class HashMap<K, V> implements MapInterface<K, V> {
 
     private static final int DEFAULT_CAPACITY = 16; // The default initial capacity (power of two).
@@ -246,5 +247,22 @@ public class HashMap<K, V> implements MapInterface<K, V> {
                 node = node.next;
             }
         }
+    }
+
+    @Override
+    public MapInterface.Entry<K, V>[] entrySet() {
+        MapInterface.Entry<K, V>[] result = new MapInterface.Entry[size];
+        
+        int index = 0;
+        // Iterate over all map
+        for (int i = 0; i < table.length; i++) {
+            HashNode<K, V> node = table[i];
+            // Iterate over linked list
+            while (node != null) {
+                result[index++] = node;
+                node = node.next;
+            }
+        }
+        return result;
     }
 }
