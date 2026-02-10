@@ -12,6 +12,7 @@ import com.mycompany.library_system.adt.TreeMap;
 import com.mycompany.library_system.adt.ListInterface;
 import com.mycompany.library_system.adt.ArrayList;
 import com.mycompany.library_system.entity.Book;
+import com.mycompany.library_system.utility.Utility;
 
 /**
  *
@@ -20,7 +21,7 @@ import com.mycompany.library_system.entity.Book;
 public class BookDAO {
 
     public static TreeMap<String, Book> readFile(String filePath) {
-        TreeMap<String, Book> library = new TreeMap<>();
+        TreeMap<String, Book> bookList = new TreeMap<>();
 
         // Setup CSV Reader
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
@@ -29,9 +30,7 @@ public class BookDAO {
             // Read line by line
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
-                // if(looptime == 102611 || looptime == 102700){
-                //     System.out.println("Debug Breakpoint Reached at line: " + looptime);
-                // }
+
                 if (data.length >= 8) {
                     try {
                         // Parse Fields
@@ -42,13 +41,13 @@ public class BookDAO {
                         String title = data[1].trim();
                         
                         // Author
-                        String author = data[2].trim();
+                        String author = Utility.clean(data[2]);
 
                         // Description
                         String description = data[3].trim();
 
                         // Categories (Split by comma)
-                        String rawCat = data[4].trim();
+                        String rawCat = Utility.clean(data[4]);
                         ListInterface<String> categories = new ArrayList<>(); 
                         if (!rawCat.isEmpty()) {
                             String[] cats = rawCat.split(",");
@@ -56,7 +55,7 @@ public class BookDAO {
                         }
 
                         // Publisher
-                        String publisher = data[5].trim();
+                        String publisher = Utility.clean(data[5]);
 
                         // Price
                         double price = 0.0;
@@ -76,7 +75,7 @@ public class BookDAO {
 
                         // Add to Map
                         Book book = new Book(id, title, author, description, categories, publisher, price, monthNumber, year);
-                        library.put(id, book);
+                        bookList.put(id, book);
 
                     } catch (Exception e) {
                         System.out.println("Skipping invalid row: " + e.getMessage());
@@ -86,7 +85,7 @@ public class BookDAO {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return library;
+        return bookList;
     }
 
 

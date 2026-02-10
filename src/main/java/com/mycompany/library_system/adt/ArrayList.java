@@ -200,5 +200,13 @@ public class ArrayList<T> implements ListInterface<T>, Serializable {
             }
         };
     }
+
+    @Override
+    public T get(int index) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
+        }
+        return array[index];
+    }
     
 }
