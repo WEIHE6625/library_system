@@ -281,19 +281,33 @@ public class TreeMap<K extends Comparable<K>, V> implements MapInterface<K, V> {
     }
 
     @Override
-    public ListInterface<V> values() {
-        ListInterface<V> result = new ArrayList<>();
-        // Recursive using In-Order
-        fillValuesList(root, result);
+    public ListInterface<K> keys() {
+        ListInterface<K> result = new ArrayList<>();
+        collectKeys(root, result);
         return result;
     }
 
-    private int fillValuesList(Node<K, V> node, ListInterface<V> list) {
+    private void collectKeys(Node<K, V> node, ListInterface<K> list) {
+        if (node == null) return;
+        collectKeys(node.left, list);
+        list.add(node.key);
+        collectKeys(node.right, list);
+    }
+
+    @Override
+    public ListInterface<V> values() {
+        ListInterface<V> result = new ArrayList<>();
+        // Recursive using In-Order
+        collectValues(root, result);
+        return result;
+    }
+
+    private int collectValues(Node<K, V> node, ListInterface<V> list) {
         if (node == null) return 0;
-        int count = fillValuesList(node.left, list);
+        int count = collectValues(node.left, list);
         list.add(node.value);
         count++;
-        count += fillValuesList(node.right, list);
+        count += collectValues(node.right, list);
         return count;
     }
 

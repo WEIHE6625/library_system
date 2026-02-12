@@ -9,7 +9,7 @@ import com.mycompany.library_system.adt.ArrayList;
 import com.mycompany.library_system.adt.ListInterface;
 import com.mycompany.library_system.adt.TreeMap;
 import com.mycompany.library_system.entity.Book;
-import com.mycompany.library_system.utility.Utility;
+import com.mycompany.library_system.utility.DataProcessor;
 import com.opencsv.CSVWriter;
 
 import me.tongfei.progressbar.ProgressBar;
@@ -27,7 +27,7 @@ public class BookDAO {
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line = br.readLine(); // Skip Header
 
-            int totalLines = Utility.lineCounter(filePath);
+            int totalLines = DataProcessor.lineCounter(filePath);
 
             try (ProgressBar pb = new ProgressBar("Loading Books : ", totalLines)) {
 
@@ -50,13 +50,13 @@ public class BookDAO {
                             String title = data[1].trim();
                             
                             // Author
-                            String author = Utility.clean(data[2]);
+                            String author = DataProcessor.clean(data[2]);
 
                             // Description
                             String description = data[3].trim();
 
                             // Categories (Split by comma)
-                            String rawCat = Utility.clean(data[4]);
+                            String rawCat = DataProcessor.clean(data[4]);
                             ListInterface<String> categories = new ArrayList<>(); 
                             if (!rawCat.isEmpty()) {
                                 String[] cats = rawCat.split(",");
@@ -64,7 +64,7 @@ public class BookDAO {
                             }
 
                             // Publisher
-                            String publisher = Utility.clean(data[5]);
+                            String publisher = DataProcessor.clean(data[5]);
 
                             // Price
                             double price = 0.0;

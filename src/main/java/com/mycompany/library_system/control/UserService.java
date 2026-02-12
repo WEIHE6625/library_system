@@ -1,6 +1,7 @@
 package com.mycompany.library_system.control;
 
 import com.mycompany.library_system.entity.User;
+import com.mycompany.library_system.adt.MapInterface;
 import com.mycompany.library_system.dao.UserDAO;
 import com.mycompany.library_system.repo.UserRepository;
 import com.mycompany.library_system.utility.IdGenerator;
@@ -9,10 +10,10 @@ public class UserService {
     private final UserDAO userDAO = new UserDAO();
 
     public void addUser(String name, String email, String role) {
-        IdGenerator.initUserCounter();
-        String userId = IdGenerator.generateUserId();
+        MapInterface<String, User> userList = UserRepository.getUserMap();
+        String userId = IdGenerator.generateId(userList, "U", 4);
 
-        if (UserRepository.getUserMap().containsKey(userId)) {
+        if (userList.containsKey(userId)) {
             throw new IllegalArgumentException("User ID already exists");
         }
 

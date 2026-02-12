@@ -1,34 +1,25 @@
 package com.mycompany.library_system.utility;
 
-import com.mycompany.library_system.entity.User;
-import com.mycompany.library_system.repo.UserRepository;
+import com.mycompany.library_system.adt.MapInterface;
 
 public class IdGenerator {
-    private static int userCounter = 0;
-    private static int bookCounter = 0;
-
-    public static void initUserCounter() {
+    private static int getMaxId(MapInterface<String, ?> map, String prefix) {
         int max = 0;
-        for (User user : UserRepository.getUserMap().values()) {
-            String id = user.getUserId();
-            if (id.startsWith("U")) {
+        for (String id : map.keys()) {
+            if (id.startsWith(prefix)) {
                 try {
-                    int num = Integer.parseInt(id.substring(1)); // remove 'U'
+                    int num = Integer.parseInt(id.substring(prefix.length())); // remove prefix
                     if (num > max) max = num;
                 } catch (NumberFormatException ignored) {
                 }
             }
         }
-        userCounter = max; // latest user ID number
+        return max; // latest ID number
     }
 
-    public static String generateUserId() {
-        userCounter++;
-        return String.format("U%04d", userCounter);
-    }
-
-    public static String generateBookId() {
-        bookCounter++;
-        return String.format("B%04d", bookCounter);
+    public static String generateId(MapInterface<String, ?> map, String prefix, int numberlength) {
+        int lastId = getMaxId(map, prefix);
+        lastId++;
+        return String.format(prefix + "%0" + numberlength + "d", lastId);
     }
 }

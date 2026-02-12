@@ -1,8 +1,5 @@
 package com.mycompany.library_system.utility;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.time.Year;
 import java.util.Scanner;
 
@@ -14,121 +11,9 @@ import com.mycompany.library_system.control.BookManager;
  *
  * @author all
  */
-public class Utility {
+public class UserPrompt {
 
     static Scanner scanner = new Scanner(System.in);
-
-    // Clear the console screen in NetBeans
-    public static void clearScreen() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
-    }
-
-    // Count total lines in a file
-    public static int lineCounter(String filePath) {
-        long count = 0;
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-            count = reader.lines().count();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return ((int) count);
-    }
-
-    // Generate a unique ID
-    public static String idGenerator(String prefix) {
-        return prefix + System.currentTimeMillis();
-    }
-
-    // Used for build a title
-    public static void titleBuilder(String title) {
-        int totalWidth = 160; // Standard console width
-        int titleLength = title.length();
-        
-        int paddingNeeded = totalWidth - titleLength - 2;
-        int leftPad = paddingNeeded / 2;
-        int rightPad = paddingNeeded - leftPad; 
-        
-        String leftSide = " ".repeat(Math.max(0, leftPad));
-        String rightSide = " ".repeat(Math.max(0, rightPad));
-        
-        System.out.println("=".repeat(totalWidth));
-        System.out.println(leftSide + " " + title + " " + rightSide);
-        System.out.println("=".repeat(totalWidth));
-    }
-
-    public static void pressEnterToContinue() {
-        System.out.println("\nPress Enter to continue...");
-        scanner.nextLine();
-    }
-
-    // Truncate long text with "..." in display
-    public static String truncate(String text, int maxLength) {
-        if (text == null) return "";
-        if (text.length() <= maxLength) return text;
-        return text.substring(0, maxLength - 3) + "...";
-    }
-
-    // Clean the text from CSV, remove extra spaces and surrounding quotes
-    public static String clean(String input) {
-        if (input == null) return "";
-        String result = input.trim();
-        if (result.length() >= 2 && result.startsWith("\"") && result.endsWith("\"")) {
-            // Remove the first and last character
-            result = result.substring(1, result.length() - 1);
-        }
-        return result.trim();
-    }
-
-
-    /**  
-     * General option menu
-     * @param options Strings list to display (Option 0 is for exit)
-     * @param optionInputMessage Prompt message for user input
-     * @param action Array of Runnable actions corresponding to each option
-     * @return true if user chooses to exit (option 0), otherwise false
-     */
-    public static boolean optionMenu(String[] options, String optionInputMessage, Runnable[] action) {
-        /*
-        -----------------
-        | Sample result |
-        -----------------
-
-        -----------------------------
-         [1] Add Book
-         [2] Edit Book
-         [3] Delete Book
-         [0] Back to Main Menu
-        -----------------------------
-         Select an option >>  
-
-        */
-
-        System.out.println("-".repeat(30));
-        for (String option : options) {
-            System.out.println(option);
-        }
-        System.out.println("-".repeat(30));
-
-        System.out.print(optionInputMessage);
-        String input = scanner.nextLine().trim();
-
-        try {
-            int choice = Integer.parseInt(input);
-            if (choice == 0) {
-                return true;
-            } else if (choice >= 1 && choice <= options.length - 1) {
-                action[choice - 1].run();
-            } else {
-                System.out.println("Invalid input! Try again.");
-                pressEnterToContinue();
-            }
-        } catch (NumberFormatException e) {
-            System.out.println("Invalid input! Try again.");
-            pressEnterToContinue();
-        }
-        return false;
-    }
 
     public static double inputDouble(String promptMessage, double min, double max) {
         boolean isValid = false;

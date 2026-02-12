@@ -7,7 +7,9 @@ import com.mycompany.library_system.adt.ListInterface;
 import com.mycompany.library_system.adt.TreeMap;
 import com.mycompany.library_system.control.BookManager;
 import com.mycompany.library_system.entity.Book;
-import com.mycompany.library_system.utility.Utility;
+import com.mycompany.library_system.utility.DataProcessor;
+import com.mycompany.library_system.utility.UIGenerator;
+import com.mycompany.library_system.utility.UserPrompt;
 
 /**
  *
@@ -36,15 +38,15 @@ public class BookUI {
     }
 
     public static String inputBookTitle() {
-        return Utility.inputString("Enter Book Title*   >> ", 100, false);
+        return UserPrompt.inputString("Enter Book Title*   >> ", 100, false);
     }
 
     public static String inputBookAuthor() {
-        return Utility.inputString("Enter Book Author   >> ", 100, true);
+        return UserPrompt.inputString("Enter Book Author   >> ", 100, true);
     }
 
     public static String inputBookDescription() {
-        return Utility.inputString("Enter Book Description >> ", 255, true);
+        return UserPrompt.inputString("Enter Book Description >> ", 255, true);
     }
 
     public static ListInterface<String> inputBookCategory(BookManager bookManager) {
@@ -52,19 +54,19 @@ public class BookUI {
     }
 
     public static ListInterface<String> inputBookCategory(BookManager bookManager, ListInterface<String> categoriesExcluded) {
-        return Utility.inputBookCategory(bookManager, categoriesExcluded);
+        return UserPrompt.inputBookCategory(bookManager, categoriesExcluded);
     }
 
     public static String inputBookPublisher() {
-        return Utility.inputString("Enter Book Publisher >> ", 100, true);
+        return UserPrompt.inputString("Enter Book Publisher >> ", 100, true);
     }
 
     public static double inputBookPrice() {
-        return Utility.inputDouble("Enter Book Price ($) >> ", 0, Double.MAX_VALUE);
+        return UserPrompt.inputDouble("Enter Book Price ($) >> ", 0, Double.MAX_VALUE);
     }
 
     public static int[] inputBookPublishDate() {
-        return Utility.inputDate(new String[]{
+        return UserPrompt.inputDate(new String[]{
             "Enter Publish Year (YYYY)  >> ",
             "Enter Publish Month (1-12) >> ",
             ""
@@ -74,9 +76,9 @@ public class BookUI {
     public static void menu(BookManager bookManager) {
         boolean isExit = false;
         do {
-            Utility.clearScreen();
+            UIGenerator.clearScreen();
             bookListPage(bookManager);
-            isExit = Utility.optionMenu(
+            isExit = UIGenerator.optionMenu(
                 new String[]{
                     "[1] Add Book",
                     "[2] Edit Book",
@@ -116,16 +118,16 @@ public class BookUI {
         int startIndex = (currentPage - 1) * PAGE_SIZE;
         int endIndex = Math.min(startIndex + PAGE_SIZE, totalRecords);
 
-        Utility.titleBuilder("Book List");
+        UIGenerator.titleBuilder("Book List");
         System.out.printf("%-8s %-40s %-30s %-30s %-26s %-6s\n", "Book ID ", "Book Title", "Category", "Author", "Publisher", "Price ($)");
         System.out.printf("%-8s %-40s %-30s %-30s %-26s %-6s\n", "--------", "----------", "--------", "------", "---------", "--------");
 
         for (int i = startIndex; i < endIndex; i++) {
                 Book b = allBooks.get(i);
-                String title = Utility.truncate(b.getTitle(), 38);
-                String category = Utility.truncate(b.categoriesToString(), 28);
-                String author = Utility.truncate(b.getAuthor(),28);
-                String publisher = Utility.truncate(b.getPublisher(), 24);
+                String title = DataProcessor.truncate(b.getTitle(), 38);
+                String category = DataProcessor.truncate(b.categoriesToString(), 28);
+                String author = DataProcessor.truncate(b.getAuthor(),28);
+                String publisher = DataProcessor.truncate(b.getPublisher(), 24);
                 System.out.printf("%-8s %-40s %-30s %-30s %-26s %6.2f\n", b.getId(), title, category, author, publisher, b.getPrice());
         }
 

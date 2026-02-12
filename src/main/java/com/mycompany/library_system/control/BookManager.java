@@ -6,7 +6,8 @@ import com.mycompany.library_system.adt.TreeMap;
 import com.mycompany.library_system.boundary.BookUI;
 import com.mycompany.library_system.dao.BookDAO;
 import com.mycompany.library_system.entity.Book;
-import com.mycompany.library_system.utility.Utility;
+import com.mycompany.library_system.utility.IdGenerator;
+import com.mycompany.library_system.utility.UIGenerator;
 
 /**
  *
@@ -44,9 +45,9 @@ public class BookManager {
     }
 
     public Book insertBook() {
-        Utility.clearScreen();
-        Utility.titleBuilder("Add New Book");
-        String id = Utility.idGenerator("BK");
+        UIGenerator.clearScreen();
+        UIGenerator.titleBuilder("Add New Book");
+        String id = IdGenerator.generateId(bookList, "BK", 6);
         String title = BookUI.inputBookTitle();
         String author = BookUI.inputBookAuthor();
         String description = BookUI.inputBookDescription();
@@ -60,13 +61,13 @@ public class BookManager {
         Book book = bookList.put(id, newBook);
         System.out.println("Added book with ID: " + id);
         saveToFile();
-        Utility.pressEnterToContinue();
+        UIGenerator.pressEnterToContinue();
         return book;
     }
 
     public Book editBook() {
-        Utility.clearScreen();
-        Utility.titleBuilder("Edit Existing Book");
+        UIGenerator.clearScreen();
+        UIGenerator.titleBuilder("Edit Existing Book");
         String id = BookUI.inputBookID(bookList);
 
         System.out.println("\nEditing Book with ID: " + id);
@@ -75,7 +76,7 @@ public class BookManager {
         Book oldBook = bookList.get(id);
         boolean isExit = false;
         do {
-            isExit = Utility.optionMenu(
+            isExit = UIGenerator.optionMenu(
                 new String[]{
                     "[1] Book Title",
                     "[2] Book Author",
@@ -105,13 +106,13 @@ public class BookManager {
 
         System.out.println("Edited book with ID: " + id);
         saveToFile();
-        Utility.pressEnterToContinue();
+        UIGenerator.pressEnterToContinue();
         return oldBook;
     }
 
     public Book deleteBook() {
-        Utility.clearScreen();
-        Utility.titleBuilder("Delete Existing Book");
+        UIGenerator.clearScreen();
+        UIGenerator.titleBuilder("Delete Existing Book");
         String id = BookUI.inputBookID(bookList);
         Book book = bookList.remove(id);
         if(book != null) {
@@ -120,17 +121,17 @@ public class BookManager {
             System.out.println("Book with ID " + id + " not found.");
         }
         saveToFile();
-        Utility.pressEnterToContinue();
+        UIGenerator.pressEnterToContinue();
         return book;
     }
 
     public void viewBookDetails() {
-        Utility.clearScreen();
-        Utility.titleBuilder("View Book Details");
+        UIGenerator.clearScreen();
+        UIGenerator.titleBuilder("View Book Details");
         String id = BookUI.inputBookID(bookList);
         Book book = bookList.get(id);
         System.out.println(book.toString());
-        Utility.pressEnterToContinue();
+        UIGenerator.pressEnterToContinue();
     }
 
     public void saveToFile() {
