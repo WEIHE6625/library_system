@@ -1,5 +1,6 @@
 package com.mycompany.library_system.utility;
 
+import com.mycompany.library_system.entity.User;
 import com.mycompany.library_system.repo.UserRepository;
 
 public class IdGenerator {
@@ -8,7 +9,8 @@ public class IdGenerator {
 
     public static void initUserCounter() {
         int max = 0;
-        for (String id : UserRepository.getUserMap().keySet()) {
+        for (User user : UserRepository.getUserMap().values()) {
+            String id = user.getUserId();
             if (id.startsWith("U")) {
                 try {
                     int num = Integer.parseInt(id.substring(1)); // remove 'U'
