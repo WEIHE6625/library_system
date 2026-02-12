@@ -47,12 +47,10 @@ public class Book {
     public String setDescription(String description) { return this.description = description; }
     public String setAuthor(String author) { return this.author = author; }
 
-    // If category exists, do not add and return false
-    public boolean addCategories(String cat) { 
-        if (this.hasCategory(cat)) return false;
-        return this.categories.add(cat); 
+    public boolean setCategories(ListInterface<String> categories) { 
+        this.categories = categories;
+        return true;
     }
-    public boolean removeCategories(String cat) { return this.categories.remove(cat,1); }
 
     public String setPublisher(String publisher) { return this.publisher = publisher; }
     public double setPrice(double price) { return this.price = price; }
@@ -69,13 +67,13 @@ public class Book {
 
     @Override
     public String toString() {
-        return  "BookID: " + id + "\n" +
-                "Title: " + title + "\n" +
-                "Author: " + author + "\n" +
-                "Description: " + description + "\n" +
-                "Categories: " + categoriesToString() + "\n" +
-                "Publisher: " + publisher + "\n" +
-                "Price: $" + price + "\n" +
+        return  "BookID      : " + id + "\n" +
+                "Title       : " + title + "\n" +
+                "Author      : " + author + "\n" +
+                "Description : " + description + "\n" +
+                "Categories  : " + categoriesToString() + "\n" +
+                "Publisher   : " + publisher + "\n" +
+                "Price:      : $" + price + "\n" +
                 "Publish Date: " + publishDate;
     }
 

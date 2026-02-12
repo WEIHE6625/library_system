@@ -20,56 +20,55 @@ public class BookUI {
     private static int totalPages = 99;
     private static final int PAGE_SIZE = 30;
 
-    public static String inputBookID() {
-        System.out.print("Enter Book ID*      >> ");
-        String id = scanner.nextLine();
+    public static String inputBookID(TreeMap<String, Book> bookList) {
+        boolean isValid = false;
+        String id = "";
+        do {
+            System.out.print("Enter Book ID*      >> ");
+            id = scanner.nextLine();
+            if (!bookList.containsKey(id)) {
+                System.out.println("Book with ID " + id + " does not exist. Please try again.");
+            }else{
+                isValid = true;
+            }
+        } while (!isValid);
         return id;
     }
 
     public static String inputBookTitle() {
-        System.out.print("Enter Book Title*   >> ");
-        String title = scanner.nextLine();
-        return title;
+        return Utility.inputString("Enter Book Title*   >> ", 100, false);
     }
 
     public static String inputBookAuthor() {
-        System.out.print("Enter Book Author   >> ");
-        String author = scanner.nextLine();
-        return author;
+        return Utility.inputString("Enter Book Author   >> ", 100, true);
     }
 
     public static String inputBookDescription() {
-        System.out.print("Enter Description   >> ");
-        String description = scanner.nextLine();
-        return description;
+        return Utility.inputString("Enter Book Description >> ", 255, true);
     }
 
-    public static ListInterface<String> inputBookCategory() {
-        System.out.print("Enter Book Category >> ");
-        String category = scanner.nextLine();
-        ListInterface<String> categories = new ArrayList<>();
-        categories.add(category);
-        return categories;
+    public static ListInterface<String> inputBookCategory(BookManager bookManager) {
+        return inputBookCategory(bookManager, new ArrayList<>());
+    }
+
+    public static ListInterface<String> inputBookCategory(BookManager bookManager, ListInterface<String> categoriesExcluded) {
+        return Utility.inputBookCategory(bookManager, categoriesExcluded);
     }
 
     public static String inputBookPublisher() {
-        System.out.print("Enter Book Publisher >> ");
-        String publisher = scanner.nextLine();
-        return publisher;
+        return Utility.inputString("Enter Book Publisher >> ", 100, true);
     }
 
     public static double inputBookPrice() {
-        System.out.print("Enter Book Price ($) >> ");
-        double price = scanner.nextDouble();
-        return price;
+        return Utility.inputDouble("Enter Book Price ($) >> ", 0, Double.MAX_VALUE);
     }
 
     public static int[] inputBookPublishDate() {
-        System.out.print("Enter Publish Month (1-12) >> ");
-        int month = scanner.nextInt();
-        System.out.print("Enter Publish Year  (XXXX) >> ");
-        int year = scanner.nextInt();
-        return new int[]{month, year};
+        return Utility.inputDate(new String[]{
+            "Enter Publish Year (YYYY)  >> ",
+            "Enter Publish Month (1-12) >> ",
+            ""
+        }, true, true, false);
     }
 
     public static void menu(BookManager bookManager) {
@@ -79,18 +78,22 @@ public class BookUI {
             bookListPage(bookManager);
             isExit = Utility.optionMenu(
                 new String[]{
-                    "1. Add or Edit Book",
-                    "2. Delete Book",
-                    "3. Next Page",
-                    "4. Previous Page",
-                    "0. Back to Main Menu"
+                    "[1] Add Book",
+                    "[2] Edit Book",
+                    "[3] Delete Book",
+                    "[4] View Book Details",
+                    " ",
+                    "[5] <- Previous Page          [6] Next Page ->",
+                    "[0] Back to Main Menu"
                 },
                 "Select an option >> ",
                 new Runnable[]{
                     () -> bookManager.insertBook(),
+                    () -> bookManager.editBook(),
                     () -> bookManager.deleteBook(),
-                    () -> {currentPage++;},
+                    () -> bookManager.viewBookDetails(),
                     () -> {currentPage = Math.max(1, currentPage - 1);},
+                    () -> {currentPage = Math.min(totalPages, currentPage + 1);},
                     () -> {}  // Back to Main Menu
                 }
             );
@@ -126,7 +129,7 @@ public class BookUI {
                 System.out.printf("%-8s %-40s %-30s %-30s %-26s %6.2f\n", b.getId(), title, category, author, publisher, b.getPrice());
         }
 
-        System.out.println("-".repeat(85));
-        System.out.printf("Page: %d/%d\n", currentPage, totalPages);
+        System.out.println("-".repeat(160));
+        System.out.printf("Page: %d/%d\n\n", currentPage, totalPages);
     }
 }
