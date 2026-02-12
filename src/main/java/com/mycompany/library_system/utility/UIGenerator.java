@@ -36,15 +36,14 @@ public class UIGenerator {
     public static void displayInvalidChoiceMessage() {
         System.out.println("\nInvalid input! Please try again.");
     }
+    
     public static void displayExitMessage() {
         System.out.println("\nExiting system...");
     }
 
     public static void pressEnterToContinue() {
-        Scanner scanner = new Scanner(System.in);
         System.out.println("\nPress Enter to continue...");
         scanner.nextLine();
-        scanner.close();
     }
 
     public static boolean fileExists(String path) {

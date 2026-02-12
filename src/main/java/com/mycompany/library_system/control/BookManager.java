@@ -15,7 +15,6 @@ import com.mycompany.library_system.utility.UIGenerator;
  */
 public class BookManager {
     private TreeMap<String, Book> bookList;
-
     public static final String BOOK_FILE_PATH = "database/book.csv";
 
     public BookManager() {

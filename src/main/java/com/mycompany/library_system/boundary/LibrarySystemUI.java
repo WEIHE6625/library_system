@@ -1,10 +1,9 @@
 package com.mycompany.library_system.boundary;
 
-import com.mycompany.library_system.adt.TreeMap;
-import com.mycompany.library_system.dao.BookDAO;
-import com.mycompany.library_system.entity.Book;
 import com.mycompany.library_system.repo.UserRepository;
+import com.mycompany.library_system.utility.UIGenerator;
 import com.mycompany.library_system.entity.User;
+import com.mycompany.library_system.control.BookManager;
 import com.mycompany.library_system.dao.UserDAO;
 import java.util.Scanner;
 
@@ -16,74 +15,73 @@ public class LibrarySystemUI {
     private Scanner sc = new Scanner(System.in);
     private User currentUser;
     private UserDAO userDAO = new UserDAO();
+    private boolean isExit = false;
 
     public void start() {
-        System.out.println("=== Welcome to the Library System ===");
+        int login = 0; // 0 is not access, 1 is login, -1 is exit
+        do{
+            UIGenerator.clearScreen();
+            UIGenerator.titleBuilder("Welcome to the Library System");
+            login = login();
+            if(login == -1) return;
+        }while(login == 0);
 
-        login();
-
-        boolean exit = false;
-        while (!exit) {
-            showMainMenu();
-            System.out.print("Enter choice: ");
-            String choice = sc.nextLine();
-
-            switch (choice) {
-                case "1" ->  {
-                    UserUI userUI = new UserUI(currentUser);
-                    userUI.start();
+        do {
+            UIGenerator.clearScreen();
+            UIGenerator.titleBuilder("Welcome to the Library System");
+            System.out.println("\n=========== Main Menu ===========");
+            isExit = UIGenerator.optionMenu(
+                new String[] {
+                "[1] User Module",
+                "[2] Book Module",
+                "[3] Borrow Book Module",
+                "[4] Report Module",
+                "[0] Exit",
+            },
+                "Select an option >> ",
+                new Runnable[]{
+                    () -> {UserUI userUI = new UserUI(currentUser); userUI.start();},
+                    () -> { BookManager bookManager = new BookManager(); BookUI.menu(bookManager);},
+                    () -> {},
+                    () -> {},
+                    () -> { isExit = true; }  // Logout
                 }
-//                case "2" -> user_module();
-//                case "3" -> handleBorrowModule();
-//                case "4" -> {
-//                    if (isAdmin()) handleReportModule();
-//                    else System.out.println("Invalid choice!");
-//                }
-                case "0" -> exit = true;
-                default -> System.out.println("Invalid choice!");
-            }
-        }
+            );
+        } while (!isExit);
 
         System.out.println("Goodbye!");
     }
 
-//    private void seedUsers() {
-//        UserRepository.getUserMap().put("U0001", new User("U0001", "Admin One", "admin@library.com", "admin"));
-//        UserRepository.getUserMap().put("U0002", new User("U0002", "User One", "user@library.com", "user"));
-//    }
+    public static void seedUsers() {
+       UserRepository.getUserMap().put("U0001", new User("U0001", "Admin One", "admin@library.com", "admin"));
+       UserRepository.getUserMap().put("U0002", new User("U0002", "User One", "user@library.com", "user"));
+   }
 
-    private void login() {
+    public int login() {
         User user;
         do {
+            System.out.println("[0] <-- Back");
             System.out.print("Enter your user ID to login: ");
             String id = sc.nextLine();
-            user = UserRepository.getUserMap().get(id);
 
-            if (user != null) {
-                currentUser = user;
-                System.out.println("Welcome, " + user.getName() + " (" + user.getRole() + ")");
+            if (id.equals("0")) {
+                return -1;
             } else {
-                System.out.println("User not found. Try again.");
+                user = UserRepository.getUserMap().get(id);
+
+                if (user != null) {
+                    currentUser = user;
+                    System.out.println("Welcome, " + user.getName() + " (" + user.getRole() + ")");
+                    return 1;
+                } else {
+                    System.out.println("User not found. Try again.");
+                }
             }
         } while (user == null);
+        return 0;
     }
 
-    private boolean isAdmin() {
+    public boolean isAdmin() {
         return currentUser != null && currentUser.getRole().equalsIgnoreCase("admin");
-    }
-
-    private void showMainMenu() {
-        System.out.println("\n=== Main Menu ===");
-        System.out.println("1. User Module");
-        System.out.println("2. Book Module");
-        System.out.println("3. Borrow Book Module");
-        if (isAdmin()) System.out.println("4. Report Module");
-        System.out.println("0. Exit");
-    }
-
-    public static void main(String[] args) {
-        TreeMap<String, Book> library = BookDAO.readFile("database/book.csv");
-        System.out.println(library.get("BK102612").toString());
-        new LibrarySystemUI().start();
     }
 }

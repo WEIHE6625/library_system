@@ -4,7 +4,7 @@
 
 package com.mycompany.library_system;
 
-import com.mycompany.library_system.boundary.MainUI;
+import com.mycompany.library_system.boundary.LibrarySystemUI;
 
 /**
  *
@@ -13,6 +13,7 @@ import com.mycompany.library_system.boundary.MainUI;
 public class Library_system {
 
     public static void main(String[] args) {
-        MainUI.mainMenu();
+        LibrarySystemUI.seedUsers();
+        new LibrarySystemUI().start();
     }  
 }

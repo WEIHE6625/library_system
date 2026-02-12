@@ -35,6 +35,26 @@ public class UserPrompt {
         return value;
     }
 
+    public static int inputInteger(String promptMessage, int min, int max) {
+        boolean isValid = false;
+        int value = -1;
+        do {
+            System.out.print(promptMessage);
+            String input = scanner.nextLine();
+            try {
+                value = Integer.parseInt(input);
+                if (value >= min && value <= max) {
+                    isValid = true;
+                } else {
+                    System.out.println("Invalid input! Value must be between " + min + " and " + max + ". Please try again.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input! Please enter a valid number.");
+            }
+        } while (!isValid);
+        return value;
+    }
+
     public static String inputString(String promptMessage, int maxLength, boolean allowEmpty) {
         boolean isValid = false;
         String value = "";
