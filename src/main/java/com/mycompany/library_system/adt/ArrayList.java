@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
- */
 package com.mycompany.library_system.adt;
 
 /**
@@ -149,10 +145,10 @@ public class ArrayList<T> implements ListInterface<T>, Serializable {
     public String toString() {
         String outputStr = "";
         for (int i = 0; i < size; ++i) {
-            outputStr += array[i] + "\n";
+            outputStr += array[i] + ",";
         }
 
-        return outputStr;
+        return outputStr.isEmpty() ? outputStr : outputStr.substring(0, outputStr.length() - 1);
     }
 
     private void makeRoom(int newPosition) {
@@ -203,6 +199,24 @@ public class ArrayList<T> implements ListInterface<T>, Serializable {
                 return array[currentIndex++];
             }
         };
+    }
+
+    @Override
+    public T get(int index) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
+        }
+        return array[index];
+    }
+
+    public ListInterface<T> unique() {
+        ListInterface<T> uniqueList = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            if (!uniqueList.contains(array[i])) {
+                uniqueList.add(array[i]);
+            }
+        }
+        return uniqueList;
     }
     
 }

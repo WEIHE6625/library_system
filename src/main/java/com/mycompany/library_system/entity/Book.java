@@ -38,6 +38,7 @@ public class Book {
     public ListInterface<String> getCategories() { return categories; }
     public String getPublisher() { return publisher; }
     public double getPrice() { return price; }
+    // Get the publish date in different type
     public YearMonth getPublishDate() { return publishDate; }
     public int getPublishYear() { return publishDate.getYear(); }
     public int getPublishMonth() { return publishDate.getMonthValue(); }
@@ -46,11 +47,10 @@ public class Book {
     public String setDescription(String description) { return this.description = description; }
     public String setAuthor(String author) { return this.author = author; }
 
-    public boolean addCategories(String cat) { 
-        if (this.hasCategory(cat)) return false;
-        return this.categories.add(cat); 
+    public boolean setCategories(ListInterface<String> categories) { 
+        this.categories = categories;
+        return true;
     }
-    public boolean removeCategories(String cat) { return this.categories.remove(cat,1); }
 
     public String setPublisher(String publisher) { return this.publisher = publisher; }
     public double setPrice(double price) { return this.price = price; }
@@ -67,13 +67,13 @@ public class Book {
 
     @Override
     public String toString() {
-        return  "BookID: " + id + "\n" +
-                "Title: " + title + "\n" +
-                "Author: " + author + "\n" +
-                "Description: " + description + "\n" +
-                "Categories: " + categoriesToString() + "\n" +
-                "Publisher: " + publisher + "\n" +
-                "Price: $" + price + "\n" +
+        return  "BookID      : " + id + "\n" +
+                "Title       : " + title + "\n" +
+                "Author      : " + author + "\n" +
+                "Description : " + description + "\n" +
+                "Categories  : " + categoriesToString() + "\n" +
+                "Publisher   : " + publisher + "\n" +
+                "Price:      : $" + price + "\n" +
                 "Publish Date: " + publishDate;
     }
 
