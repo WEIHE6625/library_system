@@ -54,8 +54,9 @@ public class BookManager {
         String publisher = BookUI.inputBookPublisher();
         double price = BookUI.inputBookPrice();
         int[] publishYearMonth = BookUI.inputBookPublishDate();
+        int qty = BookUI.inputQty();
 
-        Book newBook = new Book(id, title, author, description, category, publisher, price, publishYearMonth[1], publishYearMonth[2]);
+        Book newBook = new Book(id, title, author, description, category, publisher, price, publishYearMonth[1], publishYearMonth[2], qty, qty);
         
         Book book = bookList.put(id, newBook);
         System.out.println("Added book with ID: " + id);
@@ -97,6 +98,49 @@ public class BookManager {
                     () -> {
                         int[] publishYearMonth = BookUI.inputBookPublishDate();
                         bookList.get(id).setPublishDate(publishYearMonth[2], publishYearMonth[1]);
+                    },
+                    () -> {}  // Back to Main Menu
+                }
+            );
+        }while (!isExit);
+
+        System.out.println("Edited book with ID: " + id);
+        saveToFile();
+        UIGenerator.pressEnterToContinue();
+        return oldBook;
+    }
+
+    public Book editBookInStock() {
+        UIGenerator.clearScreen();
+        UIGenerator.titleBuilder("Edit Book In Stock");
+        String id = BookUI.inputBookID(bookList);
+
+        System.out.println("\nEditing Book with ID: " + id);
+        System.out.println(bookList.get(id).toString());
+
+        Book oldBook = bookList.get(id);
+        boolean isExit = false;
+        do {
+            isExit = UIGenerator.optionMenu(
+                new String[]{
+                    "[1] Order More Book",
+                    "[2] Reduce Book In Stock",
+                    "[0] Back to Main Menu"
+                },
+                "Select an option >> ",
+                new Runnable[]{
+                    () -> {
+                        int qty = BookUI.inputQty(); 
+                        bookList.get(id).addQty(qty);
+                    },
+                    () -> {
+                        int qtyAvailable = bookList.get(id).getQtyAvailable();
+                        if (qtyAvailable <= 0) {
+                            System.out.println("The available book in stock is empty. Cannot reduce anymore.");
+                        } else {
+                            int qty = BookUI.inputReduceQty(bookList.get(id).getQtyAvailable()); 
+                            bookList.get(id).reduceQty(qty);
+                        }
                     },
                     () -> {}  // Back to Main Menu
                 }

@@ -58,20 +58,32 @@ public class BookUI {
     }
 
     public static String inputBookPublisher() {
-        return UserPrompt.inputString("Enter Book Publisher >> ", 100, true);
+        return UserPrompt.inputString("Enter Book Publisher  >> ", 100, true);
     }
 
     public static double inputBookPrice() {
-        return UserPrompt.inputDouble("Enter Book Price ($) >> ", 0, Double.MAX_VALUE);
+        return UserPrompt.inputDouble("Enter Book Price ($)* >> ", 0, Double.MAX_VALUE);
     }
 
     public static int[] inputBookPublishDate() {
         return UserPrompt.inputDate(new String[]{
-            "Enter Publish Year (YYYY)  >> ",
-            "Enter Publish Month (1-12) >> ",
+            "Enter Publish Year (YYYY)*  >> ",
+            "Enter Publish Month (1-12)* >> ",
             ""
         }, true, true, false);
     }
+
+    public static int inputQty() {
+        return UserPrompt.inputInteger("Enter Total Quantity Added* >> ", 1, 999);
+    }
+    
+    public static int inputReduceQty(int qtyAvailable) {
+        System.out.println("\n Current Available Quantity : " + qtyAvailable);
+        return UserPrompt.inputInteger("Enter Total Quantity Reduced* >> ", 1, qtyAvailable);
+    }
+
+
+
 
     public static void menu(BookManager bookManager) {
         boolean isExit = false;
@@ -80,22 +92,24 @@ public class BookUI {
             bookListPage(bookManager);
             isExit = UIGenerator.optionMenu(
                 new String[]{
-                    "[1] Add Book",
-                    "[2] Edit Book",
-                    "[3] Delete Book",
-                    "[4] View Book Details",
+                    "[1] Add New Book",
+                    "[2] Edit Book Information",
+                    "[3] Edit Book in Stock",
+                    "[4] Delete Book",
+                    "[5] View Book Details",
                     " ",
-                    "[5] <- Previous Page          [6] Next Page ->",
+                    "[6] <- Previous Page          [7] Next Page ->",
                     "[0] Back to Main Menu"
                 },
                 "Select an option >> ",
                 new Runnable[]{
                     () -> bookManager.insertBook(),
                     () -> bookManager.editBook(),
+                    () -> bookManager.editBookInStock(),
                     () -> bookManager.deleteBook(),
                     () -> bookManager.viewBookDetails(),
-                    () -> {currentPage = Math.max(1, currentPage - 1);},
-                    () -> {currentPage = Math.min(totalPages, currentPage + 1);},
+                    () -> {currentPage = (currentPage == 1) ? totalPages : currentPage - 1;},
+                    () -> {currentPage = (currentPage == totalPages) ? 1 : currentPage + 1;},
                     () -> {}  // Back to Main Menu
                 }
             );
@@ -119,16 +133,16 @@ public class BookUI {
         int endIndex = Math.min(startIndex + PAGE_SIZE, totalRecords);
 
         UIGenerator.titleBuilder("Book List");
-        System.out.printf("%-8s %-40s %-30s %-30s %-26s %-6s\n", "Book ID ", "Book Title", "Category", "Author", "Publisher", "Price ($)");
-        System.out.printf("%-8s %-40s %-30s %-30s %-26s %-6s\n", "--------", "----------", "--------", "------", "---------", "--------");
+        System.out.printf("%-8s %-40s %-30s %-28s %-26s %-13s %-9s\n", "Book ID ", "Book Title", "Category", "Author", "Publisher", "Available Qty", "Total Qty");
+        System.out.printf("%-8s %-40s %-30s %-28s %-26s %-13s %-9s\n", "--------", "----------", "--------", "------", "---------", "-------------", "---------");
 
         for (int i = startIndex; i < endIndex; i++) {
                 Book b = allBooks.get(i);
                 String title = DataProcessor.truncate(b.getTitle(), 38);
-                String category = DataProcessor.truncate(b.categoriesToString(), 28);
+                String category = DataProcessor.truncate(b.getCategories().toString(), 28);
                 String author = DataProcessor.truncate(b.getAuthor(),28);
                 String publisher = DataProcessor.truncate(b.getPublisher(), 24);
-                System.out.printf("%-8s %-40s %-30s %-30s %-26s %6.2f\n", b.getId(), title, category, author, publisher, b.getPrice());
+                System.out.printf("%-8s %-40s %-30s %-28s %-26s %13d %9d\n", b.getId(), title, category, author, publisher, b.getQtyAvailable(), b.getQtyTotal());
         }
 
         System.out.println("-".repeat(160));

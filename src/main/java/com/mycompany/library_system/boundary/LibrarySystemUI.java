@@ -18,7 +18,7 @@ public class LibrarySystemUI {
     private boolean isExit = false;
 
     public void start() {
-        int login = 0; // 0 is not access, 1 is login, -1 is exit
+        int login = 0; // 0 is no access, 1 is login, -1 is exit
         do{
             UIGenerator.clearScreen();
             UIGenerator.titleBuilder("Welcome to the Library System");

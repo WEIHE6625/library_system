@@ -1,6 +1,7 @@
 package com.mycompany.library_system.entity;
 
 import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
 
 import com.mycompany.library_system.adt.ArrayList;
 import com.mycompany.library_system.adt.ListInterface;
@@ -19,8 +20,10 @@ public class Book {
     private String publisher;
     private double price;
     private YearMonth publishDate;
+    private int qtyTotal;     // Total copies owned by library
+    private int qtyAvailable; // Copies currently on shelf
 
-    public Book(String id, String title, String author, String description, ListInterface<String> categories, String publisher, double price, int publishMonth, int publishYear) {
+    public Book(String id, String title, String author, String description, ListInterface<String> categories, String publisher, double price, int publishMonth, int publishYear, int qtyTotal, int qtyAvailable) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -29,6 +32,8 @@ public class Book {
         this.publisher = (publisher == null || publisher.isEmpty()) ? "Unknown" : publisher;
         this.price = price;
         this.publishDate = YearMonth.of(publishYear, publishMonth);
+        this.qtyTotal = qtyTotal;
+        this.qtyAvailable = qtyAvailable;
     }
 
     public String getId() { return id; }
@@ -42,6 +47,10 @@ public class Book {
     public YearMonth getPublishDate() { return publishDate; }
     public int getPublishYear() { return publishDate.getYear(); }
     public int getPublishMonth() { return publishDate.getMonthValue(); }
+
+    public int getQtyTotal() { return qtyTotal; }
+    public int getQtyAvailable() { return qtyAvailable; }
+    
 
     public String setTitle(String title) { return this.title = title; }
     public String setDescription(String description) { return this.description = description; }
@@ -59,6 +68,21 @@ public class Book {
         return this.publishDate;
     }
 
+    public void addQty(int qty) {
+        qtyTotal += qty;
+        qtyAvailable += qty;
+    }
+
+    public boolean reduceQty(int qty) {
+        
+        if((qtyAvailable - qty) <= 0) {
+            qtyTotal -= qty;
+            qtyAvailable -= qty;
+            return true;
+        }else{
+            return false;
+        }
+    }
 
     public boolean hasCategory(String category) {
         if (categories.contains(category)) return true;
@@ -71,20 +95,12 @@ public class Book {
                 "Title       : " + title + "\n" +
                 "Author      : " + author + "\n" +
                 "Description : " + description + "\n" +
-                "Categories  : " + categoriesToString() + "\n" +
+                "Categories  : " + categories.toString() + "\n" +
                 "Publisher   : " + publisher + "\n" +
                 "Price:      : $" + price + "\n" +
-                "Publish Date: " + publishDate;
-    }
-
-    public String categoriesToString() {
-        StringBuilder sb = new StringBuilder();
-        for (int i = 1; i <= categories.size(); i++) {
-            sb.append(categories.getEntry(i));
-            if (i < categories.size()) {
-                sb.append(",");
-            }
-        }
-        return sb.toString();
+                "Publish Date: " + publishDate.format(DateTimeFormatter.ofPattern("MM-yyyy")) + "\n" +
+                "-".repeat(30) + "\n" +
+                "Available Quantity : " + qtyAvailable + "\n" +
+                "Total Quantity     : " + qtyTotal;
     }
 }

@@ -74,11 +74,11 @@ public class UIGenerator {
 
         */
 
-        System.out.println("-".repeat(30));
+        System.out.println("-".repeat(50));
         for (String option : options) {
             System.out.println(option);
         }
-        System.out.println("-".repeat(30));
+        System.out.println("-".repeat(50));
 
         System.out.print(optionInputMessage);
         String input = scanner.nextLine().trim();
@@ -90,11 +90,11 @@ public class UIGenerator {
             } else if (choice >= 1 && choice <= options.length - 1) {
                 action[choice - 1].run();
             } else {
-                System.out.println("Invalid input! Try again.");
+                displayInvalidChoiceMessage();
                 pressEnterToContinue();
             }
         } catch (NumberFormatException e) {
-            System.out.println("Invalid input! Try again.");
+            displayInvalidChoiceMessage();
             pressEnterToContinue();
         }
         return false;
