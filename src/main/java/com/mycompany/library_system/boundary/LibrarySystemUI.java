@@ -3,7 +3,7 @@ package com.mycompany.library_system.boundary;
 import com.mycompany.library_system.repo.UserRepository;
 import com.mycompany.library_system.utility.UIGenerator;
 import com.mycompany.library_system.entity.User;
-import com.mycompany.library_system.control.BookManager;
+import com.mycompany.library_system.control.BookInfoController;
 import com.mycompany.library_system.dao.UserDAO;
 import java.util.Scanner;
 
@@ -18,7 +18,7 @@ public class LibrarySystemUI {
     private boolean isExit = false;
 
     public void start() {
-        int login = 0; // 0 is not access, 1 is login, -1 is exit
+        int login = 0; // 0 is no access, 1 is login, -1 is exit
         do{
             UIGenerator.clearScreen();
             UIGenerator.titleBuilder("Welcome to the Library System");
@@ -41,7 +41,7 @@ public class LibrarySystemUI {
                 "Select an option >> ",
                 new Runnable[]{
                     () -> {UserUI userUI = new UserUI(currentUser); userUI.start();},
-                    () -> { BookManager bookManager = new BookManager(); BookUI.menu(bookManager);},
+                    () -> { BookInfoController bookManager = new BookInfoController(); BookUI.menu(bookManager);},
                     () -> {},
                     () -> {},
                     () -> { isExit = true; }  // Logout

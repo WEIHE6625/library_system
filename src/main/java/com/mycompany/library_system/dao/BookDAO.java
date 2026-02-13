@@ -1,6 +1,5 @@
 package com.mycompany.library_system.dao;
 
-import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -10,7 +9,9 @@ import com.mycompany.library_system.adt.ListInterface;
 import com.mycompany.library_system.adt.TreeMap;
 import com.mycompany.library_system.entity.Book;
 import com.mycompany.library_system.utility.DataProcessor;
+import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
+import com.opencsv.exceptions.CsvValidationException;
 
 import me.tongfei.progressbar.ProgressBar;
 
@@ -23,22 +24,21 @@ public class BookDAO {
     public static TreeMap<String, Book> readFile(String filePath) {
         TreeMap<String, Book> bookList = new TreeMap<>();
 
-        // Setup CSV Reader
-        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
-            String line = br.readLine(); // Skip Header
+        // CSVReader
+        try (CSVReader reader = new CSVReader(new FileReader(filePath))) {
+            // Skip Header
+            reader.readNext();
 
             int totalLines = DataProcessor.lineCounter(filePath);
+            String[] data;
 
             try (ProgressBar pb = new ProgressBar("Loading Books : ", totalLines)) {
 
                 // Read line by line
-                while ((line = br.readLine()) != null) {
+                while ((data = reader.readNext()) != null) {
 
                     // Update the progress bar
                     pb.step();
-                    // TimeUnit.MILLISECONDS.sleep(50); 
-
-                    String[] data = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
 
                     if (data.length >= 8) {
                         try {
@@ -76,8 +76,14 @@ public class BookDAO {
                             int year = 1800;
                             try { year = Integer.parseInt(data[8]); } catch (NumberFormatException e) {}
 
+                            // Quantity
+                            int qtyAvailable = 0;
+                            int qtyTotal = 0;
+                            try { qtyAvailable = Integer.parseInt(data[9]); } catch (NumberFormatException e) {}
+                            try { qtyTotal = Integer.parseInt(data[10]); } catch (NumberFormatException e) {}
+
                             // Add to Map
-                            Book book = new Book(id, title, author, description, categories, publisher, price, month, year);
+                            Book book = new Book(id, title, author, description, categories, publisher, price, month, year, qtyTotal, qtyAvailable);
                             bookList.put(id, book);
 
                         } catch (Exception e) {
@@ -88,6 +94,8 @@ public class BookDAO {
             }
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (CsvValidationException e1) {
+            e1.printStackTrace();
         }
         return bookList;
     }
@@ -97,7 +105,7 @@ public class BookDAO {
         try (CSVWriter writer = new CSVWriter(new FileWriter(filePath))) {
             
             // Write Header
-            String[] header = { "BookID", "Title", "Authors", "Description", "Category", "Publisher", "Price ($)", "Publish Month", "Publish Year" };
+            String[] header = { "BookID", "Title", "Authors", "Description", "Category", "Publisher", "Price ($)", "Publish Month", "Publish Year","Available Quantity","Total Quantity" };
             writer.writeNext(header, false);
 
             // Loop TreeMap and Write Data
@@ -108,11 +116,13 @@ public class BookDAO {
                     book.getTitle(),
                     book.getAuthor(),
                     book.getDescription(),
-                    book.categoriesToString(),
+                    book.getCategories().toString(),
                     book.getPublisher(),
                     String.valueOf(book.getPrice()),
                     String.valueOf(book.getPublishMonth()),
-                    String.valueOf(book.getPublishYear())
+                    String.valueOf(book.getPublishYear()),
+                    String.valueOf(book.getQtyAvailable()),
+                    String.valueOf(book.getQtyTotal())
                 };
 
                 writer.writeNext(data, false);

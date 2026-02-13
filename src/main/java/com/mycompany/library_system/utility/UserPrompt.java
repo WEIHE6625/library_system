@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 import com.mycompany.library_system.adt.ArrayList;
 import com.mycompany.library_system.adt.ListInterface;
-import com.mycompany.library_system.control.BookManager;
+import com.mycompany.library_system.control.BookInfoController;
 
 /**
  *
@@ -168,15 +168,25 @@ public class UserPrompt {
         return new int[]{day, month, year};
     }
 
-    public static ListInterface<String> inputBookCategory(BookManager bookManager, ListInterface<String> categoriesExcluded) {
-        System.out.println("\n--------- Select Category ---------");
-        
+    /**
+     * @param bookManager The book manager which store the book list
+     * @param categoriesExisted The categories that the book already have, 
+     *                          so exclude them to prevent user select them again.
+     * @return A list of selected categories
+     */
+    public static ListInterface<String> inputBookCategory(BookInfoController bookManager, ListInterface<String> categoriesExisted) {        
         // Get the list of all existing categories
         ListInterface<String> categories = new ArrayList<>();
-        ListInterface<String> allCategories = bookManager.getAllUniqueCategories(categoriesExcluded);
+        ListInterface<String> allCategories = bookManager.getAllUniqueCategories(categoriesExisted);
         boolean isExit = false;
 
+        for (String cat : categoriesExisted) { // Show the current categoris the book have
+            categories.add(cat);
+        }
+
         do {
+            UIGenerator.clearScreen();
+            System.out.println("\n---------------- Select Category ----------------");
             System.out.println("\nType a keyword to search (e.g., 'Hist').");
             System.out.print("Search >> ");
             String query = scanner.nextLine().trim().toLowerCase();
@@ -227,6 +237,7 @@ public class UserPrompt {
                     System.out.println("-".repeat(50));
                     System.out.println("[0] Search Again");
                     System.out.println("[y] Submit Categories");
+                    System.out.println("[c] Clear All Current Categories");
                     System.out.println("[n] Type a New Category Manually");
 
                     if (categories.size() > 0) {
@@ -245,14 +256,18 @@ public class UserPrompt {
                         String newCategory = scanner.nextLine().trim();
                         categories.add(newCategory);
                         System.out.println("\nCategory : " + newCategory + " added.");
+                        UIGenerator.pressEnterToContinue();
 
-                    } else if (input.equals("y")) {
+                    } else if (input.equalsIgnoreCase("y")) {
                         if(categories.size() == 0) {
                             System.out.println("\nNo categories selected yet. Please select at least one category.");
+                            UIGenerator.pressEnterToContinue();
                         } else {
                             isContinue = false;
                             isExit = true;
                         }
+                    } else if (input.equalsIgnoreCase("c")) {
+                        categories.clear();
                     } else if (input.equals("0")) {
                         isContinue = false;
                     } else {
@@ -263,10 +278,12 @@ public class UserPrompt {
                                 System.out.println("\nCategory : " + matches.get(selection - 1) + " added.");
 
                             } else {
-                                System.out.println("Invalid input! Try again.");
+                                UIGenerator.displayInvalidChoiceMessage();
+                                UIGenerator.pressEnterToContinue();
                             }
                         } catch (NumberFormatException e) {
-                            System.out.println("Invalid input! Try again.");
+                            UIGenerator.displayInvalidChoiceMessage();
+                            UIGenerator.pressEnterToContinue();
                         }
                     }
                 } while (isContinue);
@@ -276,7 +293,7 @@ public class UserPrompt {
         return categories;
     }
 
-    public static ListInterface<String> inputBookCategory(BookManager bookManager) {
+    public static ListInterface<String> inputBookCategory(BookInfoController bookManager) {
         return inputBookCategory(bookManager, new ArrayList<>());
     }
 }
