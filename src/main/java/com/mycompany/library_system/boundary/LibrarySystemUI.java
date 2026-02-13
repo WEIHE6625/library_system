@@ -3,7 +3,7 @@ package com.mycompany.library_system.boundary;
 import com.mycompany.library_system.repo.UserRepository;
 import com.mycompany.library_system.utility.UIGenerator;
 import com.mycompany.library_system.entity.User;
-import com.mycompany.library_system.control.BookManager;
+import com.mycompany.library_system.control.BookInfoController;
 import com.mycompany.library_system.dao.UserDAO;
 import java.util.Scanner;
 
@@ -41,7 +41,7 @@ public class LibrarySystemUI {
                 "Select an option >> ",
                 new Runnable[]{
                     () -> {UserUI userUI = new UserUI(currentUser); userUI.start();},
-                    () -> { BookManager bookManager = new BookManager(); BookUI.menu(bookManager);},
+                    () -> { BookInfoController bookManager = new BookInfoController(); BookUI.menu(bookManager);},
                     () -> {},
                     () -> {},
                     () -> { isExit = true; }  // Logout

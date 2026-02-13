@@ -1,5 +1,7 @@
 package com.mycompany.library_system.control;
 
+import java.time.YearMonth;
+
 import com.mycompany.library_system.adt.ArrayList;
 import com.mycompany.library_system.adt.ListInterface;
 import com.mycompany.library_system.adt.TreeMap;
@@ -13,11 +15,15 @@ import com.mycompany.library_system.utility.UIGenerator;
  *
  * @author wh
  */
-public class BookManager {
+public class BookInfoController {
+    private TreeMap<String, String> bookStringList;
+    private TreeMap<Integer, Book> bookIntList;
+    private TreeMap<YearMonth, Book> bookDateList;
+    private TreeMap<Double, Book> bookDoubleList;
     private TreeMap<String, Book> bookList;
     public static final String BOOK_FILE_PATH = "database/book.csv";
 
-    public BookManager() {
+    public BookInfoController() {
         this.bookList = BookDAO.readFile(BOOK_FILE_PATH);
     }
 

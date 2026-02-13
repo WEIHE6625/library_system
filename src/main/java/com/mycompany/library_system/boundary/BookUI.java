@@ -5,7 +5,7 @@ import java.util.Scanner;
 import com.mycompany.library_system.adt.ArrayList;
 import com.mycompany.library_system.adt.ListInterface;
 import com.mycompany.library_system.adt.TreeMap;
-import com.mycompany.library_system.control.BookManager;
+import com.mycompany.library_system.control.BookInfoController;
 import com.mycompany.library_system.entity.Book;
 import com.mycompany.library_system.utility.DataProcessor;
 import com.mycompany.library_system.utility.UIGenerator;
@@ -49,11 +49,11 @@ public class BookUI {
         return UserPrompt.inputString("Enter Book Description >> ", 255, true);
     }
 
-    public static ListInterface<String> inputBookCategory(BookManager bookManager) {
+    public static ListInterface<String> inputBookCategory(BookInfoController bookManager) {
         return inputBookCategory(bookManager, new ArrayList<>());
     }
 
-    public static ListInterface<String> inputBookCategory(BookManager bookManager, ListInterface<String> categoriesExcluded) {
+    public static ListInterface<String> inputBookCategory(BookInfoController bookManager, ListInterface<String> categoriesExcluded) {
         return UserPrompt.inputBookCategory(bookManager, categoriesExcluded);
     }
 
@@ -85,7 +85,7 @@ public class BookUI {
 
 
 
-    public static void menu(BookManager bookManager) {
+    public static void menu(BookInfoController bookManager) {
         boolean isExit = false;
         do {
             UIGenerator.clearScreen();
@@ -117,7 +117,7 @@ public class BookUI {
         
     }
 
-    public static void bookListPage(BookManager bookManager) {
+    public static void bookListPage(BookInfoController bookManager) {
 
         TreeMap<String, Book> bookList = bookManager.getBookList();
         ListInterface<Book> allBooks = bookList.values();

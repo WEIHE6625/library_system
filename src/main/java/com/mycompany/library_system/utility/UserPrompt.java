@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 import com.mycompany.library_system.adt.ArrayList;
 import com.mycompany.library_system.adt.ListInterface;
-import com.mycompany.library_system.control.BookManager;
+import com.mycompany.library_system.control.BookInfoController;
 
 /**
  *
@@ -174,7 +174,7 @@ public class UserPrompt {
      *                          so exclude them to prevent user select them again.
      * @return A list of selected categories
      */
-    public static ListInterface<String> inputBookCategory(BookManager bookManager, ListInterface<String> categoriesExisted) {        
+    public static ListInterface<String> inputBookCategory(BookInfoController bookManager, ListInterface<String> categoriesExisted) {        
         // Get the list of all existing categories
         ListInterface<String> categories = new ArrayList<>();
         ListInterface<String> allCategories = bookManager.getAllUniqueCategories(categoriesExisted);
@@ -293,7 +293,7 @@ public class UserPrompt {
         return categories;
     }
 
-    public static ListInterface<String> inputBookCategory(BookManager bookManager) {
+    public static ListInterface<String> inputBookCategory(BookInfoController bookManager) {
         return inputBookCategory(bookManager, new ArrayList<>());
     }
 }
