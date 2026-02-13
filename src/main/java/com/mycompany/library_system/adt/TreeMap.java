@@ -276,33 +276,47 @@ public class TreeMap<K extends Comparable<K>, V> implements MapInterface<K, V> {
     public MapInterface.Entry<K, V>[] entrySet() {
         MapInterface.Entry<K, V>[] result = new MapInterface.Entry[size];
         // Recursive using In-Order
-        fillEntrySet(root, result, 0);
+        CollectEntrySet(root, result, 0);
         return result;
+    }
+    
+    private int CollectEntrySet(Node<K, V> node, MapInterface.Entry<K, V>[] set, int index) {
+        if (node == null) return index;
+        index = CollectEntrySet(node.left, set, index);
+        set[index++] = node;
+        index = CollectEntrySet(node.right, set, index);
+        return index;
+    }
+
+    @Override
+    public ListInterface<K> keys() {
+        ListInterface<K> result = new ArrayList<>();
+        collectKeys(root, result);
+        return result;
+    }
+
+    private void collectKeys(Node<K, V> node, ListInterface<K> list) {
+        if (node == null) return;
+        collectKeys(node.left, list);
+        list.add(node.key);
+        collectKeys(node.right, list);
     }
 
     @Override
     public ListInterface<V> values() {
         ListInterface<V> result = new ArrayList<>();
         // Recursive using In-Order
-        fillValuesList(root, result);
+        collectValues(root, result);
         return result;
     }
 
-    private int fillValuesList(Node<K, V> node, ListInterface<V> list) {
+    private int collectValues(Node<K, V> node, ListInterface<V> list) {
         if (node == null) return 0;
-        int count = fillValuesList(node.left, list);
+        int count = collectValues(node.left, list);
         list.add(node.value);
         count++;
-        count += fillValuesList(node.right, list);
+        count += collectValues(node.right, list);
         return count;
-    }
-
-    private int fillEntrySet(Node<K, V> node, MapInterface.Entry<K, V>[] set, int index) {
-        if (node == null) return index;
-        index = fillEntrySet(node.left, set, index);
-        set[index++] = node;
-        index = fillEntrySet(node.right, set, index);
-        return index;
     }
 
 

@@ -282,4 +282,11 @@ public class HashMap<K, V> implements MapInterface<K, V> {
         }
         return valuesList;
     }
+
+
+    @Override
+    public ListInterface<K> keys() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'keys'");
+    }
 }

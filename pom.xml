@@ -8,13 +8,18 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>25</maven.compiler.release>
-        <exec.mainClass>com.mycompany.library_system.Library_system</exec.mainClass>
+        <exec.mainClass>com.mycompany.library_system.boundary.LibrarySystemUI</exec.mainClass>
     </properties>
     <dependencies>
         <dependency>
             <groupId>com.opencsv</groupId>
             <artifactId>opencsv</artifactId>
             <version>5.8</version>
+        </dependency>
+        <dependency>
+            <groupId>me.tongfei</groupId>
+            <artifactId>progressbar</artifactId>
+            <version>0.10.2</version>
         </dependency>
     </dependencies>
 </project>

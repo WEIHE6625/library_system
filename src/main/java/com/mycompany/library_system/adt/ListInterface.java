@@ -20,6 +20,8 @@ public interface ListInterface<T> extends Iterable<T> {
     public int size();
     public boolean contains(T anEntry);
     public boolean isEmpty();
+    public T get(int index);
+    public ListInterface<T> unique();
     public void sort(java.util.Comparator<T> comparator);
     
 }

@@ -1,17 +1,19 @@
 package com.mycompany.library_system.dao;
 
-import com.opencsv.CSVWriter;
-
-import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.Month;
 
-import com.mycompany.library_system.adt.TreeMap;
-import com.mycompany.library_system.adt.ListInterface;
 import com.mycompany.library_system.adt.ArrayList;
+import com.mycompany.library_system.adt.ListInterface;
+import com.mycompany.library_system.adt.TreeMap;
 import com.mycompany.library_system.entity.Book;
+import com.mycompany.library_system.utility.DataProcessor;
+import com.opencsv.CSVReader;
+import com.opencsv.CSVWriter;
+import com.opencsv.exceptions.CsvValidationException;
+
+import me.tongfei.progressbar.ProgressBar;
 
 /**
  *
@@ -20,73 +22,82 @@ import com.mycompany.library_system.entity.Book;
 public class BookDAO {
 
     public static TreeMap<String, Book> readFile(String filePath) {
-        TreeMap<String, Book> library = new TreeMap<>();
+        TreeMap<String, Book> bookList = new TreeMap<>();
 
-        // Setup CSV Reader
-        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
-            String line = br.readLine(); // Skip Header
+        // CSVReader
+        try (CSVReader reader = new CSVReader(new FileReader(filePath))) {
+            // Skip Header
+            reader.readNext();
 
-            // Read line by line
-            while ((line = br.readLine()) != null) {
-                String[] data = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
-                // if(looptime == 102611 || looptime == 102700){
-                //     System.out.println("Debug Breakpoint Reached at line: " + looptime);
-                // }
-                if (data.length >= 8) {
-                    try {
-                        // Parse Fields
-                        // ID
-                        String id = data[0].trim();
+            int totalLines = DataProcessor.lineCounter(filePath);
+            String[] data;
 
-                        // Title
-                        String title = data[1].trim();
-                        
-                        // Author
-                        String author = data[2].trim();
+            try (ProgressBar pb = new ProgressBar("Loading Books : ", totalLines)) {
 
-                        // Description
-                        String description = data[3].trim();
+                // Read line by line
+                while ((data = reader.readNext()) != null) {
 
-                        // Categories (Split by comma)
-                        String rawCat = data[4].trim();
-                        ListInterface<String> categories = new ArrayList<>(); 
-                        if (!rawCat.isEmpty()) {
-                            String[] cats = rawCat.split(",");
-                            for (String c : cats) categories.add(c.trim());
-                        }
+                    // Update the progress bar
+                    pb.step();
 
-                        // Publisher
-                        String publisher = data[5].trim();
-
-                        // Price
-                        double price = 0.0;
-                        try { price = Double.parseDouble(data[6]); } catch (NumberFormatException e) {}
-
-                        // Month and Year
-                        String monthString = data[7].trim();
-                        int monthNumber = 1;
+                    if (data.length >= 8) {
                         try {
-                            Month month = Month.valueOf(monthString.toUpperCase());
-                            monthNumber = month.getValue(); // getValue() returns 1-12
-                        } catch (IllegalArgumentException e) {
-                            System.err.println("Invalid month name: " + monthString);
+                            // Parse Fields
+                            // ID
+                            String id = data[0].trim();
+
+                            // Title
+                            String title = data[1].trim();
+                            
+                            // Author
+                            String author = DataProcessor.clean(data[2]);
+
+                            // Description
+                            String description = data[3].trim();
+
+                            // Categories (Split by comma)
+                            String rawCat = DataProcessor.clean(data[4]);
+                            ListInterface<String> categories = new ArrayList<>(); 
+                            if (!rawCat.isEmpty()) {
+                                String[] cats = rawCat.split(",");
+                                for (String c : cats) categories.add(c.trim());
+                            }
+
+                            // Publisher
+                            String publisher = DataProcessor.clean(data[5]);
+
+                            // Price
+                            double price = 0.0;
+                            try { price = Double.parseDouble(data[6]); } catch (NumberFormatException e) {}
+
+                            // Month and Year
+                            int month = 1;
+                            try { month = Integer.parseInt(data[7]); } catch (NumberFormatException e) {}
+                            int year = 1800;
+                            try { year = Integer.parseInt(data[8]); } catch (NumberFormatException e) {}
+
+                            // Quantity
+                            int qtyAvailable = 0;
+                            int qtyTotal = 0;
+                            try { qtyAvailable = Integer.parseInt(data[9]); } catch (NumberFormatException e) {}
+                            try { qtyTotal = Integer.parseInt(data[10]); } catch (NumberFormatException e) {}
+
+                            // Add to Map
+                            Book book = new Book(id, title, author, description, categories, publisher, price, month, year, qtyTotal, qtyAvailable);
+                            bookList.put(id, book);
+
+                        } catch (Exception e) {
+                            System.out.println("Skipping invalid row: " + e.getMessage());
                         }
-                        int year = 1800;
-                        try { year = Integer.parseInt(data[8]); } catch (NumberFormatException e) {}
-
-                        // Add to Map
-                        Book book = new Book(id, title, author, description, categories, publisher, price, monthNumber, year);
-                        library.put(id, book);
-
-                    } catch (Exception e) {
-                        System.out.println("Skipping invalid row: " + e.getMessage());
                     }
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (CsvValidationException e1) {
+            e1.printStackTrace();
         }
-        return library;
+        return bookList;
     }
 
 
@@ -94,8 +105,8 @@ public class BookDAO {
         try (CSVWriter writer = new CSVWriter(new FileWriter(filePath))) {
             
             // Write Header
-            String[] header = { "BookID", "Title", "Authors", "Description", "Category", "Publisher", "Price ($)", "Publish Month", "Publish Year" };
-            writer.writeNext(header);
+            String[] header = { "BookID", "Title", "Authors", "Description", "Category", "Publisher", "Price ($)", "Publish Month", "Publish Year","Available Quantity","Total Quantity" };
+            writer.writeNext(header, false);
 
             // Loop TreeMap and Write Data
             for (Book book : library.values()) {
@@ -105,14 +116,16 @@ public class BookDAO {
                     book.getTitle(),
                     book.getAuthor(),
                     book.getDescription(),
-                    book.categoriesToString(),
+                    book.getCategories().toString(),
                     book.getPublisher(),
                     String.valueOf(book.getPrice()),
                     String.valueOf(book.getPublishMonth()),
-                    String.valueOf(book.getPublishYear())
+                    String.valueOf(book.getPublishYear()),
+                    String.valueOf(book.getQtyAvailable()),
+                    String.valueOf(book.getQtyTotal())
                 };
 
-                writer.writeNext(data);
+                writer.writeNext(data, false);
             }
             
             System.out.println("Data successfully saved to " + filePath);

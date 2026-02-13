@@ -67,6 +67,12 @@ package com.mycompany.library_system.adt;
   */
   public ListInterface<V> values();
 
+  /**
+   * Returns a list of all sorted keys in the map.
+   * @return a list of all keys in the map
+  */
+  public ListInterface<K> keys();
+
   /** Returns a set of all entries in the map
    * @return a set of all entries in the map
    */
