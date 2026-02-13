@@ -7,7 +7,9 @@ package com.mycompany.library_system;
 import com.mycompany.library_system.adt.TreeMap;
 import com.mycompany.library_system.dao.BookDAO;
 import com.mycompany.library_system.entity.Book;
-
+import com.mycompany.library_system.entity.BookBorrowRecord;
+import com.mycompany.library_system.control_classes.BookBorrowControl;
+import com.mycompany.library_system.control_classes.BookBorrowControl;;;
 /**
  *
  * @author all
@@ -15,7 +17,7 @@ import com.mycompany.library_system.entity.Book;
 public class Library_system {
 
     public static void main(String[] args) {
-        TreeMap<String, Book> library = BookDAO.readFile("database/book.csv");
-        System.out.println(library.get("BK102612").toString());
+        
+
     }  
 }
