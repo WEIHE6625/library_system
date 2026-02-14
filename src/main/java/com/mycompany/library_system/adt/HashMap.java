@@ -198,24 +198,24 @@ public class HashMap<K, V> implements MapInterface<K, V> {
     }
 
 
-    @Override
-    public boolean containsValue(V value) {
-        // Check every single slot in the table
-        for (int i = 0; i < table.length; i++) {
-            HashNode<K, V> node = table[i];
+    // @Override
+    // public boolean containsValue(V value) {
+    //     // Check every single slot in the table
+    //     for (int i = 0; i < table.length; i++) {
+    //         HashNode<K, V> node = table[i];
             
-            // Check every node in this linked list
-            while (node != null) {
-                if (value == null) {
-                    if (node.value == null) return true;
-                } else {
-                    if (value.equals(node.value)) return true;
-                }
-                node = node.next;
-            }
-        }
-        return false;
-    }
+    //         // Check every node in this linked list
+    //         while (node != null) {
+    //             if (value == null) {
+    //                 if (node.value == null) return true;
+    //             } else {
+    //                 if (value.equals(node.value)) return true;
+    //             }
+    //             node = node.next;
+    //         }
+    //     }
+    //     return false;
+    // }
 
 
     @Override

@@ -10,32 +10,55 @@ import com.mycompany.library_system.dao.BookDAO;
 import com.mycompany.library_system.entity.Book;
 import com.mycompany.library_system.utility.IdGenerator;
 import com.mycompany.library_system.utility.UIGenerator;
+import com.mycompany.library_system.utility.UserPrompt;
 
 /**
  *
  * @author wh
  */
 public class BookInfoController {
-    private TreeMap<String, String> bookStringList;
-    private TreeMap<Integer, Book> bookIntList;
-    private TreeMap<YearMonth, Book> bookDateList;
-    private TreeMap<Double, Book> bookDoubleList;
-    private TreeMap<String, Book> bookList;
+    private TreeMap<String, Book> bookTree;
+    private TreeMap<String, Book> bookTitleTree;
+    private TreeMap<String, Book> bookAuthorTree;
+    private TreeMap<String, Book> bookPriceTree;
+    private TreeMap<String, Book> bookDateTree;
+    private TreeMap<String, Book> bookQtyATree;
+    private TreeMap<String, Book> bookQtyTTree;
+    private TreeMap<String, Book> searchTree = new TreeMap<>();
+    
     public static final String BOOK_FILE_PATH = "database/book.csv";
 
     public BookInfoController() {
-        this.bookList = BookDAO.readFile(BOOK_FILE_PATH);
+        this.bookTree = BookDAO.readFile(BOOK_FILE_PATH);
+        this.bookTitleTree = new TreeMap<>();
+        this.bookAuthorTree = new TreeMap<>();
+        this.bookPriceTree = new TreeMap<>();
+        this.bookDateTree = new TreeMap<>();
+        this.bookQtyATree = new TreeMap<>();
+        this.bookQtyTTree = new TreeMap<>();
+
+        // Loop through every book in the main bookTree
+        for (Book book : bookTree.values()) {
+            // Add the book to each tree
+            bookTitleTree.put(IdGenerator.getKeyId(book.getTitle(), book.getId()), book);
+            bookAuthorTree.put(IdGenerator.getKeyId(book.getAuthor(), book.getId()), book);
+            bookPriceTree.put(IdGenerator.getKeyId(book.getPrice(), book.getId()), book);
+            bookDateTree.put(IdGenerator.getKeyId(book.getPublishDate(), book.getId()), book);
+            bookQtyATree.put(IdGenerator.getKeyId(book.getQtyAvailable(), book.getId()), book);
+            bookQtyTTree.put(IdGenerator.getKeyId(book.getQtyTotal(), book.getId()), book);
+        }
     }
 
-    public TreeMap<String, Book> getBookList() {
-        return bookList;
+    // Return the Tree that key sort by...
+    public TreeMap<String, Book> getbookList() { 
+        return bookTree;
     }
 
     public ListInterface<String> getAllUniqueCategories(ListInterface<String> categoriesExcluded) {
         ListInterface<String> uniqueCats = new ArrayList<>();
         
         // Loop all books in the manager
-        for (Book b : bookList.values()) {
+        for (Book b : bookTree.values()) {
             for (String cat : b.getCategories()) {
                 if (!categoriesExcluded.contains(cat)) {
                     uniqueCats.add(cat);
@@ -52,7 +75,7 @@ public class BookInfoController {
     public Book insertBook() {
         UIGenerator.clearScreen();
         UIGenerator.titleBuilder("Add New Book");
-        String id = IdGenerator.generateId(bookList, "BK", 6);
+        String id = IdGenerator.generateId(bookTree, "BK", 6);
         String title = BookUI.inputBookTitle();
         String author = BookUI.inputBookAuthor();
         String description = BookUI.inputBookDescription();
@@ -63,8 +86,16 @@ public class BookInfoController {
         int qty = BookUI.inputQty();
 
         Book newBook = new Book(id, title, author, description, category, publisher, price, publishYearMonth[1], publishYearMonth[2], qty, qty);
+        Book book = bookTree.put(id, newBook);
         
-        Book book = bookList.put(id, newBook);
+        // Add to secondary indexes
+        bookTitleTree.put(IdGenerator.getKeyId(newBook.getTitle(), id), newBook);
+        bookAuthorTree.put(IdGenerator.getKeyId(newBook.getAuthor(), id), newBook);
+        bookPriceTree.put(IdGenerator.getKeyId(newBook.getPrice(), id), newBook);
+        bookDateTree.put(IdGenerator.getKeyId(newBook.getPublishDate(), id), newBook);
+        bookQtyATree.put(IdGenerator.getKeyId(newBook.getQtyAvailable(), id), newBook);
+        bookQtyTTree.put(IdGenerator.getKeyId(newBook.getQtyTotal(), id), newBook);
+
         System.out.println("Added book with ID: " + id);
         saveToFile();
         UIGenerator.pressEnterToContinue();
@@ -74,12 +105,11 @@ public class BookInfoController {
     public Book editBook() {
         UIGenerator.clearScreen();
         UIGenerator.titleBuilder("Edit Existing Book");
-        String id = BookUI.inputBookID(bookList);
+        String id = BookUI.inputBookID(bookTree);
 
         System.out.println("\nEditing Book with ID: " + id);
-        System.out.println(bookList.get(id).toString());
-
-        Book oldBook = bookList.get(id);
+        Book book = bookTree.get(id);
+        System.out.println(book.toString());
         boolean isExit = false;
         do {
             isExit = UIGenerator.optionMenu(
@@ -95,15 +125,48 @@ public class BookInfoController {
                 },
                 "Select an option >> ",
                 new Runnable[]{
-                    () -> bookList.get(id).setTitle(BookUI.inputBookTitle()),
-                    () -> bookList.get(id).setAuthor(BookUI.inputBookAuthor()),
-                    () -> bookList.get(id).setDescription(BookUI.inputBookDescription()),
-                    () -> bookList.get(id).setCategories(BookUI.inputBookCategory(this, bookList.get(id).getCategories())),
-                    () -> bookList.get(id).setPublisher(BookUI.inputBookPublisher()),
-                    () -> bookList.get(id).setPrice(BookUI.inputBookPrice()),
+                    // [1] Book Title
                     () -> {
-                        int[] publishYearMonth = BookUI.inputBookPublishDate();
-                        bookList.get(id).setPublishDate(publishYearMonth[2], publishYearMonth[1]);
+                        String oldTitle = book.getTitle();
+                        String newTitle = BookUI.inputBookTitle();
+                        book.setTitle(newTitle);    // Update the object
+                        // Refresh the relevant tree which sorting that attribute
+                        bookTitleTree.remove(IdGenerator.getKeyId(oldTitle, id));   
+                        bookTitleTree.put(IdGenerator.getKeyId(newTitle, id), book);
+                    },
+                    // [2] Book Author
+                    () -> {
+                        String oldAuthor = book.getAuthor();
+                        String newAuthor = BookUI.inputBookAuthor();
+                        book.setAuthor(newAuthor);
+                        bookAuthorTree.remove(IdGenerator.getKeyId(oldAuthor, id));   
+                        bookAuthorTree.put(IdGenerator.getKeyId(newAuthor, id), book);
+                    },
+                    // [3] Description (No sorting)
+                    () -> bookTree.get(id).setDescription(BookUI.inputBookDescription()),
+                    
+                    // [4] Category (No sorting)
+                    () -> bookTree.get(id).setCategories(BookUI.inputBookCategory(this, bookTree.get(id).getCategories())),
+                    
+                    // [5] Publisher (No sorting)
+                    () -> bookTree.get(id).setPublisher(BookUI.inputBookPublisher()),
+                    
+                    // [6] Book Price
+                    () -> {
+                        double oldPrice = book.getPrice();
+                        double newPrice = BookUI.inputBookPrice();
+                        book.setPrice(newPrice);
+                        bookPriceTree.remove(IdGenerator.getKeyId(oldPrice, id));   
+                        bookPriceTree.put(IdGenerator.getKeyId(newPrice, id), book);
+                    },
+                    // [7] Book Publish Date
+                    () -> { 
+                        YearMonth oldDate = book.getPublishDate();
+                        int[] newDate = BookUI.inputBookPublishDate();
+                        book.setPublishDate(newDate[2], newDate[1]);
+                        bookDateTree.remove(IdGenerator.getKeyId(oldDate, id));   
+                        bookDateTree.put(IdGenerator.getKeyId(book.getPublishDate(), id), book);
+                        
                     },
                     () -> {}  // Back to Main Menu
                 }
@@ -113,18 +176,17 @@ public class BookInfoController {
         System.out.println("Edited book with ID: " + id);
         saveToFile();
         UIGenerator.pressEnterToContinue();
-        return oldBook;
+        return book;
     }
 
     public Book editBookInStock() {
         UIGenerator.clearScreen();
         UIGenerator.titleBuilder("Edit Book In Stock");
-        String id = BookUI.inputBookID(bookList);
+        String id = BookUI.inputBookID(bookTree);
 
         System.out.println("\nEditing Book with ID: " + id);
-        System.out.println(bookList.get(id).toString());
-
-        Book oldBook = bookList.get(id);
+        Book book = bookTree.get(id);
+        System.out.println(book.toString());
         boolean isExit = false;
         do {
             isExit = UIGenerator.optionMenu(
@@ -135,17 +197,32 @@ public class BookInfoController {
                 },
                 "Select an option >> ",
                 new Runnable[]{
+                    // [1] Order More Book
                     () -> {
-                        int qty = BookUI.inputQty(); 
-                        bookList.get(id).addQty(qty);
+                        int oldQtyA = book.getQtyAvailable();
+                        int oldQtyT = book.getQtyTotal();
+ 
+                        int newQty = BookUI.inputQty(); 
+                        book.addQty(newQty);
+                        bookQtyATree.remove(IdGenerator.getKeyId(oldQtyA, id));   
+                        bookQtyTTree.remove(IdGenerator.getKeyId(oldQtyT, id));   
+                        bookQtyATree.put(IdGenerator.getKeyId(book.getQtyAvailable(), id), book);
+                        bookQtyTTree.put(IdGenerator.getKeyId(book.getQtyTotal(), id), book);
                     },
+                    // [2] Reduce Book In Stock
                     () -> {
-                        int qtyAvailable = bookList.get(id).getQtyAvailable();
-                        if (qtyAvailable <= 0) {
+                        int oldQtyA = book.getQtyAvailable();
+                        int oldQtyT = book.getQtyTotal();
+                        
+                        if (oldQtyA <= 0) {
                             System.out.println("The available book in stock is empty. Cannot reduce anymore.");
                         } else {
-                            int qty = BookUI.inputReduceQty(bookList.get(id).getQtyAvailable()); 
-                            bookList.get(id).reduceQty(qty);
+                            int qty = BookUI.inputReduceQty(oldQtyA); 
+                            book.reduceQty(qty);
+                            bookQtyATree.remove(IdGenerator.getKeyId(oldQtyA, id));   
+                            bookQtyTTree.remove(IdGenerator.getKeyId(oldQtyT, id));   
+                            bookQtyATree.put(IdGenerator.getKeyId(book.getQtyAvailable(), id), book);
+                            bookQtyTTree.put(IdGenerator.getKeyId(book.getQtyTotal(), id), book);
                         }
                     },
                     () -> {}  // Back to Main Menu
@@ -156,34 +233,171 @@ public class BookInfoController {
         System.out.println("Edited book with ID: " + id);
         saveToFile();
         UIGenerator.pressEnterToContinue();
-        return oldBook;
+        return book;
     }
 
     public Book deleteBook() {
         UIGenerator.clearScreen();
         UIGenerator.titleBuilder("Delete Existing Book");
-        String id = BookUI.inputBookID(bookList);
-        Book book = bookList.remove(id);
+        String id = BookUI.inputBookID(bookTree);
+        Book book = bookTree.get(id);
         if(book != null) {
+            if(book.getQtyAvailable() == book.getQtyTotal()) {
+                // Remove from secondary indexes
+                bookTitleTree.remove(IdGenerator.getKeyId(book.getTitle(), id));
+                bookAuthorTree.remove(IdGenerator.getKeyId(book.getAuthor(), id));
+                bookPriceTree.remove(IdGenerator.getKeyId(book.getPrice(), id));
+                bookDateTree.remove(IdGenerator.getKeyId(book.getPublishDate(), id));
+                bookQtyATree.remove(IdGenerator.getKeyId(book.getQtyAvailable(), id));
+                bookQtyTTree.remove(IdGenerator.getKeyId(book.getQtyTotal(), id));
+                bookTree.remove(id);
+
+                saveToFile();
+                UIGenerator.pressEnterToContinue();
+            }
+            else{
+                System.out.println("Book with ID " + id + " cannot be removed because user are borrowing.");    
+            }
             System.out.println("Book with ID " + id + " has been deleted.");
         } else {
             System.out.println("Book with ID " + id + " not found.");
         }
-        saveToFile();
-        UIGenerator.pressEnterToContinue();
         return book;
     }
 
     public void viewBookDetails() {
         UIGenerator.clearScreen();
         UIGenerator.titleBuilder("View Book Details");
-        String id = BookUI.inputBookID(bookList);
-        Book book = bookList.get(id);
+        String id = BookUI.inputBookID(bookTree);
+        Book book = bookTree.get(id);
         System.out.println(book.toString());
         UIGenerator.pressEnterToContinue();
     }
 
+    public void sortBooks() {
+        boolean isBack = false;
+
+        do {
+            isBack = false;
+
+            UIGenerator.clearScreen();
+            UIGenerator.titleBuilder("View Sorted Books"); 
+            isBack = UIGenerator.optionMenu(
+                new String[]{
+                    "[1] Sort by Book ID",
+                    "[2] Sort by Book Title",
+                    "[3] Sort by Author",
+                    "[4] Sort by Available Quantity",
+                    "[5] Sort by Total Quantity",
+                    " ",
+                    "[0] Back to Main Menu"
+                },
+                "Select a sorting option >> ",
+                new Runnable[] {
+                    () -> { BookUI.setDisplayList(bookTree.values()); },
+                    () -> { BookUI.setDisplayList(bookTitleTree.values()); },
+                    () -> { BookUI.setDisplayList(bookAuthorTree.values()); },
+                    () -> { BookUI.setDisplayList(bookQtyATree.values()); },
+                    () -> { BookUI.setDisplayList(bookQtyTTree.values()); },
+                    () -> {}  // Back to Main Menu
+                }
+            );
+
+            if(isBack) {
+                return;
+            }
+
+            isBack = UIGenerator.optionMenu(
+                new String[]{
+                    "\n[1] Ascending Order",
+                    "[2] Descending Order",
+                    " ",
+                    "[0] Back"
+                },
+                "Select a sorting option >> ",
+                new Runnable[] {
+                    () -> { BookUI.setIsAscending(true); },
+                    () -> { BookUI.setIsAscending(false); },
+                    () -> { }  // Back
+                }
+            );
+
+        } while (isBack);
+        BookUI.setCurrentPage(1);
+    }
+
+    public void searchBooks() {
+        boolean isBack = false;
+        final int searchOption[] = {0,0};
+
+        do {
+            isBack = false;
+
+            UIGenerator.clearScreen();
+            UIGenerator.titleBuilder("View Sorted Books"); 
+            isBack = UIGenerator.optionMenu(
+                new String[]{
+                    "[1] Show All Books",
+                    "[2] Search by Book Title",
+                    "[3] Search by Author",
+                    "[4] Search by Available Quantity",
+                    "[5] Search by Total Quantity",
+                    " ",
+                    "[0] Back to Main Menu"
+                },
+                "Select a searching option >> ",
+                new Runnable[] {
+                    () -> { searchOption[0] = -1; searchTree = bookTree; },
+                    () -> { searchOption[0] = 0; searchTree = bookTitleTree; },
+                    () -> { searchOption[0] = 1; searchTree = bookAuthorTree; },
+                    () -> { searchOption[0] = 2; searchTree = bookQtyATree; },
+                    () -> { searchOption[0] = 3; searchTree = bookQtyTTree; },
+                    () -> {}  // Back to Main Menu
+                }
+            );
+
+            // if(isBack) {
+            //     return;
+            // }
+
+            // isBack = UIGenerator.optionMenu(
+            //     new String[]{
+            //         "\n[1] Actual Value",
+            //         "[2] Range",
+            //         " ",
+            //         "[0] Back"
+            //     },
+            //     "Select a sorting option >> ",
+            //     new Runnable[] {
+            //         () -> { searchOption[1] = 0; },
+            //         () -> { searchOption[1] = 1; },
+            //         () -> { }  // Back
+            //     }
+            // );
+            
+        } while (isBack);
+
+        String search;
+        ListInterface<Book> searchList = new ArrayList<>();
+        // If user search String
+        if(searchOption[0] == -1) {
+            searchList = bookTree.values();
+        }else{
+            if(searchOption[0] == 0 || searchOption[0] == 1 ) {
+                search = UserPrompt.inputString("Enter the word seaching : ", 999, false).toLowerCase().replaceAll("\\s+", "");
+            }
+            else {
+                search = IdGenerator.getKeyId(UserPrompt.inputInteger("Enter the number seaching : ", 0, 999), "");
+            }
+            BookUI.setSearchingWord(search);
+            searchList = searchTree.getRange(search, search+Character.MAX_VALUE);
+        }
+        
+        BookUI.setDisplayList(searchList);
+        BookUI.setCurrentPage(1);
+    }
+
     public void saveToFile() {
-        BookDAO.writeFile(BOOK_FILE_PATH, bookList);
+        BookDAO.writeFile(BOOK_FILE_PATH, bookTree);
     }
 }

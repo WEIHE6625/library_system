@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
- */
 package com.mycompany.library_system.adt;
 
 /**
@@ -16,7 +12,6 @@ public interface ListInterface<T> extends Iterable<T> {
     public T remove(int removePosition);
     public void clear();
     public boolean replace(int replacePosition,T newEntry);
-    public T getEntry(int givenPosition);
     public int size();
     public boolean contains(T anEntry);
     public boolean isEmpty();

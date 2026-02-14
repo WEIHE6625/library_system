@@ -146,6 +146,36 @@ public class TreeMap<K extends Comparable<K>, V> implements MapInterface<K, V> {
         return null;
     }
 
+    
+    // Finds all values whose keys fall within the specified range [min, max].
+    public ListInterface<V> getRange(K min, K max) {
+        ListInterface<V> result = new ArrayList<>(); // Use your custom list
+        collectRangeValues(root, min, max, result);
+        return result;
+    }
+
+    private void collectRangeValues(Node<K, V> node, K min, K max, ListInterface<V> result) {
+        if (node == null) return;
+
+        int cmpMin = min.compareTo(node.key);
+        int cmpMax = max.compareTo(node.key);
+
+        // If current key is greater than the minimum, there might be valid nodes in the left subtree.
+        if (cmpMin < 0) {
+            collectRangeValues(node.left, min, max, result);
+        }
+
+        // If the current key is perfectly inside the boundaries, add its value
+        if (cmpMin <= 0 && cmpMax >= 0) {
+            result.add(node.value);
+        }
+
+        // If the current key is less than the maximum, there might be valid nodes in the right subtree.
+        if (cmpMax > 0) {
+            collectRangeValues(node.right, min, max, result);
+        }
+    }
+
 
     @Override
     public V remove(K key) {
@@ -227,33 +257,6 @@ public class TreeMap<K extends Comparable<K>, V> implements MapInterface<K, V> {
     }
 
     @Override
-    public boolean containsValue(V value) {
-        if (root == null) return false;
-        // Simulate a queue
-        Node<K,V>[] queue = new Node[this.size];
-        int head = 0;
-        int tail = 0;
-
-        // Add root to queue
-        queue[tail++] = root;
-
-        while (head < tail) {
-            Node<K,V> current = queue[head++];
-
-            // Check if value matches
-            if (value == null ? current.value == null : value.equals(current.value)) {
-                return true;
-            }
-
-            // Add children to queue
-            if (current.left != null) queue[tail++] = current.left;
-            if (current.right != null) queue[tail++] = current.right;
-        }
-
-        return false;
-    }
-
-    @Override
     public boolean isEmpty() {
         return size == 0;
     }
@@ -261,15 +264,6 @@ public class TreeMap<K extends Comparable<K>, V> implements MapInterface<K, V> {
     @Override
     public void clear() {
         size = 0; root = null;
-    }
-
-    @Override
-    public void putAll(MapInterface<? extends K, ? extends V> m) {
-        if (m instanceof TreeMap) {
-            TreeMap<? extends K, ? extends V> map = (TreeMap<? extends K, ? extends V>) m;
-            // Recursive to put all nodes
-            recursiveputAll(map.root);
-        }
     }
 
     @Override
@@ -319,7 +313,14 @@ public class TreeMap<K extends Comparable<K>, V> implements MapInterface<K, V> {
         return count;
     }
 
-
+    @Override
+    public void putAll(MapInterface<? extends K, ? extends V> m) {
+        if (m instanceof TreeMap) {
+            TreeMap<? extends K, ? extends V> map = (TreeMap<? extends K, ? extends V>) m;
+            // Recursive to put all nodes
+            recursiveputAll(map.root);
+        }
+    }
 
     // Loop the new nodes to current tree
     private void recursiveputAll(Node<? extends K, ? extends V> node) {

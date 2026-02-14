@@ -39,11 +39,11 @@ package com.mycompany.library_system.adt;
    */
   public boolean containsKey(K key);
 
-  /** Checks whether a specific value is in the map.
-   *  @param value
-   *  @return true or false if the map contains the value 
-   */
-  public boolean containsValue(V value);
+  // /** Checks whether a specific value is in the map.
+  //  *  @param value
+  //  *  @return true or false if the map contains the value 
+  //  */
+  // public boolean containsValue(V value);
   
   /** Checks whether the map is empty.
    *  @return true if the map is empty 

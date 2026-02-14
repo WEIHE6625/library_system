@@ -83,13 +83,16 @@ public class BookUI {
     }
 
 
+    private static ListInterface<Book> displayList = new ArrayList<>();
+    private static boolean isAscending = true;
+    private static String searchingWord = new String();
 
-
-    public static void menu(BookInfoController bookManager) {
+    public static void menu(BookInfoController bController) {
+        displayList = bController.getbookList().values();
         boolean isExit = false;
         do {
             UIGenerator.clearScreen();
-            bookListPage(bookManager);
+            bookListPage();
             isExit = UIGenerator.optionMenu(
                 new String[]{
                     "[1] Add New Book",
@@ -97,55 +100,85 @@ public class BookUI {
                     "[3] Edit Book in Stock",
                     "[4] Delete Book",
                     "[5] View Book Details",
+                    "[6] Sort Books",
+                    "[7] Search Books",
                     " ",
-                    "[6] <- Previous Page          [7] Next Page ->",
+                    "[8] <- Previous Page          [9] Next Page ->",
                     "[0] Back to Main Menu"
                 },
                 "Select an option >> ",
                 new Runnable[]{
-                    () -> bookManager.insertBook(),
-                    () -> bookManager.editBook(),
-                    () -> bookManager.editBookInStock(),
-                    () -> bookManager.deleteBook(),
-                    () -> bookManager.viewBookDetails(),
+                    () -> bController.insertBook(),
+                    () -> bController.editBook(),
+                    () -> bController.editBookInStock(),
+                    () -> bController.deleteBook(),
+                    () -> bController.viewBookDetails(),
+                    () -> bController.sortBooks(),
+                    () -> bController.searchBooks(),
                     () -> {currentPage = (currentPage == 1) ? totalPages : currentPage - 1;},
                     () -> {currentPage = (currentPage == totalPages) ? 1 : currentPage + 1;},
                     () -> {}  // Back to Main Menu
                 }
             );
         }while (!isExit);
-        
     }
 
-    public static void bookListPage(BookInfoController bookManager) {
+    public static void bookListPage() {
+        UIGenerator.titleBuilder("Book List");
+        System.out.println(searchingWord);
 
-        TreeMap<String, Book> bookList = bookManager.getBookList();
-        ListInterface<Book> allBooks = bookList.values();
-        if (allBooks.isEmpty()) {
+        if (displayList.isEmpty()) {
             System.out.println("No books found in the library.");
             return;
         }
 
-        int totalRecords = allBooks.size();
+        int totalRecords = displayList.size();
         totalPages = (int) Math.ceil((double) totalRecords / PAGE_SIZE);
 
         int startIndex = (currentPage - 1) * PAGE_SIZE;
-        int endIndex = Math.min(startIndex + PAGE_SIZE, totalRecords);
+        int endIndex = Math.min(startIndex + PAGE_SIZE - 1, totalRecords - 1);
 
-        UIGenerator.titleBuilder("Book List");
         System.out.printf("%-8s %-40s %-30s %-28s %-26s %-13s %-9s\n", "Book ID ", "Book Title", "Category", "Author", "Publisher", "Available Qty", "Total Qty");
         System.out.printf("%-8s %-40s %-30s %-28s %-26s %-13s %-9s\n", "--------", "----------", "--------", "------", "---------", "-------------", "---------");
 
-        for (int i = startIndex; i < endIndex; i++) {
-                Book b = allBooks.get(i);
-                String title = DataProcessor.truncate(b.getTitle(), 38);
-                String category = DataProcessor.truncate(b.getCategories().toString(), 28);
-                String author = DataProcessor.truncate(b.getAuthor(),28);
-                String publisher = DataProcessor.truncate(b.getPublisher(), 24);
-                System.out.printf("%-8s %-40s %-30s %-28s %-26s %13d %9d\n", b.getId(), title, category, author, publisher, b.getQtyAvailable(), b.getQtyTotal());
+        for (int i = startIndex; i <= endIndex; i++) {
+            int actualIndex = isAscending ? i : (totalRecords - 1 - i);
+
+            Book b = displayList.get(actualIndex);
+            String title = DataProcessor.truncate(b.getTitle(), 38);
+            String category = DataProcessor.truncate(b.getCategories().toString(), 28);
+            String author = DataProcessor.truncate(b.getAuthor(),26);
+            String publisher = DataProcessor.truncate(b.getPublisher(), 24);
+            System.out.printf("%-8s %-40s %-30s %-28s %-26s %13d %9d\n", b.getId(), title, category, author, publisher, b.getQtyAvailable(), b.getQtyTotal());
         }
+        
+        
 
         System.out.println("-".repeat(160));
         System.out.printf("Page: %d/%d\n\n", currentPage, totalPages);
+    }
+
+    public static int getCurrentPage() {
+        return currentPage;
+    }
+
+    public static int getTotalPages() {
+        return totalPages;
+    }
+
+    public static void setCurrentPage(int page) {
+        currentPage = page;
+    }
+
+    public static void setSearchingWord(String word) {
+        searchingWord = "Searching : " + word + "\n";
+    }
+
+    public static void setDisplayList(ListInterface<Book> list) {
+        displayList = list;
+    }
+
+    public static void setIsAscending(boolean isAsc) {
+        isAscending = isAsc;
     }
 }

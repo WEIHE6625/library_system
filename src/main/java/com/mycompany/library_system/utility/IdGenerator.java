@@ -1,5 +1,8 @@
 package com.mycompany.library_system.utility;
 
+import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
+
 import com.mycompany.library_system.adt.MapInterface;
 
 public class IdGenerator {
@@ -21,5 +24,23 @@ public class IdGenerator {
         int lastId = getMaxId(map, prefix);
         lastId++;
         return String.format(prefix + "%0" + numberlength + "d", lastId);
+    }
+
+    // Return a keyId for different TreeMap
+    public static <K> String getKeyId(K key, String Id) {
+        if (key == null) return null;
+        String keyId = "";
+        if(key instanceof Double){
+            keyId = String.format("%06.2f-%s", key, Id);
+        }else if (key instanceof Integer) {
+            keyId = String.format("%03d-%s", key, Id);
+        }else if (key instanceof String) {
+            keyId = (String) key;
+            keyId = String.format("%s-%s", keyId.toLowerCase().replaceAll("\\s+", ""), Id);
+        }else if (key instanceof YearMonth) {
+            YearMonth yearMonth = (YearMonth) key;
+            keyId = String.format("%s-%s", yearMonth.format(DateTimeFormatter.ofPattern("MM-yyyy")).toString(), Id);
+        }
+        return keyId;
     }
 }

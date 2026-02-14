@@ -12,7 +12,7 @@ public class ArrayList<T> implements ListInterface<T>, Serializable {
 
     private T[] array;
     private int size;
-    private static final int DEFAULT_CAPACITY = 10;
+    private static final int DEFAULT_CAPACITY = 1;
 
     public ArrayList() {
         this(DEFAULT_CAPACITY);
@@ -107,17 +107,6 @@ public class ArrayList<T> implements ListInterface<T>, Serializable {
         }
 
         return isSuccessful;
-    }
-
-    @Override
-    public T getEntry(int givenPosition) {
-        T result = null;
-        if (givenPosition >= 1 && givenPosition <= size) {
-            result = array[givenPosition - 1];
-
-        }
-        return result;
-
     }
 
     @Override
