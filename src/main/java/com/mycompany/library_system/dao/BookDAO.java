@@ -23,6 +23,12 @@ public class BookDAO {
 
     public static TreeMap<String, Book> readFile(String filePath) {
         TreeMap<String, Book> bookList = new TreeMap<>();
+        // TreeMap<String, ListInterface<Book>> bookTitleList = new TreeMap<>();
+        // TreeMap<String, ListInterface<Book>> bookAuthorList = new TreeMap<>();
+        // TreeMap<Double, ListInterface<Book>> bookPriceList = new TreeMap<>();
+        // TreeMap<YearMonth, ListInterface<Book>> bookDateList = new TreeMap<>();
+        // TreeMap<Integer, ListInterface<Book>> bookQtyAList = new TreeMap<>();
+        // TreeMap<Integer, ListInterface<Book>> bookQtyTList = new TreeMap<>();
 
         // CSVReader
         try (CSVReader reader = new CSVReader(new FileReader(filePath))) {

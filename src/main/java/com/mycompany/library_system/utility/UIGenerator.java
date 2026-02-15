@@ -80,24 +80,14 @@ public class UIGenerator {
         }
         System.out.println("-".repeat(50));
 
-        System.out.print(optionInputMessage);
-        String input = scanner.nextLine().trim();
+        int input = UserPrompt.inputInteger(optionInputMessage, 0, options.length - 1);
 
-        try {
-            int choice = Integer.parseInt(input);
-            if (choice == 0) {
-                return true;
-            } else if (choice >= 1 && choice <= options.length - 1) {
-                action[choice - 1].run();
-            } else {
-                displayInvalidChoiceMessage();
-                pressEnterToContinue();
-            }
-        } catch (NumberFormatException e) {
-            displayInvalidChoiceMessage();
-            pressEnterToContinue();
+        if (input == 0) {
+            return true;
+        } 
+        else {
+            action[input - 1].run();
+            return false;
         }
-        return false;
     }
-
 }
