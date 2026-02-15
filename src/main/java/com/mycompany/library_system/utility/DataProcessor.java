@@ -37,6 +37,4 @@ public class DataProcessor {
         }
         return result.trim();
     }
-
-    
 }
