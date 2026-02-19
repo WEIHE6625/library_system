@@ -10,6 +10,7 @@ import com.mycompany.library_system.entity.Book;
 import com.mycompany.library_system.utility.DataProcessor;
 import com.mycompany.library_system.utility.UIGenerator;
 import com.mycompany.library_system.utility.UserPrompt;
+import com.mycompany.library_system.utility.Pagination;
 
 /**
  *
@@ -18,9 +19,7 @@ import com.mycompany.library_system.utility.UserPrompt;
 public class BookUI {
     
     static Scanner scanner = new Scanner(System.in);
-    private static int currentPage = 1;
-    private static int totalPages = 99;
-    private static final int PAGE_SIZE = 30;
+    static Pagination<Book> pagination = new Pagination<>();
 
     public static String inputBookID(TreeMap<String, Book> bookList) {
         boolean isValid = false;
@@ -83,13 +82,13 @@ public class BookUI {
     }
 
 
-    private static ListInterface<Book> displayList = new ArrayList<>();
-    private static boolean isAscending = true;
-    private static String searchingWord = new String();
+//    private static ListInterface<Book> displayList = new ArrayList<>();
+//    private static boolean isAscending = true;
+//    private static String searchingWord = new String();
 
     public static void menu(BookInfoController bController) {
-        displayList = bController.getbookList().values();
         boolean isExit = false;
+        pagination.setDisplayList(bController.getbookList().values());
         do {
             UIGenerator.clearScreen();
             bookListPage();
@@ -115,9 +114,9 @@ public class BookUI {
                     () -> bController.viewBookDetails(),
                     () -> bController.sortBooks(),
                     () -> bController.searchBooks(),
-                    () -> {currentPage = (currentPage == 1) ? totalPages : currentPage - 1;},
-                    () -> {currentPage = (currentPage == totalPages) ? 1 : currentPage + 1;},
-                    () -> {}  // Back to Main Menu
+                    () -> pagination.previousPage(),
+                    () -> pagination.nextPage(),
+                    () -> {}
                 }
             );
         }while (!isExit);
@@ -125,60 +124,37 @@ public class BookUI {
 
     public static void bookListPage() {
         UIGenerator.titleBuilder("Book List");
-        System.out.println(searchingWord);
+        System.out.println(pagination.getSearchingWord());
+        ListInterface<Book> displayList = pagination.getDisplayList();
 
-        if (displayList.isEmpty()) {
+        if (displayList == null || displayList.isEmpty()) {
             System.out.println("No books found in the library.");
             return;
         }
 
         int totalRecords = displayList.size();
-        totalPages = (int) Math.ceil((double) totalRecords / PAGE_SIZE);
-
-        int startIndex = (currentPage - 1) * PAGE_SIZE;
-        int endIndex = Math.min(startIndex + PAGE_SIZE - 1, totalRecords - 1);
+        int startIndex = pagination.getStartIndex();
+        int endIndex = pagination.getEndIndex();
 
         System.out.printf("%-8s %-40s %-30s %-28s %-26s %-13s %-9s\n", "Book ID ", "Book Title", "Category", "Author", "Publisher", "Available Qty", "Total Qty");
         System.out.printf("%-8s %-40s %-30s %-28s %-26s %-13s %-9s\n", "--------", "----------", "--------", "------", "---------", "-------------", "---------");
 
         for (int i = startIndex; i <= endIndex; i++) {
-            int actualIndex = isAscending ? i : (totalRecords - 1 - i);
+            int actualIndex = pagination.isAscending() ? i : (totalRecords - 1 - i);
 
             Book b = displayList.get(actualIndex);
             String title = DataProcessor.truncate(b.getTitle(), 38);
             String category = DataProcessor.truncate(b.getCategories().toString(), 28);
-            String author = DataProcessor.truncate(b.getAuthor(),26);
+            String author = DataProcessor.truncate(b.getAuthor(), 26);
             String publisher = DataProcessor.truncate(b.getPublisher(), 24);
             System.out.printf("%-8s %-40s %-30s %-28s %-26s %13d %9d\n", b.getId(), title, category, author, publisher, b.getQtyAvailable(), b.getQtyTotal());
         }
-        
-        
 
         System.out.println("-".repeat(160));
-        System.out.printf("Page: %d/%d\n\n", currentPage, totalPages);
+        System.out.printf("Page: %d/%d\n\n", pagination.getCurrentPage(), pagination.getTotalPages());
     }
 
-    public static int getCurrentPage() {
-        return currentPage;
-    }
-
-    public static int getTotalPages() {
-        return totalPages;
-    }
-
-    public static void setCurrentPage(int page) {
-        currentPage = page;
-    }
-
-    public static void setSearchingWord(String word) {
-        searchingWord = "Searching : " + word + "\n";
-    }
-
-    public static void setDisplayList(ListInterface<Book> list) {
-        displayList = list;
-    }
-
-    public static void setIsAscending(boolean isAsc) {
-        isAscending = isAsc;
+    public static Pagination<Book> getPagination() {
+        return pagination;
     }
 }

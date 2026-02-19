@@ -13,7 +13,6 @@ import com.mycompany.library_system.boundary.LibrarySystemUI;
 public class Library_system {
 
     public static void main(String[] args) {
-        LibrarySystemUI.seedUsers();
         new LibrarySystemUI().start();
     }
 }

@@ -96,6 +96,9 @@ public class BookInfoController {
         bookQtyATree.put(IdGenerator.getKeyId(newBook.getQtyAvailable(), id), newBook);
         bookQtyTTree.put(IdGenerator.getKeyId(newBook.getQtyTotal(), id), newBook);
 
+        BookUI.getPagination().setDisplayList(bookTree.values());
+        BookUI.getPagination().setCurrentPage(1);
+
         System.out.println("Added book with ID: " + id);
         saveToFile();
         UIGenerator.pressEnterToContinue();
@@ -294,11 +297,11 @@ public class BookInfoController {
                 },
                 "Select a sorting option >> ",
                 new Runnable[] {
-                    () -> { BookUI.setDisplayList(bookTree.values()); },
-                    () -> { BookUI.setDisplayList(bookTitleTree.values()); },
-                    () -> { BookUI.setDisplayList(bookAuthorTree.values()); },
-                    () -> { BookUI.setDisplayList(bookQtyATree.values()); },
-                    () -> { BookUI.setDisplayList(bookQtyTTree.values()); },
+                    () -> { BookUI.getPagination().setDisplayList(bookTree.values()); },
+                    () -> { BookUI.getPagination().setDisplayList(bookTitleTree.values()); },
+                    () -> { BookUI.getPagination().setDisplayList(bookAuthorTree.values()); },
+                    () -> { BookUI.getPagination().setDisplayList(bookQtyATree.values()); },
+                    () -> { BookUI.getPagination().setDisplayList(bookQtyTTree.values()); },
                     () -> {}  // Back to Main Menu
                 }
             );
@@ -316,14 +319,14 @@ public class BookInfoController {
                 },
                 "Select a sorting option >> ",
                 new Runnable[] {
-                    () -> { BookUI.setIsAscending(true); },
-                    () -> { BookUI.setIsAscending(false); },
+                    () -> { BookUI.getPagination().setIsAscending(true); },
+                    () -> { BookUI.getPagination().setIsAscending(false); },
                     () -> { }  // Back
                 }
             );
 
         } while (isBack);
-        BookUI.setCurrentPage(1);
+        BookUI.getPagination().setCurrentPage(1);
     }
 
     public void searchBooks() {
@@ -389,12 +392,12 @@ public class BookInfoController {
             else {
                 search = IdGenerator.getKeyId(UserPrompt.inputInteger("Enter the number seaching : ", 0, 999), "");
             }
-            BookUI.setSearchingWord(search);
+            BookUI.getPagination().setSearchingWord(search);
             searchList = searchTree.getRange(search, search+Character.MAX_VALUE);
         }
-        
-        BookUI.setDisplayList(searchList);
-        BookUI.setCurrentPage(1);
+
+        BookUI.getPagination().setDisplayList(searchList);
+        BookUI.getPagination().setCurrentPage(1);
     }
 
     public void saveToFile() {
