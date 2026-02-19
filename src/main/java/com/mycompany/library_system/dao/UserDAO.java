@@ -1,70 +1,120 @@
 package com.mycompany.library_system.dao;
 
+import com.mycompany.library_system.adt.TreeMap;
 import com.mycompany.library_system.entity.User;
-import com.mycompany.library_system.repo.UserRepository;
+import com.mycompany.library_system.utility.DataProcessor;
+import com.opencsv.CSVReader;
+import com.opencsv.CSVWriter;
+import com.opencsv.exceptions.CsvValidationException;
+import me.tongfei.progressbar.ProgressBar;
 
 import java.io.*;
 
 public class UserDAO {
+    public static TreeMap<String, User> readFile(String filePath) {
 
-    private static final String FILE_PATH = "database/users.csv";
+        TreeMap<String, User> userList = new TreeMap<>();
 
-    public UserDAO() {
-        loadAllUser();
-    }
+        try (CSVReader reader = new CSVReader(new FileReader(filePath))) {
 
-    public boolean exists(String userId) {
-        return UserRepository.getUserMap().containsKey(userId);
-    }
+            // Skip header
+            reader.readNext();
 
-    public void save(User user) {
-        UserRepository.getUserMap().put(user.getUserId(), user);
-        writeToFile();
-    }
+            int totalLines = DataProcessor.lineCounter(filePath);
+            String[] data;
 
-    public void delete(String userId) {
-        UserRepository.getUserMap().remove(userId);
-        writeToFile();
-    }
+            try (ProgressBar pb = new ProgressBar("Loading Users : ", totalLines)) {
 
-    public User findById(String userId) {
-        return UserRepository.getUserMap().get(userId);
-    }
+                while ((data = reader.readNext()) != null) {
+                    pb.step();
 
-    private void loadAllUser() {
-        File file = new File(FILE_PATH);
-        if (!file.exists()) return;
+                    if (data.length >= 8) {
+                        try {
+                            String userId = data[0].trim();
+                            String name = data[1].trim();
+                            String email = data[2].trim();
+                            User.Gender gender = User.Gender.valueOf(data[3].trim().toUpperCase());
+                            int age = 0;
+                            try { age = Integer.parseInt(data[4]); } catch (NumberFormatException e) {}
+                            User.Education education = User.Education.valueOf(data[5].trim().toUpperCase());
+                            User.UserRole role = User.UserRole.valueOf(data[6].trim().toUpperCase());
 
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-            String line;
-            boolean isHeader = true;
+                            int numOfBooksBorrowing = 0;
+                            try {
+                                numOfBooksBorrowing = Integer.parseInt(data[7]);
+                            } catch (NumberFormatException e) {}
 
-            while ((line = br.readLine()) != null) {
-                if (isHeader) { // skip header
-                    isHeader = false;
-                    continue;
+                            String createdAt = data[8].trim();
+
+                            User user = new User(
+                                    userId,
+                                    name,
+                                    email,
+                                    gender,
+                                    age,
+                                    education,
+                                    role,
+                                    createdAt,
+                                    numOfBooksBorrowing
+                            );
+                            userList.put(userId, user);
+
+                        } catch (Exception e) {
+                            System.out.println("Skipping invalid row: " + e.getMessage());
+                        }
+                    }
                 }
-                User user = User.fromCSV(line);
-                UserRepository.getUserMap().put(user.getUserId(), user);
             }
-        } catch (IOException e) {
-            throw new RuntimeException("Failed to load users from CSV", e);
+
+        } catch (IOException | CsvValidationException e) {
+            e.printStackTrace();
         }
+
+        return userList;
     }
 
-    private void writeToFile() {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILE_PATH))) {
 
-            // CSV header
-            bw.write("userId,name,email,role");
-            bw.newLine();
+    public static void writeFile(String filePath, TreeMap<String, User> userList) {
 
-            for (User user : UserRepository.getUserMap().values()) {
-                bw.write(user.toCSV());
-                bw.newLine();
+        try (CSVWriter writer = new CSVWriter(new FileWriter(filePath))) {
+
+            // Write header
+            String[] header = {
+                    "UserID",
+                    "Name",
+                    "Email",
+                    "Gender",
+                    "Age",
+                    "Education",
+                    "Role",
+                    "CreatedAt",
+                    "NumOfBooksBorrowing",
+            };
+
+            writer.writeNext(header, false);
+
+            // Write data
+            for (User user : userList.values()) {
+
+                String[] data = {
+                        user.getUserId(),
+                        user.getName(),
+                        user.getEmail(),
+                        user.getGender().name(),
+                        String.valueOf(user.getAge()),
+                        user.getEducation().name(),
+                        user.getRole().name(),
+                        user.getCreatedAt(),
+                        String.valueOf(user.getNumOfBooksBorrowing())
+                };
+
+                writer.writeNext(data, false);
             }
+
+            System.out.println("Data successfully saved to " + filePath);
+
         } catch (IOException e) {
-            throw new RuntimeException("Failed to write users to CSV", e);
+            e.printStackTrace();
         }
     }
 }

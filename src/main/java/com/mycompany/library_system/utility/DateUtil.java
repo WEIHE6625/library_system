@@ -1,12 +1,12 @@
 package com.mycompany.library_system.utility;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class DateUtil {
-    public static LocalDate getToday() {
-        return LocalDate.now();
-    }
-
-    public static LocalDate addDays(LocalDate date, int days) {
-        return date.plusDays(days);
+    public static String getToday() {
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        return now.format(formatter);
     }
 }
