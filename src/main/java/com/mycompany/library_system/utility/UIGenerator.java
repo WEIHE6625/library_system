@@ -1,6 +1,7 @@
 package com.mycompany.library_system.utility;
 import java.io.File;
 import java.util.Scanner;
+import java.util.function.Supplier;
 
 /**
  * 
@@ -58,7 +59,7 @@ public class UIGenerator {
      * @param action Array of Runnable actions corresponding to each option
      * @return true if user chooses to exit (option 0), otherwise false
      */
-    public static boolean optionMenu(String[] options, String optionInputMessage, Runnable[] action) {
+    public static boolean optionMenu(String[] options, String optionInputMessage, Supplier<Boolean>[] actions) {
         /*
         -----------------
         | Sample result |
@@ -86,8 +87,7 @@ public class UIGenerator {
             return true;
         } 
         else {
-            action[input - 1].run();
-            return false;
+            return actions[input - 1].get();
         }
     }
 }

@@ -6,6 +6,7 @@ import com.mycompany.library_system.entity.User;
 import com.mycompany.library_system.control.BookInfoController;
 import com.mycompany.library_system.dao.UserDAO;
 import java.util.Scanner;
+import java.util.function.Supplier;
 
 /**
  *
@@ -14,7 +15,7 @@ import java.util.Scanner;
 public class LibrarySystemUI {
     private Scanner sc = new Scanner(System.in);
     UserInfoController userInfoController = new UserInfoController();
-    BookInfoController bookManager = new BookInfoController();
+//    BookInfoController bookManager = new BookInfoController();
 
     public void start() {
         while (true) {   // Entire program loop
@@ -61,12 +62,12 @@ public class LibrarySystemUI {
                                 "[0] Logout"
                         },
                         "Select an option >> ",
-                        new Runnable[]{
+                        new Supplier[] {
                                 () -> UserUI.menu(userInfoController, sessionUser),
-                                () -> BookUI.menu(bookManager),
-                                () -> {},
-                                () -> {},
-                                () -> {}
+                                // () -> BookUI.menu(bookManager); // Uncomment if needed
+                                () -> { return false; },
+                                () -> { return false; },
+                                () -> { return false; }
                         }
                 );
             }

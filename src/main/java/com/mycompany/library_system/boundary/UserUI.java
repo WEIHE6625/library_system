@@ -1,6 +1,7 @@
 package com.mycompany.library_system.boundary;
 
 import java.util.Scanner;
+import java.util.function.Supplier;
 import com.mycompany.library_system.entity.User;
 import com.mycompany.library_system.adt.TreeMap;
 import com.mycompany.library_system.adt.ArrayList;
@@ -50,7 +51,7 @@ public class UserUI {
     }
 
     public static User.UserRole inputUserRole() {
-        return UserPrompt.inputEnum("Enter User Role >> ", User.UserRole.class, false);
+        return UserPrompt.inputEnum("Enter User Role* >> ", User.UserRole.class, false);
     }
 
     private static boolean isAdmin(User currentUser) {
@@ -61,8 +62,10 @@ public class UserUI {
     private static boolean isAscending = true;
     private static String searchingWord = new String();
 
-    public static void menu(UserInfoController uController, User currentUser) {
+    public static boolean menu(UserInfoController uController, User currentUser) {
         boolean isExit = false;
+        boolean[] isLogout = {false}; // flag to signal outer logout
+
         pagination.setDisplayList(uController.getUserList().values());
 
         do {
@@ -80,36 +83,49 @@ public class UserUI {
                                 "[0] Back to Main Menu"
                         },
                         "Select an option >> ",
-                        new Runnable[]{
-                                () -> uController.addUser(),
-                                () -> uController.editUser(),
-                                () -> uController.sortUsers(),
-                                () -> uController.searchUsers(),
-                                () -> uController.deleteUser(currentUser),
-                                () -> {}
+                        new Supplier[]{
+                                () -> { uController.addUser(); return false; },
+                                () -> { uController.editUser(); return false; },
+                                () -> { uController.sortUsers(); return false; },
+                                () -> { uController.searchUsers(); return false; },
+                                () -> {
+                                    boolean deletedSelf = uController.deleteUser(currentUser);
+                                    if (deletedSelf) {
+                                        isLogout[0] = true; // signal outer logout
+                                        return true;    // exit this menu
+                                    }
+                                    return false;       // otherwise stay in menu
+                                },
+                                () -> true // Back to Main Menu
                         }
                 );
-
             } else { // MEMBER
-
                 isExit = UIGenerator.optionMenu(
                         new String[]{
                                 "[1] Edit My Information",
                                 "[2] View My Account",
                                 "[3] Delete My Account",
-                                "[0] Logout"
+                                "[0] Back to Main Menu"
                         },
                         "Select an option >> ",
-                        new Runnable[]{
-                                () -> uController.editOwnAccount(currentUser),
-                                () -> uController.viewOwnAccount(currentUser),
-                                () -> uController.deleteOwnAccount(currentUser),
-                                () -> {}
+                        new Supplier[]{
+                                () -> { uController.editOwnAccount(currentUser); return false; },
+                                () -> { uController.viewOwnAccount(currentUser); return false; },
+                                () -> {
+                                    boolean deletedSelf = uController.deleteOwnAccount(currentUser);
+                                    if (deletedSelf) {
+                                        isLogout[0] = true; // signal outer logout
+                                        return true;    // exit this menu
+                                    }
+                                    return false;       // otherwise stay in menu
+                                },
+                                () -> true // Back to Main Menu
                         }
                 );
             }
 
         } while (!isExit);
+        return isLogout[0]; // outer loop now knows if user deleted account
     }
 
     public static void userListPage() {
