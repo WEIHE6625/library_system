@@ -1,5 +1,6 @@
 package com.mycompany.library_system.control;
 
+import java.util.function.Supplier;
 import com.mycompany.library_system.adt.ArrayList;
 import com.mycompany.library_system.adt.ListInterface;
 import com.mycompany.library_system.adt.TreeMap;
@@ -97,7 +98,7 @@ public class UserInfoController {
         UIGenerator.pressEnterToContinue();
     }
 
-    public User editUser() {
+    public void editUser() {
         UIGenerator.clearScreen();
         UIGenerator.titleBuilder("Edit Existing User");
         String id = UserUI.inputUserID(userTree);
@@ -105,7 +106,6 @@ public class UserInfoController {
         System.out.println("\nEditing User with ID: " + id);
         System.out.println(userTree.get(id).toString());
 
-        User oldUser = userTree.get(id);
         boolean isExit = false;
         do {
             isExit = UIGenerator.optionMenu(
@@ -119,14 +119,14 @@ public class UserInfoController {
                             "[0] Back to Main Menu"
                     },
                     "Select an option >> ",
-                    new Runnable[]{
-                            () -> userTree.get(id).setName(UserUI.inputUserName()),
-                            () -> userTree.get(id).setEmail(UserUI.inputUserEmail()),
-                            () -> userTree.get(id).setGender(UserUI.inputUserGender()),
-                            () -> userTree.get(id).setAge(UserUI.inputUserAge()),
-                            () -> userTree.get(id).setEducation(UserUI.inputUserEducation()),
-                            () -> userTree.get(id).setRole(UserUI.inputUserRole()),
-                            () -> {}  // Back to Main Menu
+                    new Supplier[] {
+                            () -> { userTree.get(id).setName(UserUI.inputUserName()); return false; },
+                            () -> { userTree.get(id).setEmail(UserUI.inputUserEmail()); return false; },
+                            () -> { userTree.get(id).setGender(UserUI.inputUserGender()); return false; },
+                            () -> { userTree.get(id).setAge(UserUI.inputUserAge()); return false; },
+                            () -> { userTree.get(id).setEducation(UserUI.inputUserEducation()); return false; },
+                            () -> { userTree.get(id).setRole(UserUI.inputUserRole()); return false; },
+                            () -> true
                     }
             );
         }while (!isExit);
@@ -134,39 +134,47 @@ public class UserInfoController {
         System.out.println("Edited User with ID: " + id);
         saveToFile();
         UIGenerator.pressEnterToContinue();
-        return oldUser;
     }
 
     public boolean deleteUser(User currentUser) {
         UIGenerator.clearScreen();
         UIGenerator.titleBuilder("Delete Existing User");
         String id = UserUI.inputUserID(userTree);
-        User user = userTree.remove(id);
+        User user = userTree.get(id);
 
-        if (user != null) {
-            System.out.println("User with ID " + id + " has been deleted.");
-            saveToFile();
-
-            if (id.equals(currentUser.getUserId())) {
-                System.out.println("You deleted your own account. Logging out...");
-                UIGenerator.pressEnterToContinue();
-                return true;
-            }
-        } else {
+        if (user == null) {
             System.out.println("User with ID " + id + " not found.");
+            UIGenerator.pressEnterToContinue();
+            return false;
         }
+
+        char confirm = UserPrompt.inputChar("Are you sure you want to delete user " + id + "? (Y/N): ", 'Y', 'N');
+        if (confirm != 'Y') {
+            System.out.println("User deletion canceled.");
+            UIGenerator.pressEnterToContinue();
+            return false;
+        }
+
+        // Proceed with deletion
+        userTree.remove(id);
+        System.out.println("User with ID " + id + " has been deleted.");
+
+        UserUI.getPagination().setDisplayList(userTree.values());
+        UserUI.getPagination().setCurrentPage(1);
+
+        saveToFile();
+
+        // Check if admin deleted themselves
+        if (id.equals(currentUser.getUserId())) {
+            System.out.println("You deleted your own account. Logging out...");
+            UIGenerator.pressEnterToContinue();
+            return true;
+        }
+
         UIGenerator.pressEnterToContinue();
         return false;
     }
 
-//    public void viewUser() {
-//        UIGenerator.clearScreen();
-//        UIGenerator.titleBuilder("View User Details");
-//        String id = UserUI.inputUserID(userTree);
-//        User user = userTree.get(id);
-//        System.out.println(user.toString());
-//        UIGenerator.pressEnterToContinue();
-//    }
 
     public void viewOwnAccount(User currentUser) {
         UIGenerator.clearScreen();
@@ -193,13 +201,13 @@ public class UserInfoController {
                             "[0] Back"
                     },
                     "Select an option >> ",
-                    new Runnable[]{
-                            () -> currentUser.setName(UserUI.inputUserName()),
-                            () -> currentUser.setEmail(UserUI.inputUserEmail()),
-                            () -> currentUser.setGender(UserUI.inputUserGender()),
-                            () -> currentUser.setAge(UserUI.inputUserAge()),
-                            () -> currentUser.setEducation(UserUI.inputUserEducation()),
-                            () -> {}
+                    new Supplier[] {
+                            () -> { currentUser.setName(UserUI.inputUserName()); return false; },
+                            () -> { currentUser.setEmail(UserUI.inputUserEmail()); return false; },
+                            () -> { currentUser.setGender(UserUI.inputUserGender()); return false; },
+                            () -> { currentUser.setAge(UserUI.inputUserAge()); return false; },
+                            () -> { currentUser.setEducation(UserUI.inputUserEducation()); return false; },
+                            () -> true
                     }
             );
         } while (!isExit);
@@ -207,17 +215,30 @@ public class UserInfoController {
         saveToFile();
     }
 
-    public void deleteOwnAccount(User currentUser) {
+    public boolean deleteOwnAccount(User currentUser) {
 
         UIGenerator.clearScreen();
         UIGenerator.titleBuilder("Delete My Account");
 
+        char confirm = UserPrompt.inputChar("Are you sure you want to delete your account? (Y/N): ", 'Y', 'N');
+
+        if (confirm != ('Y')) {  // if user does not confirm
+            System.out.println("Account deletion canceled.");
+            UIGenerator.pressEnterToContinue();
+            return false;  // do nothing
+        }
+
         userTree.remove(currentUser.getUserId());
 
         System.out.println("Your account has been deleted.");
+
+        UserUI.getPagination().setDisplayList(userTree.values());
+        UserUI.getPagination().setCurrentPage(1);
+
         saveToFile();
 
         UIGenerator.pressEnterToContinue();
+        return true;
     }
 
     public void sortUsers() {
@@ -240,15 +261,15 @@ public class UserInfoController {
                             "[0] Back to Main Menu"
                     },
                     "Select a sorting option >> ",
-                    new Runnable[] {
-                            () -> { UserUI.getPagination().setDisplayList(userTree.values()); },
-                            () -> { UserUI.getPagination().setDisplayList(userNameTree.values()); },
-                            () -> { UserUI.getPagination().setDisplayList(userEmailTree.values()); },
-                            () -> { UserUI.getPagination().setDisplayList(userAgeTree.values()); },
-                            () -> { UserUI.getPagination().setDisplayList(userEducationTree.values()); },
-                            () -> { UserUI.getPagination().setDisplayList(userCreatedDateTimeTree.values()); },
-                            () -> { UserUI.getPagination().setDisplayList(userNumOfBooksBorrowing.values()); },
-                            () -> {}
+                    new Supplier[] {
+                            () -> { UserUI.getPagination().setDisplayList(userTree.values()); return false; },
+                            () -> { UserUI.getPagination().setDisplayList(userNameTree.values()); return false; },
+                            () -> { UserUI.getPagination().setDisplayList(userEmailTree.values()); return false; },
+                            () -> { UserUI.getPagination().setDisplayList(userAgeTree.values()); return false; },
+                            () -> { UserUI.getPagination().setDisplayList(userEducationTree.values()); return false; },
+                            () -> { UserUI.getPagination().setDisplayList(userCreatedDateTimeTree.values()); return false; },
+                            () -> { UserUI.getPagination().setDisplayList(userNumOfBooksBorrowing.values()); return false; },
+                            () -> true
                     }
             );
 
@@ -263,10 +284,10 @@ public class UserInfoController {
                             "[0] Back"
                     },
                     "Select a sorting option >> ",
-                    new Runnable[] {
-                            () -> { UserUI.getPagination().setIsAscending(true); },
-                            () -> { UserUI.getPagination().setIsAscending(false); },
-                            () -> { }  // Back
+                    new Supplier[] {
+                            () -> { UserUI.getPagination().setIsAscending(true); return false; },
+                            () -> { UserUI.getPagination().setIsAscending(false); return false; },
+                            () -> false
                     }
             );
 
@@ -294,14 +315,14 @@ public class UserInfoController {
                             "[0] Back to Main Menu"
                     },
                     "Select a searching option >> ",
-                    new Runnable[] {
-                            () -> { searchOption[0] = -1; searchTree = userTree; },
-                            () -> { searchOption[0] = 0; searchTree = userNameTree; },
-                            () -> { searchOption[0] = 1; searchTree = userEmailTree; },
-                            () -> { searchOption[0] = 2; searchTree = userAgeTree; },
-                            () -> { searchOption[0] = 3; searchTree = userEducationTree; },
-                            () -> { searchOption[0] = 4; searchTree = userNumOfBooksBorrowing; },
-                            () -> {}
+                    new Supplier[] {
+                            () -> { searchOption[0] = -1; searchTree = userTree; return false; },
+                            () -> { searchOption[0] = 0; searchTree = userNameTree; return false; },
+                            () -> { searchOption[0] = 1; searchTree = userEmailTree; return false; },
+                            () -> { searchOption[0] = 2; searchTree = userAgeTree; return false; },
+                            () -> { searchOption[0] = 3; searchTree = userEducationTree; return false; },
+                            () -> { searchOption[0] = 4; searchTree = userNumOfBooksBorrowing; return false; },
+                            () -> true
                     }
             );
 
@@ -337,6 +358,7 @@ public class UserInfoController {
             }
             else {
                 search = IdGenerator.getKeyId(UserPrompt.inputInteger("Enter the number seaching : ", 0, 999), "");
+//                search = Integer.toString(UserPrompt.inputInteger("Enter the number seaching : ", 0, 999));
             }
             UserUI.getPagination().setSearchingWord(search);
             searchList = searchTree.getRange(search, search+Character.MAX_VALUE);

@@ -1,7 +1,7 @@
 package com.mycompany.library_system.boundary;
 
 import java.util.Scanner;
-
+import java.util.function.Supplier;
 import com.mycompany.library_system.adt.ArrayList;
 import com.mycompany.library_system.adt.ListInterface;
 import com.mycompany.library_system.adt.TreeMap;
@@ -106,17 +106,17 @@ public class BookUI {
                     "[0] Back to Main Menu"
                 },
                 "Select an option >> ",
-                new Runnable[]{
-                    () -> bController.insertBook(),
-                    () -> bController.editBook(),
-                    () -> bController.editBookInStock(),
-                    () -> bController.deleteBook(),
-                    () -> bController.viewBookDetails(),
-                    () -> bController.sortBooks(),
-                    () -> bController.searchBooks(),
-                    () -> pagination.previousPage(),
-                    () -> pagination.nextPage(),
-                    () -> {}
+                new Supplier[] {
+                        () -> { bController.insertBook(); return false; },
+                        () -> { bController.editBook(); return false; },
+                        () -> { bController.editBookInStock(); return false; },
+                        () -> { bController.deleteBook(); return false; },
+                        () -> { bController.viewBookDetails(); return false; },
+                        () -> { bController.sortBooks(); return false; },
+                        () -> { bController.searchBooks(); return false; },
+                        () -> { pagination.previousPage(); return false; },
+                        () -> { pagination.nextPage(); return false; },
+                        () -> true
                 }
             );
         }while (!isExit);

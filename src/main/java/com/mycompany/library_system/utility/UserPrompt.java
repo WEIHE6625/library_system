@@ -15,6 +15,41 @@ public class UserPrompt {
 
     static Scanner scanner = new Scanner(System.in);
 
+    public static char inputChar(String promptMessage, char... validChars) {
+        boolean isValid = false;
+        char value = '\0';
+        do {
+            System.out.print(promptMessage);
+            String input = scanner.nextLine().trim().toUpperCase();
+
+            if (input.length() == 1) {
+                value = input.charAt(0);
+
+                if (validChars.length == 0) {
+                    isValid = true; // accept any single character
+                } else {
+                    for (char c : validChars) {
+                        if (value == Character.toUpperCase(c)) {
+                            isValid = true;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            if (!isValid) {
+                System.out.print("Invalid input! ");
+                if (validChars.length > 0) {
+                    System.out.println("Enter one of: " + java.util.Arrays.toString(validChars));
+                } else {
+                    System.out.println("Please enter a single character.");
+                }
+            }
+
+        } while (!isValid);
+
+        return value;
+    }
     public static double inputDouble(String promptMessage, double min, double max) {
         boolean isValid = false;
         double value = -1;
