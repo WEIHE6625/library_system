@@ -1,0 +1,4 @@
+Borrow ID,Book ID,User ID,Borrow Date (yyyy-MM-dd),Already Return ?,Return Date (yyyy-MM-dd),Late Return ?,Lost Book ?
+BR000001,BK000001,U1001,2026-02-10,true,2026-02-15,false,false
+BR000002,BK000002,U1001,2026-02-15,true,2026-02-23,true,false
+BR000003,BK000001,U1002,2026-02-22,false,null,false,false

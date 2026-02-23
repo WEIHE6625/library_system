@@ -51,7 +51,7 @@ public class Book {
     public int getQtyTotal() { return qtyTotal; }
     public int getQtyAvailable() { return qtyAvailable; }
     
-
+    public int setAvailableQty(int availableQty) {return this.qtyAvailable = availableQty;}
     public String setTitle(String title) { return this.title = title; }
     public String setDescription(String description) { return this.description = description; }
     public String setAuthor(String author) { return this.author = author; }

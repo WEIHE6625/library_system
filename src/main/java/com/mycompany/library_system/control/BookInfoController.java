@@ -328,7 +328,7 @@ public class BookInfoController {
 
     public void searchBooks() {
         boolean isBack = false;
-        final int searchOption[] = {0,0};
+        final int searchOption[] = {0};
 
         do {
             isBack = false;
