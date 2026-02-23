@@ -86,7 +86,8 @@ public class BookUI {
 //    private static boolean isAscending = true;
 //    private static String searchingWord = new String();
 
-    public static void menu(BookInfoController bController) {
+    public static void menu() {
+        BookInfoController bController = new BookInfoController();
         boolean isExit = false;
         pagination.setDisplayList(bController.getbookList().values());
         do {

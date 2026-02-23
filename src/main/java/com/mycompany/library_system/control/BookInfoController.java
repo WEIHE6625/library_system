@@ -350,9 +350,9 @@ public class BookInfoController {
                 }
             );
 
-            // if(isBack) {
-            //     return;
-            // }
+            if(isBack) {
+                return;
+            }
 
             // isBack = UIGenerator.optionMenu(
             //     new String[]{
