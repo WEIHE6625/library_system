@@ -15,6 +15,41 @@ public class UserPrompt {
 
     static Scanner scanner = new Scanner(System.in);
 
+    public static char inputChar(String promptMessage, char... validChars) {
+        boolean isValid = false;
+        char value = '\0';
+        do {
+            System.out.print(promptMessage);
+            String input = scanner.nextLine().trim().toUpperCase();
+
+            if (input.length() == 1) {
+                value = input.charAt(0);
+
+                if (validChars.length == 0) {
+                    isValid = true; // accept any single character
+                } else {
+                    for (char c : validChars) {
+                        if (value == Character.toUpperCase(c)) {
+                            isValid = true;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            if (!isValid) {
+                System.out.print("Invalid input! ");
+                if (validChars.length > 0) {
+                    System.out.println("Enter one of: " + java.util.Arrays.toString(validChars));
+                } else {
+                    System.out.println("Please enter a single character.");
+                }
+            }
+
+        } while (!isValid);
+
+        return value;
+    }
     public static double inputDouble(String promptMessage, double min, double max) {
         boolean isValid = false;
         double value = -1;
@@ -70,6 +105,67 @@ public class UserPrompt {
             }
         } while (!isValid);
         return value;
+    }
+
+    public static String inputEmail(String promptMessage, int maxLength, boolean allowEmpty) {
+        boolean isValid = false;
+        String email = "";
+
+        do {
+            System.out.print(promptMessage);
+            email = scanner.nextLine().trim();
+
+            if (!allowEmpty && email.isEmpty()) {
+                System.out.println("Invalid input! Email cannot be empty. Please try again.");
+            }
+            else if (email.length() > maxLength) {
+                System.out.println("Invalid input! Email exceeds maximum length of " + maxLength + " characters.");
+            }
+            else if (!allowEmpty && !isValidEmail(email)) {
+                System.out.println("Invalid email format! Email must contain '@' and end with '.com'.");
+            }
+            else {
+                isValid = true;
+            }
+
+        } while (!isValid);
+
+        return email;
+    }
+
+    public static <T extends Enum<T>> T inputEnum(String promptMessage,Class<T> enumClass,boolean allowEmpty) {
+        while (true) {
+            System.out.print(promptMessage);
+            String input = scanner.nextLine().trim();
+
+            if (allowEmpty && input.isEmpty())
+                return null;
+
+            if (input.isEmpty()) {
+                System.out.println("Invalid input! Cannot be empty.");
+                continue;
+            }
+
+            input = input.toUpperCase().replace(" ", "_");
+
+            try {
+                return Enum.valueOf(enumClass, input);
+            }
+            catch (IllegalArgumentException e) {
+
+                System.out.print("Invalid input! Allowed values: ");
+
+                T[] constants = enumClass.getEnumConstants();
+
+                for (int i = 0; i < constants.length; i++) {
+                    System.out.print(constants[i]);
+                    if (i < constants.length - 1)
+                        System.out.print(", ");
+                }
+
+                System.out.println();
+            }
+        }
     }
 
     /**
@@ -295,5 +391,11 @@ public class UserPrompt {
 
     public static ListInterface<String> inputBookCategory(BookInfoController bookManager) {
         return inputBookCategory(bookManager, new ArrayList<>());
+    }
+
+    public static boolean isValidEmail(String email) {
+        if (email == null) return false;
+
+        return email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.com$");
     }
 }

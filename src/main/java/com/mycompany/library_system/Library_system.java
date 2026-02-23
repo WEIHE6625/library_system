@@ -7,6 +7,7 @@ package com.mycompany.library_system;
 import com.mycompany.library_system.adt.MapInterface;
 import com.mycompany.library_system.adt.TreeMap;
 import com.mycompany.library_system.boundary.BorrowBookUI;
+import com.mycompany.library_system.boundary.LibrarySystemUI;
 import com.mycompany.library_system.dao.BookDAO;
 import com.mycompany.library_system.entity.Book;
 import com.mycompany.library_system.entity.BookBorrowRecord;
@@ -26,10 +27,7 @@ public class Library_system {
     
 
     public static void main(String[] args) {
-        String userId = "U1001";
-        BorrowBookUI.startNewBorrowSession(null);
-        BorrowBookUI.memberMenu(userId);
-        
+        new LibrarySystemUI().start();
     }
     
 
