@@ -1,0 +1,22 @@
+UserID,Name,Email,Gender,Age,Education,Role,CreatedAt,NumOfBooksBorrowing
+U0001,Zce Ping,zceping@gmail.com,MALE,18,MASTER,ADMIN,2026-02-20 16:23:33,0
+U0002,Isaac Kuan,isaac.kuan@gmail.com,MALE,20,BACHELOR,MEMBER,2026-02-20 16:25:10,0
+U0003,Alice Tan,alice.tan@gmail.com,FEMALE,21,BACHELOR,MEMBER,2026-02-20 16:26:45,0
+U0004,Bob Lim,bob.lim@gmail.com,MALE,25,MASTER,MEMBER,2026-02-20 16:28:12,0
+U0005,Chloe Wong,chloe.wong@gmail.com,FEMALE,22,BACHELOR,MEMBER,2026-02-20 16:30:03,0
+U0006,Wei He,weihe@gmail.com,MALE,23,MASTER,MEMBER,2026-02-20 16:31:27,0
+U0007,Zhen Hao,zhenhao@gmail.com,MALE,24,BACHELOR,MEMBER,2026-02-20 16:33:11,0
+U0008,Frank Tan,frank.tan@gmail.com,MALE,26,BACHELOR,MEMBER,2026-02-20 16:34:55,0
+U0009,Grace Lim,grace.lim@gmail.com,FEMALE,21,MASTER,MEMBER,2026-02-20 16:36:20,0
+U0010,Hector Chan,hector.chan@gmail.com,MALE,27,BACHELOR,MEMBER,2026-02-20 16:38:02,0
+U0011,Ivy Ong,ivy.ong@gmail.com,FEMALE,22,BACHELOR,MEMBER,2026-02-20 16:39:47,0
+U0012,Jason Khoo,jason.khoo@gmail.com,MALE,24,MASTER,MEMBER,2026-02-20 16:41:15,0
+U0013,Karen Yap,karen.yap@gmail.com,FEMALE,23,BACHELOR,MEMBER,2026-02-20 16:42:58,0
+U0014,Liam Goh,liam.goh@gmail.com,MALE,25,MASTER,MEMBER,2026-02-20 16:44:33,0
+U0015,Mia Chua,mia.chua@gmail.com,FEMALE,21,BACHELOR,MEMBER,2026-02-20 16:46:09,0
+U0016,Noah Tan,noah.tan@gmail.com,MALE,26,BACHELOR,MEMBER,2026-02-20 16:47:52,0
+U0017,Olivia Lim,olivia.lim@gmail.com,FEMALE,22,MASTER,MEMBER,2026-02-20 16:49:18,0
+U0018,Peter Lee,peter.lee@gmail.com,MALE,23,BACHELOR,MEMBER,2026-02-20 16:50:44,0
+U0019,Queenie Wong,queenie.wong@gmail.com,FEMALE,24,MASTER,MEMBER,2026-02-20 16:52:21,0
+U0020,Ryan Ong,ryan.ong@gmail.com,MALE,25,BACHELOR,MEMBER,2026-02-20 16:53:59,0
+
