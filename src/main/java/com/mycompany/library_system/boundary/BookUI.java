@@ -152,7 +152,7 @@ public class BookUI {
         }
 
         System.out.println("-".repeat(160));
-        System.out.printf("Page: %d/%d\n\n", pagination.getCurrentPage(), pagination.getTotalPages());
+        System.out.printf("Page: %d/%d ------ Total Records: %d\n\n", pagination.getCurrentPage(), pagination.getTotalPages(), displayList.size());
     }
 
     public static Pagination<Book> getPagination() {
