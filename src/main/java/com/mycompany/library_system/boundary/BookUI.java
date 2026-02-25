@@ -86,7 +86,8 @@ public class BookUI {
 //    private static boolean isAscending = true;
 //    private static String searchingWord = new String();
 
-    public static void menu(BookInfoController bController) {
+    public static void menu() {
+        BookInfoController bController = new BookInfoController();
         boolean isExit = false;
         pagination.setDisplayList(bController.getbookList().values());
         do {
@@ -151,7 +152,7 @@ public class BookUI {
         }
 
         System.out.println("-".repeat(160));
-        System.out.printf("Page: %d/%d\n\n", pagination.getCurrentPage(), pagination.getTotalPages());
+        System.out.printf("Page: %d/%d ------ Total Records: %d\n\n", pagination.getCurrentPage(), pagination.getTotalPages(), displayList.size());
     }
 
     public static Pagination<Book> getPagination() {

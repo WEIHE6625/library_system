@@ -3,8 +3,6 @@ package com.mycompany.library_system.boundary;
 import com.mycompany.library_system.control.UserInfoController;
 import com.mycompany.library_system.utility.UIGenerator;
 import com.mycompany.library_system.entity.User;
-import com.mycompany.library_system.control.BookInfoController;
-import com.mycompany.library_system.dao.UserDAO;
 import java.util.Scanner;
 import java.util.function.Supplier;
 
@@ -15,7 +13,6 @@ import java.util.function.Supplier;
 public class LibrarySystemUI {
     private Scanner sc = new Scanner(System.in);
     UserInfoController userInfoController = new UserInfoController();
-//    BookInfoController bookManager = new BookInfoController();
 
     public void start() {
         while (true) {   // Entire program loop
@@ -64,7 +61,7 @@ public class LibrarySystemUI {
                         "Select an option >> ",
                         new Supplier[] {
                                 () -> UserUI.menu(userInfoController, sessionUser),
-                                // () -> BookUI.menu(bookManager); // Uncomment if needed
+                                () -> {BookUI.menu(); return false; },
                                 () -> { return false; },
                                 () -> { return false; },
                                 () -> { return false; }
