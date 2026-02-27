@@ -4,6 +4,7 @@ import java.util.function.Supplier;
 import com.mycompany.library_system.adt.ArrayList;
 import com.mycompany.library_system.adt.ListInterface;
 import com.mycompany.library_system.adt.TreeMap;
+import com.mycompany.library_system.boundary.BookUI;
 import com.mycompany.library_system.boundary.UserUI;
 import com.mycompany.library_system.dao.UserDAO;
 import com.mycompany.library_system.entity.User;
@@ -105,8 +106,9 @@ public class UserInfoController {
 
         System.out.println("\nEditing User with ID: " + id);
         System.out.println(userTree.get(id).toString());
-
+        User user = userTree.get(id);
         boolean isExit = false;
+
         do {
             isExit = UIGenerator.optionMenu(
                     new String[]{
@@ -120,11 +122,41 @@ public class UserInfoController {
                     },
                     "Select an option >> ",
                     new Supplier[] {
-                            () -> { userTree.get(id).setName(UserUI.inputUserName()); return false; },
-                            () -> { userTree.get(id).setEmail(UserUI.inputUserEmail()); return false; },
+                            () -> {
+                                String oldName = user.getName();
+                                String newName = UserUI.inputUserName();
+                                user.setName(newName);
+                                userNameTree.remove(IdGenerator.getKeyId(oldName, id));
+                                userNameTree.put(IdGenerator.getKeyId(newName, id), user);
+                                return false;
+                            },
+                            () -> {
+                                String oldEmail = user.getEmail();
+                                String newEmail = UserUI.inputUserEmail();
+                                user.setEmail(newEmail);
+                                userEmailTree.remove(IdGenerator.getKeyId(oldEmail, id));
+                                userEmailTree.put(IdGenerator.getKeyId(newEmail, id), user);
+                                return false;
+                            },
                             () -> { userTree.get(id).setGender(UserUI.inputUserGender()); return false; },
-                            () -> { userTree.get(id).setAge(UserUI.inputUserAge()); return false; },
-                            () -> { userTree.get(id).setEducation(UserUI.inputUserEducation()); return false; },
+                            () -> {
+                                String oldAge = String.valueOf(user.getAge());
+                                int newAge = UserUI.inputUserAge();
+                                user.setAge(newAge);
+                                userAgeTree.remove(IdGenerator.getKeyId(oldAge, id));
+                                userAgeTree.put(IdGenerator.getKeyId(String.valueOf(newAge), id), user);
+
+                                return false;
+                            },
+                            () -> {
+                                String oldEducation = String.valueOf(user.getEducation());
+                                User.Education newEducation = UserUI.inputUserEducation();
+                                user.setEducation(newEducation);
+                                userEducationTree.remove(IdGenerator.getKeyId(oldEducation, id));
+                                userEducationTree.put(IdGenerator.getKeyId(String.valueOf(newEducation), id), user);
+
+                                return false;
+                            },
                             () -> { userTree.get(id).setRole(UserUI.inputUserRole()); return false; },
                             () -> true
                     }
@@ -157,6 +189,12 @@ public class UserInfoController {
 
         // Proceed with deletion
         userTree.remove(id);
+        userNameTree.remove(IdGenerator.getKeyId(user.getName(), id));
+        userEmailTree.remove(IdGenerator.getKeyId(user.getEmail(), id));
+        userAgeTree.remove(IdGenerator.getKeyId(user.getAge(), id));
+        userEducationTree.remove(IdGenerator.getKeyId(user.getEducation(), id));
+        userCreatedDateTimeTree.remove(IdGenerator.getKeyId(user.getCreatedAt(), id));
+        userNumOfBooksBorrowing.remove(IdGenerator.getKeyId(user.getNumOfBooksBorrowing(), id));
         System.out.println("User with ID " + id + " has been deleted.");
 
         UserUI.getPagination().setDisplayList(userTree.values());
@@ -245,8 +283,6 @@ public class UserInfoController {
         boolean isBack = false;
 
         do {
-            isBack = false;
-
             UIGenerator.clearScreen();
             UIGenerator.titleBuilder("View Sorted Books");
             isBack = UIGenerator.optionMenu(
@@ -300,8 +336,6 @@ public class UserInfoController {
         final int searchOption[] = {0,0};
 
         do {
-            isBack = false;
-
             UIGenerator.clearScreen();
             UIGenerator.titleBuilder("View Sorted Users");
             isBack = UIGenerator.optionMenu(
@@ -325,26 +359,6 @@ public class UserInfoController {
                             () -> true
                     }
             );
-
-            // if(isBack) {
-            //     return;
-            // }
-
-            // isBack = UIGenerator.optionMenu(
-            //     new String[]{
-            //         "\n[1] Actual Value",
-            //         "[2] Range",
-            //         " ",
-            //         "[0] Back"
-            //     },
-            //     "Select a sorting option >> ",
-            //     new Runnable[] {
-            //         () -> { searchOption[1] = 0; },
-            //         () -> { searchOption[1] = 1; },
-            //         () -> { }  // Back
-            //     }
-            // );
-
         } while (isBack);
 
         String search;
