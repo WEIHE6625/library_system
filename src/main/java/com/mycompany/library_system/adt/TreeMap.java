@@ -60,28 +60,6 @@ public class TreeMap<K extends Comparable<K>, V> implements MapInterface<K, V> {
     }
 
 
-    // For Red-Black Tree to prevent null pointer exceptions
-    private boolean colorOf(Node<K, V> p) {
-        return (p == null ? false : p.color); // Null (Leaves) is always BLACK
-    }
-
-    private Node<K, V> parentOf(Node<K, V> p) {
-        return (p == null ? null : p.parent);
-    }
-
-    private void setColor(Node<K, V> p, boolean c) {
-        if (p != null) p.color = c;
-    }
-
-    private Node<K, V> leftOf(Node<K, V> p) {
-        return (p == null) ? null : p.left;
-    }
-
-    private Node<K, V> rightOf(Node<K, V> p) {
-        return (p == null) ? null : p.right;
-    }
-
-
     @Override
     public V put(K key, V value) {
         if (key == null) return null;
@@ -134,7 +112,7 @@ public class TreeMap<K extends Comparable<K>, V> implements MapInterface<K, V> {
         return (p == null ? null : p.value);
     }
 
-    public Node<K, V> getNode(K key) {
+    private Node<K, V> getNode(K key) {
         if (key == null) return null;
         Node<K, V> p = root;
         while (p != null) {
@@ -149,11 +127,11 @@ public class TreeMap<K extends Comparable<K>, V> implements MapInterface<K, V> {
     
     // Finds all values whose keys fall within the specified range [min, max].
     public ListInterface<V> getRange(K min, K max) {
-        ListInterface<V> result = new ArrayList<>(); // Use your custom list
+        ListInterface<V> result = new ArrayList<>(); // Define a emptyt list
         collectRangeValues(root, min, max, result);
         return result;
     }
-
+    
     private void collectRangeValues(Node<K, V> node, K min, K max, ListInterface<V> result) {
         if (node == null) return;
 
@@ -268,18 +246,30 @@ public class TreeMap<K extends Comparable<K>, V> implements MapInterface<K, V> {
 
     @Override
     public MapInterface.Entry<K, V>[] entrySet() {
+        return entrySet(true);
+    }
+    @Override
+    public MapInterface.Entry<K, V>[] entrySet(boolean isAscending) {
         MapInterface.Entry<K, V>[] result = new MapInterface.Entry[size];
         // Recursive using In-Order
-        CollectEntrySet(root, result, 0);
+        CollectEntrySet(root, result, 0, isAscending);
         return result;
     }
     
-    private int CollectEntrySet(Node<K, V> node, MapInterface.Entry<K, V>[] set, int index) {
+    private int CollectEntrySet(Node<K, V> node, MapInterface.Entry<K, V>[] set, int index, boolean isAscending) {
         if (node == null) return index;
-        index = CollectEntrySet(node.left, set, index);
-        set[index++] = node;
-        index = CollectEntrySet(node.right, set, index);
-        return index;
+        if(isAscending == true) {
+            index = CollectEntrySet(node.left, set, index, isAscending);
+            set[index++] = node;
+            index = CollectEntrySet(node.right, set, index, isAscending);
+            return index;
+        }
+        else {
+            index = CollectEntrySet(node.right, set, index, isAscending);
+            set[index++] = node;
+            index = CollectEntrySet(node.left, set, index, isAscending);
+            return index;
+        }
     }
 
     @Override
@@ -321,6 +311,29 @@ public class TreeMap<K extends Comparable<K>, V> implements MapInterface<K, V> {
             recursiveputAll(map.root);
         }
     }
+
+
+    // Red-black Tree operation able to return null
+    private boolean colorOf(Node<K, V> p) {
+        return (p == null ? false : p.color); // Null (Leaves) is always BLACK
+    }
+
+    private Node<K, V> parentOf(Node<K, V> p) {
+        return (p == null ? null : p.parent);
+    }
+
+    private void setColor(Node<K, V> p, boolean c) {
+        if (p != null) p.color = c;
+    }
+
+    private Node<K, V> leftOf(Node<K, V> p) {
+        return (p == null) ? null : p.left;
+    }
+
+    private Node<K, V> rightOf(Node<K, V> p) {
+        return (p == null) ? null : p.right;
+    }
+
 
     // Loop the new nodes to current tree
     private void recursiveputAll(Node<? extends K, ? extends V> node) {

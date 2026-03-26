@@ -77,6 +77,7 @@ package com.mycompany.library_system.adt;
    * @return a set of all entries in the map
    */
   public Entry<K, V>[] entrySet();
+  public Entry<K, V>[] entrySet(boolean isAscending);
   
 
   interface Entry<K, V> {
@@ -98,17 +99,5 @@ package com.mycompany.library_system.adt;
      *          otherwise returns null 
      */
     public V setValue(V value); 
-
-    /** Compares the specified object with this entry for equality.
-     *  @param o object to be compared for equality with this map entry
-     *  @return true or false if the specified object is equal to this map 
-     */
-    public boolean equals(Object o);
-
-    /** Generates a numeric hash code for this map entry.
-     *  @return Integer value for a hash code of this entry 
-     */
-    public int hashCode();
-
   }
 } // end MapInterface

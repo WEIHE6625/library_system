@@ -82,10 +82,6 @@ public class BookUI {
     }
 
 
-//    private static ListInterface<Book> displayList = new ArrayList<>();
-//    private static boolean isAscending = true;
-//    private static String searchingWord = new String();
-
     public static void menu() {
         BookInfoController bController = new BookInfoController();
         boolean isExit = false;
