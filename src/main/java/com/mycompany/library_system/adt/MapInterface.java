@@ -2,7 +2,7 @@ package com.mycompany.library_system.adt;
 
 /**
  *
- * @author wh
+ * @author weihe
  */
   public interface MapInterface<K, V> {
   /** Add or update a specific entry from the map.       
@@ -28,8 +28,8 @@ package com.mycompany.library_system.adt;
   public V remove(K key);
 
   /**
-   * Returns the number of entrys in this map.
-   * @return the number of entrys in this map 
+   * Returns the number of entries in this map.
+   * @return the number of entries in this map 
    */
   public int size();
   
@@ -81,14 +81,14 @@ package com.mycompany.library_system.adt;
   
 
   interface Entry<K, V> {
-    /** Retrieves the specifc key.
-     *  @return the specifc key;
+    /** Retrieves the specific key.
+     *  @return the specific key;
      *          otherwise returns null 
      */
     public K getKey();
 
-    /** Retrieves the specifc value.
-     *  @return the specifc value;
+    /** Retrieves the specific value.
+     *  @return the specific value;
      *    otherwise returns null 
      */
     public V getValue();

@@ -2,7 +2,7 @@ package com.mycompany.library_system.adt;
 
 /**
  *
- * @author wh
+ * @author weihe
  * 
  * A generic TreeMap class with red-black tree algorithm (K for Key *must be comparable, V for Value)
  */

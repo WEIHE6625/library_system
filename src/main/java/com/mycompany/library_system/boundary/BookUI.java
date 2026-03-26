@@ -14,7 +14,7 @@ import com.mycompany.library_system.utility.Pagination;
 
 /**
  *
- * @author wh
+ * @author weihe
  */
 public class BookUI {
     

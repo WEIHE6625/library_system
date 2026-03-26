@@ -3,6 +3,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ *
+ * @author all
+ */
 public class DateUtil {
     public static String getToday() {
         LocalDateTime now = LocalDateTime.now();

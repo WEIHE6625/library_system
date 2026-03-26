@@ -2,6 +2,10 @@ package com.mycompany.library_system.utility;
 
 import com.mycompany.library_system.adt.ListInterface;
 
+/**
+ *
+ * @author all
+ */
 public class Pagination<T> {
     private int currentPage = 1;
     private int totalPages = 1;
