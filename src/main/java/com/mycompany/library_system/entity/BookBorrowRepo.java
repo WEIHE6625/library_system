@@ -215,7 +215,7 @@ public class BookBorrowRepo {
             if(month != record.getValue().getBorrowDate().getMonthValue()) {continue;}
             if(day == -1) {newMap.put(record.getKey(), record.getValue()); continue;}
             if(day != record.getValue().getBorrowDate().getDayOfMonth()) {continue;}
-
+            newMap.put(record.getKey(), record.getValue());
         }
         return newMap;
     }
