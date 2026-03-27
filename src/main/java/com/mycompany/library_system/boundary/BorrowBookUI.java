@@ -9,14 +9,12 @@ import com.mycompany.library_system.control.BookInfoController;
 import com.mycompany.library_system.entity.Book;
 import com.mycompany.library_system.entity.BookBorrowRecord;
 import com.mycompany.library_system.entity.BorrowFineRecord;
-import com.mycompany.library_system.entity.Fine;
 import com.mycompany.library_system.entity.User;
 import com.mycompany.library_system.utility.DataProcessor;
 import com.mycompany.library_system.utility.IdGenerator;
 import com.mycompany.library_system.utility.Pagination;
 import com.mycompany.library_system.utility.UIGenerator;
 import com.mycompany.library_system.utility.UserPrompt;
-import com.mycompany.library_system.adt.TreeMap;
 
 public class BorrowBookUI {
     private static Pagination<BookBorrowRecord> borrowRecordsPagination = new Pagination<>();
@@ -176,7 +174,6 @@ public class BorrowBookUI {
         borrowRecordsPagination.setSearchingWord(null);
         do {
             UIGenerator.clearScreen();
-            UIGenerator.titleBuilder("Displaying Borrowing Records");
             displayBorrowRecordsSearchListUI();
         
             quitDisplayRecordsMenu = UIGenerator.optionMenu(
@@ -241,6 +238,7 @@ public class BorrowBookUI {
         if (alreadyReturn) {searchingWord = "Already return";}
         borrowRecordsPagination.setSearchingWord(searchingWord);
         borrowRecordsPagination.setDisplayList(borrowController.getBorrowRepo().getUserAlreadyReturnRecords(userId, alreadyReturn).values());
+        
         if (alreadyReturn) {
             optionMenuString[0] = "[1] Search Past Borrow Records";
             filterAlreadyReturned[0] = 2;
@@ -248,7 +246,6 @@ public class BorrowBookUI {
 
         do {
             UIGenerator.clearScreen();
-            UIGenerator.titleBuilder("Displaying Borrowing Records");
             displayBorrowRecordsSearchListUI();
         
             quitDisplayRecordsMenu = UIGenerator.optionMenu(
@@ -283,6 +280,9 @@ public class BorrowBookUI {
                 }
             );
         }while(!quitDisplayRecordsMenu);
+
+        borrowRecordsPagination.setDisplayList(borrowController.getBorrowRepo().getUserBorrowRecords(userId).values());
+        borrowRecordsPagination.setSearchingWord(null);
     }
 
     public static void viewBorrowRecordDetailUI(String userId, boolean ... returnAll) {
@@ -381,7 +381,6 @@ public class BorrowBookUI {
         fineRecordsPagination.setSearchingWord(null);
         do {
             UIGenerator.clearScreen();
-            UIGenerator.titleBuilder("Display Fine Records");
             displayFineRecordsSearchListUI();
 
             
@@ -450,7 +449,6 @@ public class BorrowBookUI {
 
         do {
             UIGenerator.clearScreen();
-            UIGenerator.titleBuilder("Displaying Fine Records");
             displayFineRecordsSearchListUI();
 
             quitDisplayRecordsMenu = UIGenerator.optionMenu(
@@ -486,7 +484,8 @@ public class BorrowBookUI {
                 }
             );
         }while(!quitDisplayRecordsMenu);
-        
+        fineRecordsPagination.setDisplayList(borrowController.getFineRepo().getUserFineRecords(userId).values());
+        fineRecordsPagination.setSearchingWord(null);
     }
 
     public static void viewFineDetailsUI(String userId, boolean ... returnAll) {
@@ -1004,8 +1003,8 @@ public class BorrowBookUI {
         UIGenerator.clearScreen();
         ListInterface<BookBorrowRecord> displayList = borrowRecordsPagination.getDisplayList();
 
-        if(!borrowRecordsPagination.getSearchingWord().isEmpty()) {
-            System.out.print("Searching based on: " + borrowRecordsPagination.getSearchingWord() + "\n");
+        if(!borrowRecordsPagination.getSearchingWord().contains("null")) {
+            System.out.print(borrowRecordsPagination.getSearchingWord() + "\n");
         }
         UIGenerator.titleBuilder("Displaying Borrow Records");
         
@@ -1037,8 +1036,8 @@ public class BorrowBookUI {
         UIGenerator.clearScreen();
         ListInterface<BorrowFineRecord> displayList = fineRecordsPagination.getDisplayList();
 
-        if(!fineRecordsPagination.getSearchingWord().isEmpty()) {
-            System.out.print("Searching based on: " + fineRecordsPagination.getSearchingWord() + "\n");
+        if(!fineRecordsPagination.getSearchingWord().contains("null")) {
+            System.out.print(fineRecordsPagination.getSearchingWord() + "\n");
         }
 
         UIGenerator.titleBuilder("Display Fine Records");
@@ -1112,7 +1111,6 @@ public class BorrowBookUI {
         borrowRecordsPagination.setCurrentPage(1);
         do {
             UIGenerator.clearScreen();
-            UIGenerator.titleBuilder("Manage Borrow Records");
             displayBorrowRecordsSearchListUI();
             quitAdminBorrowMenu = UIGenerator.optionMenu(
                 new String[] {
@@ -1146,7 +1144,6 @@ public class BorrowBookUI {
         borrowRecordsPagination.setSearchingWord(null);
         do {
             UIGenerator.clearScreen();
-            UIGenerator.titleBuilder("Displaying Borrowing Records");
             displayBorrowRecordsSearchListUI();
             quitDisplayRecordsMenu = UIGenerator.optionMenu(
                 new String[] {
@@ -1302,7 +1299,6 @@ public class BorrowBookUI {
 
         do {
             UIGenerator.clearScreen();
-            UIGenerator.titleBuilder("Displaying Borrowing Records");
             displayBorrowRecordsSearchListUI();
 
             quitDisplayRecordsMenu = UIGenerator.optionMenu(
@@ -1342,6 +1338,7 @@ public class BorrowBookUI {
         }while(!quitDisplayRecordsMenu);
 
         borrowRecordsPagination.setDisplayList(borrowController.getBorrowRepo().getBookBorrowRecords().values());   
+        borrowRecordsPagination.setSearchingWord(null);
     }
       
     public static void displayIsLostBookRecordsUI() {
@@ -1350,7 +1347,6 @@ public class BorrowBookUI {
         borrowRecordsPagination.setSearchingWord("Lost Book");
         do {
             UIGenerator.clearScreen();
-            UIGenerator.titleBuilder("Displaying Borrowing Records");
             displayBorrowRecordsSearchListUI();
             quitDisplayRecordsMenu = UIGenerator.optionMenu(
                 new String[] {
@@ -1395,6 +1391,7 @@ public class BorrowBookUI {
         }while(!quitDisplayRecordsMenu);
 
         borrowRecordsPagination.setDisplayList(borrowController.getBorrowRepo().getBookBorrowRecords().values());
+        borrowRecordsPagination.setSearchingWord(null);
     }
 
     public static void adminFineMenu() {
@@ -1436,7 +1433,6 @@ public class BorrowBookUI {
         fineRecordsPagination.setSearchingWord(null);
         do {
             UIGenerator.clearScreen();
-            UIGenerator.titleBuilder("Displaying Fine Records");
             displayFineRecordsSearchListUI();
             quitDisplayRecordsMenu = UIGenerator.optionMenu(
                 new String[] {
@@ -1507,7 +1503,6 @@ public class BorrowBookUI {
 
         do {
             UIGenerator.clearScreen();
-            UIGenerator.titleBuilder("Displaying Fine Records");
             displayFineRecordsSearchListUI();
 
             quitDisplayRecordsMenu = UIGenerator.optionMenu(
@@ -1546,7 +1541,8 @@ public class BorrowBookUI {
             
         }while(!quitDisplayRecordsMenu);
 
-        fineRecordsPagination.setDisplayList(borrowController.getFineRepo().getBorrowFineRecords().values());   
+        fineRecordsPagination.setDisplayList(borrowController.getFineRepo().getBorrowFineRecords().values()); 
+        fineRecordsPagination.setSearchingWord(null);  
     }
 
     public static void viewFineDetailsUI(boolean ... returnAll) {

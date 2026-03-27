@@ -46,20 +46,7 @@ public class Library_system {
     
 
     public static void main(String[] args) {
-        // new LibrarySystemUI().start();
-        
-        String userId = "";
-        UserInfoController userInfoController = new UserInfoController();
-        while(!userId.trim().equals("0")) {
-            userId = UserPrompt.inputString("Enter user Id >>> ", 5, false);
-            if(userId.trim().equals("0")) {break;}
-            User user = userInfoController.get(userId);
-            BorrowBookUI.menu(user);
-        }
-
-        
-        
-    
+        new LibrarySystemUI().start();
     }
     
 
