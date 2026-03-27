@@ -4,7 +4,6 @@ import java.util.Scanner;
 import java.util.function.Supplier;
 import com.mycompany.library_system.entity.User;
 import com.mycompany.library_system.adt.TreeMap;
-import com.mycompany.library_system.adt.ArrayList;
 import com.mycompany.library_system.adt.ListInterface;
 import com.mycompany.library_system.utility.UserPrompt;
 import com.mycompany.library_system.utility.Pagination;
@@ -13,7 +12,7 @@ import com.mycompany.library_system.control.UserInfoController;
 
 public class UserUI {
     static Scanner sc = new Scanner(System.in);
-    static Pagination<User> pagination = new Pagination<>();
+    static Pagination<String, User> pagination = new Pagination<>();
 
     public static String inputUserID(TreeMap<String, User> userList) {
         boolean isValid = false;
@@ -58,15 +57,12 @@ public class UserUI {
         return currentUser.getRole() == User.UserRole.ADMIN;
     }
 
-    private static ListInterface<User> displayList = new ArrayList<>();
-    private static boolean isAscending = true;
-    private static String searchingWord = new String();
 
     public static boolean menu(UserInfoController uController, User currentUser) {
         boolean isExit = false;
         boolean[] isLogout = {false}; // flag to signal outer logout
 
-        pagination.setDisplayList(uController.getUserList().values());
+        pagination.setDisplayTree(uController.getUserList());
 
         do {
             UIGenerator.clearScreen();
@@ -130,7 +126,7 @@ public class UserUI {
 
     public static void userListPage() {
         System.out.println(pagination.getSearchingWord());
-        ListInterface<User> displayList = pagination.getDisplayList();
+        ListInterface<User> displayList = pagination.getDisplayTree().values();
 
         if (displayList == null || displayList.isEmpty()) {
             System.out.println("User records not found.");
@@ -156,7 +152,7 @@ public class UserUI {
         System.out.printf("Page: %d/%d\n\n", pagination.getCurrentPage(), pagination.getTotalPages());
     }
 
-    public static Pagination<User> getPagination() {
+    public static Pagination<String, User> getPagination() {
         return pagination;
     }
 }

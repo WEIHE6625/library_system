@@ -21,8 +21,8 @@ import com.mycompany.library_system.utility.UIGenerator;
 import com.mycompany.library_system.utility.UserPrompt;
 
 public class BorrowBookUI {
-    private static Pagination<BookBorrowRecord> borrowRecordsPagination = new Pagination<>();
-    private static Pagination<BorrowFineRecord> fineRecordsPagination = new Pagination<>();
+    private static Pagination<String, BookBorrowRecord> borrowRecordsPagination = new Pagination<>();
+    private static Pagination<String, BorrowFineRecord> fineRecordsPagination = new Pagination<>();
     private static BookBorrowControl borrowController;
     private static BookInfoController bookInfoController = new BookInfoController();
      
@@ -90,7 +90,7 @@ public class BorrowBookUI {
     } 
 
     public static void searchBookUI() {
-        BookUI.getPagination().setDisplayList(borrowController.getLibrary().values());
+        BookUI.getPagination().setDisplayTree(borrowController.getLibrary());
         BookUI.getPagination().setCurrentPage(1);
         boolean quitSearchBook = false;
         while(!quitSearchBook) {
@@ -106,7 +106,7 @@ public class BorrowBookUI {
                 }, "Select an option >>> ", 
                 new Supplier[] {
                     () -> {bookInfoController.searchBooks(); return false;},
-                    () -> {borrowUI(borrowController.getUserId()); BookUI.getPagination().setDisplayList(borrowController.getLibrary().values()); return false;},
+                    () -> {borrowUI(borrowController.getUserId()); BookUI.getPagination().setDisplayTree(borrowController.getLibrary()); return false;},
                     () -> {BookUI.getPagination().previousPage(); return false;},
                     () -> {BookUI.getPagination().nextPage(); return false;},
                     () -> true
@@ -174,7 +174,7 @@ public class BorrowBookUI {
 
     public static void displayBorrowRecordsUI(String userId) {
         boolean quitDisplayRecordsMenu = false;
-        borrowRecordsPagination.setDisplayList(borrowController.getBorrowRepo().getUserBorrowRecords(userId).values());
+        borrowRecordsPagination.setDisplayTree(borrowController.getBorrowRepo().getUserBorrowRecords(userId));
         borrowRecordsPagination.setSearchingWord(null);
         do {
             UIGenerator.clearScreen();
@@ -194,7 +194,7 @@ public class BorrowBookUI {
                 }, 
                 "Select an option >> ", 
                 new Supplier[] {
-                    () -> {borrowRecordsPagination.setDisplayList(borrowController.getBorrowRepo().getUserBorrowRecords(userId).values()); return false;},
+                    () -> {borrowRecordsPagination.setDisplayTree(borrowController.getBorrowRepo().getUserBorrowRecords(userId)); return false;},
                     () -> {
                                 final int[] searchOption = {0};
                                 searchBorrowRecordUI("Search Borrow Records based on the following criteria", 
@@ -219,7 +219,7 @@ public class BorrowBookUI {
                     () -> {viewBorrowRecordDetailUI(userId, true); return false;},
                     () -> {displayCurrentBorrowRecordsUI(userId, false) ;return false;},
                     () -> {displayCurrentBorrowRecordsUI(userId, true); return false;},
-                    () -> {borrowRecordsPagination.setDisplayList(borrowController.getBorrowRepo().getUserIsLostBookRecords(userId).values()); borrowRecordsPagination.setCurrentPage(1); return false;},
+                    () -> {borrowRecordsPagination.setDisplayTree(borrowController.getBorrowRepo().getUserIsLostBookRecords(userId)); borrowRecordsPagination.setCurrentPage(1); return false;},
                     () -> {borrowRecordsPagination.previousPage();return false;},
                     () -> {borrowRecordsPagination.nextPage(); return false;},
                     () -> true
@@ -241,7 +241,7 @@ public class BorrowBookUI {
         String searchingWord = "Pending return";
         if (alreadyReturn) {searchingWord = "Already return";}
         borrowRecordsPagination.setSearchingWord(searchingWord);
-        borrowRecordsPagination.setDisplayList(borrowController.getBorrowRepo().getUserAlreadyReturnRecords(userId, alreadyReturn).values());
+        borrowRecordsPagination.setDisplayTree(borrowController.getBorrowRepo().getUserAlreadyReturnRecords(userId, alreadyReturn));
         
         if (alreadyReturn) {
             optionMenuString[0] = "[1] Search Past Borrow Records";
@@ -285,7 +285,7 @@ public class BorrowBookUI {
             );
         }while(!quitDisplayRecordsMenu);
 
-        borrowRecordsPagination.setDisplayList(borrowController.getBorrowRepo().getUserBorrowRecords(userId).values());
+        borrowRecordsPagination.setDisplayTree(borrowController.getBorrowRepo().getUserBorrowRecords(userId));
         borrowRecordsPagination.setSearchingWord(null);
     }
 
@@ -381,7 +381,7 @@ public class BorrowBookUI {
     //Fines
     public static void displayFineUI(String userId) {
         boolean quitDisplayFinesMenu = false;
-        fineRecordsPagination.setDisplayList(borrowController.getFineRepo().getUserFineRecords(userId).values());
+        fineRecordsPagination.setDisplayTree(borrowController.getFineRepo().getUserFineRecords(userId));
         fineRecordsPagination.setSearchingWord(null);
         do {
             UIGenerator.clearScreen();
@@ -445,7 +445,7 @@ public class BorrowBookUI {
         String searchingWord = "Pending payment";
         if (finePayed) {searchingWord = "Received payment";}
         fineRecordsPagination.setSearchingWord(searchingWord);
-        fineRecordsPagination.setDisplayList(borrowController.getFineRepo().getUserAlreadyPaidRecords(userId, finePayed).values());
+        fineRecordsPagination.setDisplayTree(borrowController.getFineRepo().getUserAlreadyPaidRecords(userId, finePayed));
         if(finePayed) {
             optionMenuString[0] = "[1] Search Past Fine Records";
             filterAlreadyPaid[0] = 2;
@@ -488,7 +488,7 @@ public class BorrowBookUI {
                 }
             );
         }while(!quitDisplayRecordsMenu);
-        fineRecordsPagination.setDisplayList(borrowController.getFineRepo().getUserFineRecords(userId).values());
+        fineRecordsPagination.setDisplayTree(borrowController.getFineRepo().getUserFineRecords(userId));
         fineRecordsPagination.setSearchingWord(null);
     }
 
@@ -705,18 +705,18 @@ public class BorrowBookUI {
             }
             
             borrowRecordsPagination.setSearchingWord("Borrow ID");
-            if(isAdmin) {fineRecordsPagination.setDisplayList(borrowController.getFineRepo().getBorrowFineRecords().getRange(borrowId, borrowId+Character.MAX_VALUE));
+            if(isAdmin) {fineRecordsPagination.setDisplayTree(borrowController.getFineRepo().getBorrowFineRecords().getRange(borrowId, borrowId+Character.MAX_VALUE));
             } else {
                 String keyToSearch = IdGenerator.getKeyId(userId, borrowId);
 
                 if(filterAlreadyPaid == 0) {
-                    fineRecordsPagination.setDisplayList(borrowController.getFineRepo().getUserFineRecords(userId).getRange(keyToSearch, keyToSearch+Character.MAX_VALUE));
+                    fineRecordsPagination.setDisplayTree(borrowController.getFineRepo().getUserFineRecords(userId).getRange(keyToSearch, keyToSearch+Character.MAX_VALUE));
                 }
                 else if(filterAlreadyPaid == 1) {
-                    fineRecordsPagination.setDisplayList(borrowController.getFineRepo().getUserAlreadyPaidRecords(userId, false).getRange(keyToSearch, keyToSearch+Character.MAX_VALUE));
+                    fineRecordsPagination.setDisplayTree(borrowController.getFineRepo().getUserAlreadyPaidRecords(userId, false).getRange(keyToSearch, keyToSearch+Character.MAX_VALUE));
                 }
                 else if(filterAlreadyPaid == 2) {
-                    fineRecordsPagination.setDisplayList(borrowController.getFineRepo().getUserAlreadyPaidRecords(userId, true).getRange(keyToSearch, keyToSearch+Character.MAX_VALUE));
+                    fineRecordsPagination.setDisplayTree(borrowController.getFineRepo().getUserAlreadyPaidRecords(userId, true).getRange(keyToSearch, keyToSearch+Character.MAX_VALUE));
                 }
             }
             fineRecordsPagination.setCurrentPage(1);
@@ -740,13 +740,13 @@ public class BorrowBookUI {
 
             fineRecordsPagination.setSearchingWord("User ID");
             if(filterAlreadyPaid == 0) {
-                fineRecordsPagination.setDisplayList(borrowController.getFineRepo().getUserFineRecords(userSearchId).values());
+                fineRecordsPagination.setDisplayTree(borrowController.getFineRepo().getUserFineRecords(userSearchId));
             }
             else if(filterAlreadyPaid == 1) {
-                fineRecordsPagination.setDisplayList(borrowController.getFineRepo().getUserAlreadyPaidRecords(userSearchId, false).values());
+                fineRecordsPagination.setDisplayTree(borrowController.getFineRepo().getUserAlreadyPaidRecords(userSearchId, false));
             }
             else if(filterAlreadyPaid == 2) {
-                fineRecordsPagination.setDisplayList(borrowController.getFineRepo().getUserAlreadyPaidRecords(userSearchId, true).values());
+                fineRecordsPagination.setDisplayTree(borrowController.getFineRepo().getUserAlreadyPaidRecords(userSearchId, true));
             }
             fineRecordsPagination.setCurrentPage(1);
             
@@ -758,14 +758,14 @@ public class BorrowBookUI {
             int day = fineIssuedDate[2];
 
             fineRecordsPagination.setSearchingWord("Fine Issued Date");
-            if(isAdmin) {fineRecordsPagination.setDisplayList(borrowController.getFineRepo().getFineIssuedDateRecords(year, month, day).values());}            
+            if(isAdmin) {fineRecordsPagination.setDisplayTree(borrowController.getFineRepo().getFineIssuedDateRecords(year, month, day));}            
             else {
                 if(filterAlreadyPaid == 0) {
-                    fineRecordsPagination.setDisplayList(borrowController.getFineRepo().getUserFineIssuedDateRecords(userId, year, month, day).values());
+                    fineRecordsPagination.setDisplayTree(borrowController.getFineRepo().getUserFineIssuedDateRecords(userId, year, month, day));
                 } else if (filterAlreadyPaid == 1) {
-                    fineRecordsPagination.setDisplayList(borrowController.getFineRepo().getUserFineIssuedDateRecords(userId, year, month, day, false).values());
+                    fineRecordsPagination.setDisplayTree(borrowController.getFineRepo().getUserFineIssuedDateRecords(userId, year, month, day, false));
                 } else if (filterAlreadyPaid == 2) {
-                    fineRecordsPagination.setDisplayList(borrowController.getFineRepo().getUserFineIssuedDateRecords(userId, year, month, day, true).values());
+                    fineRecordsPagination.setDisplayTree(borrowController.getFineRepo().getUserFineIssuedDateRecords(userId, year, month, day, true));
                 }
             }
             fineRecordsPagination.setCurrentPage(1);
@@ -784,7 +784,7 @@ public class BorrowBookUI {
                 validAmountRange = true;
             }
 
-            fineRecordsPagination.setDisplayList(borrowController.getFineRepo().getFineAmountRecords().getRange(IdGenerator.getKeyId(minAmount, ""), IdGenerator.getKeyId(maxAmount, String.valueOf(Character.MAX_VALUE))));
+            fineRecordsPagination.setDisplayTree(borrowController.getFineRepo().getFineAmountRecords().getRange(IdGenerator.getKeyId(minAmount, ""), IdGenerator.getKeyId(maxAmount, String.valueOf(Character.MAX_VALUE))));
             fineRecordsPagination.setCurrentPage(1);
         }
         else if(searchOption[0] == 5) {
@@ -794,9 +794,9 @@ public class BorrowBookUI {
             int day = paymentDate[2];
 
             fineRecordsPagination.setSearchingWord("Payment Date");
-            if(isAdmin) {fineRecordsPagination.setDisplayList(borrowController.getFineRepo().getPaymentDateRecords(year, month, day).values());}
+            if(isAdmin) {fineRecordsPagination.setDisplayTree(borrowController.getFineRepo().getPaymentDateRecords(year, month, day));}
             else {
-                fineRecordsPagination.setDisplayList(borrowController.getFineRepo().getUserPaymentDateRecords(userId, year, month, day).values());
+                fineRecordsPagination.setDisplayTree(borrowController.getFineRepo().getUserPaymentDateRecords(userId, year, month, day));
             }
         }
         fineRecordsPagination.setCurrentPage(1);
@@ -856,15 +856,15 @@ public class BorrowBookUI {
             
             borrowRecordsPagination.setSearchingWord("Borrow ID");
             if(isAdmin) {
-                if(filterAlreadyReturned == 0) {borrowRecordsPagination.setDisplayList(borrowController.getBorrowRepo().getBookBorrowRecords().getRange(borrowId, borrowId+Character.MAX_VALUE));}
-                else if(filterAlreadyReturned == 1) {borrowRecordsPagination.setDisplayList(borrowController.getBorrowRepo().getAlreadyReturnRecords(false).getRange(IdGenerator.getKeyId("false", borrowId), IdGenerator.getKeyId("false", borrowId+Character.MAX_VALUE)));}
-                else if(filterAlreadyReturned == 2) {borrowRecordsPagination.setDisplayList(borrowController.getBorrowRepo().getAlreadyReturnRecords(true).getRange(IdGenerator.getKeyId("true", borrowId), IdGenerator.getKeyId("true", borrowId+Character.MAX_VALUE)));}
-                else if(filterAlreadyReturned == 3) {borrowRecordsPagination.setDisplayList(borrowController.getBorrowRepo().getLostBookRecords(true).getRange(IdGenerator.getKeyId(true, borrowId), IdGenerator.getKeyId(true, borrowId)+Character.MAX_VALUE));}
+                if(filterAlreadyReturned == 0) {borrowRecordsPagination.setDisplayTree(borrowController.getBorrowRepo().getBookBorrowRecords().getRange(borrowId, borrowId+Character.MAX_VALUE));}
+                else if(filterAlreadyReturned == 1) {borrowRecordsPagination.setDisplayTree(borrowController.getBorrowRepo().getAlreadyReturnRecords(false).getRange(IdGenerator.getKeyId("false", borrowId), IdGenerator.getKeyId("false", borrowId+Character.MAX_VALUE)));}
+                else if(filterAlreadyReturned == 2) {borrowRecordsPagination.setDisplayTree(borrowController.getBorrowRepo().getAlreadyReturnRecords(true).getRange(IdGenerator.getKeyId("true", borrowId), IdGenerator.getKeyId("true", borrowId+Character.MAX_VALUE)));}
+                else if(filterAlreadyReturned == 3) {borrowRecordsPagination.setDisplayTree(borrowController.getBorrowRepo().getLostBookRecords(true).getRange(IdGenerator.getKeyId(true, borrowId), IdGenerator.getKeyId(true, borrowId)+Character.MAX_VALUE));}
             } else {
                 String keyToSearch = IdGenerator.getKeyId(userId, borrowId);
-                if(filterAlreadyReturned == 0) {borrowRecordsPagination.setDisplayList(borrowController.getBorrowRepo().getUserBorrowRecords(userId).getRange(keyToSearch, keyToSearch+Character.MAX_VALUE));}
-                else if(filterAlreadyReturned == 1) {borrowRecordsPagination.setDisplayList(borrowController.getBorrowRepo().getUserAlreadyReturnRecords(userId, false).getRange(keyToSearch, keyToSearch+Character.MAX_VALUE));}
-                else if(filterAlreadyReturned == 2) {borrowRecordsPagination.setDisplayList(borrowController.getBorrowRepo().getUserAlreadyReturnRecords(userId, true).getRange(keyToSearch, keyToSearch+Character.MAX_VALUE));}
+                if(filterAlreadyReturned == 0) {borrowRecordsPagination.setDisplayTree(borrowController.getBorrowRepo().getUserBorrowRecords(userId).getRange(keyToSearch, keyToSearch+Character.MAX_VALUE));}
+                else if(filterAlreadyReturned == 1) {borrowRecordsPagination.setDisplayTree(borrowController.getBorrowRepo().getUserAlreadyReturnRecords(userId, false).getRange(keyToSearch, keyToSearch+Character.MAX_VALUE));}
+                else if(filterAlreadyReturned == 2) {borrowRecordsPagination.setDisplayTree(borrowController.getBorrowRepo().getUserAlreadyReturnRecords(userId, true).getRange(keyToSearch, keyToSearch+Character.MAX_VALUE));}
             }
             borrowRecordsPagination.setCurrentPage(1);
             
@@ -892,27 +892,27 @@ public class BorrowBookUI {
             borrowRecordsPagination.setSearchingWord("Book ID");
             if(isAdmin) {
                 if(filterAlreadyReturned == 0) {
-                    borrowRecordsPagination.setDisplayList(borrowController.getBorrowRepo().getBookBorrowRecords(bookId).values());
+                    borrowRecordsPagination.setDisplayTree(borrowController.getBorrowRepo().getBookBorrowRecords(bookId));
                 }
                 else if(filterAlreadyReturned == 1) {
-                    borrowRecordsPagination.setDisplayList(borrowController.getBorrowRepo().getBookBorrowRecords(bookId, false).values());
+                    borrowRecordsPagination.setDisplayTree(borrowController.getBorrowRepo().getBookBorrowRecords(bookId, false));
                 }
                 else if(filterAlreadyReturned == 2) {
-                    borrowRecordsPagination.setDisplayList(borrowController.getBorrowRepo().getBookBorrowRecords(bookId, true).values());
+                    borrowRecordsPagination.setDisplayTree(borrowController.getBorrowRepo().getBookBorrowRecords(bookId, true));
                 }
                 else if(filterAlreadyReturned == 3) {
-                    borrowRecordsPagination.setDisplayList(borrowController.getBorrowRepo().getBookIsLostBookRecords(bookId).values());
+                    borrowRecordsPagination.setDisplayTree(borrowController.getBorrowRepo().getBookIsLostBookRecords(bookId));
                 }
                 
             } else {
                 if (filterAlreadyReturned == 0) {
-                    borrowRecordsPagination.setDisplayList(borrowController.getBorrowRepo().getUserBookRecords(userId, bookId).values());
+                    borrowRecordsPagination.setDisplayTree(borrowController.getBorrowRepo().getUserBookRecords(userId, bookId));
                 }
                 else if(filterAlreadyReturned == 1) {
-                    borrowRecordsPagination.setDisplayList(borrowController.getBorrowRepo().getUserBookRecords(userId, bookId, false).values());
+                    borrowRecordsPagination.setDisplayTree(borrowController.getBorrowRepo().getUserBookRecords(userId, bookId, false));
                 }
                 else if(filterAlreadyReturned == 2) {
-                    borrowRecordsPagination.setDisplayList(borrowController.getBorrowRepo().getUserBookRecords(userId, bookId, true).values());
+                    borrowRecordsPagination.setDisplayTree(borrowController.getBorrowRepo().getUserBookRecords(userId, bookId, true));
                 }
                 
             }
@@ -928,26 +928,26 @@ public class BorrowBookUI {
             borrowRecordsPagination.setSearchingWord("Borrow Date");
             if(isAdmin) { 
                 if(filterAlreadyReturned == 0) {
-                    borrowRecordsPagination.setDisplayList(borrowController.getBorrowRepo().getBorrowDateRecords(year, month, day).values());
+                    borrowRecordsPagination.setDisplayTree(borrowController.getBorrowRepo().getBorrowDateRecords(year, month, day));
                 }
                 else if(filterAlreadyReturned == 1) {
-                    borrowRecordsPagination.setDisplayList(borrowController.getBorrowRepo().getAlreadyReturnedBorrowDateRecords(year, month, day, false).values());
+                    borrowRecordsPagination.setDisplayTree(borrowController.getBorrowRepo().getAlreadyReturnedBorrowDateRecords(year, month, day, false));
                 }
                 else if(filterAlreadyReturned == 2) {
-                    borrowRecordsPagination.setDisplayList(borrowController.getBorrowRepo().getAlreadyReturnedBorrowDateRecords(year, month, day, true).values());
+                    borrowRecordsPagination.setDisplayTree(borrowController.getBorrowRepo().getAlreadyReturnedBorrowDateRecords(year, month, day, true));
                 }
                 else if(filterAlreadyReturned == 3) {
-                    borrowRecordsPagination.setDisplayList(borrowController.getBorrowRepo().getBorrowDateIsLostRecords(year, month, day).values());
+                    borrowRecordsPagination.setDisplayTree(borrowController.getBorrowRepo().getBorrowDateIsLostRecords(year, month, day));
                 }
             } else {
                 if(filterAlreadyReturned == 0) {
-                    borrowRecordsPagination.setDisplayList(borrowController.getBorrowRepo().getUserBorrowDateRecords(userId, year, month, day).values());
+                    borrowRecordsPagination.setDisplayTree(borrowController.getBorrowRepo().getUserBorrowDateRecords(userId, year, month, day));
                 }
                 else if (filterAlreadyReturned == 1) { 
-                    borrowRecordsPagination.setDisplayList(borrowController.getBorrowRepo().getUserBorrowDateRecords(userId, year, month, day, false).values());
+                    borrowRecordsPagination.setDisplayTree(borrowController.getBorrowRepo().getUserBorrowDateRecords(userId, year, month, day, false));
                 } 
                 else if (filterAlreadyReturned == 2) {
-                    borrowRecordsPagination.setDisplayList(borrowController.getBorrowRepo().getUserBorrowDateRecords(userId, year, month, day, true).values());
+                    borrowRecordsPagination.setDisplayTree(borrowController.getBorrowRepo().getUserBorrowDateRecords(userId, year, month, day, true));
                 }
             }
             borrowRecordsPagination.setCurrentPage(1);
@@ -960,9 +960,9 @@ public class BorrowBookUI {
 
             borrowRecordsPagination.setSearchingWord("Return Date");
             if(isAdmin) {
-                borrowRecordsPagination.setDisplayList(borrowController.getBorrowRepo().getReturnDateRecords(year, month, day).values());
+                borrowRecordsPagination.setDisplayTree(borrowController.getBorrowRepo().getReturnDateRecords(year, month, day));
             }else {
-                borrowRecordsPagination.setDisplayList(borrowController.getBorrowRepo().getUserReturnDateRecords(userId, year, month, day).values());
+                borrowRecordsPagination.setDisplayTree(borrowController.getBorrowRepo().getUserReturnDateRecords(userId, year, month, day));
             }
             borrowRecordsPagination.setCurrentPage(1);
         } 
@@ -987,16 +987,16 @@ public class BorrowBookUI {
 
             borrowRecordsPagination.setSearchingWord("User ID");
             if(filterAlreadyReturned == 0) {
-                borrowRecordsPagination.setDisplayList(borrowController.getBorrowRepo().getUserBorrowRecords(userSearchId).values());
+                borrowRecordsPagination.setDisplayTree(borrowController.getBorrowRepo().getUserBorrowRecords(userSearchId));
             }
             else if (filterAlreadyReturned == 1) {
-                borrowRecordsPagination.setDisplayList(borrowController.getBorrowRepo().getUserAlreadyReturnRecords(userSearchId, false).values());
+                borrowRecordsPagination.setDisplayTree(borrowController.getBorrowRepo().getUserAlreadyReturnRecords(userSearchId, false));
             }
             else if (filterAlreadyReturned == 2) {
-                borrowRecordsPagination.setDisplayList(borrowController.getBorrowRepo().getUserAlreadyReturnRecords(userSearchId, true).values());
+                borrowRecordsPagination.setDisplayTree(borrowController.getBorrowRepo().getUserAlreadyReturnRecords(userSearchId, true));
             }
             else if (filterAlreadyReturned == 3) {
-                borrowRecordsPagination.setDisplayList(borrowController.getBorrowRepo().getUserIsLostBookRecords(userSearchId).values());
+                borrowRecordsPagination.setDisplayTree(borrowController.getBorrowRepo().getUserIsLostBookRecords(userSearchId));
             }
             borrowRecordsPagination.setCurrentPage(1);
 
@@ -1005,7 +1005,7 @@ public class BorrowBookUI {
 
     public static void displayBorrowRecordsSearchListUI() {
         UIGenerator.clearScreen();
-        ListInterface<BookBorrowRecord> displayList = borrowRecordsPagination.getDisplayList();
+        ListInterface<BookBorrowRecord> displayList = borrowRecordsPagination.getDisplayTree().values();
 
         if(!borrowRecordsPagination.getSearchingWord().contains("null")) {
             System.out.print(borrowRecordsPagination.getSearchingWord() + "\n");
@@ -1038,7 +1038,7 @@ public class BorrowBookUI {
 
     public static void displayFineRecordsSearchListUI() {
         UIGenerator.clearScreen();
-        ListInterface<BorrowFineRecord> displayList = fineRecordsPagination.getDisplayList();
+        ListInterface<BorrowFineRecord> displayList = fineRecordsPagination.getDisplayTree().values();
 
         if(!fineRecordsPagination.getSearchingWord().contains("null")) {
             System.out.print(fineRecordsPagination.getSearchingWord() + "\n");
@@ -1111,7 +1111,7 @@ public class BorrowBookUI {
 
     public static void adminBorrowMenu() {
         boolean quitAdminBorrowMenu = false;
-        borrowRecordsPagination.setDisplayList(borrowController.getBorrowRepo().getBookBorrowRecords().values());
+        borrowRecordsPagination.setDisplayTree(borrowController.getBorrowRepo().getBookBorrowRecords());
         borrowRecordsPagination.setCurrentPage(1);
         do {
             UIGenerator.clearScreen();
@@ -1144,7 +1144,7 @@ public class BorrowBookUI {
 
     public static void displayAllBorrowRecords() {
         boolean quitDisplayRecordsMenu = false;
-        borrowRecordsPagination.setDisplayList(borrowController.getBorrowRepo().getBookBorrowRecords().values());
+        borrowRecordsPagination.setDisplayTree(borrowController.getBorrowRepo().getBookBorrowRecords());
         borrowRecordsPagination.setSearchingWord(null);
         do {
             UIGenerator.clearScreen();
@@ -1294,7 +1294,7 @@ public class BorrowBookUI {
         String searchingWord = "Pending return";
         if(alreadyReturn) {searchingWord = "Already return";}
         borrowRecordsPagination.setSearchingWord(searchingWord);
-        borrowRecordsPagination.setDisplayList(borrowController.getBorrowRepo().getAlreadyReturnRecords(alreadyReturn).values());
+        borrowRecordsPagination.setDisplayTree(borrowController.getBorrowRepo().getAlreadyReturnRecords(alreadyReturn));
 
         if(alreadyReturn) {
             optionMenuString[0] = "[1] Search Past Borrow Records";
@@ -1332,7 +1332,7 @@ public class BorrowBookUI {
                                 new boolean[] {true, true, true, false, true}, true, filterAlreadyReturned[0]);
                                 return false;
                             },
-                        () -> {viewBorrowRecordDetailUI(false, alreadyReturn); borrowRecordsPagination.setDisplayList(borrowController.getBorrowRepo().getAlreadyReturnRecords(alreadyReturn).values()); return false;},
+                        () -> {viewBorrowRecordDetailUI(false, alreadyReturn); borrowRecordsPagination.setDisplayTree(borrowController.getBorrowRepo().getAlreadyReturnRecords(alreadyReturn)); return false;},
                         () -> {borrowRecordsPagination.previousPage();return false;},
                         () -> {borrowRecordsPagination.nextPage();return false;},
                         () -> true
@@ -1341,13 +1341,13 @@ public class BorrowBookUI {
             
         }while(!quitDisplayRecordsMenu);
 
-        borrowRecordsPagination.setDisplayList(borrowController.getBorrowRepo().getBookBorrowRecords().values());   
+        borrowRecordsPagination.setDisplayTree(borrowController.getBorrowRepo().getBookBorrowRecords());   
         borrowRecordsPagination.setSearchingWord(null);
     }
       
     public static void displayIsLostBookRecordsUI() {
         boolean quitDisplayRecordsMenu = false;
-        borrowRecordsPagination.setDisplayList(borrowController.getBorrowRepo().getLostBookRecords(true).values());
+        borrowRecordsPagination.setDisplayTree(borrowController.getBorrowRepo().getLostBookRecords(true));
         borrowRecordsPagination.setSearchingWord("Lost Book");
         do {
             UIGenerator.clearScreen();
@@ -1385,7 +1385,7 @@ public class BorrowBookUI {
                                 new boolean[]{true, true, true, false, true}, true, 3);
 
                             return false;},
-                    () -> {viewBorrowRecordDetailUI(true, true); borrowRecordsPagination.setDisplayList(borrowController.getBorrowRepo().getLostBookRecords(true).values()); return false;},
+                    () -> {viewBorrowRecordDetailUI(true, true); borrowRecordsPagination.setDisplayTree(borrowController.getBorrowRepo().getLostBookRecords(true)); return false;},
                     () -> {borrowRecordsPagination.previousPage(); return false;},
                     () -> {borrowRecordsPagination.nextPage(); return false;},
                     () -> true
@@ -1394,13 +1394,13 @@ public class BorrowBookUI {
             
         }while(!quitDisplayRecordsMenu);
 
-        borrowRecordsPagination.setDisplayList(borrowController.getBorrowRepo().getBookBorrowRecords().values());
+        borrowRecordsPagination.setDisplayTree(borrowController.getBorrowRepo().getBookBorrowRecords());
         borrowRecordsPagination.setSearchingWord(null);
     }
 
     public static void adminFineMenu() {
         boolean quitAdminFineMenu = false;
-        fineRecordsPagination.setDisplayList(borrowController.getFineRepo().getBorrowFineRecords().values());
+        fineRecordsPagination.setDisplayTree(borrowController.getFineRepo().getBorrowFineRecords());
         fineRecordsPagination.setCurrentPage(1);
         do {
             UIGenerator.clearScreen();
@@ -1433,7 +1433,7 @@ public class BorrowBookUI {
     
     public static void displayAllFineRecordsUI() {
         boolean quitDisplayRecordsMenu = false;
-        fineRecordsPagination.setDisplayList(borrowController.getFineRepo().getBorrowFineRecords().values());
+        fineRecordsPagination.setDisplayTree(borrowController.getFineRepo().getBorrowFineRecords());
         fineRecordsPagination.setSearchingWord(null);
         do {
             UIGenerator.clearScreen();
@@ -1494,7 +1494,7 @@ public class BorrowBookUI {
             "[0] Go Back"
         };
         
-        fineRecordsPagination.setDisplayList(borrowController.getFineRepo().getFinePayedRecords(finePayed).values());
+        fineRecordsPagination.setDisplayTree(borrowController.getFineRepo().getFinePayedRecords(finePayed));
         String searchingWord = "Pending payment";
         if(finePayed) {searchingWord = "Received payment";}
         fineRecordsPagination.setSearchingWord(searchingWord);
@@ -1536,7 +1536,7 @@ public class BorrowBookUI {
                                 new boolean[] {true, true, true, true, false}, true, filterAlreadyReturned[0]);
                                 return false;
                             },
-                        () -> {viewFineDetailsUI(false, finePayed); fineRecordsPagination.setDisplayList(borrowController.getFineRepo().getFinePayedRecords(finePayed).values()); return false;},
+                        () -> {viewFineDetailsUI(false, finePayed); fineRecordsPagination.setDisplayTree(borrowController.getFineRepo().getFinePayedRecords(finePayed)); return false;},
                         () -> {fineRecordsPagination.previousPage();return false;},
                         () -> {fineRecordsPagination.nextPage();return false;},
                         () -> true
@@ -1545,7 +1545,7 @@ public class BorrowBookUI {
             
         }while(!quitDisplayRecordsMenu);
 
-        fineRecordsPagination.setDisplayList(borrowController.getFineRepo().getBorrowFineRecords().values()); 
+        fineRecordsPagination.setDisplayTree(borrowController.getFineRepo().getBorrowFineRecords()); 
         fineRecordsPagination.setSearchingWord(null);  
     }
 

@@ -39,11 +39,12 @@ package com.mycompany.library_system.adt;
    */
   public boolean containsKey(K key);
 
-  // /** Checks whether a specific value is in the map.
-  //  *  @param value
-  //  *  @return true or false if the map contains the value 
-  //  */
-  // public boolean containsValue(V value);
+  /** Retrieves a subtree of all values that fall inclusively within this range.
+   *  @param min minimum value
+   *  @param max maximum value
+   *  @return A subtree of all values that fall inclusively within this range.
+   */
+  public MapInterface<K, V> getRange(K min, K max);
   
   /** Checks whether the map is empty.
    *  @return true if the map is empty 

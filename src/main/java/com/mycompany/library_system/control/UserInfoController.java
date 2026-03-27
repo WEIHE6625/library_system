@@ -4,7 +4,6 @@ import java.util.function.Supplier;
 import com.mycompany.library_system.adt.ArrayList;
 import com.mycompany.library_system.adt.ListInterface;
 import com.mycompany.library_system.adt.TreeMap;
-import com.mycompany.library_system.boundary.BookUI;
 import com.mycompany.library_system.boundary.UserUI;
 import com.mycompany.library_system.dao.UserDAO;
 import com.mycompany.library_system.entity.User;
@@ -31,7 +30,7 @@ public class UserInfoController {
         this.userAgeTree = new TreeMap<>();
         this.userEducationTree = new TreeMap<>();
         this.userCreatedDateTimeTree = new TreeMap<>();
-        this.userNumOfBooksBorrowing = new TreeMap();
+        this.userNumOfBooksBorrowing = new TreeMap<>();
 
         // Loop through every book in the main bookTree
         for (User user : userTree.values()) {
@@ -91,7 +90,7 @@ public class UserInfoController {
         userCreatedDateTimeTree.put(IdGenerator.getKeyId(newUser.getCreatedAt(), id), newUser);
         userNumOfBooksBorrowing.put(IdGenerator.getKeyId(newUser.getNumOfBooksBorrowing(), id), newUser);
         
-        UserUI.getPagination().setDisplayList(userTree.values());
+        UserUI.getPagination().setDisplayTree(userTree);
         UserUI.getPagination().setCurrentPage(1);
         
         System.out.println("Added user with ID: " + id);
@@ -197,7 +196,7 @@ public class UserInfoController {
         userNumOfBooksBorrowing.remove(IdGenerator.getKeyId(user.getNumOfBooksBorrowing(), id));
         System.out.println("User with ID " + id + " has been deleted.");
 
-        UserUI.getPagination().setDisplayList(userTree.values());
+        UserUI.getPagination().setDisplayTree(userTree);
         UserUI.getPagination().setCurrentPage(1);
 
         saveToFile();
@@ -270,7 +269,7 @@ public class UserInfoController {
 
         System.out.println("Your account has been deleted.");
 
-        UserUI.getPagination().setDisplayList(userTree.values());
+        UserUI.getPagination().setDisplayTree(userTree);
         UserUI.getPagination().setCurrentPage(1);
 
         saveToFile();
@@ -298,13 +297,13 @@ public class UserInfoController {
                     },
                     "Select a sorting option >> ",
                     new Supplier[] {
-                            () -> { UserUI.getPagination().setDisplayList(userTree.values()); return false; },
-                            () -> { UserUI.getPagination().setDisplayList(userNameTree.values()); return false; },
-                            () -> { UserUI.getPagination().setDisplayList(userEmailTree.values()); return false; },
-                            () -> { UserUI.getPagination().setDisplayList(userAgeTree.values()); return false; },
-                            () -> { UserUI.getPagination().setDisplayList(userEducationTree.values()); return false; },
-                            () -> { UserUI.getPagination().setDisplayList(userCreatedDateTimeTree.values()); return false; },
-                            () -> { UserUI.getPagination().setDisplayList(userNumOfBooksBorrowing.values()); return false; },
+                            () -> { UserUI.getPagination().setDisplayTree(userTree); return false; },
+                            () -> { UserUI.getPagination().setDisplayTree(userNameTree); return false; },
+                            () -> { UserUI.getPagination().setDisplayTree(userEmailTree); return false; },
+                            () -> { UserUI.getPagination().setDisplayTree(userAgeTree); return false; },
+                            () -> { UserUI.getPagination().setDisplayTree(userEducationTree); return false; },
+                            () -> { UserUI.getPagination().setDisplayTree(userCreatedDateTimeTree); return false; },
+                            () -> { UserUI.getPagination().setDisplayTree(userNumOfBooksBorrowing); return false; },
                             () -> true
                     }
             );
@@ -361,12 +360,9 @@ public class UserInfoController {
             );
         } while (isBack);
 
-        String search;
-        ListInterface<User> searchList = new ArrayList<>();
+        String search = new String();
         // If user search String
-        if(searchOption[0] == -1) {
-            searchList = userTree.values();
-        }else{
+        if(searchOption[0] >= 0) {
             if(searchOption[0] == 0 || searchOption[0] == 1 || searchOption[0] == 3 ) {
                 search = UserPrompt.inputString("Enter the word seaching : ", 999, false).toLowerCase().replaceAll("\\s+", "");
             }
@@ -375,10 +371,9 @@ public class UserInfoController {
 //                search = Integer.toString(UserPrompt.inputInteger("Enter the number seaching : ", 0, 999));
             }
             UserUI.getPagination().setSearchingWord(search);
-            searchList = searchTree.getRange(search, search+Character.MAX_VALUE);
         }
 
-        UserUI.getPagination().setDisplayList(searchList);
+        UserUI.getPagination().setDisplayTree(searchTree.getRange(search, search+Character.MAX_VALUE));
         UserUI.getPagination().setCurrentPage(1);
     }
 

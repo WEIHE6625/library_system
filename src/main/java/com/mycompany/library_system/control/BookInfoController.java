@@ -5,6 +5,7 @@ import java.time.YearMonth;
 import java.util.function.Supplier;
 import com.mycompany.library_system.adt.ArrayList;
 import com.mycompany.library_system.adt.ListInterface;
+import com.mycompany.library_system.adt.MapInterface;
 import com.mycompany.library_system.adt.TreeMap;
 import com.mycompany.library_system.boundary.BookUI;
 import com.mycompany.library_system.dao.BookDAO;
@@ -105,7 +106,7 @@ public class BookInfoController {
         bookQtyATree.put(IdGenerator.getKeyId(newBook.getQtyAvailable(), id), newBook);
         bookQtyTTree.put(IdGenerator.getKeyId(newBook.getQtyTotal(), id), newBook);
 
-        BookUI.getPagination().setDisplayList(bookTree.values());
+        BookUI.getPagination().setDisplayTree(bookTree);
         BookUI.getPagination().setCurrentPage(1);
 
         System.out.println("Added book with ID: " + id);
@@ -281,9 +282,9 @@ public class BookInfoController {
 
         do {
             isBack = false;
-
             UIGenerator.clearScreen();
             UIGenerator.titleBuilder("View Sorted Books"); 
+
             isBack = UIGenerator.optionMenu(
                 new String[]{
                     "[1] Sort by Book ID",
@@ -296,18 +297,16 @@ public class BookInfoController {
                 },
                 "Select a sorting option >> ",
                 new Supplier[] {
-                        () -> { BookUI.getPagination().setDisplayList(bookTree.values()); return false; },
-                        () -> { BookUI.getPagination().setDisplayList(bookTitleTree.values()); return false; },
-                        () -> { BookUI.getPagination().setDisplayList(bookAuthorTree.values()); return false; },
-                        () -> { BookUI.getPagination().setDisplayList(bookQtyATree.values()); return false; },
-                        () -> { BookUI.getPagination().setDisplayList(bookQtyTTree.values()); return false; },
+                        () -> { sort(1); return false; },
+                        () -> { sort(2); return false; },
+                        () -> { sort(3); return false; },
+                        () -> { sort(4); return false; },
+                        () -> { sort(5); return false; },
                         () -> true
                 }
             );
 
-            if(isBack) {
-                return;
-            }
+            if(isBack) return;
 
             isBack = UIGenerator.optionMenu(
                 new String[]{
@@ -326,6 +325,39 @@ public class BookInfoController {
 
         } while (isBack);
         BookUI.getPagination().setCurrentPage(1);
+    }
+
+    private void sort(int sortType) {
+        MapInterface<String, Book> currentDisplayTree = BookUI.getPagination().getDisplayTree();
+
+        if (currentDisplayTree.size() == bookTree.size()) {
+            switch (sortType) {
+                case 1: BookUI.getPagination().setDisplayTree(bookTree); break;
+                case 2: BookUI.getPagination().setDisplayTree(bookTitleTree); break;
+                case 3: BookUI.getPagination().setDisplayTree(bookAuthorTree); break;
+                case 4: BookUI.getPagination().setDisplayTree(bookQtyATree); break;
+                case 5: BookUI.getPagination().setDisplayTree(bookQtyTTree); break;
+            }
+            
+        } else {
+            TreeMap<String, Book> tempTree = new TreeMap<>();
+            
+            for (MapInterface.Entry<String, Book> entry : currentDisplayTree.entrySet()) {
+                Book b = entry.getValue(); 
+                String sortKey = "";
+                
+                switch (sortType) {
+                    case 1: sortKey = b.getId(); break;
+                    case 2: sortKey = IdGenerator.getKeyId(b.getTitle(), b.getId()); break;
+                    case 3: sortKey = IdGenerator.getKeyId(b.getAuthor(), b.getId()); break;
+                    case 4: sortKey = IdGenerator.getKeyId(b.getQtyAvailable(), b.getId()); break; 
+                    case 5: sortKey = IdGenerator.getKeyId(b.getQtyTotal(), b.getId()); break;
+                }
+                
+                tempTree.put(sortKey, b);
+            }
+            BookUI.getPagination().setDisplayTree(tempTree);
+        }
     }
 
     public void searchBooks() {
@@ -366,12 +398,9 @@ public class BookInfoController {
             
         } while (isBack);
 
-        String search;
-        ListInterface<Book> searchList = new ArrayList<>();
+        String search = new String();
         // If user search String
-        if(searchOption[0] == -1) {
-            searchList = bookTree.values();
-        }else{
+        if(searchOption[0] >= 0) {
             if(searchOption[0] == 0 ) {
                 search = UserPrompt.inputString("Enter the word seaching : ", 999, false).toLowerCase().replaceAll("\\s+", "");
                 BookUI.getPagination().setSearchingWord(search);    
@@ -381,10 +410,9 @@ public class BookInfoController {
                 search = IdGenerator.getKeyId(input, "");
                 BookUI.getPagination().setSearchingWord(String.valueOf(input));
             }
-            searchList = searchTree.getRange(search, search+Character.MAX_VALUE);
         }
 
-        BookUI.getPagination().setDisplayList(searchList);
+        BookUI.getPagination().setDisplayTree(searchTree.getRange(search, search+Character.MAX_VALUE));
         BookUI.getPagination().setCurrentPage(1);
     }
 

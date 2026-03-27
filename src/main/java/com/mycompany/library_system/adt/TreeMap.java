@@ -126,13 +126,13 @@ public class TreeMap<K extends Comparable<K>, V> implements MapInterface<K, V> {
 
     
     // Finds all values whose keys fall within the specified range [min, max].
-    public ListInterface<V> getRange(K min, K max) {
-        ListInterface<V> result = new ArrayList<>(); // Define a emptyt list
+    public MapInterface<K, V> getRange(K min, K max) {
+        MapInterface<K, V> result = new TreeMap<>(); // Define a emptyt list
         collectRangeValues(root, min, max, result);
         return result;
     }
     
-    private void collectRangeValues(Node<K, V> node, K min, K max, ListInterface<V> result) {
+    private void collectRangeValues(Node<K, V> node, K min, K max, MapInterface<K, V> result) {
         if (node == null) return;
 
         int cmpMin = min.compareTo(node.key);
@@ -145,7 +145,7 @@ public class TreeMap<K extends Comparable<K>, V> implements MapInterface<K, V> {
 
         // If the current key is perfectly inside the boundaries, add its value
         if (cmpMin <= 0 && cmpMax >= 0) {
-            result.add(node.value);
+            result.put(node.key, node.value);
         }
 
         // If the current key is less than the maximum, there might be valid nodes in the right subtree.

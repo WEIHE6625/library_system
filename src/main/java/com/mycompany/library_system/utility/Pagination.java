@@ -1,12 +1,12 @@
 package com.mycompany.library_system.utility;
 
-import com.mycompany.library_system.adt.ListInterface;
+import com.mycompany.library_system.adt.MapInterface;
 
 /**
  *
  * @author all
  */
-public class Pagination<T> {
+public class Pagination<K, V> {
     private int currentPage = 1;
     private int totalPages = 1;
     private final int PAGE_SIZE = 30;
@@ -14,16 +14,16 @@ public class Pagination<T> {
     private boolean isAscending = true;
     private String searchingWord = "";
 
-    private ListInterface<T> displayList;
+    private MapInterface<K, V> displayTree;
 
-    public void setDisplayList(ListInterface<T> list) {
-        this.displayList = list;
+    public void setDisplayTree(MapInterface<K, V> tree) {
+        this.displayTree = tree;
         recalculateTotalPages();
         currentPage = 1;
     }
 
-    public ListInterface<T> getDisplayList() {
-        return displayList;
+    public MapInterface<K, V> getDisplayTree() {
+        return displayTree;
     }
 
     public int getCurrentPage() {
@@ -67,12 +67,12 @@ public class Pagination<T> {
     }
 
     private void recalculateTotalPages() {
-        if (displayList == null || displayList.isEmpty()) {
+        if (displayTree == null || displayTree.isEmpty()) {
             totalPages = 1;
             return;
         }
 
-        totalPages = (int) Math.ceil((double) displayList.size() / PAGE_SIZE);
+        totalPages = (int) Math.ceil((double) displayTree.size() / PAGE_SIZE);
     }
 
     public int getStartIndex() {
@@ -80,6 +80,6 @@ public class Pagination<T> {
     }
 
     public int getEndIndex() {
-        return Math.min(getStartIndex() + PAGE_SIZE - 1, displayList.size() - 1);
+        return Math.min(getStartIndex() + PAGE_SIZE - 1, displayTree.size() - 1);
     }
 }

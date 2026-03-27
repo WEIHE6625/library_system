@@ -19,7 +19,7 @@ import com.mycompany.library_system.utility.Pagination;
 public class BookUI {
     
     static Scanner scanner = new Scanner(System.in);
-    static Pagination<Book> pagination = new Pagination<>();
+    static Pagination<String, Book> pagination = new Pagination<>();
 
     public static String inputBookID(TreeMap<String, Book> bookList) {
         boolean isValid = false;
@@ -85,7 +85,7 @@ public class BookUI {
     public static void menu() {
         BookInfoController bController = new BookInfoController();
         boolean isExit = false;
-        pagination.setDisplayList(bController.getbookList().values());
+        pagination.setDisplayTree(bController.getbookList());
         do {
             UIGenerator.clearScreen();
             bookListPage();
@@ -122,7 +122,7 @@ public class BookUI {
     public static void bookListPage() {
         UIGenerator.titleBuilder("Book List");
         System.out.println(pagination.getSearchingWord());
-        ListInterface<Book> displayList = pagination.getDisplayList();
+        ListInterface<Book> displayList = pagination.getDisplayTree().values();
 
         if (displayList == null || displayList.isEmpty()) {
             System.out.println("No books found in the library.");
@@ -151,7 +151,7 @@ public class BookUI {
         System.out.printf("Page: %d/%d ------ Total Records: %d\n\n", pagination.getCurrentPage(), pagination.getTotalPages(), displayList.size());
     }
 
-    public static Pagination<Book> getPagination() {
+    public static Pagination<String, Book> getPagination() {
         return pagination;
     }
 }
