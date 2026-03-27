@@ -1,3 +1,7 @@
+/**
+ *
+ * @author Isaac Kuan Way Houng
+ */
 package com.mycompany.library_system.entity;
 
 import java.time.LocalDate;

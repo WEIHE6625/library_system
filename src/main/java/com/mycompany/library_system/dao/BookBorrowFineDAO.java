@@ -1,3 +1,7 @@
+/**
+ *
+ * @author Isaac Kuan Way Houng
+ */
 package com.mycompany.library_system.dao;
 
 import java.io.FileReader;
@@ -5,8 +9,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 
-import com.mycompany.library_system.adt.MapInterface;
-import com.mycompany.library_system.entity.BookBorrowRecord;
 import com.mycompany.library_system.entity.BorrowFineRecord;
 import com.mycompany.library_system.entity.Fine;
 import com.mycompany.library_system.utility.DataProcessor;

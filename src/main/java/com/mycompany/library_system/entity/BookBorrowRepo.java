@@ -1,9 +1,12 @@
+/**
+ *
+ * @author Isaac Kuan Way Houng
+ */
 package com.mycompany.library_system.entity;
 import com.mycompany.library_system.adt.TreeMap;
 import com.mycompany.library_system.dao.BookBorrowDAO;
 import com.mycompany.library_system.adt.MapInterface;
 import com.mycompany.library_system.utility.IdGenerator;
-import com.mycompany.library_system.adt.ArrayList;
 
 import java.time.LocalDate;
 
