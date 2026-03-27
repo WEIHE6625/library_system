@@ -104,6 +104,10 @@ public class User {
         return createdAt;
     }
 
+    public void setNumberOfBooksBorrowing(int numOfBooksBorrwing) {
+        this.numOfBooksBorrwing = numOfBooksBorrwing;
+    }
+
     @Override
     public String toString() {
         return """

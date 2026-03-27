@@ -28,6 +28,6 @@ public class Fine {
 
     @Override
     public String toString() {
-        return String.format("%-15s %-10s", String.valueOf(this.fineDate), String.valueOf(fineAmount));
+        return String.format("%-21s %10s", String.valueOf(this.fineDate), String.format("%.2f", fineAmount));
     }
 }

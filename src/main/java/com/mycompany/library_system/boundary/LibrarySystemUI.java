@@ -62,7 +62,7 @@ public class LibrarySystemUI {
                         new Supplier[] {
                                 () -> UserUI.menu(userInfoController, sessionUser),
                                 () -> {BookUI.menu(); return false; },
-                                () -> { return false; },
+                                () -> {BorrowBookUI.menu(sessionUser); return false; },
                                 () -> { return false; },
                                 () -> { return false; }
                         }

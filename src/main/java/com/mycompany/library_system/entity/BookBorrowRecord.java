@@ -53,6 +53,9 @@ public class BookBorrowRecord {
         if(alreadyReturn) {
             return "Returned";
         }
+        else if(!alreadyReturn && this.isLostBook) {
+            return "Lost";
+        }
         return "Pending";
     }
 
@@ -63,12 +66,17 @@ public class BookBorrowRecord {
         return date.toString();
     }
 
+    public String isLostBookToString(boolean isLostBook) {
+        if(isLostBook) {return "Yes";}
+        return "No";
+    }
+
     public void setLateReturn(boolean lateReturn) {this.lateReturn = lateReturn;}
     public void setIsLostBook(boolean lostBook) {this.isLostBook = lostBook;}
 
     @Override
     public String toString() {
-        return String.format("%-13s %-12s %-9s %-16s %10s %14s", this.getBorrowId(), this.getBookId(), this.getUserId(), this.getBorrowDate(), alreadyReturnToString(this.getAlreadyReturned()), dateToString(this.getReturnDate()));
+        return String.format("%-13s %-12s %-9s %-16s %10s %14s %14s", this.getBorrowId(), this.getBookId(), this.getUserId(), this.getBorrowDate(), alreadyReturnToString(this.getAlreadyReturned()), dateToString(this.getReturnDate()), isLostBookToString(this.getIsLostBook()));
     }
     
 
