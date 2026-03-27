@@ -14,7 +14,7 @@ import com.mycompany.library_system.utility.Pagination;
 
 /**
  *
- * @author wh
+ * @author weihe
  */
 public class BookUI {
     
@@ -82,10 +82,6 @@ public class BookUI {
     }
 
 
-//    private static ListInterface<Book> displayList = new ArrayList<>();
-//    private static boolean isAscending = true;
-//    private static String searchingWord = new String();
-
     public static void menu() {
         BookInfoController bController = new BookInfoController();
         boolean isExit = false;
@@ -152,7 +148,7 @@ public class BookUI {
         }
 
         System.out.println("-".repeat(160));
-        System.out.printf("Page: %d/%d\n\n", pagination.getCurrentPage(), pagination.getTotalPages());
+        System.out.printf("Page: %d/%d ------ Total Records: %d\n\n", pagination.getCurrentPage(), pagination.getTotalPages(), displayList.size());
     }
 
     public static Pagination<Book> getPagination() {

@@ -6,7 +6,7 @@ import java.io.IOException;
 
 /**
  * 
- * @author wh
+ * @author all
  */
 public class DataProcessor {
     // Count total lines in a file

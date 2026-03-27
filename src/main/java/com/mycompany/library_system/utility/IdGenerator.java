@@ -5,6 +5,10 @@ import java.time.format.DateTimeFormatter;
 
 import com.mycompany.library_system.adt.MapInterface;
 
+/**
+ *
+ * @author all
+ */
 public class IdGenerator {
     private static int getMaxId(MapInterface<String, ?> map, String prefix) {
         int max = 0;

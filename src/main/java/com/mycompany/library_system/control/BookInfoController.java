@@ -25,11 +25,13 @@ public class BookInfoController {
     private TreeMap<String, Book> bookDateTree;
     private TreeMap<String, Book> bookQtyATree;
     private TreeMap<String, Book> bookQtyTTree;
+    private TreeMap<String, Book> bookCatTree;
     private TreeMap<String, Book> searchTree = new TreeMap<>();
     
     public static final String BOOK_FILE_PATH = "database/book.csv";
 
     public BookInfoController() {
+        System.out.println("Initializing...");
         this.bookTree = BookDAO.readFile(BOOK_FILE_PATH);
         this.bookTitleTree = new TreeMap<>();
         this.bookAuthorTree = new TreeMap<>();
@@ -37,8 +39,10 @@ public class BookInfoController {
         this.bookDateTree = new TreeMap<>();
         this.bookQtyATree = new TreeMap<>();
         this.bookQtyTTree = new TreeMap<>();
+        this.bookCatTree = new TreeMap<>();
 
         // Loop through every book in the main bookTree
+        System.out.println("Matching...");
         for (Book book : bookTree.values()) {
             // Add the book to each tree
             bookTitleTree.put(IdGenerator.getKeyId(book.getTitle(), book.getId()), book);
@@ -47,6 +51,10 @@ public class BookInfoController {
             bookDateTree.put(IdGenerator.getKeyId(book.getPublishDate(), book.getId()), book);
             bookQtyATree.put(IdGenerator.getKeyId(book.getQtyAvailable(), book.getId()), book);
             bookQtyTTree.put(IdGenerator.getKeyId(book.getQtyTotal(), book.getId()), book);
+
+            for (String category : book.getCategories()) {
+                bookCatTree.put(IdGenerator.getKeyId(category, book.getId()), book);
+            }
         }
     }
 
@@ -334,8 +342,9 @@ public class BookInfoController {
                     "[1] Show All Books",
                     "[2] Search by Book Title",
                     "[3] Search by Author",
-                    "[4] Search by Available Quantity",
-                    "[5] Search by Total Quantity",
+                    "[4] Search by Category",
+                    "[5] Search by Available Quantity",
+                    "[6] Search by Total Quantity",
                     " ",
                     "[0] Back to Main Menu"
                 },
@@ -343,9 +352,10 @@ public class BookInfoController {
                 new Supplier[] {
                         () -> { searchOption[0] = -1; searchTree = bookTree; return false; },
                         () -> { searchOption[0] = 0; searchTree = bookTitleTree; return false; },
-                        () -> { searchOption[0] = 1; searchTree = bookAuthorTree; return false; },
-                        () -> { searchOption[0] = 2; searchTree = bookQtyATree; return false; },
-                        () -> { searchOption[0] = 3; searchTree = bookQtyTTree; return false; },
+                        () -> { searchOption[0] = 0; searchTree = bookAuthorTree; return false; },
+                        () -> { searchOption[0] = 0; searchTree = bookCatTree; return false; },
+                        () -> { searchOption[0] = 1; searchTree = bookQtyATree; return false; },
+                        () -> { searchOption[0] = 1; searchTree = bookQtyTTree; return false; },
                         () -> true
                 }
             );
@@ -353,21 +363,6 @@ public class BookInfoController {
             if(isBack) {
                 return;
             }
-
-            // isBack = UIGenerator.optionMenu(
-            //     new String[]{
-            //         "\n[1] Actual Value",
-            //         "[2] Range",
-            //         " ",
-            //         "[0] Back"
-            //     },
-            //     "Select a sorting option >> ",
-            //     new Runnable[] {
-            //         () -> { searchOption[1] = 0; },
-            //         () -> { searchOption[1] = 1; },
-            //         () -> { }  // Back
-            //     }
-            // );
             
         } while (isBack);
 
@@ -377,13 +372,15 @@ public class BookInfoController {
         if(searchOption[0] == -1) {
             searchList = bookTree.values();
         }else{
-            if(searchOption[0] == 0 || searchOption[0] == 1 ) {
+            if(searchOption[0] == 0 ) {
                 search = UserPrompt.inputString("Enter the word seaching : ", 999, false).toLowerCase().replaceAll("\\s+", "");
+                BookUI.getPagination().setSearchingWord(search);    
             }
             else {
-                search = IdGenerator.getKeyId(UserPrompt.inputInteger("Enter the number seaching : ", 0, 999), "");
+                int input = UserPrompt.inputInteger("Enter the number seaching : ", 0, 999);
+                search = IdGenerator.getKeyId(input, "");
+                BookUI.getPagination().setSearchingWord(String.valueOf(input));
             }
-            BookUI.getPagination().setSearchingWord(search);
             searchList = searchTree.getRange(search, search+Character.MAX_VALUE);
         }
 

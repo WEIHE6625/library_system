@@ -8,7 +8,7 @@ import com.mycompany.library_system.adt.ListInterface;
 
 /**
  *
- * @author wh
+ * @author weihe
  */
 public class Book {
     
