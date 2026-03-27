@@ -55,7 +55,15 @@ public class Pagination<K, V> {
     }
 
     public void setSearchingWord(String word) {
-        this.searchingWord = "Searching : " + word;
+        if (word == null || word.isEmpty()) {
+            this.searchingWord = "";
+        } else {
+            this.searchingWord = "Searching : " + word;
+        }
+    }
+
+    public void clearSearchingWord() {
+        this.searchingWord = "";
     }
 
     public void nextPage() {

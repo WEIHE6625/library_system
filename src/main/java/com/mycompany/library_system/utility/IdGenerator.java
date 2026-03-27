@@ -41,6 +41,10 @@ public class IdGenerator {
         }else if (key instanceof String) {
             keyId = (String) key;
             keyId = String.format("%s-%s", keyId.toLowerCase().replaceAll("\\s+", ""), Id);
+        }else if (key instanceof Enum<?>) { // ADD THIS BRANCH
+            // Get the Enum name (e.g., "BACHELOR"), lowercase it and remove spaces
+            String enumStr = ((Enum<?>) key).name().toLowerCase().replaceAll("_", "");
+            keyId = String.format("%s-%s", enumStr, Id);
         }else if (key instanceof YearMonth) {
             YearMonth yearMonth = (YearMonth) key;
             keyId = String.format("%s-%s", yearMonth.format(DateTimeFormatter.ofPattern("MM-yyyy")).toString(), Id);

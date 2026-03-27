@@ -1,8 +1,6 @@
 package com.mycompany.library_system.control;
 
 import java.util.function.Supplier;
-import com.mycompany.library_system.adt.ArrayList;
-import com.mycompany.library_system.adt.ListInterface;
 import com.mycompany.library_system.adt.TreeMap;
 import com.mycompany.library_system.boundary.UserUI;
 import com.mycompany.library_system.dao.UserDAO;
@@ -225,6 +223,7 @@ public class UserInfoController {
         UIGenerator.clearScreen();
         UIGenerator.titleBuilder("Edit My Account");
 
+        String id = currentUser.getUserId();
         boolean isExit = false;
 
         do {
@@ -239,11 +238,39 @@ public class UserInfoController {
                     },
                     "Select an option >> ",
                     new Supplier[] {
-                            () -> { currentUser.setName(UserUI.inputUserName()); return false; },
-                            () -> { currentUser.setEmail(UserUI.inputUserEmail()); return false; },
+                            () -> {
+                                String oldName = currentUser.getName();
+                                String newName = UserUI.inputUserName();
+                                currentUser.setName(newName);
+                                userNameTree.remove(IdGenerator.getKeyId(oldName, id));
+                                userNameTree.put(IdGenerator.getKeyId(newName, id), currentUser);
+                                return false;
+                            },
+                            () -> {
+                                String oldEmail = currentUser.getEmail();
+                                String newEmail = UserUI.inputUserEmail();
+                                currentUser.setEmail(newEmail);
+                                userEmailTree.remove(IdGenerator.getKeyId(oldEmail, id));
+                                userEmailTree.put(IdGenerator.getKeyId(newEmail, id), currentUser);
+                                return false;
+                            },
                             () -> { currentUser.setGender(UserUI.inputUserGender()); return false; },
-                            () -> { currentUser.setAge(UserUI.inputUserAge()); return false; },
-                            () -> { currentUser.setEducation(UserUI.inputUserEducation()); return false; },
+                            () -> {
+                                String oldAge = String.valueOf(currentUser.getAge());
+                                int newAge = UserUI.inputUserAge();
+                                currentUser.setAge(newAge);
+                                userAgeTree.remove(IdGenerator.getKeyId(oldAge, id));
+                                userAgeTree.put(IdGenerator.getKeyId(String.valueOf(newAge), id), currentUser);
+                                return false;
+                            },
+                            () -> {
+                                String oldEducation = String.valueOf(currentUser.getEducation());
+                                User.Education newEdu = UserUI.inputUserEducation();
+                                currentUser.setEducation(newEdu);
+                                userEducationTree.remove(IdGenerator.getKeyId(oldEducation, id));
+                                userEducationTree.put(IdGenerator.getKeyId(String.valueOf(newEdu), id), currentUser);
+                                return false;
+                            },
                             () -> true
                     }
             );
@@ -265,7 +292,15 @@ public class UserInfoController {
             return false;  // do nothing
         }
 
+        String id = currentUser.getUserId();
+
         userTree.remove(currentUser.getUserId());
+        userNameTree.remove(IdGenerator.getKeyId(currentUser.getName(), id));
+        userEmailTree.remove(IdGenerator.getKeyId(currentUser.getEmail(), id));
+        userAgeTree.remove(IdGenerator.getKeyId(currentUser.getAge(), id));
+        userEducationTree.remove(IdGenerator.getKeyId(currentUser.getEducation(), id));
+        userCreatedDateTimeTree.remove(IdGenerator.getKeyId(currentUser.getCreatedAt(), id));
+        userNumOfBooksBorrowing.remove(IdGenerator.getKeyId(currentUser.getNumOfBooksBorrowing(), id));
 
         System.out.println("Your account has been deleted.");
 
@@ -279,6 +314,7 @@ public class UserInfoController {
     }
 
     public void sortUsers() {
+        UserUI.getPagination().clearSearchingWord();
         boolean isBack = false;
 
         do {
@@ -335,6 +371,8 @@ public class UserInfoController {
         final int searchOption[] = {0,0};
 
         do {
+            isBack = false;
+
             UIGenerator.clearScreen();
             UIGenerator.titleBuilder("View Sorted Users");
             isBack = UIGenerator.optionMenu(
@@ -358,19 +396,23 @@ public class UserInfoController {
                             () -> true
                     }
             );
+            if(isBack) {
+                return;
+            }
         } while (isBack);
 
         String search = new String();
         // If user search String
         if(searchOption[0] >= 0) {
-            if(searchOption[0] == 0 || searchOption[0] == 1 || searchOption[0] == 3 ) {
+            if(searchOption[0] == 0) {
                 search = UserPrompt.inputString("Enter the word seaching : ", 999, false).toLowerCase().replaceAll("\\s+", "");
+                UserUI.getPagination().setSearchingWord(search);
             }
             else {
-                search = IdGenerator.getKeyId(UserPrompt.inputInteger("Enter the number seaching : ", 0, 999), "");
-//                search = Integer.toString(UserPrompt.inputInteger("Enter the number seaching : ", 0, 999));
+                int input = UserPrompt.inputInteger("Enter the number seaching : ", 0, 999);
+                search = IdGenerator.getKeyId(input, "");
+                UserUI.getPagination().setSearchingWord(String.valueOf(input));
             }
-            UserUI.getPagination().setSearchingWord(search);
         }
 
         UserUI.getPagination().setDisplayTree(searchTree.getRange(search, search+Character.MAX_VALUE));

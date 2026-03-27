@@ -62,6 +62,7 @@ public class UserUI {
         boolean isExit = false;
         boolean[] isLogout = {false}; // flag to signal outer logout
 
+        pagination.clearSearchingWord();
         pagination.setDisplayTree(uController.getUserList());
 
         do {

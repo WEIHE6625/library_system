@@ -44,7 +44,7 @@ public class UserDAO {
                                 numOfBooksBorrowing = Integer.parseInt(data[7]);
                             } catch (NumberFormatException e) {}
 
-                            String createdAt = data[8].trim();
+                            String createdAt = data[7].trim();
 
                             User user = new User(
                                     userId,
