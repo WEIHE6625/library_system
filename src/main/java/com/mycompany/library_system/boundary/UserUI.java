@@ -2,6 +2,8 @@ package com.mycompany.library_system.boundary;
 
 import java.util.Scanner;
 import java.util.function.Supplier;
+
+import com.mycompany.library_system.entity.Book;
 import com.mycompany.library_system.entity.User;
 import com.mycompany.library_system.adt.TreeMap;
 import com.mycompany.library_system.adt.ListInterface;
@@ -73,15 +75,19 @@ public class UserUI {
                 isExit = UIGenerator.optionMenu(
                         new String[]{
                                 "[1] Add New User",
-                                "[2] Edit User Information",
-                                "[3] Sort Users",
-                                "[4] Search Users",
-                                "[5] Delete User",
+                                "[2] View User Information",
+                                "[3] Edit User Information",
+                                "[4] Sort Users",
+                                "[5] Search Users",
+                                "[6] Delete User",
+                                " ",
+                                "[7] <- Previous Page          [8] Next Page ->",
                                 "[0] Back to Main Menu"
                         },
                         "Select an option >> ",
                         new Supplier[]{
                                 () -> { uController.addUser(); return false; },
+                                () -> { uController.viewUserAccount(); return false; },
                                 () -> { uController.editUser(); return false; },
                                 () -> { uController.sortUsers(); return false; },
                                 () -> { uController.searchUsers(); return false; },
@@ -93,6 +99,8 @@ public class UserUI {
                                     }
                                     return false;       // otherwise stay in menu
                                 },
+                                () -> { pagination.previousPage(); return false; },
+                                () -> { pagination.nextPage(); return false; },
                                 () -> true // Back to Main Menu
                         }
                 );
@@ -126,6 +134,7 @@ public class UserUI {
     }
 
     public static void userListPage() {
+        UIGenerator.titleBuilder("User List");
         System.out.println(pagination.getSearchingWord());
         ListInterface<User> displayList = pagination.getDisplayTree().values();
 
@@ -138,7 +147,6 @@ public class UserUI {
         int startIndex = pagination.getStartIndex();
         int endIndex = pagination.getEndIndex();
 
-        UIGenerator.titleBuilder("User List");
         System.out.printf("%-8s %-30s %-30s %-8s %-5s %-18S %-7s %-22s %-5s\n", "User ID", "User Name", "Email", "Gender", "Age", "Education", "Role", "Created Date & Time", "No. of Books Borrowing");
         System.out.printf("%-8s %-30s %-30s %-8s %-5s %-18s %-7s %-22s %-5s\n", "-------", "---------", "-----", "------", "---", "----------", "----", "------------------", "----------------------");
 

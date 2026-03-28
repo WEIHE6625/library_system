@@ -23,7 +23,7 @@ public class LibrarySystemUI {
             while (currentUser == null) {
 
                 UIGenerator.clearScreen();
-                UIGenerator.titleBuilder("Welcome to the Library System");
+                UIGenerator.titleBuilder("Welcome to TARUMT Online Library");
 
                 System.out.println("[0] Exit Program");
                 System.out.print("Enter your user ID to login: ");
@@ -50,23 +50,43 @@ public class LibrarySystemUI {
                 UIGenerator.clearScreen();
                 UIGenerator.titleBuilder("Welcome, " + sessionUser.getName());
 
-                isLogout = UIGenerator.optionMenu(
-                        new String[]{
-                                "[1] User Module",
-                                "[2] Book Module",
-                                "[3] Borrow Module",
-                                "[4] Report Module",
-                                "[0] Logout"
-                        },
-                        "Select an option >> ",
-                        new Supplier[] {
-                                () -> UserUI.menu(userInfoController, sessionUser),
-                                () -> {BookUI.menu(); return false; },
-                                () -> {BorrowBookUI.menu(sessionUser); return false; },
-                                () -> { return false; },
-                                () -> { return false; }
-                        }
-                );
+                if (sessionUser.getRole() == User.UserRole.ADMIN) {
+                    // Admin Menu (Includes Report Module)
+                    isLogout = UIGenerator.optionMenu(
+                            new String[]{
+                                    "[1] User Module",
+                                    "[2] Book Module",
+                                    "[3] Borrow Module",
+                                    "[4] Report Module",
+                                    "[0] Logout"
+                            },
+                            "Select an option >> ",
+                            new Supplier[] {
+                                    () -> UserUI.menu(userInfoController, sessionUser),
+                                    () -> { BookUI.menu(); return false; },
+                                    () -> { BorrowBookUI.menu(sessionUser); return false; },
+                                    () -> { /* Add your Report Module trigger here */ return false; },
+                                    () -> { return true; } // Returns true to trigger isLogout
+                            }
+                    );
+                } else {
+                    // Standard User Menu (No Report Module)
+                    isLogout = UIGenerator.optionMenu(
+                            new String[]{
+                                    "[1] User Module",
+                                    "[2] Book Module",
+                                    "[3] Borrow Module",
+                                    "[0] Logout"
+                            },
+                            "Select an option >> ",
+                            new Supplier[] {
+                                    () -> UserUI.menu(userInfoController, sessionUser),
+                                    () -> { BookUI.menu(); return false; },
+                                    () -> { BorrowBookUI.menu(sessionUser); return false; },
+                                    () -> { return true; } // Returns true to trigger isLogout
+                            }
+                    );
+                }
             }
 
             // When logout happens, loop restarts at login

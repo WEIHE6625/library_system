@@ -2,8 +2,10 @@ package com.mycompany.library_system.control;
 
 import java.util.function.Supplier;
 import com.mycompany.library_system.adt.TreeMap;
+import com.mycompany.library_system.boundary.BookUI;
 import com.mycompany.library_system.boundary.UserUI;
 import com.mycompany.library_system.dao.UserDAO;
+import com.mycompany.library_system.entity.Book;
 import com.mycompany.library_system.entity.User;
 import com.mycompany.library_system.utility.DateUtil;
 import com.mycompany.library_system.utility.IdGenerator;
@@ -87,12 +89,21 @@ public class UserInfoController {
         userEducationTree.put(IdGenerator.getKeyId(newUser.getEducation(), id), newUser);
         userCreatedDateTimeTree.put(IdGenerator.getKeyId(newUser.getCreatedAt(), id), newUser);
         userNumOfBooksBorrowing.put(IdGenerator.getKeyId(newUser.getNumOfBooksBorrowing(), id), newUser);
-        
+
         UserUI.getPagination().setDisplayTree(userTree);
         UserUI.getPagination().setCurrentPage(1);
-        
+
         System.out.println("Added user with ID: " + id);
         saveToFile();
+        UIGenerator.pressEnterToContinue();
+    }
+
+    public void viewUserAccount() {
+        UIGenerator.clearScreen();
+        UIGenerator.titleBuilder("View Account Details");
+        String id = UserUI.inputUserID(userTree);
+        User user = userTree.get(id);
+        System.out.println(user);
         UIGenerator.pressEnterToContinue();
     }
 
@@ -319,7 +330,7 @@ public class UserInfoController {
 
         do {
             UIGenerator.clearScreen();
-            UIGenerator.titleBuilder("View Sorted Books");
+            UIGenerator.titleBuilder("View Sorted Users");
             isBack = UIGenerator.optionMenu(
                     new String[]{
                             "[1] Sort by User ID",
