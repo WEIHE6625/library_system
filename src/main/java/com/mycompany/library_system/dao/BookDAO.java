@@ -40,7 +40,7 @@ public class BookDAO {
                     // Update the progress bar
                     pb.step();
 
-                    if (data.length >= 8) {
+                    if (data.length == 10) {
                         try {
                             // Parse Fields
                             // ID
@@ -101,7 +101,7 @@ public class BookDAO {
     }
 
 
-    public static void writeFile(String filePath, TreeMap<String, Book> library) {
+    public static void writeFile(String filePath, TreeMap<String, Book> bookTree) {
         try (CSVWriter writer = new CSVWriter(new FileWriter(filePath))) {
             
             // Write Header
@@ -109,7 +109,7 @@ public class BookDAO {
             writer.writeNext(header, false);
 
             // Loop TreeMap and Write Data
-            for (Book book : library.values()) {
+            for (Book book : bookTree.values()) {
                 
                 String[] data = {
                     book.getId(),
