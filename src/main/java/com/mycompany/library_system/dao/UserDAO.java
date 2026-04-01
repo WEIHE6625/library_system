@@ -39,12 +39,12 @@ public class UserDAO {
                             User.Education education = User.Education.valueOf(data[5].trim().toUpperCase());
                             User.UserRole role = User.UserRole.valueOf(data[6].trim().toUpperCase());
 
-                            int numOfBooksBorrowing = 0;
-                            try {
-                                numOfBooksBorrowing = Integer.parseInt(data[7]);
-                            } catch (NumberFormatException e) {}
-
                             String createdAt = data[7].trim();
+                            int numOfBooksBorrowing = 0;
+
+                            try {
+                                numOfBooksBorrowing = Integer.parseInt(data[8]);
+                            } catch (NumberFormatException e) {}
 
                             User user = new User(
                                     userId,

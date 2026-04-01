@@ -188,6 +188,13 @@ public class UserInfoController {
             return false;
         }
 
+        if (user.getNumOfBooksBorrowing() > 0){
+            System.out.println("Cannot delete user: " + id);
+            System.out.println("Reason: This user still has " + user.getNumOfBooksBorrowing() + " borrowed book(s) to return.");
+            UIGenerator.pressEnterToContinue();
+            return false;
+        }
+
         char confirm = UserPrompt.inputChar("Are you sure you want to delete user " + id + "? (Y/N): ", 'Y', 'N');
         if (confirm != 'Y') {
             System.out.println("User deletion canceled.");
@@ -295,12 +302,18 @@ public class UserInfoController {
         UIGenerator.clearScreen();
         UIGenerator.titleBuilder("Delete My Account");
 
-        char confirm = UserPrompt.inputChar("Are you sure you want to delete your account? (Y/N): ", 'Y', 'N');
+        if (currentUser.getNumOfBooksBorrowing() > 0){
+            System.out.println("You cannot delete your account while you still have books borrowed.");
+            System.out.println("Current books on loan: " + currentUser.getNumOfBooksBorrowing());
+            UIGenerator.pressEnterToContinue();
+            return false;
+        }
 
-        if (confirm != ('Y')) {  // if user does not confirm
+        char confirm = UserPrompt.inputChar("Are you sure you want to delete your account? (Y/N): ", 'Y', 'N');
+        if (confirm != ('Y')) {
             System.out.println("Account deletion canceled.");
             UIGenerator.pressEnterToContinue();
-            return false;  // do nothing
+            return false;
         }
 
         String id = currentUser.getUserId();
