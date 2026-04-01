@@ -52,7 +52,7 @@ public class ReportDAO {
         return reportList;
     }
 
-
+    //Write to CSV
     public static void writeFile(String filePath, TreeMap<String, Report> reportTree){
         try(CSVWriter writer = new CSVWriter(new FileWriter(filePath))){
             String[] header = {"Report ID", "Report Title", "Generated Date"};
@@ -80,7 +80,7 @@ public class ReportDAO {
         }
     }
 
-    
+    //Write a new text file content for report
     public static void saveReportDetails(Report report) {
             String directoryPath = "database/reports";
             File directory = new File(directoryPath);
@@ -102,7 +102,7 @@ public class ReportDAO {
             }
         }
 
-
+    //Delete text file report
     public static boolean deleteReportFile(String reportId) {
         String filePath = "database/reports/" + reportId + ".txt";
         File file = new File(filePath);
@@ -113,6 +113,7 @@ public class ReportDAO {
         return false;
     }
 
+    //Read text file report
     public static void loadReportContent(Report report) {
         String filePath = "database/reports/" + report.getReportId() + ".txt";
         File file = new File(filePath);

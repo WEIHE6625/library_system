@@ -1,18 +1,15 @@
 package com.mycompany.library_system.control;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.function.Supplier;
+
+import com.mycompany.library_system.adt.ListInterface;
 import com.mycompany.library_system.adt.TreeMap;
-import com.mycompany.library_system.boundary.BookUI;
-import com.mycompany.library_system.boundary.UserUI;
+import com.mycompany.library_system.control.ReportService;
 import com.mycompany.library_system.boundary.ReportUI;
+import com.mycompany.library_system.boundary.UserUI;
 import com.mycompany.library_system.dao.*;
 import com.mycompany.library_system.entity.*;
-import com.mycompany.library_system.utility.DateUtil;
 import com.mycompany.library_system.utility.IdGenerator;
 import com.mycompany.library_system.utility.UIGenerator;
 import com.mycompany.library_system.utility.UserPrompt;
@@ -22,6 +19,8 @@ public class ReportInfoController{
     private TreeMap<String, Report> reportTitleTree;
     private TreeMap<String, Report> generatedDateTree;
     private TreeMap<String, Report> searchTree = new TreeMap<>();
+
+
     
     private TreeMap<String, Book> bookTree;
     private TreeMap<String, User> userTree;
@@ -40,7 +39,6 @@ public class ReportInfoController{
             reportTitleTree.put(IdGenerator.getKeyId(report.getReportTitle(), report.getReportId()), report);
             generatedDateTree.put(IdGenerator.getKeyId(report.getGeneratedDate(), report.getReportId()), report);
 
-            
         }
     }
 
@@ -50,50 +48,136 @@ public class ReportInfoController{
         
         String id = IdGenerator.generateId(reportTree, "RP", 3);
         String selectedInputs = ReportUI.choseRequiredReports();
+
+        //Title
         StringBuilder titleBuilder = new StringBuilder();
         if (selectedInputs.contains("1")) titleBuilder.append("User List ");
         if (selectedInputs.contains("2")) titleBuilder.append("Borrow Status ");
         if (selectedInputs.contains("3")) titleBuilder.append("Fine Status ");
         if (selectedInputs.contains("4")) titleBuilder.append("Book Category ");
-
         String reportTitle = titleBuilder.toString().trim().replace(" ", ", " )+ "Report";
 
-        // 1. Conditional Data Loading (Efficiency)
-        TreeMap<String, User> currentUsers = selectedInputs.contains("1") ? UserDAO.readFile("database/users.csv") : null;
-        TreeMap<String, BookBorrowRecord> borrowRecords = selectedInputs.contains("2") ? BookBorrowDAO.readFile("database/borrowBookRecords.csv") : null;
-        TreeMap<String, BorrowFineRecord> fineRecords = selectedInputs.contains("3") ? BookBorrowFineDAO.readFile("database/borrowFineRecords.csv") : null;
-        TreeMap<String, Book> currentBooks = selectedInputs.contains("4") ? BookDAO.readFile("database/books.csv") : null;
+        //Conditional Data Loading for only when needed
+        TreeMap<String, User> currentUsers = isDataNeeded(selectedInputs, "user")
+                ? UserDAO.readFile("database/users.csv") : null;
 
-        // 2. Data Processing (Building the Report Content)
-        StringBuilder content = new StringBuilder();
-        content.append("Report ID: ").append(id).append("\n");
-        content.append("Report Title:").append(reportTitle).append("\n");
-        content.append("Generated Date: ").append(DateUtil.getToday()).append("\n\n");
+        TreeMap<String, BookBorrowRecord> borrowRecords = isDataNeeded(selectedInputs, "borrow")
+                ? BookBorrowDAO.readFile("database/borrowBookRecords.csv") : null;
 
-        if (selectedInputs.contains("1") && currentUsers != null) {
-            content.append("--- User List ---\n");
-            for (User u : currentUsers.values()) content.append(u.getUserId()).append(" - ").append(u.getName()).append("\n");
+        TreeMap<String, BorrowFineRecord> fineRecords = isDataNeeded(selectedInputs, "fine")
+                ? BookBorrowFineDAO.readFile("database/borrowFineRecords.csv") : null;
+
+        TreeMap<String, Book> currentBooks = isDataNeeded(selectedInputs, "book")
+                ? BookDAO.readFile("database/book.csv") : null;
+        LocalDate [] range;
+        LocalDate fromDate = LocalDate.now();
+        LocalDate toDate = LocalDate.now();
+        String reportContent = "";
+        switch (selectedInputs) {
+            case "1":
+                range = ReportUI.inputDateRange();
+                fromDate = range[0];
+                toDate = range[1];
+                reportContent = ReportService.buildUserSummaryReport(currentUsers, fromDate, toDate);
+                break;
+
+            case "2":
+                range = ReportUI.inputDateRange();
+                fromDate = range[0];
+                toDate = range[1];
+                reportContent = ReportService.buildBorrowSummaryReport(borrowRecords, fromDate, toDate);
+                break;
+
+            case "3":
+                LocalDate[] fineRange = ReportUI.inputDateRange();
+                reportContent = ReportService.buildGlobalFineSummaryReport(fineRecords, fineRange[0], fineRange[1]);
+                break;
+
+            case "4":
+                int[] params = ReportUI.inputCategoryExtremeParams();
+                reportContent = ReportService.buildCategoryExtremeReport(currentBooks,
+                        params[4], // limit
+                        params[0], // startYear
+                        params[1], // startMonth
+                        params[2], // endYear
+                        params[3]); // endMonth);
+                break;
+
+            case "12":
+                String id12 = UserUI.inputUserID(currentUsers);
+
+                LocalDate[] range12 = ReportUI.inputDateRange();
+                if(!hasUserBorrow(id12, borrowRecords)){
+                    UIGenerator.clearScreen();
+                    System.out.println("This user has no borrow records!");
+                    UIGenerator.pressEnterToContinue();
+                    return;
+                }
+                reportContent = ReportService.buildSingleUserBorrowReport(id12, currentUsers, borrowRecords,range12[0], range12[1]);
+                break;
+
+            case "13":
+                String id13 = UserUI.inputUserID(currentUsers);
+                LocalDate[] fineRange13 = ReportUI.inputDateRange();
+                boolean userHasFine = false;
+                ListInterface<BorrowFineRecord> allFines = fineRecords.values();
+                for (int i = 0; i < allFines.size(); i++) {
+                    if (allFines.get(i).getUserId().equals(id13)) {
+                        userHasFine = true;
+                        break;
+                    }
+                }
+
+                if (!userHasFine) {
+                    UIGenerator.clearScreen();
+                    System.out.println("Process Cancelled: This user has no fine records!");
+                    UIGenerator.pressEnterToContinue();
+                    return;
+                }
+
+                reportContent = ReportService.buildUserFineReport(id13, currentUsers, fineRecords, fineRange13[0],fineRange13[1]);
+                break;
+
+            case "14":
+                String id14 = UserUI.inputUserID(currentUsers);
+                LocalDate[] borrowRange14 = ReportUI.inputDateRange();
+                if(!hasUserBorrow(id14, borrowRecords)){
+                    UIGenerator.clearScreen();
+                    System.out.println("This user has no borrow records!");
+                    UIGenerator.pressEnterToContinue();
+                    return;
+                }
+
+                reportContent = ReportService.buildUserInterestReport(id14,
+                        currentUsers, borrowRecords,
+                        currentBooks, borrowRange14[0], borrowRange14[1]);
+                break;
+
+            case "23":
+                LocalDate[] healthRange = ReportUI.inputDateRange();
+                reportContent = ReportService.buildOperationsHealthReport(borrowRecords, fineRecords
+                ,healthRange[0], healthRange[1]);
+                break;
+
+            case "24":
+                LocalDate[] borrowRange24 = ReportUI.inputDateRange();
+                reportContent = ReportService.buildPopularCategoryReport(borrowRecords, currentBooks, borrowRange24[0], borrowRange24[1]);
+                break;
+            default:
+                System.out.println("Invalid report selection.");
+                return;
         }
-        
-        if (selectedInputs.contains("2") && borrowRecords != null) {
-            content.append("\n--- Borrow Status ---\n");
-            // Logic to count or list borrows...
-            content.append("Total active borrows: ").append(borrowRecords.size()).append("\n");
-        }
 
-        // ... (Add logic for Fine Status '3' and Category '4' similarly) ...
-
-        // 3. Create the Report Object
         LocalDate currentDate = LocalDate.now();
         Report newReport = new Report(id, reportTitle, currentDate);
-        newReport.setContent(content.toString());
+        newReport.setContent(reportContent);
 
-        // 4. Update the Controller's Trees
+
         reportTree.put(id, newReport);
         reportTitleTree.put(IdGenerator.getKeyId(reportTitle, id), newReport);
         generatedDateTree.put(IdGenerator.getKeyId(currentDate, id), newReport);
 
-        // 5. Save to Database (Physical File)
+        // Save to Database (Physical File)
         ReportDAO.saveReportDetails(newReport);
         ReportDAO.writeFile(REPORT_FILE_PATH, reportTree);
 
@@ -146,20 +230,45 @@ public class ReportInfoController{
     }
 
     public void viewReportDetails() {
-        // 1. Ask UI for the ID (Pass the tree so it can validate)
         String id = ReportUI.inputReportID(reportTree);
-        if (id.isEmpty()) return; // User cancelled
+        if (id.isEmpty()) return;
 
         Report selectedReport = reportTree.get(id);
 
-        // 2. Load the text from the .txt file
         ReportDAO.loadReportContent(selectedReport);
 
-        // 3. Display it
         UIGenerator.clearScreen();
         UIGenerator.titleBuilder("Viewing Report: " + id);
         System.out.println(selectedReport.getContent());
 
         UIGenerator.pressEnterToContinue();
+    }
+
+    private static boolean hasUserBorrow(String targetId, TreeMap<String, BookBorrowRecord> recordMap){
+        if(recordMap == null || recordMap.isEmpty()) return false;
+
+        ListInterface<BookBorrowRecord> allRecords = recordMap.values();
+
+        for(int i =0 ; i< allRecords.size(); i ++){
+            if(allRecords.get(i).getUserId().equalsIgnoreCase(targetId)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static boolean isDataNeeded(String input, String domain) {
+        return switch (input) {
+            case "1" -> domain.equals("user");
+            case "2" -> domain.equals("borrow");
+            case "3" -> domain.equals("fine");
+            case "4" -> domain.equals("book");
+            case "12" -> domain.equals("user") || domain.equals("borrow");
+            case "13" -> domain.equals("user") || domain.equals("fine");
+            case "14" -> domain.equals("user") || domain.equals("borrow") || domain.equals("book");
+            case "23" -> domain.equals("borrow") || domain.equals("fine");
+            case "24" -> domain.equals("borrow") || domain.equals("book");
+            default -> false;
+        };
     }
 }

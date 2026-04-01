@@ -8,9 +8,13 @@ import java.time.format.DateTimeFormatter;
  * @author all
  */
 public class DateUtil {
+
     public static String getToday() {
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         return now.format(formatter);
     }
+
+
+
 }

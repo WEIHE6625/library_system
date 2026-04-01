@@ -40,7 +40,7 @@ public class BookDAO {
                     // Update the progress bar
                     pb.step();
 
-                    if (data.length == 10) {
+                    if (data.length >= 10) {
                         try {
                             // Parse Fields
                             // ID
