@@ -1,0 +1,14 @@
+====================================================
+          LIBRARY OPERATIONS & HEALTH REPORT        
+====================================================
+Period: Beginning to 2026-04-02
+----------------------------------------------------
+Total Borrowing Events    : 31
+Total Fine Incidents      : 0
+User Penalty Rate         : 0.0%
+----------------------------------------------------
+Collected Fines    : RM0.00
+Outstanding Fines : RM0.00
+----------------------------------------------------
+No books marked as lost in this period.
+====================================================

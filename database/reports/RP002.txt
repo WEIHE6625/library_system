@@ -1,0 +1,12 @@
+==========================================
+       LIBRARY BORROW STATUS SUMMARY      
+==========================================
+Report Period: Beginning to 2026-04-02
+------------------------------------------
+Total Transactions        : 31
+Successfully Returned     : 6
+Currently Borrowed        : 25
+Declared Lost             : 0
+------------------------------------------
+Current Loss Rate     : 0.0%
+==========================================
