@@ -1,9 +1,8 @@
 package com.mycompany.library_system.dao;
 
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 
+import java.time.LocalDate;
 import com.mycompany.library_system.adt.ArrayList;
 import com.mycompany.library_system.adt.ListInterface;
 import com.mycompany.library_system.adt.TreeMap;
@@ -19,12 +18,11 @@ public class ReportDAO {
 
     public static TreeMap<String, Report> readFile(String filePath){
         TreeMap<String, Report> reportList = new TreeMap<>();
-
         try(CSVReader reader = new CSVReader(new FileReader(filePath))){
             reader.readNext();
 
             int totalLines = DataProcessor.lineCounter(filePath);
-            String[] = data;
+            String[] data;
 
             try(ProgressBar pb = new ProgressBar("Loading Reports :" ,totalLines)){
                 while((data = reader.readNext())!= null){
@@ -34,7 +32,8 @@ public class ReportDAO {
                         try{
                             String id = data[0].trim();
                             String title = data[1].trim();
-                            String generatedDate = data[2].trim();
+                            String dateString = data[2].trim();
+                            LocalDate generatedDate = LocalDate.parse(dateString);
 
                             Report report = new Report(id,title,generatedDate);
                             reportList.put(id, report);
@@ -45,12 +44,12 @@ public class ReportDAO {
                 }
 
             }
-        }catch(Exception e ){
+        } catch(CsvValidationException e1){
+            e1.printStackTrace();
+        } catch(Exception e ){
             e.printStackTrace();
-        }catch(CsvValidationException e1){
-            e1.printStackTrace
         }
-       return reportList; 
+        return reportList;
     }
 
 
@@ -62,9 +61,9 @@ public class ReportDAO {
             for(Report report : reportTree.values()){
 
                 String[] data = {
-                    report.getReportId();
-                    report.getReportTitle();
-                    report.getGeneratedDate();
+                    report.getReportId(),
+                    report.getReportTitle(),
+                    report.getGeneratedDate().toString(),
                 };
 
                 writer.writeNext(data, false);
@@ -102,4 +101,41 @@ public class ReportDAO {
                 System.err.println("Error saving detailed report: " + e.getMessage());
             }
         }
+
+
+    public static boolean deleteReportFile(String reportId) {
+        String filePath = "database/reports/" + reportId + ".txt";
+        File file = new File(filePath);
+
+        if (file.exists()) {
+            return file.delete(); // Returns true if successfully deleted
+        }
+        return false;
+    }
+
+    public static void loadReportContent(Report report) {
+        String filePath = "database/reports/" + report.getReportId() + ".txt";
+        File file = new File(filePath);
+
+        if (file.exists()) {
+            try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+                StringBuilder fullContent = new StringBuilder();
+                String line;
+
+                while ((line = reader.readLine()) != null) {
+                    fullContent.append(line).append("\n");
+                }
+
+                // CRITICAL: You must "hand" the text to the Report object!
+                report.setContent(fullContent.toString());
+
+            } catch (IOException e) {
+                System.err.println("Error reading content for " + report.getReportId());
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("Warning: .txt file not found for " + report.getReportId());
+        }
+    }
+
 }

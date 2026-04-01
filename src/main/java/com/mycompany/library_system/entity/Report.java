@@ -7,16 +7,29 @@ public class Report{
     private String reportTitle;
     private LocalDate generatedDate;
 
+    private String content;
+
+
+    //Constructor for loading report from CSV
     public Report(String reportId, String reportTitle, LocalDate generatedDate){
         this.reportId = reportId;
         this.reportTitle = reportTitle;
-        this.generatedDate = generatedDate
+        this.generatedDate = generatedDate;
     }
 
+    //Constructor for creating new report with current date
     public Report(String reportId, String reportTitle) {
         this.reportId = reportId;
         this.reportTitle = reportTitle;
-        this.generatedDate = LocalDate.now()
+        this.generatedDate = LocalDate.now();
+    }
+
+    //Full constructor
+    public Report(String reportId, String reportTitle, String content, LocalDate generatedDate){
+        this.reportId = reportId;
+        this.reportTitle =  reportTitle;
+        this.generatedDate = generatedDate;
+        this.content = content;
     }
 
     public String getReportId(){
@@ -28,9 +41,16 @@ public class Report{
     }
 
     public LocalDate getGeneratedDate(){
-        return this.generatedDate
+        return this.generatedDate;
     }
 
+    public String getContent(){
+        return this.content;
+    }
+
+    public void setContent(String content){
+        this.content = content;
+    }
 
 
     @Override

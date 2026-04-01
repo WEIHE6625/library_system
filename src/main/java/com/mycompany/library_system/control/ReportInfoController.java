@@ -1,5 +1,10 @@
 package com.mycompany.library_system.control;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.time.LocalDate;
 import java.util.function.Supplier;
 import com.mycompany.library_system.adt.TreeMap;
 import com.mycompany.library_system.boundary.BookUI;
@@ -39,25 +44,31 @@ public class ReportInfoController{
         }
     }
 
-
     public void generateNewReport(){
         UIGenerator.clearScreen();
         UIGenerator.titleBuilder("Add new report");
         
         String id = IdGenerator.generateId(reportTree, "RP", 3);
         String selectedInputs = ReportUI.choseRequiredReports();
-        String reportTitle = UserPrompt.inputString("Enter a Title for this Report: ");
+        StringBuilder titleBuilder = new StringBuilder();
+        if (selectedInputs.contains("1")) titleBuilder.append("User List ");
+        if (selectedInputs.contains("2")) titleBuilder.append("Borrow Status ");
+        if (selectedInputs.contains("3")) titleBuilder.append("Fine Status ");
+        if (selectedInputs.contains("4")) titleBuilder.append("Book Category ");
+
+        String reportTitle = titleBuilder.toString().trim().replace(" ", ", " )+ "Report";
 
         // 1. Conditional Data Loading (Efficiency)
-        TreeMap<String, User> currentUsers = selectedInputs.contains("1") || selectedInputs.contains("3") ? UserDAO.readFile("database/users.csv") : null;
-        TreeMap<String, BookBorrowRecord> borrowRecords = selectedInputs.contains("2") ? BookBorrowRecordDAO.readFile("database/borrow_records.csv") : null;
-        TreeMap<String, BorrowFineRecord> fineRecords = selectedInputs.contains("3") ? BorrowFineRecordDAO.readFile("database/fine_records.csv") : null;
+        TreeMap<String, User> currentUsers = selectedInputs.contains("1") ? UserDAO.readFile("database/users.csv") : null;
+        TreeMap<String, BookBorrowRecord> borrowRecords = selectedInputs.contains("2") ? BookBorrowDAO.readFile("database/borrowBookRecords.csv") : null;
+        TreeMap<String, BorrowFineRecord> fineRecords = selectedInputs.contains("3") ? BookBorrowFineDAO.readFile("database/borrowFineRecords.csv") : null;
         TreeMap<String, Book> currentBooks = selectedInputs.contains("4") ? BookDAO.readFile("database/books.csv") : null;
 
         // 2. Data Processing (Building the Report Content)
         StringBuilder content = new StringBuilder();
         content.append("Report ID: ").append(id).append("\n");
-        content.append("Generated Date: ").append(DateUtil.getCurrentDate()).append("\n\n");
+        content.append("Report Title:").append(reportTitle).append("\n");
+        content.append("Generated Date: ").append(DateUtil.getToday()).append("\n\n");
 
         if (selectedInputs.contains("1") && currentUsers != null) {
             content.append("--- User List ---\n");
@@ -73,8 +84,9 @@ public class ReportInfoController{
         // ... (Add logic for Fine Status '3' and Category '4' similarly) ...
 
         // 3. Create the Report Object
-        String currentDate = DateUtil.getCurrentDate();
-        Report newReport = new Report(id, reportTitle, content.toString(), currentDate);
+        LocalDate currentDate = LocalDate.now();
+        Report newReport = new Report(id, reportTitle, currentDate);
+        newReport.setContent(content.toString());
 
         // 4. Update the Controller's Trees
         reportTree.put(id, newReport);
@@ -82,11 +94,72 @@ public class ReportInfoController{
         generatedDateTree.put(IdGenerator.getKeyId(currentDate, id), newReport);
 
         // 5. Save to Database (Physical File)
-        ReportDAO.saveToFile(REPORT_FILE_PATH, reportTree);
+        ReportDAO.saveReportDetails(newReport);
+        ReportDAO.writeFile(REPORT_FILE_PATH, reportTree);
 
         System.out.println("\nReport generated successfully with ID: " + id);
-        UserPrompt.pressEnterToContinue();
 
 
+    }
+
+    public void deleteReport() {
+        UIGenerator.titleBuilder("Delete Report");
+
+        // 1. Get the ID from the user (We'll use a UI helper for this)
+        String id = ReportUI.inputReportID(reportTree);
+
+        if (id.isEmpty()) return; // User cancelled
+
+        // 2. Confirm deletion
+        String prompt = "Are you sure you want to delete report " + id  + "? (Y/N):" ;
+        char confirm = UserPrompt.inputChar(prompt, 'Y' , 'N');
+
+
+        if (confirm == 'Y') {
+            // 3. Remove from memory (Trees)
+            Report reportToDelete = reportTree.get(id);
+            if (reportToDelete != null) {
+                reportTitleTree.remove(IdGenerator.getKeyId(reportToDelete.getReportTitle(), id));
+                generatedDateTree.remove(IdGenerator.getKeyId(reportToDelete.getGeneratedDate().toString(), id));
+                reportTree.remove(id);
+
+                // 4. Update CSV (The Index)
+                ReportDAO.writeFile(REPORT_FILE_PATH, reportTree);
+
+                // 5. Delete physical .txt file
+                boolean fileDeleted = ReportDAO.deleteReportFile(id);
+
+                if (fileDeleted) {
+                    System.out.println("Report and physical file deleted successfully.");
+                } else {
+                    System.out.println("Report removed from list, but .txt file was not found.");
+                }
+            }
+        } else {
+            System.out.println("Deletion cancelled.");
+        }
+        UIGenerator.pressEnterToContinue();
+    }
+
+    public TreeMap<String, Report> getReportTree() {
+        return reportTree;
+    }
+
+    public void viewReportDetails() {
+        // 1. Ask UI for the ID (Pass the tree so it can validate)
+        String id = ReportUI.inputReportID(reportTree);
+        if (id.isEmpty()) return; // User cancelled
+
+        Report selectedReport = reportTree.get(id);
+
+        // 2. Load the text from the .txt file
+        ReportDAO.loadReportContent(selectedReport);
+
+        // 3. Display it
+        UIGenerator.clearScreen();
+        UIGenerator.titleBuilder("Viewing Report: " + id);
+        System.out.println(selectedReport.getContent());
+
+        UIGenerator.pressEnterToContinue();
     }
 }
