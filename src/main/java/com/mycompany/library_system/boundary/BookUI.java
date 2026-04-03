@@ -4,6 +4,7 @@ import java.util.Scanner;
 import java.util.function.Supplier;
 import com.mycompany.library_system.adt.ArrayList;
 import com.mycompany.library_system.adt.ListInterface;
+import com.mycompany.library_system.adt.MapInterface;
 import com.mycompany.library_system.adt.TreeMap;
 import com.mycompany.library_system.control.BookInfoController;
 import com.mycompany.library_system.entity.Book;
@@ -21,7 +22,7 @@ public class BookUI {
     static Scanner scanner = new Scanner(System.in);
     static Pagination<String, Book> pagination = new Pagination<>();
 
-    public static String inputBookID(TreeMap<String, Book> bookList) {
+    public static String inputBookID(MapInterface<String, Book> bookList) {
         boolean isValid = false;
         String id = "";
         do {
@@ -48,11 +49,11 @@ public class BookUI {
         return UserPrompt.inputString("Enter Book Description >> ", 255, true);
     }
 
-    public static ListInterface<String> inputBookCategory(BookInfoController bookManager) {
-        return inputBookCategory(bookManager, new ArrayList<>());
+    public static MapInterface<String, Integer> inputBookCategory(BookInfoController bookManager) {
+        return inputBookCategory(bookManager, new TreeMap<>());
     }
 
-    public static ListInterface<String> inputBookCategory(BookInfoController bookManager, ListInterface<String> categoriesExcluded) {
+    public static MapInterface<String, Integer> inputBookCategory(BookInfoController bookManager, MapInterface<String, Integer> categoriesExcluded) {
         return UserPrompt.inputBookCategory(bookManager, categoriesExcluded);
     }
 

@@ -3,8 +3,8 @@ package com.mycompany.library_system.entity;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 
-import com.mycompany.library_system.adt.ArrayList;
-import com.mycompany.library_system.adt.ListInterface;
+import com.mycompany.library_system.adt.MapInterface;
+import com.mycompany.library_system.adt.TreeMap;
 
 /**
  *
@@ -16,19 +16,19 @@ public class Book {
     private String title;
     private String description;
     private String author;
-    private ListInterface<String> categories;
+    private MapInterface<String, Integer> categories;
     private String publisher;
     private double price;
     private YearMonth publishDate;
     private int qtyTotal;     // Total copies owned by library
     private int qtyAvailable; // Copies currently on shelf
 
-    public Book(String id, String title, String author, String description, ListInterface<String> categories, String publisher, double price, int publishMonth, int publishYear, int qtyTotal, int qtyAvailable) {
+    public Book(String id, String title, String author, String description, MapInterface<String, Integer> categories, String publisher, double price, int publishMonth, int publishYear, int qtyTotal, int qtyAvailable) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.author = (author == null) ? "Unknown" : author;
-        this.categories = (categories == null) ? new ArrayList<>() : categories;
+        this.categories = (categories == null) ? new TreeMap<>() : categories;
         this.publisher = (publisher == null || publisher.isEmpty()) ? "Unknown" : publisher;
         this.price = price;
         this.publishDate = YearMonth.of(publishYear, publishMonth);
@@ -40,7 +40,7 @@ public class Book {
     public String getTitle() { return title; }
     public String getDescription() { return description; }
     public String getAuthor() { return author; }
-    public ListInterface<String> getCategories() { return categories; }
+    public MapInterface<String, Integer> getCategories() { return categories; }
     public String getPublisher() { return publisher; }
     public double getPrice() { return price; }
     // Get the publish date in different type
@@ -56,7 +56,7 @@ public class Book {
     public String setDescription(String description) { return this.description = description; }
     public String setAuthor(String author) { return this.author = author; }
 
-    public boolean setCategories(ListInterface<String> categories) { 
+    public boolean setCategories(MapInterface<String, Integer> categories) { 
         this.categories = categories;
         return true;
     }
@@ -82,11 +82,6 @@ public class Book {
         }else{
             return false;
         }
-    }
-
-    public boolean hasCategory(String category) {
-        if (categories.contains(category)) return true;
-        else return false;
     }
 
     @Override

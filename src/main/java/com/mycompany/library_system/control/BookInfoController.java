@@ -19,15 +19,15 @@ import com.mycompany.library_system.utility.UserPrompt;
  * @author wh
  */
 public class BookInfoController {
-    private TreeMap<String, Book> bookTree;
-    private TreeMap<String, Book> bookTitleTree;
-    private TreeMap<String, Book> bookAuthorTree;
-    private TreeMap<String, Book> bookPriceTree;
-    private TreeMap<String, Book> bookDateTree;
-    private TreeMap<String, Book> bookQtyATree;
-    private TreeMap<String, Book> bookQtyTTree;
-    private TreeMap<String, Book> bookCatTree;
-    private TreeMap<String, Book> searchTree = new TreeMap<>();
+    private MapInterface<String, Book> bookTree;
+    private MapInterface<String, Book> bookTitleTree;
+    private MapInterface<String, Book> bookAuthorTree;
+    private MapInterface<String, Book> bookPriceTree;
+    private MapInterface<String, Book> bookDateTree;
+    private MapInterface<String, Book> bookQtyATree;
+    private MapInterface<String, Book> bookQtyTTree;
+    private MapInterface<String, Book> bookCatTree;
+    private MapInterface<String, Book> searchTree = new TreeMap<>();
     
     public static final String BOOK_FILE_PATH = "database/book.csv";
 
@@ -53,33 +53,34 @@ public class BookInfoController {
             bookQtyATree.put(IdGenerator.getKeyId(book.getQtyAvailable(), book.getId()), book);
             bookQtyTTree.put(IdGenerator.getKeyId(book.getQtyTotal(), book.getId()), book);
 
-            for (String category : book.getCategories()) {
-                bookCatTree.put(IdGenerator.getKeyId(category, book.getId()), book);
+            for (MapInterface.Entry<String, Integer> category : book.getCategories()) {
+                bookCatTree.put(IdGenerator.getKeyId(category.getKey(), book.getId()), book);
             }
         }
     }
 
     // Return the Tree that key sort by...
-    public TreeMap<String, Book> getbookList() { 
+    public MapInterface<String, Book> getbookList() { 
         return bookTree;
     }
 
-    public ListInterface<String> getAllUniqueCategories(ListInterface<String> categoriesExcluded) {
-        ListInterface<String> uniqueCats = new ArrayList<>();
+    public MapInterface<String, Integer> getAllUniqueCategories(MapInterface<String, Integer> categoriesExcluded) {
+        MapInterface<String, Integer> uniqueCats = new TreeMap<>();
         
         // Loop all books in the manager
-        for (Book b : bookTree.values()) {
-            for (String cat : b.getCategories()) {
-                if (!categoriesExcluded.contains(cat)) {
-                    uniqueCats.add(cat);
+        for (MapInterface.Entry<String, Book> books : bookTree) {
+            Book book = books.getValue();
+            for (MapInterface.Entry<String, Integer> cat : book.getCategories()) {
+                if (!categoriesExcluded.containsKey(cat.getKey())) {
+                    uniqueCats.put(cat.getKey(), cat.getValue());
                 }
             }
         }
-        return uniqueCats.unique();
+        return uniqueCats;
     }
 
-    public ListInterface<String> getAllUniqueCategories() {
-        return getAllUniqueCategories(new ArrayList<>());
+    public MapInterface<String, Integer> getAllUniqueCategories() {
+        return getAllUniqueCategories(new TreeMap<>());
     }
 
     public Book insertBook() {
@@ -89,7 +90,7 @@ public class BookInfoController {
         String title = BookUI.inputBookTitle();
         String author = BookUI.inputBookAuthor();
         String description = BookUI.inputBookDescription();
-        ListInterface<String> category = BookUI.inputBookCategory(this);
+        MapInterface<String, Integer> category = BookUI.inputBookCategory(this);
         String publisher = BookUI.inputBookPublisher();
         double price = BookUI.inputBookPrice();
         int[] publishYearMonth = BookUI.inputBookPublishDate();

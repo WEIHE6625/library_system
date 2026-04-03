@@ -3,9 +3,9 @@ package com.mycompany.library_system.dao;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Map;
 
-import com.mycompany.library_system.adt.ArrayList;
-import com.mycompany.library_system.adt.ListInterface;
+import com.mycompany.library_system.adt.MapInterface;
 import com.mycompany.library_system.adt.TreeMap;
 import com.mycompany.library_system.entity.Book;
 import com.mycompany.library_system.utility.DataProcessor;
@@ -57,10 +57,10 @@ public class BookDAO {
 
                             // Categories (Split by comma)
                             String rawCat = DataProcessor.clean(data[4]);
-                            ListInterface<String> categories = new ArrayList<>(); 
+                            MapInterface<String, Integer> categories = new TreeMap<>(); 
                             if (!rawCat.isEmpty()) {
                                 String[] cats = rawCat.split(",");
-                                for (String c : cats) categories.add(c.trim());
+                                for (String c : cats) categories.put(c.trim(), 0);
                             }
 
                             // Publisher
@@ -101,7 +101,7 @@ public class BookDAO {
     }
 
 
-    public static void writeFile(String filePath, TreeMap<String, Book> bookTree) {
+    public static void writeFile(String filePath, MapInterface<String, Book> bookTree) {
         try (CSVWriter writer = new CSVWriter(new FileWriter(filePath))) {
             
             // Write Header

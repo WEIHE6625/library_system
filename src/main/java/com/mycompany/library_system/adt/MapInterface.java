@@ -4,7 +4,7 @@ package com.mycompany.library_system.adt;
  *
  * @author weihe
  */
-  public interface MapInterface<K, V> {
+  public interface MapInterface<K, V> extends Iterable<MapInterface.Entry<K, V>> {
   /** Add or update a specific entry from the map.       
    *  @param key    
    *  @param value  

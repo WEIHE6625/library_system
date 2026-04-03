@@ -1,5 +1,8 @@
 package com.mycompany.library_system.adt;
 
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
 /**
  *
  * @author weihe
@@ -312,6 +315,58 @@ public class TreeMap<K extends Comparable<K>, V> implements MapInterface<K, V> {
         }
     }
 
+    @Override
+    public Iterator<MapInterface.Entry<K, V>> iterator() {
+        return new TreeMapIterator();
+    }
+
+    private class TreeMapIterator implements Iterator<MapInterface.Entry<K, V>> {
+        private Node<K, V> nextNode;
+
+        public TreeMapIterator() {
+            nextNode = root;
+            if (nextNode != null) {
+                while (nextNode.left != null) {
+                    nextNode = nextNode.left;
+                }
+            }
+        }
+
+        @Override
+        public boolean hasNext() {
+            return nextNode != null;
+        }
+
+        @Override
+        public MapInterface.Entry<K, V> next() {
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
+
+            Node<K, V> currentNode = nextNode;
+            
+            // If there is a right subtree, the next node is the leftmost node in that right subtree
+            if (nextNode.right != null) {
+                nextNode = nextNode.right;
+                while (nextNode.left != null) {
+                    nextNode = nextNode.left;
+                }
+            } 
+            // No right subtree. We must go up to the parent.
+            else {
+                Node<K, V> parent = nextNode.parent;
+                while (parent != null && nextNode == parent.right) {
+                    nextNode = parent;
+                    parent = parent.parent;
+                }
+                nextNode = parent;
+            }
+
+            return currentNode;
+        }
+    }
+
+    
 
     // Red-black Tree operation able to return null
     private boolean colorOf(Node<K, V> p) {

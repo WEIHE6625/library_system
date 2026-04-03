@@ -3,8 +3,8 @@ package com.mycompany.library_system.utility;
 import java.time.Year;
 import java.util.Scanner;
 
-import com.mycompany.library_system.adt.ArrayList;
-import com.mycompany.library_system.adt.ListInterface;
+import com.mycompany.library_system.adt.MapInterface;
+import com.mycompany.library_system.adt.TreeMap;
 import com.mycompany.library_system.control.BookInfoController;
 
 /**
@@ -270,14 +270,14 @@ public class UserPrompt {
      *                          so exclude them to prevent user select them again.
      * @return A list of selected categories
      */
-    public static ListInterface<String> inputBookCategory(BookInfoController bookManager, ListInterface<String> categoriesExisted) {        
+    public static MapInterface<String, Integer> inputBookCategory(BookInfoController bookManager, MapInterface<String, Integer> categoriesExisted) {        
         // Get the list of all existing categories
-        ListInterface<String> categories = new ArrayList<>();
-        ListInterface<String> allCategories = bookManager.getAllUniqueCategories(categoriesExisted);
+        MapInterface<String, Integer> categories = new TreeMap<>();
+        MapInterface<String, Integer> allCategories = bookManager.getAllUniqueCategories(categoriesExisted);
         boolean isExit = false;
 
-        for (String cat : categoriesExisted) { // Show the current categoris the book have
-            categories.add(cat);
+        for (MapInterface.Entry<String, Integer> cat : categoriesExisted) { // Show the current categoris the book have
+            categories.put(cat.getKey(), 0);
         }
 
         do {
@@ -288,24 +288,14 @@ public class UserPrompt {
             String query = scanner.nextLine().trim().toLowerCase();
 
             // Filter the list based on user input
-            ListInterface<String> matches = new ArrayList<>();
-            for (String cat : allCategories) {
-                if (cat.toLowerCase().contains(query) && !categories.contains(cat)) {
-                    matches.add(cat);
+            MapInterface<String, Integer> matches = new TreeMap<>();
+            int no_selection = 1;
+            for (MapInterface.Entry<String, Integer> cat : allCategories) {
+                if (cat.getKey().toLowerCase().contains(query) && !categories.containsKey(cat.getKey())) {
+                    matches.put(cat.getKey(), no_selection++);
                 }
             }
-            matches.sort((s1, s2) -> {
-                boolean s1Starts = s1.toLowerCase().startsWith(query);
-                boolean s2Starts = s2.toLowerCase().startsWith(query);
-
-                // "Starts With" comes first
-                if (s1Starts && !s2Starts) return -1; // s1 moves up
-                if (!s1Starts && s2Starts) return 1;  // s2 moves up
-
-                // If both/neither start with it, sort Alphabetically
-                return s1.compareToIgnoreCase(s2);
-            });
-
+            
             // Display Matches
             if (matches.isEmpty()) {
                 System.out.println("No existing categories match '" + query + "'.");
@@ -313,18 +303,21 @@ public class UserPrompt {
                 String response = scanner.nextLine().trim();
                 if (response.equalsIgnoreCase("y")) {
                     isExit = true;
-                    categories.add(query.substring(0, 1).toUpperCase() + query.substring(1));
+                    categories.put(query.substring(0, 1).toUpperCase() + query.substring(1), 0);
                 }
             } else {
                 System.out.println("-".repeat(50));
                 System.out.println("Matches found:");
-                for (int i = 0; i < matches.size(); i++) {
+
+                int count = 0;
+                for (MapInterface.Entry<String, Integer> cat : matches) {    
                     // Print only top 20 to avoid spamming
-                    if (i >= 20) {
+                    if (count >= 20) {
                         System.out.println("... (" + (matches.size() - 20) + " more)");
-                        break;
+                        break; 
                     }
-                    System.out.printf("[%d] %s\n", (i + 1), matches.get(i));
+                    System.out.printf("[%d] %s\n", (count + 1), cat.getKey()); 
+                    count++;
                 }
 
                 // Loop if invalid input or already input a category
@@ -350,7 +343,7 @@ public class UserPrompt {
                         System.out.print("\nEnter new category name: ");
                         isExit = false;
                         String newCategory = scanner.nextLine().trim();
-                        categories.add(newCategory);
+                        categories.put(newCategory, 0);
                         System.out.println("\nCategory : " + newCategory + " added.");
                         UIGenerator.pressEnterToContinue();
 
@@ -370,8 +363,15 @@ public class UserPrompt {
                         try {
                             int selection = Integer.parseInt(input);
                             if (selection > 0 && selection <= matches.size()) {
-                                categories.add(matches.get(selection - 1));
-                                System.out.println("\nCategory : " + matches.get(selection - 1) + " added.");
+                                MapInterface.Entry<String, Integer> selectedCat = null;
+                                for (MapInterface.Entry<String, Integer> cat : matches) {
+                                    if (cat.getValue() == selection) {
+                                        selectedCat = cat;
+                                        break;
+                                    }
+                                }
+                                categories.put(selectedCat.getKey(), 0);
+                                System.out.println("\nCategory : " + selectedCat.getKey() + " added.");
 
                             } else {
                                 UIGenerator.displayInvalidChoiceMessage();
@@ -389,8 +389,8 @@ public class UserPrompt {
         return categories;
     }
 
-    public static ListInterface<String> inputBookCategory(BookInfoController bookManager) {
-        return inputBookCategory(bookManager, new ArrayList<>());
+    public static MapInterface<String, Integer> inputBookCategory(BookInfoController bookManager) {
+        return inputBookCategory(bookManager, new TreeMap<>());
     }
 
     public static boolean isValidEmail(String email) {
