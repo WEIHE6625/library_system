@@ -2,7 +2,6 @@ package com.mycompany.library_system.boundary;
 
 import java.util.Scanner;
 import java.util.function.Supplier;
-import com.mycompany.library_system.adt.ArrayList;
 import com.mycompany.library_system.adt.ListInterface;
 import com.mycompany.library_system.adt.MapInterface;
 import com.mycompany.library_system.adt.TreeMap;
@@ -86,7 +85,7 @@ public class BookUI {
     public static void menu() {
         BookInfoController bController = new BookInfoController();
         boolean isExit = false;
-        pagination.setDisplayTree(bController.getbookList());
+        pagination.setDisplayTree(bController.getbookTree());
         do {
             UIGenerator.clearScreen();
             bookListPage();

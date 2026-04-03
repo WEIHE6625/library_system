@@ -1,5 +1,6 @@
 package com.mycompany.library_system.dao;
 
+import com.mycompany.library_system.adt.MapInterface;
 import com.mycompany.library_system.adt.TreeMap;
 import com.mycompany.library_system.entity.User;
 import com.mycompany.library_system.utility.DataProcessor;
@@ -74,7 +75,7 @@ public class UserDAO {
     }
 
 
-    public static void writeFile(String filePath, TreeMap<String, User> userList) {
+    public static void writeFile(String filePath, MapInterface<String, User> userList) {
 
         try (CSVWriter writer = new CSVWriter(new FileWriter(filePath))) {
 

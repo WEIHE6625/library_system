@@ -37,7 +37,7 @@ public class BorrowFineRepo {
 
     public TreeMap<String, BorrowFineRecord> getRecords(String id, MapInterface<String, BorrowFineRecord> map) {
             TreeMap<String, BorrowFineRecord> newMap = new TreeMap<>();
-            for(MapInterface.Entry<String, BorrowFineRecord> record: map.entrySet()) {
+            for(MapInterface.Entry<String, BorrowFineRecord> record: map) {
                 if(record.getKey().contains(id.toLowerCase().replaceAll("\\s+", ""))) {
                     newMap.put(record.getKey(), record.getValue());
                 }
@@ -55,7 +55,7 @@ public class BorrowFineRepo {
 
     public TreeMap<String, BorrowFineRecord> getUserAlreadyPaidRecords(String userId, boolean finePayed) {
         TreeMap<String, BorrowFineRecord> newMap = new TreeMap<>();
-        for(MapInterface.Entry<String, BorrowFineRecord> record: this.userFineRecords.entrySet()) {
+        for(MapInterface.Entry<String, BorrowFineRecord> record: this.userFineRecords) {
             if(record.getKey().contains(userId.toLowerCase().replaceAll("\\s+", "")) && (record.getValue().getFinePayed() == finePayed)) {
                 newMap.put(record.getKey(), record.getValue());
             }
@@ -65,7 +65,7 @@ public class BorrowFineRepo {
 
     public TreeMap<String, BorrowFineRecord> getUserPaymentDateRecords(String userId, int year, int month, int day) {
         TreeMap<String, BorrowFineRecord> newMap = new TreeMap<>();
-        for(MapInterface.Entry<String, BorrowFineRecord> record: this.userFineRecords.entrySet()) {
+        for(MapInterface.Entry<String, BorrowFineRecord> record: this.userFineRecords) {
             if(record.getValue().getFinePayed() == false) {continue;}
             if(!record.getKey().contains(userId.toLowerCase().replaceAll("\\s+", ""))) {continue;}
             if(year == -1) {newMap.put(record.getKey(), record.getValue());}
@@ -81,7 +81,7 @@ public class BorrowFineRepo {
 
     public TreeMap<String, BorrowFineRecord> getPaymentDateRecords(int year, int month, int day) {
         TreeMap<String, BorrowFineRecord> newMap = new TreeMap<>();
-        for(MapInterface.Entry<String, BorrowFineRecord> record: this.userFineRecords.entrySet()) {
+        for(MapInterface.Entry<String, BorrowFineRecord> record: this.userFineRecords) {
             if(record.getValue().getFinePayed() == false) {continue;}
             if(year == -1) {newMap.put(record.getKey(), record.getValue());}
             if(year != record.getValue().getPaymentDate().getYear()) {continue;}
@@ -96,7 +96,7 @@ public class BorrowFineRepo {
 
     public TreeMap<String, BorrowFineRecord> getUserFineIssuedDateRecords(String userId, int year, int month, int day) {
         TreeMap<String, BorrowFineRecord> newMap = new TreeMap<>();
-        for(MapInterface.Entry<String, BorrowFineRecord> record: this.userFineRecords.entrySet()) {
+        for(MapInterface.Entry<String, BorrowFineRecord> record: this.userFineRecords) {
             if(!record.getKey().contains(userId.toLowerCase().replaceAll("\\s+", ""))) {continue;}
             if(year == -1) {newMap.put(record.getKey(), record.getValue());}
             if(year != record.getValue().getFine().getFineDate().getYear()) {continue;}
@@ -112,7 +112,7 @@ public class BorrowFineRepo {
 
     public TreeMap<String, BorrowFineRecord> getUserFineIssuedDateRecords(String userId, int year, int month, int day, boolean finePayed) {
         TreeMap<String, BorrowFineRecord> newMap = new TreeMap<>();
-        for(MapInterface.Entry<String, BorrowFineRecord> record: this.userFineRecords.entrySet()) {
+        for(MapInterface.Entry<String, BorrowFineRecord> record: this.userFineRecords) {
             if(!record.getKey().contains(userId.toLowerCase().replaceAll("\\s+", ""))) {continue;}
             if(record.getValue().getFinePayed() != finePayed) {continue;}
             if(year == -1) {newMap.put(record.getKey(), record.getValue());}
@@ -129,7 +129,7 @@ public class BorrowFineRepo {
 
     public TreeMap<String, BorrowFineRecord> getFineIssuedDateRecords(int year, int month, int day) {
         TreeMap<String, BorrowFineRecord> newMap = new TreeMap<>();
-        for(MapInterface.Entry<String, BorrowFineRecord> record: this.borrowFineRecords.entrySet()) {
+        for(MapInterface.Entry<String, BorrowFineRecord> record: this.borrowFineRecords) {
             if(year == -1) {newMap.put(record.getKey(), record.getValue());}
             if(year != record.getValue().getFine().getFineDate().getYear()) {continue;}
             if(month == -1) {newMap.put(record.getKey(), record.getValue());}

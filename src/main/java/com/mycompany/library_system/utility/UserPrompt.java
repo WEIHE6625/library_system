@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 import com.mycompany.library_system.adt.MapInterface;
 import com.mycompany.library_system.adt.TreeMap;
+import com.mycompany.library_system.boundary.BookUI;
 import com.mycompany.library_system.control.BookInfoController;
 
 /**
@@ -285,16 +286,29 @@ public class UserPrompt {
             System.out.println("\n---------------- Select Category ----------------");
             System.out.println("\nType a keyword to search (e.g., 'Hist').");
             System.out.print("Search >> ");
-            String query = scanner.nextLine().trim().toLowerCase();
+            String[] words = scanner.nextLine().trim().toLowerCase().split("\\s+");
 
-            // Filter the list based on user input
-            MapInterface<String, Integer> matches = new TreeMap<>();
-            int no_selection = 1;
-            for (MapInterface.Entry<String, Integer> cat : allCategories) {
-                if (cat.getKey().toLowerCase().contains(query) && !categories.containsKey(cat.getKey())) {
-                    matches.put(cat.getKey(), no_selection++);
+            // Format the category words
+            StringBuilder queryBuilder = new StringBuilder();
+            for (String word : words) {
+                if (!word.isEmpty()) {
+                    queryBuilder.append(word.substring(0, 1).toUpperCase())
+                                .append(word.substring(1))
+                                .append(" ");
                 }
             }
+            String query = queryBuilder.toString().trim();
+
+            // Filter the list based on user input
+            int no_selection = 1;
+            MapInterface<String, Integer> matches = new TreeMap<>();
+            matches.putAll(allCategories.getRange(query, query + Character.MAX_VALUE));
+
+            for (MapInterface.Entry<String, Integer> match : matches) {
+                matches.put(match.getKey(), no_selection++);
+            }
+
+            
             
             // Display Matches
             if (matches.isEmpty()) {

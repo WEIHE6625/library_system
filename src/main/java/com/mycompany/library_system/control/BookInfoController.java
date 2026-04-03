@@ -3,8 +3,6 @@ package com.mycompany.library_system.control;
 import java.time.YearMonth;
 
 import java.util.function.Supplier;
-import com.mycompany.library_system.adt.ArrayList;
-import com.mycompany.library_system.adt.ListInterface;
 import com.mycompany.library_system.adt.MapInterface;
 import com.mycompany.library_system.adt.TreeMap;
 import com.mycompany.library_system.boundary.BookUI;
@@ -59,8 +57,8 @@ public class BookInfoController {
         }
     }
 
-    // Return the Tree that key sort by...
-    public MapInterface<String, Book> getbookList() { 
+    // Return the Tree
+    public MapInterface<String, Book> getbookTree() { 
         return bookTree;
     }
 
@@ -331,6 +329,7 @@ public class BookInfoController {
     private void sort(int sortType) {
         MapInterface<String, Book> currentDisplayTree = BookUI.getPagination().getDisplayTree();
 
+        // If no search is applied, directly set the display tree to the corresponding sorted tree.
         if (currentDisplayTree.size() == bookTree.size()) {
             switch (sortType) {
                 case 1: BookUI.getPagination().setDisplayTree(bookTree); break;
@@ -343,7 +342,7 @@ public class BookInfoController {
         } else {
             TreeMap<String, Book> tempTree = new TreeMap<>();
             
-            for (MapInterface.Entry<String, Book> entry : currentDisplayTree.entrySet()) {
+            for (MapInterface.Entry<String, Book> entry : currentDisplayTree) {
                 Book b = entry.getValue(); 
                 String sortKey = "";
                 

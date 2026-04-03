@@ -38,7 +38,7 @@ public class BookBorrowRepo {
     public BookBorrowRecord getBorrowRecord(String borrowId) {return this.bookBorrowRecords.get(borrowId);}
     public TreeMap<String, BookBorrowRecord> getBorrowDateRecords(int year, int month, int day) {
         TreeMap<String, BookBorrowRecord> newMap = new TreeMap<>();
-        for(MapInterface.Entry<String, BookBorrowRecord> record: this.bookBorrowRecords.entrySet()) {
+        for(MapInterface.Entry<String, BookBorrowRecord> record: this.bookBorrowRecords) {
             if(year == -1) {newMap.put(record.getKey(), record.getValue()); continue;}
             if(year != record.getValue().getBorrowDate().getYear()) {continue;}
             if(month == -1) {newMap.put(record.getKey(), record.getValue()); continue;}
@@ -58,7 +58,7 @@ public class BookBorrowRepo {
     public TreeMap<String, BookBorrowRecord> getLostBookRecords(boolean lostBook) {return getRecords(String.valueOf(lostBook), this.lostBookRecords);}
     public TreeMap<String, BookBorrowRecord> getReturnDateRecords(int year, int month, int day) {
         TreeMap<String, BookBorrowRecord> newMap = new TreeMap<>();
-        for(MapInterface.Entry<String, BookBorrowRecord> record: this.userBorrowRecords.entrySet()) {
+        for(MapInterface.Entry<String, BookBorrowRecord> record: this.userBorrowRecords) {
 
             if(!record.getValue().getAlreadyReturned()) {continue;}
             if(year == -1) {newMap.put(record.getKey(), record.getValue()); continue;}
@@ -76,7 +76,7 @@ public class BookBorrowRepo {
         //Already returned filtered records
     public TreeMap<String, BookBorrowRecord> getAlreadyReturnedBorrowDateRecords(int year, int month, int day, boolean alreadyReturn) {
         TreeMap<String, BookBorrowRecord> newMap = new TreeMap<>();
-        for(MapInterface.Entry<String, BookBorrowRecord> record: this.bookBorrowRecords.entrySet()) {
+        for(MapInterface.Entry<String, BookBorrowRecord> record: this.bookBorrowRecords) {
             if(record.getValue().getIsLostBook()) {continue;}
             if(record.getValue().getAlreadyReturned() != alreadyReturn) {continue;}
             if(year == -1) {newMap.put(record.getKey(), record.getValue()); continue;}
@@ -99,7 +99,7 @@ public class BookBorrowRepo {
     public TreeMap<String, BookBorrowRecord> getBookBorrowRecords(String bookId) {return getRecords(bookId, this.bookRecords);} 
     public TreeMap<String, BookBorrowRecord> getUserBookRecords(String userId, String bookId) {
         TreeMap<String, BookBorrowRecord> newMap = new TreeMap<>();
-        for(MapInterface.Entry<String, BookBorrowRecord> record: this.userBorrowRecords.entrySet()) {
+        for(MapInterface.Entry<String, BookBorrowRecord> record: this.userBorrowRecords) {
             if(record.getKey().contains(userId.toLowerCase().replaceAll("\\s+", "")) && record.getValue().getBookId().equals(bookId)) {
                 newMap.put(record.getKey(), record.getValue());
             }
@@ -108,7 +108,7 @@ public class BookBorrowRepo {
     }
     public TreeMap<String, BookBorrowRecord> getUserBorrowDateRecords(String userId, int year, int month, int day) {
         TreeMap<String, BookBorrowRecord> newMap = new TreeMap<>();
-        for(MapInterface.Entry<String, BookBorrowRecord> record: this.userBorrowRecords.entrySet()) {
+        for(MapInterface.Entry<String, BookBorrowRecord> record: this.userBorrowRecords) {
 
             if(!record.getKey().contains(userId.toLowerCase().replaceAll("\\s+", ""))) {continue;}
             if(year == -1) {newMap.put(record.getKey(), record.getValue()); continue;}
@@ -124,7 +124,7 @@ public class BookBorrowRepo {
     }
     public TreeMap<String, BookBorrowRecord> getUserReturnDateRecords(String userId, int year, int month, int day) {
         TreeMap<String, BookBorrowRecord> newMap = new TreeMap<>();
-        for(MapInterface.Entry<String, BookBorrowRecord> record: this.userBorrowRecords.entrySet()) {
+        for(MapInterface.Entry<String, BookBorrowRecord> record: this.userBorrowRecords) {
 
             if(!record.getKey().contains(userId.toLowerCase().replaceAll("\\s+", "")) || !record.getValue().getAlreadyReturned()) {continue;}
             if(year == -1) {newMap.put(record.getKey(), record.getValue()); continue;}
@@ -140,7 +140,7 @@ public class BookBorrowRepo {
     }
     public TreeMap<String, BookBorrowRecord> getUserIsLostBookRecords(String userId) {
         TreeMap<String, BookBorrowRecord> newMap = new TreeMap<>();
-        for(MapInterface.Entry<String, BookBorrowRecord> record: this.userBorrowRecords.entrySet()) {
+        for(MapInterface.Entry<String, BookBorrowRecord> record: this.userBorrowRecords) {
             if(!record.getKey().contains(userId.toLowerCase().replaceAll("\\s+", ""))) {continue;}
             if(!record.getValue().getIsLostBook()) {continue;}
             newMap.put(record.getKey(), record.getValue());
@@ -149,7 +149,7 @@ public class BookBorrowRepo {
     }
     public TreeMap<String, BookBorrowRecord> getBookIsLostBookRecords(String bookId) {
         TreeMap<String, BookBorrowRecord> newMap = new TreeMap<>();
-        for(MapInterface.Entry<String, BookBorrowRecord> record: this.bookRecords.entrySet()) {
+        for(MapInterface.Entry<String, BookBorrowRecord> record: this.bookRecords) {
             if(!record.getKey().contains(bookId.toLowerCase().replaceAll("\\s+", ""))) {continue;}
             if(!record.getValue().getIsLostBook()) {continue;}
             newMap.put(record.getKey(), record.getValue());
@@ -160,7 +160,7 @@ public class BookBorrowRepo {
         //Already returned filtered records
     public TreeMap<String, BookBorrowRecord> getUserAlreadyReturnRecords(String userId, boolean alreadyReturn) {
         TreeMap<String, BookBorrowRecord> newMap = new TreeMap<>();
-        for(MapInterface.Entry<String, BookBorrowRecord> record: this.userBorrowRecords.entrySet()) {
+        for(MapInterface.Entry<String, BookBorrowRecord> record: this.userBorrowRecords) {
             if(record.getKey().contains(userId.toLowerCase().replaceAll("\\s+", "")) && (record.getValue().getAlreadyReturned() == alreadyReturn) && (!record.getValue().getIsLostBook())) {
                 newMap.put(record.getKey(), record.getValue());
             }
@@ -170,7 +170,7 @@ public class BookBorrowRepo {
     }
     public TreeMap<String, BookBorrowRecord> getBookBorrowRecords(String bookId, boolean alreadyReturn) {
         TreeMap<String, BookBorrowRecord> newMap = new TreeMap<>();
-        for(MapInterface.Entry<String, BookBorrowRecord> record: this.bookRecords.entrySet()) {
+        for(MapInterface.Entry<String, BookBorrowRecord> record: this.bookRecords) {
             if(record.getValue().getIsLostBook()) {continue;}
             if(!record.getKey().contains(bookId.toLowerCase().replaceAll("\\s+", ""))) {continue;}
             if(record.getValue().getAlreadyReturned() != alreadyReturn) {continue;}
@@ -180,7 +180,7 @@ public class BookBorrowRepo {
     }
     public TreeMap<String, BookBorrowRecord> getUserBookRecords(String userId, String bookId, boolean alreadyReturn) {
         TreeMap<String, BookBorrowRecord> newMap = new TreeMap<>();
-        for(MapInterface.Entry<String, BookBorrowRecord> record: this.userBorrowRecords.entrySet()) {
+        for(MapInterface.Entry<String, BookBorrowRecord> record: this.userBorrowRecords) {
             if(record.getKey().contains(userId.toLowerCase().replaceAll("\\s+", "")) && record.getValue().getBookId().equals(bookId) && (record.getValue().getAlreadyReturned() == alreadyReturn) && (!record.getValue().getIsLostBook())) {
                 newMap.put(record.getKey(), record.getValue());
             }
@@ -189,7 +189,7 @@ public class BookBorrowRepo {
     }
     public TreeMap<String, BookBorrowRecord> getUserBorrowDateRecords(String userId, int year, int month, int day, boolean alreadyReturn) {
         TreeMap<String, BookBorrowRecord> newMap = new TreeMap<>();
-        for(MapInterface.Entry<String, BookBorrowRecord> record: this.userBorrowRecords.entrySet()) {
+        for(MapInterface.Entry<String, BookBorrowRecord> record: this.userBorrowRecords) {
             if(record.getValue().getIsLostBook()) {continue;}
             if(!record.getKey().contains(userId.toLowerCase().replaceAll("\\s+", "")) || record.getValue().getAlreadyReturned() != alreadyReturn) {continue;}
             if(record.getValue().getAlreadyReturned() != alreadyReturn) {continue;}
@@ -207,7 +207,7 @@ public class BookBorrowRepo {
     }
     public TreeMap<String, BookBorrowRecord> getBorrowDateIsLostRecords(int year, int month, int day) {
         TreeMap<String, BookBorrowRecord> newMap = new TreeMap<>();
-        for(MapInterface.Entry<String, BookBorrowRecord> record: this.lostBookRecords.entrySet()) {
+        for(MapInterface.Entry<String, BookBorrowRecord> record: this.lostBookRecords) {
             if(!record.getValue().getIsLostBook()) {continue;}
             if(year == -1) {newMap.put(record.getKey(), record.getValue()); continue;}
             if(year != record.getValue().getBorrowDate().getYear()) {continue;}
@@ -223,7 +223,7 @@ public class BookBorrowRepo {
     //Utility 
     public TreeMap<String, BookBorrowRecord> getRecords(String id, MapInterface<String, BookBorrowRecord> map) {
         TreeMap<String, BookBorrowRecord> newMap = new TreeMap<>();
-        for(MapInterface.Entry<String, BookBorrowRecord> record: map.entrySet()) {
+        for(MapInterface.Entry<String, BookBorrowRecord> record: map) {
             if(record.getKey().contains(id.toLowerCase().replaceAll("\\s+", ""))) {
                 newMap.put(record.getKey(), record.getValue());
             }
@@ -282,7 +282,7 @@ public class BookBorrowRepo {
         this.lateReturnRecords = new TreeMap<>();
         this.lostBookRecords = new TreeMap<>();
 
-        for(MapInterface.Entry<String, BookBorrowRecord> record: this.bookBorrowRecords.entrySet()) {
+        for(MapInterface.Entry<String, BookBorrowRecord> record: this.bookBorrowRecords) {
             this.userBorrowRecords.put(IdGenerator.getKeyId(record.getValue().getUserId(), record.getKey()), record.getValue());
             this.bookRecords.put(IdGenerator.getKeyId(record.getValue().getBookId(), record.getKey()), record.getValue());
             this.borrowDateRecords.put(IdGenerator.getKeyId(String.valueOf(record.getValue().getBorrowDate()), record.getKey()), record.getValue());

@@ -74,13 +74,6 @@ package com.mycompany.library_system.adt;
   */
   public ListInterface<K> keys();
 
-  /** Returns a set of all entries in the map
-   * @return a set of all entries in the map
-   */
-  public Entry<K, V>[] entrySet();
-  public Entry<K, V>[] entrySet(boolean isAscending);
-  
-
   interface Entry<K, V> {
     /** Retrieves the specific key.
      *  @return the specific key;

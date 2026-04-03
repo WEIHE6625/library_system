@@ -65,7 +65,7 @@ public class LibrarySystemUI {
                             new Supplier[] {
                                     () -> UserUI.menu(userInfoController, sessionUser),
                                     () -> { BookUI.menu(); return false; },
-                                    () -> { BorrowBookUI.menu(sessionUser); return false; },
+                                    () -> { BorrowBookUI.adminMenu(sessionUser.getUserId()); return false; },
                                     () -> { ReportUI.menu(new ReportInfoController()); return false; },
                                     () -> { return true; } // Returns true to trigger isLogout
                             }
@@ -75,15 +75,13 @@ public class LibrarySystemUI {
                     isLogout = UIGenerator.optionMenu(
                             new String[]{
                                     "[1] User Module",
-                                    "[2] Book Module",
-                                    "[3] Borrow Module",
+                                    "[2] Book Borrow Module",
                                     "[0] Logout"
                             },
                             "Select an option >> ",
                             new Supplier[] {
                                     () -> UserUI.menu(userInfoController, sessionUser),
-                                    () -> { BookUI.menu(); return false; },
-                                    () -> { BorrowBookUI.menu(sessionUser); return false; },
+                                    () -> { BorrowBookUI.memberMenu(sessionUser.getUserId()); return false; },
                                     () -> { return true; } // Returns true to trigger isLogout
                             }
                     );

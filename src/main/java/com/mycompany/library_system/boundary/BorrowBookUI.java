@@ -13,7 +13,6 @@ import com.mycompany.library_system.control.BookInfoController;
 import com.mycompany.library_system.entity.Book;
 import com.mycompany.library_system.entity.BookBorrowRecord;
 import com.mycompany.library_system.entity.BorrowFineRecord;
-import com.mycompany.library_system.entity.User;
 import com.mycompany.library_system.utility.DataProcessor;
 import com.mycompany.library_system.utility.IdGenerator;
 import com.mycompany.library_system.utility.Pagination;
@@ -25,38 +24,15 @@ public class BorrowBookUI {
     private static Pagination<String, BorrowFineRecord> fineRecordsPagination = new Pagination<>();
     private static BookBorrowControl borrowController;
     private static BookInfoController bookInfoController = new BookInfoController();
+
      
 
     public static void startNewBorrowSession(String userId) {
-        borrowController = new BookBorrowControl(userId);
-    }
-
-
-    //==============================================================================================
-    /*
-    Shared UI
-     */
-
-    public static void menu(User sessionUser) {
-        startNewBorrowSession(sessionUser.getUserId());
-        if(sessionUser.getRole() == User.UserRole.ADMIN) {
-            adminMenu(sessionUser.getUserId());
-        }
-        else if(sessionUser.getRole() == User.UserRole.MEMBER) {
-            memberMenu(sessionUser.getUserId());
-        }
-        else{ 
-            System.out.println("Invalid user.");
-        }
+        borrowController = new BookBorrowControl(userId, bookInfoController.getbookTree());
 
     }
 
-
-    //==============================================================================================
-
-
-
-
+    
 
     //==============================================================================================
     /*
@@ -64,7 +40,7 @@ public class BorrowBookUI {
      */
 
     public static void memberMenu(String userId) {
-    
+        startNewBorrowSession(userId);
         boolean quitMemberMenu = false;
 
         do {
@@ -90,7 +66,7 @@ public class BorrowBookUI {
     } 
 
     public static void searchBookUI() {
-        BookUI.getPagination().setDisplayTree(borrowController.getLibrary());
+        BookUI.getPagination().setDisplayTree(borrowController.getBookTree());
         BookUI.getPagination().setCurrentPage(1);
         boolean quitSearchBook = false;
         while(!quitSearchBook) {
@@ -99,14 +75,16 @@ public class BorrowBookUI {
             quitSearchBook = UIGenerator.optionMenu(
                 new String[] {
                     "[1] Search Books",
-                    "[2] Borrow Book",
+                    "[2] Sort Books",
+                    "[3] Borrow Book",
                     "",
-                    "[3] <- Previous Page        [4] Next page ->",
+                    "[4] <- Previous Page        [5] Next page ->",
                     "[0] Go Back"
                 }, "Select an option >>> ", 
                 new Supplier[] {
                     () -> {bookInfoController.searchBooks(); return false;},
-                    () -> {borrowUI(borrowController.getUserId()); BookUI.getPagination().setDisplayTree(borrowController.getLibrary()); return false;},
+                    () -> {bookInfoController.sortBooks(); return false;},
+                    () -> {borrowUI(borrowController.getUserId()); BookUI.getPagination().setDisplayTree(borrowController.getBookTree()); return false;},
                     () -> {BookUI.getPagination().previousPage(); return false;},
                     () -> {BookUI.getPagination().nextPage(); return false;},
                     () -> true
@@ -1087,6 +1065,7 @@ public class BorrowBookUI {
      */
 
     public static void adminMenu(String adminId) {
+        startNewBorrowSession(adminId);
         boolean quitAdminMenu = false;
 
         do {

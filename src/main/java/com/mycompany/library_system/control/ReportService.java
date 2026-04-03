@@ -16,7 +16,7 @@ public class ReportService {
 
 
     //1
-    public static String buildUserSummaryReport(TreeMap<String, User> userMap, LocalDate fromDate, LocalDate toDate) {
+    public static String buildUserSummaryReport(MapInterface<String, User> userMap, LocalDate fromDate, LocalDate toDate) {
 
         ListInterface<User> allUsers = userMap.values();
         int filteredTotal = 0;
@@ -57,7 +57,7 @@ public class ReportService {
     }
 
     //2
-    public static String buildBorrowSummaryReport(TreeMap<String, BookBorrowRecord> borrowMap, LocalDate fromDate, LocalDate toDate) {
+    public static String buildBorrowSummaryReport(MapInterface<String, BookBorrowRecord> borrowMap, LocalDate fromDate, LocalDate toDate) {
         ListInterface<BookBorrowRecord> allBorrows = borrowMap.values();
 
         // Counter Variables
@@ -121,7 +121,7 @@ public class ReportService {
     }
 
     //3
-    public static String buildGlobalFineSummaryReport(TreeMap<String, BorrowFineRecord> fineMap, LocalDate fromDate, LocalDate toDate) {
+    public static String buildGlobalFineSummaryReport(MapInterface<String, BorrowFineRecord> fineMap, LocalDate fromDate, LocalDate toDate) {
         ListInterface<BorrowFineRecord> allFines = fineMap.values();
 
         int totalInPeriod = 0;
@@ -235,7 +235,7 @@ public class ReportService {
     }*/
 
     //4 Reads top 5 set by limit on controller
-    public static String buildCategoryExtremeReport(TreeMap<String, Book> bookMap, int limit,
+    public static String buildCategoryExtremeReport(MapInterface<String, Book> bookMap, int limit,
                                                     int startYear, int startMonth,
                                                     int endYear, int endMonth) {
 
@@ -323,8 +323,8 @@ public class ReportService {
     }
 
     //12
-    public static String buildSingleUserBorrowReport(String targetId, TreeMap<String, User> userMap,
-                                                     TreeMap<String, BookBorrowRecord> borrowMap,
+    public static String buildSingleUserBorrowReport(String targetId, MapInterface<String, User> userMap,
+                                                     MapInterface<String, BookBorrowRecord> borrowMap,
                                                      LocalDate fromDate, LocalDate toDate) {
         User user = userMap.get(targetId);
 
@@ -394,8 +394,8 @@ public class ReportService {
     }
 
     //13
-    public static String buildUserFineReport(String targetId, TreeMap<String, User> userMap,
-                                             TreeMap<String, BorrowFineRecord> fineMap,
+    public static String buildUserFineReport(String targetId, MapInterface<String, User> userMap,
+                                             MapInterface<String, BorrowFineRecord> fineMap,
                                              LocalDate fromDate, LocalDate toDate) {
         User user = userMap.get(targetId);
         if (user == null) {
@@ -461,9 +461,9 @@ public class ReportService {
     }
 
     //14
-    public static String buildUserInterestReport(String targetId, TreeMap<String, User> userMap,
-                                                 TreeMap<String, BookBorrowRecord> borrowMap,
-                                                 TreeMap<String, Book> bookMap,
+    public static String buildUserInterestReport(String targetId, MapInterface<String, User> userMap,
+                                                 MapInterface<String, BookBorrowRecord> borrowMap,
+                                                 MapInterface<String, Book> bookMap,
                                                  LocalDate fromDate, LocalDate toDate) {
         User user = userMap.get(targetId);
         if (user == null) return "User not found.";
@@ -551,8 +551,8 @@ public class ReportService {
     }
 
     //23
-    public static String buildOperationsHealthReport(TreeMap<String, BookBorrowRecord> borrowMap,
-                                                     TreeMap<String, BorrowFineRecord> fineMap,
+    public static String buildOperationsHealthReport(MapInterface<String, BookBorrowRecord> borrowMap,
+                                                     MapInterface<String, BorrowFineRecord> fineMap,
                                                      LocalDate fromDate, LocalDate toDate) {
 
         LocalDate actualToDate = (toDate == null) ? LocalDate.now() : toDate;
@@ -627,8 +627,8 @@ public class ReportService {
     }
 
     //24
-    public static String buildPopularCategoryReport(TreeMap<String, BookBorrowRecord> borrowMap,
-                                                    TreeMap<String, Book> bookMap,
+    public static String buildPopularCategoryReport(MapInterface<String, BookBorrowRecord> borrowMap,
+                                                    MapInterface<String, Book> bookMap,
                                                     LocalDate fromDate, LocalDate toDate) {
 
         TreeMap<String, Integer> borrowCounts = new TreeMap<>();

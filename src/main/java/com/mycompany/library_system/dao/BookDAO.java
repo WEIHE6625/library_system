@@ -3,7 +3,6 @@ package com.mycompany.library_system.dao;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Map;
 
 import com.mycompany.library_system.adt.MapInterface;
 import com.mycompany.library_system.adt.TreeMap;
@@ -21,8 +20,8 @@ import me.tongfei.progressbar.ProgressBar;
  */
 public class BookDAO {
 
-    public static TreeMap<String, Book> readFile(String filePath) {
-        TreeMap<String, Book> bookList = new TreeMap<>();
+    public static MapInterface<String, Book> readFile(String filePath) {
+        MapInterface<String, Book> bookList = new TreeMap<>();
 
         // CSVReader
         try (CSVReader reader = new CSVReader(new FileReader(filePath))) {
@@ -109,7 +108,8 @@ public class BookDAO {
             writer.writeNext(header, false);
 
             // Loop TreeMap and Write Data
-            for (Book book : bookTree.values()) {
+            for (MapInterface.Entry<String, Book> entry : bookTree) {
+                Book book = entry.getValue();
                 
                 String[] data = {
                     book.getId(),

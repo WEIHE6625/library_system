@@ -23,14 +23,13 @@ public class BookBorrowControl {
     
     
     private String userId;
-    private BookBorrowRepo borrowRecords = new BookBorrowRepo();
-    private BorrowFineRepo borrowFineRecords = new BorrowFineRepo();
+    private BookBorrowRepo borrowRecords;
+    private BorrowFineRepo borrowFineRecords;
     
     private final String DEFAULT_LIBRARY_FILE_PATH = "database/book.csv";
-    private TreeMap<String, Book> library = BookDAO.readFile(DEFAULT_LIBRARY_FILE_PATH);
-
+    private MapInterface<String, User> userMap;
     private final String DEFAULT_USER_FILE_PATH = "database/users.csv";
-    private TreeMap<String, User> userMap = UserDAO.readFile(DEFAULT_USER_FILE_PATH);
+    private MapInterface<String, Book> library;
 
     private static final int BOOKS_ALLOWED_TO_BE_BORROWED_AT_ONCE = 5;
     private static final int BORROW_DAYS_ALLOWED = 14;
@@ -39,8 +38,12 @@ public class BookBorrowControl {
     private static final LocalDate BORROW_START_DATE = LocalDate.parse("2017-05-01");
     
 
-    public BookBorrowControl(String userId) {
+    public BookBorrowControl(String userId, MapInterface<String, Book> library) {
         this.userId = userId; 
+        this.userMap = UserDAO.readFile(DEFAULT_USER_FILE_PATH);
+        this.library = library;
+        this.borrowRecords = new BookBorrowRepo();
+        this.borrowFineRecords = new BorrowFineRepo();
         batchCalculateFine();
     }
 
@@ -62,7 +65,7 @@ public class BookBorrowControl {
     public boolean isRecordExist(String borrowId) {return this.borrowRecords.getBookBorrowRecords().containsKey(borrowId);}
     public boolean isFineRecordExist(String borrowId) {return this.borrowFineRecords.getBorrowFineRecords().containsKey(borrowId);}
     public BorrowFineRecord getBorrowFineRecord(String boorowId) {return this.borrowFineRecords.getBorrowFineRecord(boorowId);}
-    public TreeMap<String, Book> getLibrary() {return this.library;}
+    public MapInterface<String, Book> getBookTree() {return this.library;}
 
     public LocalDate calculateReturnDate(String borrowId) {
         BookBorrowRecord record = borrowRecords.getBorrowRecord(borrowId);
@@ -71,7 +74,7 @@ public class BookBorrowControl {
 
     public boolean isUserHasOutstandingFine(String userId) {
         TreeMap<String, BorrowFineRecord> userFineRecord = borrowFineRecords.getUserFineRecords(userId);
-        for(MapInterface.Entry<String, BorrowFineRecord> record: userFineRecord.entrySet()) {
+        for(MapInterface.Entry<String, BorrowFineRecord> record: userFineRecord) {
             if(record.getValue().getFinePayed() == false) {
                 return true;
             } 
@@ -85,7 +88,7 @@ public class BookBorrowControl {
         int lostBooks = 0;
         TreeMap<String, BookBorrowRecord> userBorrowRecordsMap = borrowRecords.getUserBorrowRecords(userId);
 
-        for(MapInterface.Entry<String, BookBorrowRecord> record: userBorrowRecordsMap.entrySet()) {
+        for(MapInterface.Entry<String, BookBorrowRecord> record: userBorrowRecordsMap) {
             if(record.getValue().getAlreadyReturned() == false && record.getValue().getIsLostBook() == false) {booksBorrowedCurrently++;}
             if(record.getValue().getIsLostBook()) {lostBooks++;}
 
@@ -203,7 +206,7 @@ public class BookBorrowControl {
     }    
 
     public void batchCalculateFine() {
-        for(MapInterface.Entry<String, BookBorrowRecord> borrowRecord: this.borrowRecords.getBookBorrowRecords().entrySet()) {
+        for(MapInterface.Entry<String, BookBorrowRecord> borrowRecord: this.borrowRecords.getBookBorrowRecords()) {
             if(borrowRecord.getValue().getAlreadyReturned()) {continue;}
             if(!isLateReturn(borrowRecord.getKey())) {continue;}
             borrowRecord.getValue().setLateReturn(true);
@@ -225,9 +228,9 @@ public class BookBorrowControl {
     }
     
 
-    public void saveLibraryChanges(String filePath, TreeMap<String, Book> bookMap) {BookDAO.writeFile(filePath, bookMap);}
+    public void saveLibraryChanges(String filePath, MapInterface<String, Book> bookMap) {BookDAO.writeFile(filePath, bookMap);}
     public void saveLibraryChanges() {saveLibraryChanges(DEFAULT_LIBRARY_FILE_PATH, library);}
-    public void saveUserChanges(String filePath, TreeMap<String, User> userMap) {UserDAO.writeFile(filePath, userMap);}
+    public void saveUserChanges(String filePath, MapInterface<String, User> userMap) {UserDAO.writeFile(filePath, userMap);}
     public void saveUserChanges() {saveUserChanges(DEFAULT_USER_FILE_PATH, userMap);}
     
     public void saveBorrowRecordsChanges() {borrowRecords.saveChanges();}

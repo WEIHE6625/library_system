@@ -3,10 +3,9 @@ package com.mycompany.library_system.boundary;
 import java.util.Scanner;
 import java.util.function.Supplier;
 
-import com.mycompany.library_system.entity.Book;
 import com.mycompany.library_system.entity.User;
-import com.mycompany.library_system.adt.TreeMap;
 import com.mycompany.library_system.adt.ListInterface;
+import com.mycompany.library_system.adt.MapInterface;
 import com.mycompany.library_system.utility.UserPrompt;
 import com.mycompany.library_system.utility.Pagination;
 import com.mycompany.library_system.utility.UIGenerator;
@@ -16,7 +15,7 @@ public class UserUI {
     static Scanner sc = new Scanner(System.in);
     static Pagination<String, User> pagination = new Pagination<>();
 
-    public static String inputUserID(TreeMap<String, User> userList) {
+    public static String inputUserID(MapInterface<String, User> userList) {
         boolean isValid = false;
         String id = "";
         do {

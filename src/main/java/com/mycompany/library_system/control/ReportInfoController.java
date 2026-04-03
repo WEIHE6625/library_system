@@ -1,11 +1,10 @@
 package com.mycompany.library_system.control;
 
 import java.time.LocalDate;
-import java.util.function.Supplier;
 
 import com.mycompany.library_system.adt.ListInterface;
+import com.mycompany.library_system.adt.MapInterface;
 import com.mycompany.library_system.adt.TreeMap;
-import com.mycompany.library_system.control.ReportService;
 import com.mycompany.library_system.boundary.ReportUI;
 import com.mycompany.library_system.boundary.UserUI;
 import com.mycompany.library_system.dao.*;
@@ -18,13 +17,13 @@ public class ReportInfoController{
     private TreeMap<String, Report> reportTree;
     private TreeMap<String, Report> reportTitleTree;
     private TreeMap<String, Report> generatedDateTree;
-    private TreeMap<String, Report> searchTree = new TreeMap<>();
+    // private TreeMap<String, Report> searchTree = new TreeMap<>();
 
 
     
-    private TreeMap<String, Book> bookTree;
-    private TreeMap<String, User> userTree;
-    private TreeMap<String, BookBorrowRecord> bookBorrowRecordTree;
+    // private TreeMap<String, Book> bookTree;
+    // private TreeMap<String, User> userTree;
+    // private TreeMap<String, BookBorrowRecord> bookBorrowRecordTree;
 
     public static final String REPORT_FILE_PATH = "database/report.csv";
 
@@ -58,16 +57,16 @@ public class ReportInfoController{
         String reportTitle = titleBuilder.toString().trim().replace(" ", ", " )+ "Report";
 
         //Conditional Data Loading for only when needed
-        TreeMap<String, User> currentUsers = isDataNeeded(selectedInputs, "user")
+        MapInterface<String, User> currentUsers = isDataNeeded(selectedInputs, "user")
                 ? UserDAO.readFile("database/users.csv") : null;
 
-        TreeMap<String, BookBorrowRecord> borrowRecords = isDataNeeded(selectedInputs, "borrow")
+        MapInterface<String, BookBorrowRecord> borrowRecords = isDataNeeded(selectedInputs, "borrow")
                 ? BookBorrowDAO.readFile("database/borrowBookRecords.csv") : null;
 
-        TreeMap<String, BorrowFineRecord> fineRecords = isDataNeeded(selectedInputs, "fine")
+        MapInterface<String, BorrowFineRecord> fineRecords = isDataNeeded(selectedInputs, "fine")
                 ? BookBorrowFineDAO.readFile("database/borrowFineRecords.csv") : null;
 
-        TreeMap<String, Book> currentBooks = isDataNeeded(selectedInputs, "book")
+        MapInterface<String, Book> currentBooks = isDataNeeded(selectedInputs, "book")
                 ? BookDAO.readFile("database/book.csv") : null;
         LocalDate [] range;
         LocalDate fromDate = LocalDate.now();
@@ -244,7 +243,7 @@ public class ReportInfoController{
         UIGenerator.pressEnterToContinue();
     }
 
-    private static boolean hasUserBorrow(String targetId, TreeMap<String, BookBorrowRecord> recordMap){
+    private static boolean hasUserBorrow(String targetId, MapInterface<String, BookBorrowRecord> recordMap){
         if(recordMap == null || recordMap.isEmpty()) return false;
 
         ListInterface<BookBorrowRecord> allRecords = recordMap.values();

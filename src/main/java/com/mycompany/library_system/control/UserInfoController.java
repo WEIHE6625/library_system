@@ -2,10 +2,8 @@ package com.mycompany.library_system.control;
 
 import java.util.function.Supplier;
 import com.mycompany.library_system.adt.TreeMap;
-import com.mycompany.library_system.boundary.BookUI;
 import com.mycompany.library_system.boundary.UserUI;
 import com.mycompany.library_system.dao.UserDAO;
-import com.mycompany.library_system.entity.Book;
 import com.mycompany.library_system.entity.User;
 import com.mycompany.library_system.utility.DateUtil;
 import com.mycompany.library_system.utility.IdGenerator;
@@ -81,7 +79,7 @@ public class UserInfoController {
         String createdAt = DateUtil.getToday();
 
         User newUser = new User(id, name, email, gender, age, education, role, createdAt, 0);
-        User user = userTree.put(id, newUser);
+        userTree.put(id, newUser);
 
         userNameTree.put(IdGenerator.getKeyId(newUser.getName(), id), newUser);
         userEmailTree.put(IdGenerator.getKeyId(newUser.getEmail(), id), newUser);

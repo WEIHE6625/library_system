@@ -191,7 +191,6 @@ public class TreeMap<K extends Comparable<K>, V> implements MapInterface<K, V> {
         } 
         // If z has two children
         else {
-
             // Find z's right child's minimum node
             Node<K,V> tmp = z.right;
             while (tmp.left != null) {
@@ -202,10 +201,17 @@ public class TreeMap<K extends Comparable<K>, V> implements MapInterface<K, V> {
             yOriginalColor = y.color;
             x = y.right;
             
+            boolean isDummy = false;
+            if (x == null && yOriginalColor == false) {
+                isDummy = true;
+                x = new Node<>(null, null, false, null); // Create temporary black leaf
+            }
+            
             if (y.parent == z) {
-                if (x != null) x.parent = y; // Special case if x is null
+                if (x != null) x.parent = y; 
+                if (isDummy) y.right = x; // Attach dummy node so it has a valid parent
             } else {
-                transplant(y, y.right);
+                transplant(y, x);
                 y.right = z.right;
                 if (y.right != null) y.right.parent = y;
             }
@@ -214,15 +220,19 @@ public class TreeMap<K extends Comparable<K>, V> implements MapInterface<K, V> {
             y.left = z.left;
             y.left.parent = y;
             y.color = z.color; // y takes z's color
+            
+            // Fix violation using the dummy node (or real node)
+            if (yOriginalColor == false) {
+                delete_fixup(x);
+            }
+
+            // --- THE FIX: Remove the Dummy Node once tree is balanced ---
+            if (isDummy) {
+                transplant(x, null);
+            }
         }
 
         size--;
-        
-        // if violation occurred because the deleted node is black
-        if (yOriginalColor == false) {
-            delete_fixup(x);
-        }
-        
         return oldValue;
     }
 
@@ -245,34 +255,6 @@ public class TreeMap<K extends Comparable<K>, V> implements MapInterface<K, V> {
     @Override
     public void clear() {
         size = 0; root = null;
-    }
-
-    @Override
-    public MapInterface.Entry<K, V>[] entrySet() {
-        return entrySet(true);
-    }
-    @Override
-    public MapInterface.Entry<K, V>[] entrySet(boolean isAscending) {
-        MapInterface.Entry<K, V>[] result = new MapInterface.Entry[size];
-        // Recursive using In-Order
-        CollectEntrySet(root, result, 0, isAscending);
-        return result;
-    }
-    
-    private int CollectEntrySet(Node<K, V> node, MapInterface.Entry<K, V>[] set, int index, boolean isAscending) {
-        if (node == null) return index;
-        if(isAscending == true) {
-            index = CollectEntrySet(node.left, set, index, isAscending);
-            set[index++] = node;
-            index = CollectEntrySet(node.right, set, index, isAscending);
-            return index;
-        }
-        else {
-            index = CollectEntrySet(node.right, set, index, isAscending);
-            set[index++] = node;
-            index = CollectEntrySet(node.left, set, index, isAscending);
-            return index;
-        }
     }
 
     @Override
@@ -313,6 +295,16 @@ public class TreeMap<K extends Comparable<K>, V> implements MapInterface<K, V> {
             // Recursive to put all nodes
             recursiveputAll(map.root);
         }
+    }
+
+    @Override
+    public String toString() {
+        String outputStr = "";
+
+        for (MapInterface.Entry<K, V> entry : this) {
+            outputStr += entry.getKey() + ",";
+        }
+        return outputStr.isEmpty() ? outputStr : outputStr.substring(0, outputStr.length() - 1);
     }
 
     @Override

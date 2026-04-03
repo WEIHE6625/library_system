@@ -3,8 +3,6 @@ package com.mycompany.library_system.dao;
 import java.io.*;
 
 import java.time.LocalDate;
-import com.mycompany.library_system.adt.ArrayList;
-import com.mycompany.library_system.adt.ListInterface;
 import com.mycompany.library_system.adt.TreeMap;
 import com.mycompany.library_system.entity.Report;
 import com.mycompany.library_system.utility.DataProcessor;
