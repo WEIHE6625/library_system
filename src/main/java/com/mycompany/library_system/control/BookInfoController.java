@@ -1,7 +1,6 @@
 package com.mycompany.library_system.control;
 
 import java.time.YearMonth;
-
 import java.util.function.Supplier;
 import com.mycompany.library_system.adt.MapInterface;
 import com.mycompany.library_system.adt.TreeMap;
@@ -25,7 +24,7 @@ public class BookInfoController {
     private MapInterface<String, Book> bookQtyATree;
     private MapInterface<String, Book> bookQtyTTree;
     private MapInterface<String, Book> bookCatTree;
-    private MapInterface<String, Book> searchTree = new TreeMap<>();
+    private MapInterface<String, String> searchCriteriaTree; // 0: Title, 1: Author, 2: Category, 3: Available Qty, 4: Total Qty
     
     public static final String BOOK_FILE_PATH = "database/book.csv";
 
@@ -39,6 +38,7 @@ public class BookInfoController {
         this.bookQtyATree = new TreeMap<>();
         this.bookQtyTTree = new TreeMap<>();
         this.bookCatTree = new TreeMap<>();
+        initCriteriaTree();
 
         // Loop through every book in the main bookTree
         System.out.println("Matching...");
@@ -52,9 +52,21 @@ public class BookInfoController {
             bookQtyTTree.put(IdGenerator.getKeyId(book.getQtyTotal(), book.getId()), book);
 
             for (MapInterface.Entry<String, Integer> category : book.getCategories()) {
-                bookCatTree.put(IdGenerator.getKeyId(category.getKey(), book.getId()), book);
+                String[] categoryNames = category.getKey().split(",");
+                for (String catName : categoryNames) {
+                    bookCatTree.put(IdGenerator.getKeyId(catName.trim(), book.getId()), book);
+                }
             }
         }
+    }
+
+    private void initCriteriaTree() {
+        searchCriteriaTree = new TreeMap<>();
+        searchCriteriaTree.put("Title", null);
+        searchCriteriaTree.put("Author", null);
+        searchCriteriaTree.put("Category", null);
+        searchCriteriaTree.put("Available Quantity", null);
+        searchCriteriaTree.put("Total Quantity", null);
     }
 
     // Return the Tree
@@ -153,9 +165,26 @@ public class BookInfoController {
                             bookAuthorTree.put(IdGenerator.getKeyId(newAuthor, id), book);
                             return false;
                         },
-                        () -> { bookTree.get(id).setDescription(BookUI.inputBookDescription()); return false; },
-                        () -> { bookTree.get(id).setCategories(BookUI.inputBookCategory(this, bookTree.get(id).getCategories())); return false; },
-                        () -> { bookTree.get(id).setPublisher(BookUI.inputBookPublisher()); return false; },
+                        () -> { book.setDescription(BookUI.inputBookDescription()); return false; },
+                        () -> { 
+                            MapInterface<String, Integer> oldCatsTree = book.getCategories();
+                            MapInterface<String, Integer> newCatsTree = BookUI.inputBookCategory(this, book.getCategories()); 
+                            book.setCategories(newCatsTree);
+                            for (MapInterface.Entry<String, Integer> category : oldCatsTree) {
+                                String[] categoryNames = category.getKey().split(",");
+                                for (String catName : categoryNames) {
+                                    bookCatTree.remove(IdGenerator.getKeyId(catName.trim(), id));
+                                }
+                            }
+                            for (MapInterface.Entry<String, Integer> category : newCatsTree) {
+                                String[] categoryNames = category.getKey().split(",");
+                                for (String catName : categoryNames) {
+                                    bookCatTree.put(IdGenerator.getKeyId(catName.trim(), id), book);
+                                }
+                            }                            
+                            return false; 
+                        },
+                        () -> { book.setPublisher(BookUI.inputBookPublisher()); return false; },
                         () -> {
                             double oldPrice = book.getPrice();
                             double newPrice = BookUI.inputBookPrice();
@@ -286,7 +315,7 @@ public class BookInfoController {
 
             isBack = UIGenerator.optionMenu(
                 new String[]{
-                    "[1] Sort by Book ID",
+                    "[1] Default Sorting",
                     "[2] Sort by Book Title",
                     "[3] Sort by Author",
                     "[4] Sort by Available Quantity",
@@ -296,11 +325,11 @@ public class BookInfoController {
                 },
                 "Select a sorting option >> ",
                 new Supplier[] {
-                        () -> { sort(1); return false; },
-                        () -> { sort(2); return false; },
-                        () -> { sort(3); return false; },
-                        () -> { sort(4); return false; },
-                        () -> { sort(5); return false; },
+                        () -> { applySort(1); return false; },
+                        () -> { applySort(2); return false; },
+                        () -> { applySort(3); return false; },
+                        () -> { applySort(4); return false; },
+                        () -> { applySort(5); return false; },
                         () -> true
                 }
             );
@@ -326,7 +355,7 @@ public class BookInfoController {
         BookUI.getPagination().setCurrentPage(1);
     }
 
-    private void sort(int sortType) {
+    private void applySort(int sortType) {
         MapInterface<String, Book> currentDisplayTree = BookUI.getPagination().getDisplayTree();
 
         // If no search is applied, directly set the display tree to the corresponding sorted tree.
@@ -362,7 +391,6 @@ public class BookInfoController {
 
     public void searchBooks() {
         boolean isBack = false;
-        final int searchOption[] = {0};
 
         do {
             isBack = false;
@@ -382,12 +410,18 @@ public class BookInfoController {
                 },
                 "Select a searching option >> ",
                 new Supplier[] {
-                        () -> { searchOption[0] = -1; searchTree = bookTree; return false; },
-                        () -> { searchOption[0] = 0; searchTree = bookTitleTree; return false; },
-                        () -> { searchOption[0] = 0; searchTree = bookAuthorTree; return false; },
-                        () -> { searchOption[0] = 0; searchTree = bookCatTree; return false; },
-                        () -> { searchOption[0] = 1; searchTree = bookQtyATree; return false; },
-                        () -> { searchOption[0] = 1; searchTree = bookQtyTTree; return false; },
+                        () -> { 
+                                initCriteriaTree();
+                                BookUI.getPagination().setDisplayTree(bookTree); 
+                                BookUI.getPagination().setCurrentPage(1); 
+                                BookUI.getPagination().setSearchingWord(""); 
+                                return false; 
+                            },
+                        () -> { applySearch("Title", "string"); return false; },
+                        () -> { applySearch("Author", "string"); return false; },
+                        () -> { applySearch("Category", "category"); return false; },
+                        () -> { applySearch("Available Quantity", "int"); return false; },
+                        () -> { applySearch("Total Quantity", "int"); return false; },
                         () -> true
                 }
             );
@@ -397,22 +431,102 @@ public class BookInfoController {
             }
             
         } while (isBack);
+    }
 
-        String search = new String();
-        // If user search String
-        if(searchOption[0] >= 0) {
-            if(searchOption[0] == 0 ) {
-                search = UserPrompt.inputString("Enter the word seaching : ", 999, false).toLowerCase().replaceAll("\\s+", "");
-                BookUI.getPagination().setSearchingWord(search);    
-            }
-            else {
-                int input = UserPrompt.inputInteger("Enter the number seaching : ", 0, 999);
-                search = IdGenerator.getKeyId(input, "");
-                BookUI.getPagination().setSearchingWord(String.valueOf(input));
+    private void applySearch(String searchCriteria, String searchType) {
+        String search = "";
+
+        switch (searchType) {
+            case "string": search = UserPrompt.inputString("Enter the word to search : ", 999, false).toLowerCase().replaceAll("\\s+", ""); break;
+            case "category": 
+                MapInterface<String, Integer> searchCategories = UserPrompt.inputBookCategory(this);
+                StringBuilder catBuilder = new StringBuilder();
+                
+                for (MapInterface.Entry<String, Integer> category : searchCategories) {
+                    String[] categoryNames = category.getKey().split(",");
+                    for (String catName : categoryNames) {
+                        catBuilder.append(IdGenerator.getKeyId(catName.trim(), "")).deleteCharAt(catBuilder.length() - 1).append(",");
+                    }
+                }
+                if (catBuilder.length() > 0) {
+                    catBuilder.setLength(catBuilder.length() - 1); 
+                }
+                search = catBuilder.toString();
+                break;
+            case "int": int input = UserPrompt.inputInteger("Enter the number to search : ", 0, 999); search = IdGenerator.getKeyId(input, ""); break;
+        }
+
+        if (searchCriteriaTree.get(searchCriteria) != null) {
+            System.out.println("Search criteria already applied. It will be overridden. Do you want to continue? (Y/N)");
+            String choice = UserPrompt.inputString("Enter your choice: ", 1, false);
+            if (!"Y".equalsIgnoreCase(choice)) {
+                return;
             }
         }
 
-        BookUI.getPagination().setDisplayTree(searchTree.getRange(search, search+Character.MAX_VALUE));
+        searchCriteriaTree.put(searchCriteria, search);
+
+        MapInterface<String, Book> finalResults = bookTree; 
+
+        // Loop through only the ACTIVE criteria that have actual values
+        for (MapInterface.Entry<String, String> entry : searchCriteriaTree) {
+            String activeCriteria = entry.getKey();
+            String activeSearchWord = entry.getValue();
+
+            if (activeSearchWord == null) continue;
+
+            MapInterface<String, Book> rawMatches = new TreeMap<>();
+            MapInterface<String, Book> targetTree = new TreeMap<>();
+
+            if (activeCriteria.equals("Category")) {
+                String[] categories = activeSearchWord.split(",");
+
+                for (int i = 0; i < categories.length; i++) {
+                    String cat = categories[i];
+                    MapInterface<String, Book> singleCatMatches = bookCatTree.getRange(cat, cat + Character.MAX_VALUE);
+                    
+                    if (i == 0) {
+                        for (MapInterface.Entry<String, Book> match : singleCatMatches) {
+                            rawMatches.put(match.getValue().getId(), match.getValue());
+                        }
+                    } else {
+                        MapInterface<String, Book> tempIntersection = new TreeMap<>();
+                        // Intersection
+                        for (MapInterface.Entry<String, Book> match : singleCatMatches) {
+                            if (rawMatches.containsKey(match.getValue().getId())) {
+                                tempIntersection.put(match.getValue().getId(), match.getValue());
+                            }
+                        }
+                        rawMatches = tempIntersection; 
+                    }
+                }
+            } else {
+                switch (activeCriteria) {
+                    case "Title": targetTree = bookTitleTree; break;
+                    case "Author": targetTree = bookAuthorTree; break;
+                    case "Available Quantity": targetTree = bookQtyATree; break;
+                    case "Total Quantity": targetTree = bookQtyTTree; break;
+                }
+                rawMatches = targetTree.getRange(activeSearchWord, activeSearchWord + Character.MAX_VALUE);
+            }
+            // Intersection
+            MapInterface<String, Book> intersectionTree = new TreeMap<>();
+            for (MapInterface.Entry<String, Book> match : rawMatches) {
+                if (finalResults.containsKey(match.getValue().getId())) {
+                    intersectionTree.put(match.getValue().getId(), match.getValue()); 
+                }
+            }
+            
+            finalResults = intersectionTree; 
+        }
+
+        StringBuilder displaySearch = new StringBuilder();
+        for (MapInterface.Entry<String, String> entry : searchCriteriaTree) {
+            if (entry.getValue() != null) displaySearch.append("{").append(entry.getKey()).append(": ").append(entry.getValue()).append("} ");
+        }
+
+        BookUI.getPagination().setSearchingWord(displaySearch.toString().trim());
+        BookUI.getPagination().setDisplayTree(finalResults);
         BookUI.getPagination().setCurrentPage(1);
     }
 

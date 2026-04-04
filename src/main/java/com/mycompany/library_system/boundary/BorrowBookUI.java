@@ -71,19 +71,21 @@ public class BorrowBookUI {
         boolean quitSearchBook = false;
         while(!quitSearchBook) {
             
-            BookUI.bookListPage();
+            BookUI.bookListPage("member");
             quitSearchBook = UIGenerator.optionMenu(
                 new String[] {
                     "[1] Search Books",
                     "[2] Sort Books",
-                    "[3] Borrow Book",
+                    "[3] View Book Details",
+                    "[4] Borrow Book",
                     "",
-                    "[4] <- Previous Page        [5] Next page ->",
+                    "[5] <- Previous Page        [6] Next page ->",
                     "[0] Go Back"
                 }, "Select an option >>> ", 
                 new Supplier[] {
                     () -> {bookInfoController.searchBooks(); return false;},
                     () -> {bookInfoController.sortBooks(); return false;},
+                    () -> {bookInfoController.viewBookDetails(); return false;},
                     () -> {borrowUI(borrowController.getUserId()); BookUI.getPagination().setDisplayTree(borrowController.getBookTree()); return false;},
                     () -> {BookUI.getPagination().previousPage(); return false;},
                     () -> {BookUI.getPagination().nextPage(); return false;},

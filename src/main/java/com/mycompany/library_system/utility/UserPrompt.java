@@ -5,7 +5,6 @@ import java.util.Scanner;
 
 import com.mycompany.library_system.adt.MapInterface;
 import com.mycompany.library_system.adt.TreeMap;
-import com.mycompany.library_system.boundary.BookUI;
 import com.mycompany.library_system.control.BookInfoController;
 
 /**
@@ -271,10 +270,10 @@ public class UserPrompt {
      *                          so exclude them to prevent user select them again.
      * @return A list of selected categories
      */
-    public static MapInterface<String, Integer> inputBookCategory(BookInfoController bookManager, MapInterface<String, Integer> categoriesExisted) {        
+    public static MapInterface<String, Integer> inputBookCategory(BookInfoController bookInfoController, MapInterface<String, Integer> categoriesExisted) {        
         // Get the list of all existing categories
         MapInterface<String, Integer> categories = new TreeMap<>();
-        MapInterface<String, Integer> allCategories = bookManager.getAllUniqueCategories(categoriesExisted);
+        MapInterface<String, Integer> allCategories = bookInfoController.getAllUniqueCategories(categoriesExisted);
         boolean isExit = false;
 
         for (MapInterface.Entry<String, Integer> cat : categoriesExisted) { // Show the current categoris the book have
@@ -356,8 +355,8 @@ public class UserPrompt {
                     if (input.equalsIgnoreCase("n")) {
                         System.out.print("\nEnter new category name: ");
                         isExit = false;
-                        String newCategory = scanner.nextLine().trim();
-                        categories.put(newCategory, 0);
+                        String newCategory = scanner.nextLine().trim().toLowerCase();
+                        categories.put(newCategory.substring(0, 1).toUpperCase() + newCategory.substring(1), 0);
                         System.out.println("\nCategory : " + newCategory + " added.");
                         UIGenerator.pressEnterToContinue();
 
@@ -403,8 +402,8 @@ public class UserPrompt {
         return categories;
     }
 
-    public static MapInterface<String, Integer> inputBookCategory(BookInfoController bookManager) {
-        return inputBookCategory(bookManager, new TreeMap<>());
+    public static MapInterface<String, Integer> inputBookCategory(BookInfoController bookInfoController) {
+        return inputBookCategory(bookInfoController, new TreeMap<>());
     }
 
     public static boolean isValidEmail(String email) {

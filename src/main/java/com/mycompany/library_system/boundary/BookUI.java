@@ -21,13 +21,13 @@ public class BookUI {
     static Scanner scanner = new Scanner(System.in);
     static Pagination<String, Book> pagination = new Pagination<>();
 
-    public static String inputBookID(MapInterface<String, Book> bookList) {
+    public static String inputBookID(MapInterface<String, Book> bookTree) {
         boolean isValid = false;
         String id = "";
         do {
-            System.out.print("Enter Book ID*      >> ");
+            System.out.print("Enter Book ID* (BK000000) >> ");
             id = scanner.nextLine();
-            if (!bookList.containsKey(id)) {
+            if (!bookTree.containsKey(id)) {
                 System.out.println("Book with ID " + id + " does not exist. Please try again.");
             }else{
                 isValid = true;
@@ -88,7 +88,7 @@ public class BookUI {
         pagination.setDisplayTree(bController.getbookTree());
         do {
             UIGenerator.clearScreen();
-            bookListPage();
+            bookListPage("admin");
             isExit = UIGenerator.optionMenu(
                 new String[]{
                     "[1] Add New Book",
@@ -119,7 +119,7 @@ public class BookUI {
         }while (!isExit);
     }
 
-    public static void bookListPage() {
+    public static void bookListPage(String role) {
         UIGenerator.titleBuilder("Book List");
         System.out.println(pagination.getSearchingWord());
         ListInterface<Book> displayList = pagination.getDisplayTree().values();
@@ -133,22 +133,38 @@ public class BookUI {
         int startIndex = pagination.getStartIndex();
         int endIndex = pagination.getEndIndex();
 
-        System.out.printf("%-8s %-40s %-30s %-28s %-26s %-13s %-9s\n", "Book ID ", "Book Title", "Category", "Author", "Publisher", "Available Qty", "Total Qty");
-        System.out.printf("%-8s %-40s %-30s %-28s %-26s %-13s %-9s\n", "--------", "----------", "--------", "------", "---------", "-------------", "---------");
+        if (role.equals("member")) {
+            System.out.printf("%-8s %-45s %-30s %-30s %-29s %-13s\n", "Book ID ", "Book Title", "Category", "Author", "Publisher", "Available Qty");
+            System.out.printf("%-8s %-45s %-30s %-30s %-29s %-13s\n", "--------", "----------", "--------", "------", "---------", "-------------");
 
-        for (int i = startIndex; i <= endIndex; i++) {
-            int actualIndex = pagination.isAscending() ? i : (totalRecords - 1 - i);
+            for (int i = startIndex; i <= endIndex; i++) {
+                int actualIndex = pagination.isAscending() ? i : (totalRecords - 1 - i);
 
-            Book b = displayList.get(actualIndex);
-            String title = DataProcessor.truncate(b.getTitle(), 38);
-            String category = DataProcessor.truncate(b.getCategories().toString(), 28);
-            String author = DataProcessor.truncate(b.getAuthor(), 26);
-            String publisher = DataProcessor.truncate(b.getPublisher(), 24);
-            System.out.printf("%-8s %-40s %-30s %-28s %-26s %13d %9d\n", b.getId(), title, category, author, publisher, b.getQtyAvailable(), b.getQtyTotal());
+                Book b = displayList.get(actualIndex);
+                String title = DataProcessor.truncate(b.getTitle(), 38);
+                String category = DataProcessor.truncate(b.getCategories().toString(), 28);
+                String author = DataProcessor.truncate(b.getAuthor(), 26);
+                String publisher = DataProcessor.truncate(b.getPublisher(), 24);
+                System.out.printf("%-8s %-45s %-30s %-30s %-29s %13d\n", b.getId(), title, category, author, publisher, b.getQtyAvailable());
+            }
+        } else {
+            System.out.printf("%-8s %-40s %-30s %-28s %-26s %-13s %-9s\n", "Book ID ", "Book Title", "Category", "Author", "Publisher", "Available Qty", "Total Qty");
+            System.out.printf("%-8s %-40s %-30s %-28s %-26s %-13s %-9s\n", "--------", "----------", "--------", "------", "---------", "-------------", "---------");
+
+            for (int i = startIndex; i <= endIndex; i++) {
+                int actualIndex = pagination.isAscending() ? i : (totalRecords - 1 - i);
+
+                Book b = displayList.get(actualIndex);
+                String title = DataProcessor.truncate(b.getTitle(), 38);
+                String category = DataProcessor.truncate(b.getCategories().toString(), 28);
+                String author = DataProcessor.truncate(b.getAuthor(), 26);
+                String publisher = DataProcessor.truncate(b.getPublisher(), 24);
+                System.out.printf("%-8s %-40s %-30s %-28s %-26s %13d %9d\n", b.getId(), title, category, author, publisher, b.getQtyAvailable(), b.getQtyTotal());
+            }
+
+            System.out.println("-".repeat(160));
+            System.out.printf("Page: %d/%d ------ Total Records: %d\n\n", pagination.getCurrentPage(), pagination.getTotalPages(), displayList.size());
         }
-
-        System.out.println("-".repeat(160));
-        System.out.printf("Page: %d/%d ------ Total Records: %d\n\n", pagination.getCurrentPage(), pagination.getTotalPages(), displayList.size());
     }
 
     public static Pagination<String, Book> getPagination() {
