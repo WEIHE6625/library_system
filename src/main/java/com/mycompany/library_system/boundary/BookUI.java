@@ -146,13 +146,11 @@ public class BookUI {
         String fileName = "";
         switch (reportType) {
             case 1: report = reportController.generateAdminReport1(); fileName = "Low_Stock_Report"; break;
-            // case 2: report = reportController.generateAdminReport2(); fileName = "Inventory_Cost_Report"; break;
+            case 2: report = reportController.generateAdminReport2(); fileName = "Inventory_Cost_Report"; break;
         }
 
         System.out.println(report);
-
-        System.out.println("\nWould you like to export this report to a text file? (Y/N)");
-        String choice = UserPrompt.inputString("Enter your choice >> ", 1, false);
+        String choice = UserPrompt.inputString("\nWould you like to export this report to a text file? (Y/N) >> ", 1, false);
 
         if ("Y".equalsIgnoreCase(choice)) {
             reportController.exportToFile(report, fileName);

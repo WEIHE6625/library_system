@@ -1,10 +1,12 @@
 package com.mycompany.library_system.control;
 
 import java.util.function.Supplier;
+
 import com.mycompany.library_system.adt.MapInterface;
 import com.mycompany.library_system.adt.TreeMap;
 import com.mycompany.library_system.dao.ReportDAO;
 import com.mycompany.library_system.entity.User;
+import com.mycompany.library_system.utility.DataProcessor;
 import com.mycompany.library_system.utility.UIGenerator;
 
 public class UserReportGenerator {
@@ -75,6 +77,15 @@ public class UserReportGenerator {
             }
         }
 
+        int maxEducationCount = counts[0];
+        for (int i = 1; i < counts.length; i++) {
+            if (counts[i] > maxEducationCount) {
+                maxEducationCount = counts[i];
+            }
+        }
+        int standMaxEducationCount = (int) DataProcessor.getStandardScale(maxEducationCount, true);
+        int chartHeight = Math.min(10, standMaxEducationCount);
+
         StringBuilder report = new StringBuilder();
         UIGenerator.appendHeader(report, "USER ANALYSIS REPORT", "USERS BY EDUCATION REPORT");
 
@@ -101,8 +112,14 @@ public class UserReportGenerator {
         UIGenerator.appendCenteredLine(report, "User Education Distribution");
         report.append("\n");
 
-        UIGenerator.appendVerticalBarChart(report, labels, counts, labels.length, COL_WIDTH);
+        int[] scaledCounts = new int[counts.length];
+        for (int i = 0; i < counts.length; i++) {
+            scaledCounts[i] = (standMaxEducationCount == 0) ? 0 : 
+                (int) Math.round(((double) counts[i] / standMaxEducationCount) * (chartHeight * 2));
+        }
+        UIGenerator.appendVerticalBarChart(report, labels, scaledCounts, labels.length, chartHeight, COL_WIDTH, standMaxEducationCount, true);
         UIGenerator.appendFooter(report);
+
 
         System.out.println(report);
         ReportDAO.promptSaveReport(report.toString(), "users_by_education", REPORT_FOLDER);
@@ -129,6 +146,15 @@ public class UserReportGenerator {
             }
         }
 
+        int maxAgeGroupCount = counts[0];
+        for (int i = 1; i < counts.length; i++) {
+            if (counts[i] > maxAgeGroupCount) {
+                maxAgeGroupCount = counts[i];
+            }
+        }
+        int standMaxAgeGroupCount = (int) DataProcessor.getStandardScale(maxAgeGroupCount, true);
+        int chartHeight = Math.min(10, standMaxAgeGroupCount);
+
         StringBuilder report = new StringBuilder();
         UIGenerator.appendHeader(report, "USER ANALYSIS REPORT", "USERS BY AGE GROUP REPORT");
 
@@ -153,7 +179,12 @@ public class UserReportGenerator {
         UIGenerator.appendCenteredLine(report, "User Age Group Distribution");
         report.append("\n");
 
-        UIGenerator.appendVerticalBarChart(report, labels, counts, labels.length, COL_WIDTH);
+        int[] scaledCounts = new int[counts.length];
+        for (int i = 0; i < counts.length; i++) {
+            scaledCounts[i] = (standMaxAgeGroupCount == 0) ? 0 : 
+                (int) Math.round(((double) counts[i] / standMaxAgeGroupCount) * (chartHeight * 2));
+        }
+        UIGenerator.appendVerticalBarChart(report, labels, scaledCounts, labels.length, chartHeight, COL_WIDTH, standMaxAgeGroupCount, true);
         UIGenerator.appendFooter(report);
 
         System.out.println(report);
@@ -185,11 +216,15 @@ public class UserReportGenerator {
 
         int validCount = 0;
         int totalBorrowedBooks = 0;
+        int maxBorrowedBooks = 0;
 
         for (int i = 0; i < topUsers.length; i++) {
             if (topUsers[i] != null) {
                 labels[i] = topUsers[i].getUserId();
                 counts[i] = topUsers[i].getNumOfBooksBorrowing();
+                if (counts[i] > maxBorrowedBooks) {
+                    maxBorrowedBooks = counts[i];
+                }
 
                 String row = String.format("| %-4d | %-10s | %-28s | %14d |",
                         i + 1,
@@ -202,6 +237,8 @@ public class UserReportGenerator {
                 totalBorrowedBooks += topUsers[i].getNumOfBooksBorrowing();
             }
         }
+        int standMaxBorrowedBooks = (int) DataProcessor.getStandardScale(maxBorrowedBooks, true);
+        int chartHeight = Math.min(10, standMaxBorrowedBooks);
 
         UIGenerator.appendCenteredLine(report, "|------|------------|------------------------------|----------------|");
         UIGenerator.appendCenteredLine(report, "__________________________________________________________________");
@@ -212,7 +249,12 @@ public class UserReportGenerator {
         UIGenerator.appendCenteredLine(report, "Top 5 Borrowing Users Distribution");
         report.append("\n");
 
-        UIGenerator.appendVerticalBarChart(report, labels, counts, validCount, COL_WIDTH);
+        int[] scaledCounts = new int[counts.length];
+        for (int i = 0; i < counts.length; i++) {
+            scaledCounts[i] = (standMaxBorrowedBooks == 0) ? 0 : 
+                (int) Math.round(((double) counts[i] / standMaxBorrowedBooks) * (chartHeight * 2));
+        }
+        UIGenerator.appendVerticalBarChart(report, labels, scaledCounts, validCount, chartHeight, COL_WIDTH, standMaxBorrowedBooks, true);
         UIGenerator.appendFooter(report);
 
         System.out.println(report);

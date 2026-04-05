@@ -35,7 +35,7 @@ public class IdGenerator {
         if (key == null) return null;
         String keyId = "";
         if(key instanceof Double){
-            keyId = String.format("%06.2f-%s", key, Id);
+            keyId = String.format("%012.2f-%s", key, Id);
         }else if (key instanceof Integer) {
             keyId = String.format("%03d-%s", key, Id);
         }else if (key instanceof String) {

@@ -57,5 +57,39 @@ public class DataProcessor {
             return null; // Return null if the date is corrupted
         }
     }
+    
+    // Calculate a standard scale for graph axes based on the maximum value
+    public static double getStandardScale(double max, boolean isDiscrete) {
+        if (max <= 0) return 0.0;
+        
+        if (isDiscrete && max <= 10) return Math.ceil(max); 
 
+        int exponent = (int) Math.floor(Math.log10(max));
+        double fraction = max / Math.pow(10, exponent);
+        double scaledValue;
+
+        if (!isDiscrete) {
+            if (fraction <= 1.0) scaledValue = 1.0;
+            else if (fraction <= 1.5) scaledValue = 1.5;
+            else if (fraction <= 2.0) scaledValue = 2.0;
+            else if (fraction <= 2.5) scaledValue = 2.5;
+            else if (fraction <= 3.0) scaledValue = 3.0;
+            else if (fraction <= 4.0) scaledValue = 4.0; 
+            else if (fraction <= 5.0) scaledValue = 5.0;
+            else if (fraction <= 6.0) scaledValue = 6.0;
+            else if (fraction <= 7.5) scaledValue = 7.5;
+            else if (fraction <= 8.0) scaledValue = 8.0;
+            else scaledValue = 10.0;
+        } else {
+            if (fraction <= 1.0) scaledValue = 1.0;
+            else if (fraction <= 2.0) scaledValue = 2.0;
+            else if (fraction <= 3.0) scaledValue = 3.0;
+            else if (fraction <= 4.0) scaledValue = 4.0;
+            else if (fraction <= 5.0) scaledValue = 5.0;
+            else if (fraction <= 8.0) scaledValue = 8.0;
+            else scaledValue = 10.0;
+        }
+        
+        return scaledValue * Math.pow(10, exponent);
+    }
 }

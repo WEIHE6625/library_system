@@ -1,5 +1,6 @@
 package com.mycompany.library_system.utility;
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
@@ -138,56 +139,80 @@ public class UIGenerator {
         report.append(UIGenerator.centerText(text, UIGenerator.TOTAL_WIDTH)).append("\n");
     }
 
-    public static void appendVerticalBarChart(StringBuilder report, String[] labels, int[] values, int size, int column_width) {
-        int max = getMax(values, size);
+    public static String formatYAxisLabel(double value, boolean isDiscrete) {
+        if (isDiscrete) {
+            if (value >= 1_000_000) return String.format("%5.1fM", value / 1_000_000.0);
+            if (value >= 1_000) return String.format("%5.1fK", value / 1_000.0);
+            return String.format("%5d", Math.round(value)); 
+        } else {
+            if (value >= 1_000_000) return String.format("$%5.1fM", value / 1_000_000.0);
+            if (value >= 1_000) return String.format("$%5.1fK", value / 1_000.0);
+            return String.format("%5.0f", value);
+        }
+    }
 
-        // Each column bar filled
-        for (int level = max; level >= 1; level--) {
+    /**
+     * Generates a vertical bar chart and appends it to a StringBuilder.
+     *
+     * @param report       The StringBuilder to append the generated chart to.
+     * @param labels       An array of String labels for the X-axis.
+     * @param values       An array of integers representing the height of each bar.
+     * @param size         The number of data points to plot (number of columns).
+     * @param column_width The character width of each column/bar in the chart.
+     * @param maxValue     The maximum value in the dataset, used for scaling.
+     * @param isDiscrete   A flag indicating whether the data is discrete.
+        *                     If true, the Y-axis will be labeled with integer values.
+        *                     If false, the Y-axis will be labeled with scaled values.
+     */
+    public static void appendVerticalBarChart(StringBuilder report, String[] labels, int[] values, int size, int chartHeight, int columnWidth, double maxValue, boolean isDiscrete) {
+        int yAxisWidth = 8;
+
+        for (int level = chartHeight; level >= 1; level--) {
             StringBuilder row = new StringBuilder();
-            row.append(String.format("%3d ", level));
+            
+            // Calculate the scaled value for this vertical level
+            double scaledValue = (chartHeight == 0) ? 0 : (maxValue / chartHeight) * level;
+            
+            // Add the formatted Y-Axis Label
+            row.append(String.format("%" + yAxisWidth + "s |", formatYAxisLabel(scaledValue, isDiscrete)));
 
-            row.append("|");
+            int topHalfStep = level * 2;
+            int bottomHalfStep = topHalfStep - 1;
+
+            // Draw the asterisks
             for (int i = 0; i < size; i++) {
-                if (values[i] >= level) {
-                    row.append(UIGenerator.centerText("*", column_width));
-                } else {
-                    row.append(" ".repeat(column_width));
+                // If the value reaches the top half, draw a Full Block
+                if (values[i] >= topHalfStep) {
+                    row.append(UIGenerator.centerText("X", columnWidth)); 
+                } 
+                // If the value only reaches the bottom half, draw a Half Block
+                else if (values[i] == bottomHalfStep) {
+                    row.append(UIGenerator.centerText("x", columnWidth)); 
+                } 
+                // Otherwise, draw empty space
+                else {
+                    row.append(" ".repeat(columnWidth));
                 }
                 row.append(" ");
             }
-
             UIGenerator.appendCenteredLine(report, row.toString());
         }
 
         // X-axis
         StringBuilder axis = new StringBuilder();
-        axis.append("    ");
+        axis.append(" ".repeat(yAxisWidth)).append("|");
         for (int i = 0; i < size; i++) {
-            axis.append("|").append("-".repeat(column_width));
+            axis.append("-".repeat(columnWidth)).append("-");
         }
-        axis.append("|");
         UIGenerator.appendCenteredLine(report, axis.toString());
 
-        // Labels (IMPORTANT FIX)
+        // Labels
         StringBuilder labelRow = new StringBuilder();
-        labelRow.append("    ");
+        labelRow.append(" ".repeat(yAxisWidth)).append(" ");
         for (int i = 0; i < size; i++) {
-            labelRow.append(" ").append(UIGenerator.centerText(labels[i], column_width));
+            labelRow.append(UIGenerator.centerText(labels[i], columnWidth)).append(" ");
         }
-        labelRow.append(" ");
         UIGenerator.appendCenteredLine(report, labelRow.toString());
-
         report.append("\n");
     }
-
-    private static int getMax(int[] values, int size) {
-        int max = 0;
-        for (int i = 0; i < size; i++) {
-            if (values[i] > max) {
-                max = values[i];
-            }
-        }
-        return max;
-    }
-
 }
