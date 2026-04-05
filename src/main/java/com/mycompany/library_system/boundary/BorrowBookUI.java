@@ -45,7 +45,7 @@ public class BorrowBookUI {
 
         do {
             UIGenerator.clearScreen();
-            UIGenerator.titleBuilder("Borrow new Books!! What would you like to read today?");
+            System.out.println(UIGenerator.titleBuilder("Borrow new Books!! What would you like to read today?"));
             quitMemberMenu = UIGenerator.optionMenu(
                 new String[] {
                     "[1] Borrow a new book", 
@@ -148,7 +148,7 @@ public class BorrowBookUI {
 
     public static void displayBookDetailsUI(String bookId) {
         UIGenerator.clearScreen();
-        UIGenerator.titleBuilder("Viewing details of Book " + bookId);
+        System.out.println(UIGenerator.titleBuilder("Viewing details of Book " + bookId));
         System.out.println(borrowController.getBook(bookId) + "\n");
     }
 
@@ -990,7 +990,7 @@ public class BorrowBookUI {
         if(!borrowRecordsPagination.getSearchingWord().contains("null")) {
             System.out.print(borrowRecordsPagination.getSearchingWord() + "\n");
         }
-        UIGenerator.titleBuilder("Displaying Borrow Records");
+        System.out.println(UIGenerator.titleBuilder("Displaying Borrow Records"));
         
         if (displayList == null || displayList.isEmpty()) {
             System.out.println("No Matching Records found");
@@ -1024,7 +1024,7 @@ public class BorrowBookUI {
             System.out.print(fineRecordsPagination.getSearchingWord() + "\n");
         }
 
-        UIGenerator.titleBuilder("Display Fine Records");
+        System.out.println(UIGenerator.titleBuilder("Display Fine Records"));
 
         if(displayList == null || displayList.isEmpty()) {
             System.out.println("No Matching Records found");
@@ -1072,7 +1072,7 @@ public class BorrowBookUI {
 
         do {
             UIGenerator.clearScreen();
-            UIGenerator.titleBuilder("Borrow Book Admin Menu. Manage all Book Borrow Records in one place.");
+            System.out.println(UIGenerator.titleBuilder("Borrow Book Admin Menu. Manage all Book Borrow Records in one place."));
             quitAdminMenu = UIGenerator.optionMenu(
                 new String[] {
                     "[1] Display Borrow Records",                    
@@ -1385,7 +1385,7 @@ public class BorrowBookUI {
         fineRecordsPagination.setCurrentPage(1);
         do {
             UIGenerator.clearScreen();
-            UIGenerator.titleBuilder("Manage Fine Records");
+            System.out.println(UIGenerator.titleBuilder("Manage Fine Records"));
             displayFineRecordsSearchListUI();
             quitAdminFineMenu = UIGenerator.optionMenu(
                 new String[] {

@@ -288,6 +288,33 @@ public class TreeMap<K extends Comparable<K>, V> implements MapInterface<K, V> {
         return count;
     }
 
+
+    @Override
+    public MapInterface.Entry<K, V> max() {
+        if (root == null) return null;
+        
+        Node<K, V> p = root;
+        // Keep going right until there is no right child left!
+        while (p.right != null) {
+            p = p.right;
+        }
+        
+        return p;
+    }
+
+    @Override
+    public MapInterface.Entry<K, V> min() {
+        if (root == null) return null;
+        
+        Node<K, V> p = root;
+        // Keep going left until there is no left child left!
+        while (p.left != null) {
+            p = p.left;
+        }
+        
+        return p;
+    }
+
     @Override
     public void putAll(MapInterface<? extends K, ? extends V> m) {
         if (m instanceof TreeMap) {

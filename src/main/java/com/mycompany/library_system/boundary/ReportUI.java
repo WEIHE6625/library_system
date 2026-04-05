@@ -85,7 +85,7 @@ public class ReportUI {
     }
 
     public static void reportListPage() {
-        UIGenerator.titleBuilder("Report Archive");
+        System.out.println(UIGenerator.titleBuilder("Report Archive"));
         ListInterface<Report> displayList = pagination.getDisplayTree().values();
 
         if (displayList == null || displayList.isEmpty()) {

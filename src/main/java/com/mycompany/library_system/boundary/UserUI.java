@@ -133,7 +133,7 @@ public class UserUI {
     }
 
     public static void userListPage() {
-        UIGenerator.titleBuilder("User List");
+        System.out.println(UIGenerator.titleBuilder("User List"));
         System.out.println(pagination.getSearchingWord());
         ListInterface<User> displayList = pagination.getDisplayTree().values();
 

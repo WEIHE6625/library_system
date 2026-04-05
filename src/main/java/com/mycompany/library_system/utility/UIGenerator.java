@@ -12,7 +12,7 @@ public class UIGenerator {
     static Scanner scanner = new Scanner(System.in);
 
     // Used for build a title
-    public static void titleBuilder(String title) {
+    public static String titleBuilder(String title) {
         int totalWidth = 160; // Standard console width
         int titleLength = title.length();
         
@@ -23,9 +23,7 @@ public class UIGenerator {
         String leftSide = " ".repeat(Math.max(0, leftPad));
         String rightSide = " ".repeat(Math.max(0, rightPad));
         
-        System.out.println("=".repeat(totalWidth));
-        System.out.println(leftSide + " " + title + " " + rightSide);
-        System.out.println("=".repeat(totalWidth));
+        return "=".repeat(totalWidth) + "\n" + leftSide + title + rightSide + "\n" + "=".repeat(totalWidth);
     }
 
     // Clear the console screen in NetBeans

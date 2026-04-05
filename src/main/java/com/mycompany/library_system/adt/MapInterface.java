@@ -45,6 +45,16 @@ package com.mycompany.library_system.adt;
    *  @return A subtree of all values that fall inclusively within this range.
    */
   public MapInterface<K, V> getRange(K min, K max);
+
+  /** Returns the entry with the maximum key in the tree (the right-most node).
+   *  @return An entry of the maximum key.
+   */
+  public MapInterface.Entry<K, V> max();
+
+  /** Returns the entry with the minimum key in the tree (the left-most node).
+   *  @return An entry of the minimum key.
+   */
+  public MapInterface.Entry<K, V> min();
   
   /** Checks whether the map is empty.
    *  @return true if the map is empty 

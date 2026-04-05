@@ -6,6 +6,7 @@ import com.mycompany.library_system.adt.ListInterface;
 import com.mycompany.library_system.adt.MapInterface;
 import com.mycompany.library_system.adt.TreeMap;
 import com.mycompany.library_system.control.BookInfoController;
+import com.mycompany.library_system.control.BookReportController;
 import com.mycompany.library_system.entity.Book;
 import com.mycompany.library_system.utility.DataProcessor;
 import com.mycompany.library_system.utility.UIGenerator;
@@ -91,15 +92,93 @@ public class BookUI {
             bookListPage("admin");
             isExit = UIGenerator.optionMenu(
                 new String[]{
+                    "[1] Manage Books",
+                    "[2] View Book Details",
+                    "[3] Sort Books",
+                    "[4] Search Books",
+                    "[5] Generate Reports",
+                    " ",
+                    "[6] <- Previous Page          [7] Next Page ->",
+                    "[0] Back to Main Menu"
+                },
+                "Select an option >> ",
+                new Supplier[] {
+                        () -> { crudMenu(bController); return false; },
+                        () -> { bController.viewBookDetails(); return false; },
+                        () -> { bController.sortBooks(); return false; },
+                        () -> { bController.searchBooks(); return false; },
+                        () -> { reportMenu(bController); return false; },
+                        () -> { pagination.previousPage(); return false; },
+                        () -> { pagination.nextPage(); return false; },
+                        () -> true
+                }
+            );
+        }while (!isExit);
+    }
+
+    public static void reportMenu(BookInfoController bController) {
+        boolean isExit = false;
+        do {
+            UIGenerator.clearScreen();
+            System.out.println(UIGenerator.titleBuilder("Admin Dashboard --- Book Reports"));
+            isExit = UIGenerator.optionMenu(
+                new String[]{
+                    "[1] Low Stock Alert Report",
+                    "[2] Total Inventory Cost Report",
+                    " ",
+                    "[0] Back to Main Menu"
+                },
+                "Select an option >> ",
+                new Supplier[] {
+                        () -> { reportMainPage(bController, 1); return false; },
+                        () -> { reportMainPage(bController, 2); return false; },
+                        () -> true
+                }
+            );
+        }while (!isExit);
+    }
+
+    private static void reportMainPage(BookInfoController bController, int reportType) {
+        BookReportController reportController = new BookReportController(
+            bController.getbookTree(), 
+            bController.getbookTree("Category"),
+            bController.getbookTree("AvailableQuantity")
+        );
+        UIGenerator.clearScreen();
+        System.out.println(UIGenerator.titleBuilder("Book Inventory Reports"));
+        String report = "";
+        String fileName = "";
+        switch (reportType) {
+            case 1: report = reportController.generateAdminReport1(); fileName = "Low_Stock_Report"; break;
+            // case 2: report = reportController.generateAdminReport2(); fileName = "Inventory_Cost_Report"; break;
+        }
+
+        System.out.println(report);
+
+        System.out.println("\nWould you like to export this report to a text file? (Y/N)");
+        String choice = UserPrompt.inputString("Enter your choice >> ", 1, false);
+
+        if ("Y".equalsIgnoreCase(choice)) {
+            reportController.exportToFile(report, fileName);
+        } else {
+            UIGenerator.pressEnterToContinue();
+        }
+    }
+
+    public static void crudMenu(BookInfoController bController) {
+        boolean isExit = false;
+        pagination.setDisplayTree(bController.getbookTree());
+        do {
+            UIGenerator.clearScreen();
+            bookListPage("admin");
+            isExit = UIGenerator.optionMenu(
+                new String[]{
                     "[1] Add New Book",
                     "[2] Edit Book Information",
                     "[3] Edit Book in Stock",
                     "[4] Delete Book",
-                    "[5] View Book Details",
-                    "[6] Sort Books",
-                    "[7] Search Books",
                     " ",
-                    "[8] <- Previous Page          [9] Next Page ->",
+                    "[5] <- Previous Page          [6] Next Page ->",
                     "[0] Back to Main Menu"
                 },
                 "Select an option >> ",
@@ -108,9 +187,6 @@ public class BookUI {
                         () -> { bController.editBook(); return false; },
                         () -> { bController.editBookInStock(); return false; },
                         () -> { bController.deleteBook(); return false; },
-                        () -> { bController.viewBookDetails(); return false; },
-                        () -> { bController.sortBooks(); return false; },
-                        () -> { bController.searchBooks(); return false; },
                         () -> { pagination.previousPage(); return false; },
                         () -> { pagination.nextPage(); return false; },
                         () -> true
@@ -120,7 +196,7 @@ public class BookUI {
     }
 
     public static void bookListPage(String role) {
-        UIGenerator.titleBuilder("Book List");
+        System.out.println(UIGenerator.titleBuilder("Book List"));
         System.out.println(pagination.getSearchingWord());
         ListInterface<Book> displayList = pagination.getDisplayTree().values();
 
@@ -141,10 +217,10 @@ public class BookUI {
                 int actualIndex = pagination.isAscending() ? i : (totalRecords - 1 - i);
 
                 Book b = displayList.get(actualIndex);
-                String title = DataProcessor.truncate(b.getTitle(), 38);
+                String title = DataProcessor.truncate(b.getTitle(), 43);
                 String category = DataProcessor.truncate(b.getCategories().toString(), 28);
-                String author = DataProcessor.truncate(b.getAuthor(), 26);
-                String publisher = DataProcessor.truncate(b.getPublisher(), 24);
+                String author = DataProcessor.truncate(b.getAuthor(), 28);
+                String publisher = DataProcessor.truncate(b.getPublisher(), 27);
                 System.out.printf("%-8s %-45s %-30s %-30s %-29s %13d\n", b.getId(), title, category, author, publisher, b.getQtyAvailable());
             }
         } else {

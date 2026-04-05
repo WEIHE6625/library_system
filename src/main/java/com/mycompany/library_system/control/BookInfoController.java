@@ -73,6 +73,18 @@ public class BookInfoController {
     public MapInterface<String, Book> getbookTree() { 
         return bookTree;
     }
+    public MapInterface<String, Book> getbookTree(String treeType) { 
+        switch (treeType) {
+            case "Title": return bookTitleTree;
+            case "Author": return bookAuthorTree;
+            case "Price": return bookPriceTree;
+            case "PublishDate": return bookDateTree;
+            case "AvailableQuantity": return bookQtyATree;
+            case "TotalQuantity": return bookQtyTTree;
+            case "Category": return bookCatTree;
+            default: return bookTree;
+        }
+    }
 
     public MapInterface<String, Integer> getAllUniqueCategories(MapInterface<String, Integer> categoriesExcluded) {
         MapInterface<String, Integer> uniqueCats = new TreeMap<>();
