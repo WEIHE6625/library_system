@@ -1,6 +1,5 @@
 package com.mycompany.library_system.boundary;
 
-import com.mycompany.library_system.control.ReportInfoController;
 import com.mycompany.library_system.control.UserInfoController;
 import com.mycompany.library_system.utility.UIGenerator;
 import com.mycompany.library_system.entity.User;
@@ -58,7 +57,7 @@ public class LibrarySystemUI {
                                     "[1] User Module",
                                     "[2] Book Module",
                                     "[3] Borrow Module",
-                                    "[4] Report Module",
+                                    "[4] Module",
                                     "[0] Logout"
                             },
                             "Select an option >> ",
@@ -66,7 +65,7 @@ public class LibrarySystemUI {
                                     () -> UserUI.menu(userInfoController, sessionUser),
                                     () -> { BookUI.menu(); return false; },
                                     () -> { BorrowBookUI.adminMenu(sessionUser.getUserId()); return false; },
-                                    () -> { ReportUI.menu(new ReportInfoController()); return false; },
+                                    () -> { return false; },
                                     () -> { return true; } // Returns true to trigger isLogout
                             }
                     );

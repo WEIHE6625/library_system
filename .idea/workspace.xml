@@ -4,21 +4,53 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="acdaa5b7-86ea-4e04-9a81-21e1133fe8e4" name="Changes" comment="View Report">
+    <list default="true" id="acdaa5b7-86ea-4e04-9a81-21e1133fe8e4" name="Changes" comment="Doesn't allow to delete user acc once still have book borrowed to return">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/com_mycompany_library_system_Library_system.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/borrowFineRecords.csv" beforeDir="false" afterPath="$PROJECT_DIR$/database/borrowFineRecords.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/library_system/adt/ListInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/library_system/adt/ListInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/users.csv" beforeDir="false" afterPath="$PROJECT_DIR$/database/users.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/library_system/boundary/LibrarySystemUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/library_system/boundary/LibrarySystemUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/library_system/boundary/ReportUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/library_system/boundary/ReportUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/library_system/boundary/UserUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/library_system/boundary/UserUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/library_system/control/ReportInfoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/library_system/control/ReportInfoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/library_system/dao/BookDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/library_system/dao/BookDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/library_system/control/UserInfoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/library_system/control/UserInfoController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/library_system/dao/ReportDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/library_system/dao/ReportDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/library_system/utility/DataProcessor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/library_system/utility/DataProcessor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/library_system/utility/DateUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/library_system/utility/DateUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/library_system/utility/UIGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/library_system/utility/UIGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/Library_system.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/Library_system.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/adt/ArrayList$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/adt/ArrayList$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/adt/ArrayList.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/adt/ArrayList.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/adt/ListInterface.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/adt/ListInterface.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/adt/MapInterface$Entry.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/adt/MapInterface$Entry.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/adt/MapInterface.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/adt/MapInterface.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/adt/TreeMap$Node.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/adt/TreeMap$Node.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/adt/TreeMap.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/adt/TreeMap.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/boundary/BookUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/boundary/BookUI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/boundary/BorrowBookUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/boundary/BorrowBookUI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/boundary/LibrarySystemUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/boundary/LibrarySystemUI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/boundary/UserUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/boundary/UserUI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/control/BookBorrowControl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/control/BookBorrowControl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/control/BookInfoController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/control/BookInfoController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/control/UserInfoController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/control/UserInfoController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/dao/BookBorrowDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/dao/BookBorrowDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/dao/BookBorrowFineDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/dao/BookBorrowFineDAO.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/dao/BookDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/dao/BookDAO.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/dao/UserDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/dao/UserDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/entity/Book.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/entity/Book.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/entity/BookBorrowRecord.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/entity/BookBorrowRecord.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/entity/BookBorrowRepo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/entity/BookBorrowRepo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/entity/BorrowFineRecord.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/entity/BorrowFineRecord.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/entity/BorrowFineRepo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/entity/BorrowFineRepo.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/entity/Fine.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/entity/Fine.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/entity/User$Education.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/entity/User$Education.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/entity/User$Gender.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/entity/User$Gender.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/entity/User$UserRole.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/entity/User$UserRole.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/entity/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/entity/User.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/utility/DataProcessor.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/utility/DataProcessor.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/utility/DateUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/utility/DateUtil.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/utility/IdGenerator.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/utility/IdGenerator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/utility/Pagination.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/utility/Pagination.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/utility/UIGenerator.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/utility/UIGenerator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/utility/UserPrompt.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/utility/UserPrompt.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,6 +78,11 @@
         </map>
       </branch-storage>
     </excluded-from-favorite>
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -54,12 +91,12 @@
     &quot;assignee&quot;: &quot;Hao5234&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/WEIHE6625/library_system.git&quot;,
-    &quot;accountId&quot;: &quot;4424cf6a-ce63-49c0-b75b-5cf6d33d11e4&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/WEIHE6625/library_system.git",
+    "accountId": "fc7fe25b-c9d2-4354-aa54-5fc3a5408bb5"
   }
-}</component>
+}]]></component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
@@ -68,53 +105,50 @@
   &quot;associatedIndex&quot;: 8
 }</component>
   <component name="ProjectId" id="39VCa2r5GUW9FSljfLexozbFkxF" />
-  <component name="ProjectLevelVcsManager">
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
   </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.com.mycompany.library_system.Library_system.executor": "Run",
-    "Maven.library_system.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/isaac/OneDrive/Documents/GitHub/library_system/src",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "SDKs",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.keymap",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Library_system.executor&quot;: &quot;Run&quot;,
+    &quot;Application.com.mycompany.library_system.Library_system.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.library_system.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;ZcePing&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/enton/Downloads/jfreechart-1.0.19/jfreechart-1.0.19/lib/jcommon-1.0.23.jar&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Global Libraries&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;MavenSettings&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
-  <component name="RunManager" selected="Application.com.mycompany.library_system.Library_system">
+}</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\enton\IdeaProjects\library_system\database" />
+    </key>
+  </component>
+  <component name="RunManager">
     <configuration name="Library_system" type="Application" factoryName="Application">
-      <option name="ALTERNATIVE_JRE_PATH" value="corretto-24" />
+      <option name="ALTERNATIVE_JRE_PATH" value="openjdk-23" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="MAIN_CLASS_NAME" value="com.mycompany.library_system.Library_system" />
+      <module name="library_system" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <list>
-      <item itemvalue="Application.Library_system" />
-      <item itemvalue="Application.com.mycompany.library_system.Library_system" />
-    </list>
-  </component>
-  <component name="SharedIndexes">
-    <attachedChunks>
-      <set>
-        <option value="bundled-jdk-30f59d01ecdd-2fc7cc6b9a17-intellij.indexing.shared.core-IU-253.31033.145" />
-      </set>
-    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -155,6 +189,45 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="View Report" />
-    <option name="LAST_COMMIT_MESSAGE" value="View Report" />
+    <MESSAGE value="Doesn't allow to delete user acc once still have book borrowed to return" />
+    <option name="LAST_COMMIT_MESSAGE" value="Doesn't allow to delete user acc once still have book borrowed to return" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/mycompany/library_system/Library_system.java</url>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/mycompany/library_system/utility/Pagination.java</url>
+          <line>19</line>
+          <option name="timeStamp" value="26" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/com/mycompany/library_system/adt/TreeMap.java</url>
+          <line>131</line>
+          <properties class="com.mycompany.library_system.adt.TreeMap">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="23" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/com/mycompany/library_system/adt/TreeMap.java</url>
+          <line>137</line>
+          <properties class="com.mycompany.library_system.adt.TreeMap">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="24" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <watches-manager>
+      <configuration name="Application">
+        <watch expression="((Object[])((ArrayList)list).array)[2]" language="JAVA" custom="java.lang.Object[],com.mycompany.library_system.adt.ArrayList" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>

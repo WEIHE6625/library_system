@@ -19,6 +19,7 @@ public class UserInfoController {
     private TreeMap<String, User> userCreatedDateTimeTree;
     private TreeMap<String, User> userNumOfBooksBorrowing;
     private TreeMap<String, User> searchTree = new TreeMap<>();
+    private UserReportGenerator userReportGenerator;
     private static final String USER_FILE_PATH = "database/users.csv";
 
     public UserInfoController() {
@@ -29,6 +30,7 @@ public class UserInfoController {
         this.userEducationTree = new TreeMap<>();
         this.userCreatedDateTimeTree = new TreeMap<>();
         this.userNumOfBooksBorrowing = new TreeMap<>();
+        this.userReportGenerator = new UserReportGenerator(userTree);
 
         // Loop through every book in the main bookTree
         for (User user : userTree.values()) {
@@ -439,6 +441,10 @@ public class UserInfoController {
 
         UserUI.getPagination().setDisplayTree(searchTree.getRange(search, search+Character.MAX_VALUE));
         UserUI.getPagination().setCurrentPage(1);
+    }
+
+    public void displayUserReport() {
+        userReportGenerator.displayReportMenu();
     }
 
     public void saveToFile() {

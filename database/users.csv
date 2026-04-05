@@ -1,6 +1,6 @@
 UserID,Name,Email,Gender,Age,Education,Role,CreatedAt,NumOfBooksBorrowing
 U0001,Zce Ping,zceping@gmail.com,MALE,10,PRIMARY_SCHOOL,ADMIN,2026-01-01 08:00:00,0
-U0002,Isaac Kuan,isaackuan@gmail.com,MALE,22,PHD,MEMBER,2026-01-01 08:01:00,5
+U0002,Isaac Kuan,isaackuan@gmail.com,MALE,22,PHD,MEMBER,2026-01-01 08:01:00,10
 U0003,Alice Tan,alice.tan@gmail.com,FEMALE,21,DIPLOMA,MEMBER,2026-01-01 08:02:00,0
 U0004,Bob Lim,bob.lim@gmail.com,MALE,25,MASTER,MEMBER,2026-01-01 08:03:00,3
 U0005,Chloe Wong,chloe.wong@gmail.com,FEMALE,22,BACHELOR,MEMBER,2026-01-01 08:04:00,0
@@ -19,7 +19,7 @@ U0017,Olivia Lim,olivia.lim@gmail.com,FEMALE,22,MASTER,MEMBER,2026-01-01 08:16:0
 U0018,Peter Lee,peter.lee@gmail.com,MALE,23,BACHELOR,MEMBER,2026-01-01 08:17:00,2
 U0019,Queenie Wong,queenie.wong@gmail.com,FEMALE,24,OTHER,MEMBER,2026-01-01 08:18:00,0
 U0020,Ryan Ong,ryan.ong@gmail.com,MALE,25,PHD,ADMIN,2026-01-01 08:19:00,0
-U0021,Adam Tay,adam.tay21@gmail.com,MALE,35,MASTER,MEMBER,2026-01-01 08:20:00,1
+U0021,Adam Tay,adam.tay21@gmail.com,MALE,35,MASTER,MEMBER,2026-01-01 08:20:00,11
 U0022,Yong Wong,yong.wong22@gmail.com,MALE,61,OTHER,MEMBER,2026-01-01 08:21:00,0
 U0023,Amy Tan,amy.tan23@gmail.com,FEMALE,23,DIPLOMA,MEMBER,2026-01-01 08:22:00,1
 U0024,Nathan Chan,nathan.chan24@gmail.com,MALE,63,OTHER,MEMBER,2026-01-01 08:23:00,3
@@ -36,13 +36,13 @@ U0034,Raymond Leong,raymond.leong34@gmail.com,MALE,28,MASTER,MEMBER,2026-01-01 0
 U0035,Joanne Khoo,joanne.khoo35@gmail.com,FEMALE,58,OTHER,MEMBER,2026-01-01 08:34:00,1
 U0036,Denise Gan,denise.gan36@gmail.com,FEMALE,21,DIPLOMA,MEMBER,2026-01-01 08:35:00,0
 U0037,Joyce Khoo,joyce.khoo37@gmail.com,FEMALE,22,DIPLOMA,MEMBER,2026-01-01 08:36:00,4
-U0038,Deborah Leong,deborah.leong38@gmail.com,FEMALE,49,DIPLOMA,MEMBER,2026-01-01 08:37:00,5
+U0038,Deborah Leong,deborah.leong38@gmail.com,FEMALE,49,DIPLOMA,MEMBER,2026-01-01 08:37:00,6
 U0039,Charlotte Khoo,charlotte.khoo39@gmail.com,FEMALE,26,MASTER,MEMBER,2026-01-01 08:38:00,5
 U0040,Vanessa Quek,vanessa.quek40@gmail.com,FEMALE,45,OTHER,MEMBER,2026-01-01 08:39:00,3
 U0041,Diana Ng,diana.ng41@gmail.com,FEMALE,50,DIPLOMA,MEMBER,2026-01-01 08:40:00,0
 U0042,Edwin Wong,edwin.wong42@gmail.com,MALE,27,MASTER,MEMBER,2026-01-01 08:41:00,5
 U0043,Rebecca Lee,rebecca.lee43@gmail.com,FEMALE,42,DIPLOMA,MEMBER,2026-01-01 08:42:00,4
-U0044,Michelle Khoo,michelle.khoo44@gmail.com,FEMALE,53,BACHELOR,MEMBER,2026-01-01 08:43:00,5
+U0044,Michelle Khoo,michelle.khoo44@gmail.com,FEMALE,53,BACHELOR,MEMBER,2026-01-01 08:43:00,8
 U0045,Timothy Tong,timothy.tong45@gmail.com,MALE,52,PHD,MEMBER,2026-01-01 08:44:00,5
 U0046,Brenda Yap,brenda.yap46@gmail.com,FEMALE,45,MASTER,MEMBER,2026-01-01 08:45:00,3
 U0047,Xavier Tong,xavier.tong47@gmail.com,MALE,64,PHD,MEMBER,2026-01-01 08:46:00,4
