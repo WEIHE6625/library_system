@@ -1,5 +1,7 @@
 package com.mycompany.library_system.utility;
 import java.io.File;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import java.util.function.Supplier;
 
@@ -7,25 +9,15 @@ import java.util.function.Supplier;
  * 
  * @author all
  */
-public class UIGenerator {    
-
+public class UIGenerator {
+    public static final int TOTAL_WIDTH = 160;
     static Scanner scanner = new Scanner(System.in);
 
     // Used for build a title
     public static void titleBuilder(String title) {
-        int totalWidth = 160; // Standard console width
-        int titleLength = title.length();
-        
-        int paddingNeeded = totalWidth - titleLength - 2;
-        int leftPad = paddingNeeded / 2;
-        int rightPad = paddingNeeded - leftPad; 
-        
-        String leftSide = " ".repeat(Math.max(0, leftPad));
-        String rightSide = " ".repeat(Math.max(0, rightPad));
-        
-        System.out.println("=".repeat(totalWidth));
-        System.out.println(leftSide + " " + title + " " + rightSide);
-        System.out.println("=".repeat(totalWidth));
+        System.out.println("=".repeat(TOTAL_WIDTH));
+        System.out.println(centerText(title, TOTAL_WIDTH));
+        System.out.println("=".repeat(TOTAL_WIDTH));
     }
 
     // Clear the console screen in NetBeans
@@ -90,4 +82,60 @@ public class UIGenerator {
             return actions[input - 1].get();
         }
     }
+
+    public static String reportTitleBuilder(String line1, String line2) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("=".repeat(TOTAL_WIDTH)).append("\n");
+        sb.append(centerText(line1, TOTAL_WIDTH)).append("\n");
+        sb.append(centerText(line2, TOTAL_WIDTH)).append("\n");
+        sb.append("=".repeat(TOTAL_WIDTH)).append("\n");
+
+        return sb.toString();
+    }
+
+    public static String centeredTitleWithUnderline(String title) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(centerText(title, TOTAL_WIDTH)).append("\n");
+        sb.append(centerText("-".repeat(title.length() + 4), TOTAL_WIDTH)).append("\n");
+
+        return sb.toString();
+    }
+
+    // REPORT UI Generator
+    public static String centerText(String text, int totalWidth) {
+        int paddingNeeded = totalWidth - text.length();
+        int leftPad = paddingNeeded / 2;
+        int rightPad = paddingNeeded - leftPad;
+
+        return " ".repeat(Math.max(0, leftPad))
+                + text
+                + " ".repeat(Math.max(0, rightPad));
+    }
+
+    public static void appendHeader(StringBuilder report, String reportTopic, String title) {
+        report.append("\n");
+        report.append(reportTitleBuilder(
+                "TAR UMT LIBRARY MANAGEMENT SYSTEM",
+                reportTopic
+        ));
+        report.append("\n");
+        report.append(centeredTitleWithUnderline(title));
+        report.append("\n");
+        report.append("Generated At : ")
+                .append(LocalDateTime.now().format(
+                        DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
+                .append("\n");
+        report.append("*".repeat(160)).append("\n\n");
+    }
+
+    public static void appendFooter(StringBuilder report) {
+        report.append("*".repeat(160)).append("\n");
+        report.append(centerText("END OF THE REPORT", UIGenerator.TOTAL_WIDTH)).append("\n");
+        report.append("=".repeat(160)).append("\n");
+    }
+
+    public static void appendCenteredLine(StringBuilder report, String text) {
+        report.append(UIGenerator.centerText(text, UIGenerator.TOTAL_WIDTH)).append("\n");
+    }
+
 }
