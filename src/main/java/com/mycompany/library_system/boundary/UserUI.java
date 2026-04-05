@@ -58,7 +58,6 @@ public class UserUI {
         return currentUser.getRole() == User.UserRole.ADMIN;
     }
 
-
     public static boolean menu(UserInfoController uController, User currentUser) {
         boolean isExit = false;
         boolean[] isLogout = {false}; // flag to signal outer logout
@@ -79,8 +78,9 @@ public class UserUI {
                                 "[4] Sort Users",
                                 "[5] Search Users",
                                 "[6] Delete User",
+                                "[7] Display User Report",
                                 " ",
-                                "[7] <- Previous Page          [8] Next Page ->",
+                                "[8] <- Previous Page          [9] Next Page ->",
                                 "[0] Back to Main Menu"
                         },
                         "Select an option >> ",
@@ -98,6 +98,7 @@ public class UserUI {
                                     }
                                     return false;       // otherwise stay in menu
                                 },
+                                () -> { uController.displayUserReport(); return false; },
                                 () -> { pagination.previousPage(); return false; },
                                 () -> { pagination.nextPage(); return false; },
                                 () -> true // Back to Main Menu
