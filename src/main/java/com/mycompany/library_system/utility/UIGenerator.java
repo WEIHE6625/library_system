@@ -138,4 +138,56 @@ public class UIGenerator {
         report.append(UIGenerator.centerText(text, UIGenerator.TOTAL_WIDTH)).append("\n");
     }
 
+    public static void appendVerticalBarChart(StringBuilder report, String[] labels, int[] values, int size, int column_width) {
+        int max = getMax(values, size);
+
+        // Each column bar filled
+        for (int level = max; level >= 1; level--) {
+            StringBuilder row = new StringBuilder();
+            row.append(String.format("%3d ", level));
+
+            row.append("|");
+            for (int i = 0; i < size; i++) {
+                if (values[i] >= level) {
+                    row.append(UIGenerator.centerText("*", column_width));
+                } else {
+                    row.append(" ".repeat(column_width));
+                }
+                row.append(" ");
+            }
+
+            UIGenerator.appendCenteredLine(report, row.toString());
+        }
+
+        // X-axis
+        StringBuilder axis = new StringBuilder();
+        axis.append("    ");
+        for (int i = 0; i < size; i++) {
+            axis.append("|").append("-".repeat(column_width));
+        }
+        axis.append("|");
+        UIGenerator.appendCenteredLine(report, axis.toString());
+
+        // Labels (IMPORTANT FIX)
+        StringBuilder labelRow = new StringBuilder();
+        labelRow.append("    ");
+        for (int i = 0; i < size; i++) {
+            labelRow.append(" ").append(UIGenerator.centerText(labels[i], column_width));
+        }
+        labelRow.append(" ");
+        UIGenerator.appendCenteredLine(report, labelRow.toString());
+
+        report.append("\n");
+    }
+
+    private static int getMax(int[] values, int size) {
+        int max = 0;
+        for (int i = 0; i < size; i++) {
+            if (values[i] > max) {
+                max = values[i];
+            }
+        }
+        return max;
+    }
+
 }

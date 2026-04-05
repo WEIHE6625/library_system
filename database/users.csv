@@ -1,6 +1,6 @@
 UserID,Name,Email,Gender,Age,Education,Role,CreatedAt,NumOfBooksBorrowing
 U0001,Zce Ping,zceping@gmail.com,MALE,10,PRIMARY_SCHOOL,ADMIN,2026-01-01 08:00:00,0
-U0002,Isaac Kuan,isaackuan@gmail.com,MALE,22,PHD,MEMBER,2026-01-01 08:01:00,10
+U0002,Isaac Kuan,isaackuan@gmail.com,MALE,16,PHD,MEMBER,2026-01-01 08:01:00,10
 U0003,Alice Tan,alice.tan@gmail.com,FEMALE,21,DIPLOMA,MEMBER,2026-01-01 08:02:00,0
 U0004,Bob Lim,bob.lim@gmail.com,MALE,25,MASTER,MEMBER,2026-01-01 08:03:00,3
 U0005,Chloe Wong,chloe.wong@gmail.com,FEMALE,22,BACHELOR,MEMBER,2026-01-01 08:04:00,0
@@ -68,7 +68,7 @@ U0066,Daniel Chan,daniel.chan66@gmail.com,MALE,52,DIPLOMA,MEMBER,2026-01-01 09:0
 U0067,Claire Khoo,claire.khoo67@gmail.com,FEMALE,47,MASTER,MEMBER,2026-01-01 09:06:00,0
 U0068,Belinda See,belinda.see68@gmail.com,FEMALE,53,BACHELOR,MEMBER,2026-01-01 09:07:00,0
 U0069,Amir Yeo,amir.yeo69@gmail.com,MALE,33,MASTER,MEMBER,2026-01-01 09:08:00,3
-U0070,Lydia Chan,lydia.chan70@gmail.com,FEMALE,43,BACHELOR,MEMBER,2026-01-01 09:09:00,1
+U0070,Lydia Chan,lydia.chan70@gmail.com,FEMALE,17,BACHELOR,MEMBER,2026-01-01 09:09:00,1
 U0071,Abigail Chua,abigail.chua71@gmail.com,FEMALE,34,DIPLOMA,MEMBER,2026-01-01 09:10:00,2
 U0072,Stephanie Tay,stephanie.tay72@gmail.com,FEMALE,53,DIPLOMA,MEMBER,2026-01-01 09:11:00,1
 U0073,Felix Chan,felix.chan73@gmail.com,MALE,21,OTHER,MEMBER,2026-01-01 09:12:00,5

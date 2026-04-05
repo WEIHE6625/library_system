@@ -109,15 +109,14 @@ public class UserInfoController {
 
     public void editUser() {
         UIGenerator.clearScreen();
-        UIGenerator.titleBuilder("Edit Existing User");
         String id = UserUI.inputUserID(userTree);
-
-        System.out.println("\nEditing User with ID: " + id);
-        System.out.println(userTree.get(id).toString());
         User user = userTree.get(id);
         boolean isExit = false;
 
         do {
+            UIGenerator.titleBuilder("Edit Existing User");
+            System.out.println("\nEditing User with ID: " + id);
+            System.out.println(userTree.get(id).adminEditToString());
             isExit = UIGenerator.optionMenu(
                     new String[]{
                             "[1] Change User Name",
@@ -237,14 +236,14 @@ public class UserInfoController {
     }
 
     public void editOwnAccount(User currentUser) {
-
         UIGenerator.clearScreen();
-        UIGenerator.titleBuilder("Edit My Account");
 
         String id = currentUser.getUserId();
         boolean isExit = false;
 
         do {
+            UIGenerator.titleBuilder("Edit My Account");
+            System.out.println(userTree.get(id).memberEditToString());
             isExit = UIGenerator.optionMenu(
                     new String[]{
                             "[1] Change Name",
