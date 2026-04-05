@@ -34,6 +34,7 @@ public class StockOrderController {
         this.bookStoackLeftTree = sortByStock();
     }
 
+    @SuppressWarnings("unchecked")
     public void orderBooks() {
         MapInterface<String, Integer> cart = new TreeMap<>();
         boolean isExit = false;

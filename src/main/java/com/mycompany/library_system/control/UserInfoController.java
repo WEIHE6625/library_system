@@ -107,6 +107,7 @@ public class UserInfoController {
         UIGenerator.pressEnterToContinue();
     }
 
+    @SuppressWarnings("unchecked")
     public void editUser() {
         UIGenerator.clearScreen();
         String id = UserUI.inputUserID(userTree);
@@ -235,6 +236,7 @@ public class UserInfoController {
         UIGenerator.pressEnterToContinue();
     }
 
+    @SuppressWarnings("unchecked")
     public void editOwnAccount(User currentUser) {
         UIGenerator.clearScreen();
 
@@ -336,6 +338,7 @@ public class UserInfoController {
         return true;
     }
 
+    @SuppressWarnings("unchecked")
     public void sortUsers() {
         UserUI.getPagination().clearSearchingWord();
         boolean isBack = false;
@@ -389,6 +392,7 @@ public class UserInfoController {
         UserUI.getPagination().setCurrentPage(1);
     }
 
+    @SuppressWarnings("unchecked")
     public void searchUsers() {
         boolean isBack = false;
         final int searchOption[] = {0,0};

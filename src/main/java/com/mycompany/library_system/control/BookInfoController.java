@@ -138,6 +138,7 @@ public class BookInfoController {
         return book;
     }
 
+    @SuppressWarnings("unchecked")
     public Book editBook() {
         UIGenerator.clearScreen();
         UIGenerator.titleBuilder("Edit Existing Book");
@@ -262,6 +263,7 @@ public class BookInfoController {
         UIGenerator.pressEnterToContinue();
     }
 
+    @SuppressWarnings("unchecked")
     public void sortBooks() {
         boolean isBack = false;
 
@@ -346,6 +348,7 @@ public class BookInfoController {
         }
     }
 
+    @SuppressWarnings("unchecked")
     public void searchBooks() {
         boolean isBack = false;
 

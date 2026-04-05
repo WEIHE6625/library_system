@@ -23,6 +23,7 @@ public class UserReportController {
         ReportDAO.loadSavedReports(savedReportTree, REPORT_FOLDER);
     }
 
+    @SuppressWarnings("unchecked")
     public void displayReportMenu() {
         UIGenerator.clearScreen();
         boolean isExit = false;
@@ -519,6 +520,7 @@ public class UserReportController {
         return text.substring(0, maxLen - 3) + "...";
     }
 
+    @SuppressWarnings("unchecked")
     public void retrieveSavedReportMenu() {
         UIGenerator.clearScreen();
         boolean isExit = false;

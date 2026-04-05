@@ -78,6 +78,7 @@ public class StockOrderUI {
         System.out.print(sb.toString());
     }
 
+    @SuppressWarnings("unchecked")
     public static void menu(StockOrderController rController) {
         boolean isExit = false;
         pagination.setDisplayTree(rController.getOrderTree());

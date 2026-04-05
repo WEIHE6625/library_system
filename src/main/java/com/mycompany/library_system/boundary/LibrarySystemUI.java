@@ -14,6 +14,7 @@ public class LibrarySystemUI {
     private Scanner sc = new Scanner(System.in);
     UserInfoController userInfoController = new UserInfoController();
 
+    @SuppressWarnings("unchecked")
     public void start() {
         while (true) {   // Entire program loop
 

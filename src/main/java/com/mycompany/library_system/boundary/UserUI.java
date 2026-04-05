@@ -58,6 +58,7 @@ public class UserUI {
         return currentUser.getRole() == User.UserRole.ADMIN;
     }
 
+    @SuppressWarnings("unchecked")
     public static boolean menu(UserInfoController uController, User currentUser) {
         boolean isExit = false;
         boolean[] isLogout = {false}; // flag to signal outer logout

@@ -39,6 +39,7 @@ public class BorrowBookUI {
     Member UI
      */
 
+    @SuppressWarnings("unchecked")
     public static void memberMenu(String userId) {
         startNewBorrowSession(userId);
         boolean quitMemberMenu = false;
@@ -65,6 +66,7 @@ public class BorrowBookUI {
         }while(!quitMemberMenu);
     } 
 
+    @SuppressWarnings("unchecked")
     public static void searchBookUI() {
         BookUI.getPagination().setDisplayTree(borrowController.getBookTree());
         BookUI.getPagination().setCurrentPage(1);
@@ -152,6 +154,7 @@ public class BorrowBookUI {
         System.out.println(borrowController.getBook(bookId) + "\n");
     }
 
+    @SuppressWarnings("unchecked")
     public static void displayBorrowRecordsUI(String userId) {
         boolean quitDisplayRecordsMenu = false;
         borrowRecordsPagination.setDisplayTree(borrowController.getBorrowRepo().getUserBorrowRecords(userId));
@@ -208,6 +211,7 @@ public class BorrowBookUI {
         }while(!quitDisplayRecordsMenu);
     }
     
+    @SuppressWarnings("unchecked")
     public static void displayCurrentBorrowRecordsUI(String userId, boolean alreadyReturn) {
         boolean quitDisplayRecordsMenu = false;
         final int[] filterAlreadyReturned = {1};
@@ -269,6 +273,7 @@ public class BorrowBookUI {
         borrowRecordsPagination.setSearchingWord(null);
     }
 
+    @SuppressWarnings("unchecked")
     public static void viewBorrowRecordDetailUI(String userId, boolean ... returnAll) {
         boolean quit = false;
         String borrowId = null;
@@ -359,6 +364,7 @@ public class BorrowBookUI {
     }
 
     //Fines
+    @SuppressWarnings("unchecked")
     public static void displayFineUI(String userId) {
         boolean quitDisplayFinesMenu = false;
         fineRecordsPagination.setDisplayTree(borrowController.getFineRepo().getUserFineRecords(userId));
@@ -412,6 +418,7 @@ public class BorrowBookUI {
         }while(!quitDisplayFinesMenu);
     }
 
+    @SuppressWarnings("unchecked")
     public static void displayExistingFineUI(String userId, boolean finePayed) {
         boolean quitDisplayRecordsMenu = false;
         final int[] filterAlreadyPaid = {1};
@@ -528,6 +535,7 @@ public class BorrowBookUI {
 
     }
 
+    @SuppressWarnings("unchecked")
     public static void makeFinePaymentMenuUI(String borrowId) {
         System.out.println("\n");
         UIGenerator.optionMenu(
@@ -1066,6 +1074,7 @@ public class BorrowBookUI {
     Admin UI
      */
 
+    @SuppressWarnings("unchecked")
     public static void adminMenu(String adminId) {
         startNewBorrowSession(adminId);
         boolean quitAdminMenu = false;
@@ -1090,6 +1099,7 @@ public class BorrowBookUI {
         }while(!quitAdminMenu);
     }
 
+    @SuppressWarnings("unchecked")
     public static void adminBorrowMenu() {
         boolean quitAdminBorrowMenu = false;
         borrowRecordsPagination.setDisplayTree(borrowController.getBorrowRepo().getBookBorrowRecords());
@@ -1123,6 +1133,7 @@ public class BorrowBookUI {
         }while(!quitAdminBorrowMenu);
     }
 
+    @SuppressWarnings("unchecked")
     public static void displayAllBorrowRecords() {
         boolean quitDisplayRecordsMenu = false;
         borrowRecordsPagination.setDisplayTree(borrowController.getBorrowRepo().getBookBorrowRecords());
@@ -1175,6 +1186,7 @@ public class BorrowBookUI {
 
     }
 
+    @SuppressWarnings("unchecked")
     public static void viewBorrowRecordDetailUI(boolean... returnAll) {
         boolean quit = false;
         String borrowId = null;
@@ -1261,6 +1273,7 @@ public class BorrowBookUI {
         
     }
     
+    @SuppressWarnings("unchecked")
     public static void displayAllCurrentOrPastBorrowRecordsUI(boolean alreadyReturn) {
         boolean quitDisplayRecordsMenu = false;
         final int[] filterAlreadyReturned = {1};
@@ -1326,6 +1339,7 @@ public class BorrowBookUI {
         borrowRecordsPagination.setSearchingWord(null);
     }
       
+    @SuppressWarnings("unchecked")
     public static void displayIsLostBookRecordsUI() {
         boolean quitDisplayRecordsMenu = false;
         borrowRecordsPagination.setDisplayTree(borrowController.getBorrowRepo().getLostBookRecords(true));
@@ -1379,6 +1393,7 @@ public class BorrowBookUI {
         borrowRecordsPagination.setSearchingWord(null);
     }
 
+    @SuppressWarnings("unchecked")
     public static void adminFineMenu() {
         boolean quitAdminFineMenu = false;
         fineRecordsPagination.setDisplayTree(borrowController.getFineRepo().getBorrowFineRecords());
@@ -1412,6 +1427,7 @@ public class BorrowBookUI {
     }
 
     
+    @SuppressWarnings("unchecked")
     public static void displayAllFineRecordsUI() {
         boolean quitDisplayRecordsMenu = false;
         fineRecordsPagination.setDisplayTree(borrowController.getFineRepo().getBorrowFineRecords());
@@ -1463,6 +1479,7 @@ public class BorrowBookUI {
         }while(!quitDisplayRecordsMenu);
     }
 
+    @SuppressWarnings("unchecked")
     public static void displayAllCurrentOrPastFineRecordsUI(boolean finePayed) {
         boolean quitDisplayRecordsMenu = false;
         final int[] filterAlreadyReturned = {1};

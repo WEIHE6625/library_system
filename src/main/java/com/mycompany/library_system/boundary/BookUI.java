@@ -75,6 +75,7 @@ public class BookUI {
         }, true, true, false);
     }
 
+    @SuppressWarnings("unchecked")
     public static void menu() {
         BookInfoController bController = new BookInfoController();
         StockOrderController rController = new StockOrderController(bController.getbookTree(), bController.getbookTree("AvailableQuantity"), bController.getbookTree("TotalQuantity"));
@@ -111,6 +112,7 @@ public class BookUI {
         }while (!isExit);
     }
 
+    @SuppressWarnings("unchecked")
     public static void reportMenu(BookInfoController bController) {
         boolean isExit = false;
         do {
@@ -154,6 +156,7 @@ public class BookUI {
         }
     }
 
+    @SuppressWarnings("unchecked")
     public static void crudMenu(BookInfoController bController) {
         boolean isExit = false;
         pagination.setDisplayTree(bController.getbookTree());
