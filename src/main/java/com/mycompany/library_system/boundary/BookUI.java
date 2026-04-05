@@ -120,7 +120,7 @@ public class BookUI {
         boolean isExit = false;
         do {
             UIGenerator.clearScreen();
-            System.out.println(UIGenerator.titleBuilder("Admin Dashboard --- Book Reports"));
+            UIGenerator.titleBuilder("Admin Dashboard --- Book Reports");
             isExit = UIGenerator.optionMenu(
                 new String[]{
                     "[1] Low Stock Alert Report",
@@ -139,13 +139,9 @@ public class BookUI {
     }
 
     private static void reportMainPage(BookInfoController bController, int reportType) {
-        BookReportController reportController = new BookReportController(
-            bController.getbookTree(), 
-            bController.getbookTree("Category"),
-            bController.getbookTree("AvailableQuantity")
-        );
+        BookReportController reportController = new BookReportController(bController.getbookTree());
         UIGenerator.clearScreen();
-        System.out.println(UIGenerator.titleBuilder("Book Inventory Reports"));
+        UIGenerator.titleBuilder("Book Inventory Reports");
         String report = "";
         String fileName = "";
         switch (reportType) {
@@ -196,7 +192,7 @@ public class BookUI {
     }
 
     public static void bookListPage(String role) {
-        System.out.println(UIGenerator.titleBuilder("Book List"));
+        UIGenerator.titleBuilder("Book List");
         System.out.println(pagination.getSearchingWord());
         ListInterface<Book> displayList = pagination.getDisplayTree().values();
 

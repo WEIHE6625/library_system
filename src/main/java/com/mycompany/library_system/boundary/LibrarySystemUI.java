@@ -23,7 +23,7 @@ public class LibrarySystemUI {
             while (currentUser == null) {
 
                 UIGenerator.clearScreen();
-                System.out.println(UIGenerator.titleBuilder("Welcome to TARUMT Online Library"));
+                UIGenerator.titleBuilder("Welcome to TARUMT Online Library");
 
                 System.out.println("[0] Exit Program");
                 System.out.print("Enter your user ID to login: ");
@@ -48,7 +48,7 @@ public class LibrarySystemUI {
                 User sessionUser = currentUser;
 
                 UIGenerator.clearScreen();
-                System.out.println(UIGenerator.titleBuilder("Welcome, " + sessionUser.getName()));
+                UIGenerator.titleBuilder("Welcome, " + sessionUser.getName());
 
                 if (sessionUser.getRole() == User.UserRole.ADMIN) {
                     // Admin Menu (Includes Report Module)

@@ -17,17 +17,9 @@ import com.mycompany.library_system.utility.UserPrompt;
 public class BookReportController {
     
     private MapInterface<String, Book> bookTree;
-    private MapInterface<String, Book> bookCatTree;
-    private MapInterface<String, Book> bookAQtyTree;
 
-    public BookReportController(
-            MapInterface<String, Book> bookTree, 
-            MapInterface<String, Book> bookCatTree,
-            MapInterface<String, Book> bookAQtyTree
-        ) {
+    public BookReportController(MapInterface<String, Book> bookTree) {
         this.bookTree = bookTree;
-        this.bookCatTree = bookCatTree;
-        this.bookAQtyTree = bookAQtyTree;
     }
 
     /**
@@ -52,7 +44,7 @@ public class BookReportController {
         }
 
         StringBuilder reportBuilder = new StringBuilder();
-        reportBuilder.append(UIGenerator.titleBuilder(title.toUpperCase()));
+        UIGenerator.appendHeader(reportBuilder, "LOW STOCK ALERT", title);
 
         int lowStockCount = lowStockInfo.size();
         int healthyCount = totalBooksInLibrary - lowStockCount;
@@ -76,8 +68,10 @@ public class BookReportController {
         reportBuilder.append(String.format("%-20s | %-40s | %d Books\n", "Low Stock", lowBar.toString(), lowStockCount));
 
 
-        reportBuilder.append("\n" + UIGenerator.titleBuilder("BOOKS REQUIRING RESTOCKING"));
+        reportBuilder.append(UIGenerator.reportTitleBuilder("TAR UMT LIBRARY MANAGEMENT SYSTEM", title));
         
+        reportBuilder.append("\n --- BOOKS REQUIRING RESTOCKING ---");
+
         // Table Header
         reportBuilder.append(String.format("\n+-%-8s-+-%-60s-+-%-10s-+-%-21s-+\n", "-".repeat(8), "-".repeat(60), "-".repeat(10), "-".repeat(21)));
         reportBuilder.append(String.format("| %-8s | %-60s | %-10s | %-21s |\n", "BOOK ID", "TITLE", "STOCK (%)", "QTY AVAILABLE / TOTAL"));
