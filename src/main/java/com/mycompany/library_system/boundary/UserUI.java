@@ -105,6 +105,7 @@ public class UserUI {
                         }
                 );
             } else { // MEMBER
+                UIGenerator.titleBuilder("My Account Settings");
                 isExit = UIGenerator.optionMenu(
                         new String[]{
                                 "[1] Edit My Information",

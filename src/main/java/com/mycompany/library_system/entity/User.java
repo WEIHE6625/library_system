@@ -108,10 +108,33 @@ public class User {
         this.numOfBooksBorrwing = numOfBooksBorrwing;
     }
 
+    public String adminEditToString() {
+        return """
+            ---------------- User Profile ----------------
+            Name                   : %s
+            Email                  : %s
+            Gender                 : %s
+            Age                    : %s
+            Education              : %s
+            Role                   : %s
+            ----------------------------------------------
+            """.formatted(name, email, gender, age, education, role);
+    }
+    public String memberEditToString() {
+        return """
+            ---------------- User Profile ----------------
+            Name                   : %s
+            Email                  : %s
+            Gender                 : %s
+            Age                    : %s
+            Education              : %s
+            ----------------------------------------------
+            """.formatted(name, email, gender, age, education);
+    }
     @Override
     public String toString() {
         return """
-            ------------- User Profile -------------
+            ---------------- User Profile ----------------
             User ID                : %s
             Name                   : %s
             Email                  : %s
@@ -121,7 +144,7 @@ public class User {
             Role                   : %s
             Create Time            : %s
             No. of Books Borrowing : %s
-            ----------------------------------------
+            ----------------------------------------------
             """.formatted(userId, name, email, gender, age, education, role, createdAt, numOfBooksBorrwing);
     }
 }
