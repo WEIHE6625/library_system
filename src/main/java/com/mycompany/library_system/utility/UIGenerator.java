@@ -165,6 +165,7 @@ public class UIGenerator {
      */
     public static void appendVerticalBarChart(StringBuilder report, String[] labels, int[] values, int size, int chartHeight, int columnWidth, double maxValue, boolean isDiscrete) {
         int yAxisWidth = 8;
+        int leftPrefixWidth = yAxisWidth + 2;
 
         for (int level = chartHeight; level >= 1; level--) {
             StringBuilder row = new StringBuilder();
@@ -199,7 +200,7 @@ public class UIGenerator {
 
         // X-axis
         StringBuilder axis = new StringBuilder();
-        axis.append(" ".repeat(yAxisWidth)).append("|");
+        axis.append(" ".repeat(yAxisWidth + 1)).append("|");
         for (int i = 0; i < size; i++) {
             axis.append("-".repeat(columnWidth)).append("-");
         }
@@ -207,9 +208,9 @@ public class UIGenerator {
 
         // Labels
         StringBuilder labelRow = new StringBuilder();
-        labelRow.append(" ".repeat(yAxisWidth)).append(" ");
+        labelRow.append(" ".repeat(yAxisWidth));
         for (int i = 0; i < size; i++) {
-            labelRow.append(UIGenerator.centerText(labels[i], columnWidth)).append(" ");
+            labelRow.append(" ").append(UIGenerator.centerText(labels[i], columnWidth));
         }
         UIGenerator.appendCenteredLine(report, labelRow.toString());
         report.append("\n");
