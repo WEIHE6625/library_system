@@ -7,6 +7,7 @@ import com.mycompany.library_system.adt.MapInterface;
 import com.mycompany.library_system.adt.TreeMap;
 import com.mycompany.library_system.control.BookInfoController;
 import com.mycompany.library_system.control.BookReportController;
+import com.mycompany.library_system.control.StockOrderController;
 import com.mycompany.library_system.entity.Book;
 import com.mycompany.library_system.utility.DataProcessor;
 import com.mycompany.library_system.utility.UIGenerator;
@@ -26,8 +27,9 @@ public class BookUI {
         boolean isValid = false;
         String id = "";
         do {
-            System.out.print("Enter Book ID* (BK000000) >> ");
+            System.out.print("Enter Book ID* (BK000000) (0 to exit) >> ");
             id = scanner.nextLine();
+            if (id.equals("0")) return null;
             if (!bookTree.containsKey(id)) {
                 System.out.println("Book with ID " + id + " does not exist. Please try again.");
             }else{
@@ -73,18 +75,9 @@ public class BookUI {
         }, true, true, false);
     }
 
-    public static int inputQty() {
-        return UserPrompt.inputInteger("Enter Total Quantity Added* >> ", 1, 999);
-    }
-    
-    public static int inputReduceQty(int qtyAvailable) {
-        System.out.println("\n Current Available Quantity : " + qtyAvailable);
-        return UserPrompt.inputInteger("Enter Total Quantity Reduced* >> ", 1, qtyAvailable);
-    }
-
-
     public static void menu() {
         BookInfoController bController = new BookInfoController();
+        StockOrderController rController = new StockOrderController(bController.getbookTree(), bController.getbookTree("AvailableQuantity"), bController.getbookTree("TotalQuantity"));
         boolean isExit = false;
         pagination.setDisplayTree(bController.getbookTree());
         do {
@@ -92,18 +85,20 @@ public class BookUI {
             bookListPage("admin");
             isExit = UIGenerator.optionMenu(
                 new String[]{
-                    "[1] Manage Books",
-                    "[2] View Book Details",
-                    "[3] Sort Books",
-                    "[4] Search Books",
-                    "[5] Generate Reports",
+                    "[1] Manage Books Information",
+                    "[2] Manage Books in Stock",
+                    "[3] View Book Details",
+                    "[4] Sort Books",
+                    "[5] Search Books",
+                    "[6] Generate Reports",
                     " ",
-                    "[6] <- Previous Page          [7] Next Page ->",
+                    "[7] <- Previous Page          [8] Next Page ->",
                     "[0] Back to Main Menu"
                 },
                 "Select an option >> ",
                 new Supplier[] {
                         () -> { crudMenu(bController); return false; },
+                        () -> { StockOrderUI.menu(rController); return false; },
                         () -> { bController.viewBookDetails(); return false; },
                         () -> { bController.sortBooks(); return false; },
                         () -> { bController.searchBooks(); return false; },
@@ -169,8 +164,7 @@ public class BookUI {
                 new String[]{
                     "[1] Add New Book",
                     "[2] Edit Book Information",
-                    "[3] Edit Book in Stock",
-                    "[4] Delete Book",
+                    "[3] Delete Book",
                     " ",
                     "[5] <- Previous Page          [6] Next Page ->",
                     "[0] Back to Main Menu"
@@ -179,7 +173,6 @@ public class BookUI {
                 new Supplier[] {
                         () -> { bController.insertBook(); return false; },
                         () -> { bController.editBook(); return false; },
-                        () -> { bController.editBookInStock(); return false; },
                         () -> { bController.deleteBook(); return false; },
                         () -> { pagination.previousPage(); return false; },
                         () -> { pagination.nextPage(); return false; },
@@ -203,38 +196,59 @@ public class BookUI {
         int startIndex = pagination.getStartIndex();
         int endIndex = pagination.getEndIndex();
 
+        StringBuilder sBuilder = new StringBuilder();
         if (role.equals("member")) {
-            System.out.printf("%-8s %-45s %-30s %-30s %-29s %-13s\n", "Book ID ", "Book Title", "Category", "Author", "Publisher", "Available Qty");
-            System.out.printf("%-8s %-45s %-30s %-30s %-29s %-13s\n", "--------", "----------", "--------", "------", "---------", "-------------");
+
+            UIGenerator.appendCenteredLine(sBuilder, String.format("+-%-8s-+-%-45s-+-%-30s-+-%-30s-+-%-29s-+-%-13s-+", "-".repeat(8), "-".repeat(45), "-".repeat(30), "-".repeat(30), "-".repeat(29), "-".repeat(13)));
+            UIGenerator.appendCenteredLine(sBuilder, String.format("| %-8s | %-45s | %-30s | %-30s | %-29s | %-13s |", "Book ID ", "Book Title", "Category", "Author", "Publisher", "Available Qty"));
+            UIGenerator.appendCenteredLine(sBuilder, String.format("+-%-8s-+-%-45s-+-%-30s-+-%-30s-+-%-29s-+-%-13s-+", "-".repeat(8), "-".repeat(45), "-".repeat(30), "-".repeat(30), "-".repeat(29), "-".repeat(13)));
 
             for (int i = startIndex; i <= endIndex; i++) {
                 int actualIndex = pagination.isAscending() ? i : (totalRecords - 1 - i);
 
                 Book b = displayList.get(actualIndex);
-                String title = DataProcessor.truncate(b.getTitle(), 43);
-                String category = DataProcessor.truncate(b.getCategories().toString(), 28);
-                String author = DataProcessor.truncate(b.getAuthor(), 28);
-                String publisher = DataProcessor.truncate(b.getPublisher(), 27);
-                System.out.printf("%-8s %-45s %-30s %-30s %-29s %13d\n", b.getId(), title, category, author, publisher, b.getQtyAvailable());
+                String title = DataProcessor.truncate(b.getTitle(), 45);
+                String category = DataProcessor.truncate(DataProcessor.getKeysAsString(b.getCategories()), 30);
+                String author = DataProcessor.truncate(b.getAuthor(), 30);
+                String publisher = DataProcessor.truncate(b.getPublisher(), 29);
+                UIGenerator.appendCenteredLine(sBuilder, String.format("| %-8s | %-45s | %-30s | %-30s | %-29s | %13d |", b.getId(), title, category, author, publisher, b.getQtyAvailable()));
             }
+            UIGenerator.appendCenteredLine(sBuilder, String.format("+-%-8s-+-%-45s-+-%-30s-+-%-30s-+-%-29s-+-%-13s-+", "-".repeat(8), "-".repeat(45), "-".repeat(30), "-".repeat(30), "-".repeat(29), "-".repeat(13)));
+        } else if (role.equals("admin")) {
+            UIGenerator.appendCenteredLine(sBuilder, String.format("+-%-8s-+-%-40s-+-%-30s-+-%-28s-+-%-26s-+-%-13s-+-%-9s-+", "-".repeat(8), "-".repeat(40), "-".repeat(30), "-".repeat(28), "-".repeat(26), "-".repeat(13), "-".repeat(9)));
+            UIGenerator.appendCenteredLine(sBuilder, String.format("| %-8s | %-40s | %-30s | %-28s | %-26s | %-13s | %-9s |", "Book ID ", "Book Title", "Category", "Author", "Publisher", "Available Qty", "Total Qty"));
+            UIGenerator.appendCenteredLine(sBuilder, String.format("+-%-8s-+-%-40s-+-%-30s-+-%-28s-+-%-26s-+-%-13s-+-%-9s-+", "-".repeat(8), "-".repeat(40), "-".repeat(30), "-".repeat(28), "-".repeat(26), "-".repeat(13), "-".repeat(9)));
+
+            for (int i = startIndex; i <= endIndex; i++) {
+                int actualIndex = pagination.isAscending() ? i : (totalRecords - 1 - i);
+
+                Book b = displayList.get(actualIndex);
+                String title = DataProcessor.truncate(b.getTitle(), 40);
+                String category = DataProcessor.truncate(DataProcessor.getKeysAsString(b.getCategories()), 30);
+                String author = DataProcessor.truncate(b.getAuthor(), 30);
+                String publisher = DataProcessor.truncate(b.getPublisher(), 29);
+                UIGenerator.appendCenteredLine(sBuilder, String.format("| %-8s | %-40s | %-30s | %-30s | %-29s | %13d | %9d |", b.getId(), title, category, author, publisher, b.getQtyAvailable(), b.getQtyTotal()));
+            }
+            UIGenerator.appendCenteredLine(sBuilder, String.format("+-%-8s-+-%-40s-+-%-30s-+-%-30s-+-%-29s-+-%-13s-+-%-9s-+", "-".repeat(8), "-".repeat(40), "-".repeat(30), "-".repeat(30), "-".repeat(29), "-".repeat(13), "-".repeat(9)));
         } else {
-            System.out.printf("%-8s %-40s %-30s %-28s %-26s %-13s %-9s\n", "Book ID ", "Book Title", "Category", "Author", "Publisher", "Available Qty", "Total Qty");
-            System.out.printf("%-8s %-40s %-30s %-28s %-26s %-13s %-9s\n", "--------", "----------", "--------", "------", "---------", "-------------", "---------");
+            UIGenerator.appendCenteredLine(sBuilder, String.format("+-%-8s-+-%-40s-+-%-30s-+-%-10s-+-%-14s-+-%-21s-+", "-".repeat(8), "-".repeat(40), "-".repeat(30), "-".repeat(10), "-".repeat(14), "-".repeat(21)));
+            UIGenerator.appendCenteredLine(sBuilder, String.format("| %-8s | %-40s | %-30s | %-10s | %-14s | %-21s |", "Book ID", "Book Title", "Publisher", "Price ($)", "Stock Left (%)", "Qty Available / Total"));
+            UIGenerator.appendCenteredLine(sBuilder, String.format("+-%-8s-+-%-40s-+-%-30s-+-%-10s-+-%-14s-+-%-21s-+", "-".repeat(8), "-".repeat(40), "-".repeat(30), "-".repeat(10), "-".repeat(14), "-".repeat(21)));
 
             for (int i = startIndex; i <= endIndex; i++) {
                 int actualIndex = pagination.isAscending() ? i : (totalRecords - 1 - i);
 
                 Book b = displayList.get(actualIndex);
-                String title = DataProcessor.truncate(b.getTitle(), 38);
-                String category = DataProcessor.truncate(b.getCategories().toString(), 28);
-                String author = DataProcessor.truncate(b.getAuthor(), 26);
-                String publisher = DataProcessor.truncate(b.getPublisher(), 24);
-                System.out.printf("%-8s %-40s %-30s %-28s %-26s %13d %9d\n", b.getId(), title, category, author, publisher, b.getQtyAvailable(), b.getQtyTotal());
-            }
+                String title = DataProcessor.truncate(b.getTitle(), 40);
+                String publisher = DataProcessor.truncate(b.getPublisher(), 30);
+                String stockPercentage = b.getQtyTotal() > 0 ? String.format("%.2f", ((double) b.getQtyAvailable() / b.getQtyTotal()) * 100) : "0.00";
 
-            System.out.println("-".repeat(160));
-            System.out.printf("Page: %d/%d ------ Total Records: %d\n\n", pagination.getCurrentPage(), pagination.getTotalPages(), displayList.size());
+                UIGenerator.appendCenteredLine(sBuilder, String.format("| %-8s | %-40s | %-30s | %-10s | %-14s | %13s / %-5s |", b.getId(), title, publisher, b.getPrice(), stockPercentage, String.valueOf(b.getQtyAvailable()), String.valueOf(b.getQtyTotal())));
+            }
+            UIGenerator.appendCenteredLine(sBuilder, String.format("+-%-8s-+-%-40s-+-%-30s-+-%-10s-+-%-14s-+-%-21s-+", "-".repeat(8), "-".repeat(40), "-".repeat(30), "-".repeat(10), "-".repeat(14), "-".repeat(21)));
         }
+        UIGenerator.appendCenteredLine(sBuilder, String.format("Page: %d/%d ------ Total Records: %d\n\n", pagination.getCurrentPage(), pagination.getTotalPages(), displayList.size()));
+        System.out.print(sBuilder.toString());
     }
 
     public static Pagination<String, Book> getPagination() {

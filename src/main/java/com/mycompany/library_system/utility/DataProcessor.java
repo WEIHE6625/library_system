@@ -7,6 +7,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import com.mycompany.library_system.adt.MapInterface;
+
 /**
  * 
  * @author all
@@ -56,6 +58,18 @@ public class DataProcessor {
         } catch (Exception e) {
             return null; // Return null if the date is corrupted
         }
+    }
+
+    public static String getKeysAsString(MapInterface<String, ?> map) {
+        if (map.isEmpty()) {
+            return "";
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for (MapInterface.Entry<String, ?> entry : map) {
+            sb.append(entry.getKey()).append(",");
+        }
+        return sb.substring(0, sb.length() - 1);
     }
     
     // Calculate a standard scale for graph axes based on the maximum value

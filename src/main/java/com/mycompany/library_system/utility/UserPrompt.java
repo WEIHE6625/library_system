@@ -50,6 +50,7 @@ public class UserPrompt {
 
         return value;
     }
+    
     public static double inputDouble(String promptMessage, double min, double max) {
         boolean isValid = false;
         double value = -1;

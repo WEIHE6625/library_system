@@ -329,7 +329,7 @@ public class TreeMap<K extends Comparable<K>, V> implements MapInterface<K, V> {
         String outputStr = "";
 
         for (MapInterface.Entry<K, V> entry : this) {
-            outputStr += entry.getKey() + ",";
+            outputStr += entry.getKey() + "," + entry.getValue() + ",";
         }
         return outputStr.isEmpty() ? outputStr : outputStr.substring(0, outputStr.length() - 1);
     }

@@ -60,13 +60,13 @@ public class BookReportController {
         // Draw Healthy Books Bar
         int healthyBarLen = (maxScale == 0) ? 0 : (int) Math.round(((double) healthyCount / maxScale) * MAX_BAR_LENGTH);
         StringBuilder healthyBar = new StringBuilder();
-        for (int i = 0; i < healthyBarLen; i++) healthyBar.append("\u2588");
+        for (int i = 0; i < healthyBarLen; i++) healthyBar.append("#");
         reportBuilder.append(String.format("%-20s | %-40s | %d Books\n", "Healthy Stock", healthyBar.toString(), healthyCount));
 
         // Draw Low Stock Books Bar
         int lowBarLen = (maxScale == 0) ? 0 : (int) Math.round(((double) lowStockCount / maxScale) * MAX_BAR_LENGTH);
         StringBuilder lowBar = new StringBuilder();
-        for (int i = 0; i < lowBarLen; i++) lowBar.append("\u2588");
+        for (int i = 0; i < lowBarLen; i++) lowBar.append("#");
         reportBuilder.append(String.format("%-20s | %-40s | %d Books\n\n\n", "Low Stock", lowBar.toString(), lowStockCount));
         
         UIGenerator.appendCenteredLine(reportBuilder, "--- BOOKS REQUIRING RESTOCKING ---");
@@ -83,7 +83,7 @@ public class BookReportController {
             double stockPercentage = Double.parseDouble(entry.getKey().split("-")[0]);
             UIGenerator.appendCenteredLine(reportBuilder, String.format("| %-8s | %-60s | %9.2f%% | %13s / %-5s |", 
                 book.getId(), 
-                DataProcessor.truncate(book.getTitle(), 58), 
+                DataProcessor.truncate(book.getTitle(), 60), 
                 stockPercentage, 
                 book.getQtyAvailable(),
                 book.getQtyTotal())
@@ -200,7 +200,7 @@ public class BookReportController {
             if (currentIndex >= skipChartCount) {
                 int targetChartIndex = (chartSize - 1) - chartIndex;
                 
-                labels[targetChartIndex] = DataProcessor.truncate(categoryName, COLUMN_WIDTH - 2);
+                labels[targetChartIndex] = DataProcessor.truncate(categoryName, COLUMN_WIDTH);
                 scaledValues[targetChartIndex] = (standMaxCost == 0) ? 0 : (int) Math.round((cost / standMaxCost) * (chartHeight * 2));
                 
                 chartIndex++;

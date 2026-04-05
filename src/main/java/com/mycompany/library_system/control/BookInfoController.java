@@ -116,7 +116,7 @@ public class BookInfoController {
         String publisher = BookUI.inputBookPublisher();
         double price = BookUI.inputBookPrice();
         int[] publishYearMonth = BookUI.inputBookPublishDate();
-        int qty = BookUI.inputQty();
+        int qty = 0;
 
         Book newBook = new Book(id, title, author, description, category, publisher, price, publishYearMonth[1], publishYearMonth[2], qty, qty);
         Book book = bookTree.put(id, newBook);
@@ -224,61 +224,6 @@ public class BookInfoController {
         return book;
     }
 
-    public Book editBookInStock() {
-        UIGenerator.clearScreen();
-        UIGenerator.titleBuilder("Edit Book In Stock");
-        String id = BookUI.inputBookID(bookTree);
-
-        System.out.println("\nEditing Book with ID: " + id);
-        Book book = bookTree.get(id);
-        System.out.println(book.toString());
-        boolean isExit = false;
-        do {
-            isExit = UIGenerator.optionMenu(
-                new String[]{
-                    "[1] Order More Book",
-                    "[2] Reduce Book In Stock",
-                    "[0] Back to Main Menu"
-                },
-                "Select an option >> ",
-                new Supplier[] {
-                        () -> {
-                            int oldQtyA = book.getQtyAvailable();
-                            int oldQtyT = book.getQtyTotal();
-                            int newQty = BookUI.inputQty();
-                            book.addQty(newQty);
-                            bookQtyATree.remove(IdGenerator.getKeyId(oldQtyA, id));
-                            bookQtyTTree.remove(IdGenerator.getKeyId(oldQtyT, id));
-                            bookQtyATree.put(IdGenerator.getKeyId(book.getQtyAvailable(), id), book);
-                            bookQtyTTree.put(IdGenerator.getKeyId(book.getQtyTotal(), id), book);
-                            return false;
-                        },
-                        () -> {
-                            int oldQtyA = book.getQtyAvailable();
-                            int oldQtyT = book.getQtyTotal();
-                            if (oldQtyA <= 0) {
-                                System.out.println("The available book in stock is empty. Cannot reduce anymore.");
-                            } else {
-                                int qty = BookUI.inputReduceQty(oldQtyA);
-                                book.reduceQty(qty);
-                                bookQtyATree.remove(IdGenerator.getKeyId(oldQtyA, id));
-                                bookQtyTTree.remove(IdGenerator.getKeyId(oldQtyT, id));
-                                bookQtyATree.put(IdGenerator.getKeyId(book.getQtyAvailable(), id), book);
-                                bookQtyTTree.put(IdGenerator.getKeyId(book.getQtyTotal(), id), book);
-                            }
-                            return false;
-                        },
-                        () -> true
-                }
-            );
-        }while (!isExit);
-
-        System.out.println("Edited book with ID: " + id);
-        saveToFile();
-        UIGenerator.pressEnterToContinue();
-        return book;
-    }
-
     public Book deleteBook() {
         UIGenerator.clearScreen();
         UIGenerator.titleBuilder("Delete Existing Book");
@@ -327,7 +272,7 @@ public class BookInfoController {
 
             isBack = UIGenerator.optionMenu(
                 new String[]{
-                    "[1] Default Sorting",
+                    "[1] Sort by Book ID",
                     "[2] Sort by Book Title",
                     "[3] Sort by Author",
                     "[4] Sort by Available Quantity",

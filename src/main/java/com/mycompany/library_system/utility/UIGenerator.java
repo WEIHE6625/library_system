@@ -1,6 +1,5 @@
 package com.mycompany.library_system.utility;
 import java.io.File;
-import java.io.UnsupportedEncodingException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;

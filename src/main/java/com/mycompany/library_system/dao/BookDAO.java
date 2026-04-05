@@ -21,7 +21,7 @@ import me.tongfei.progressbar.ProgressBar;
 public class BookDAO {
 
     public static MapInterface<String, Book> readFile(String filePath) {
-        MapInterface<String, Book> bookList = new TreeMap<>();
+        MapInterface<String, Book> bookTree = new TreeMap<>();
 
         // CSVReader
         try (CSVReader reader = new CSVReader(new FileReader(filePath))) {
@@ -83,7 +83,7 @@ public class BookDAO {
 
                             // Add to Map
                             Book book = new Book(id, title, author, description, categories, publisher, price, month, year, qtyTotal, qtyAvailable);
-                            bookList.put(id, book);
+                            bookTree.put(id, book);
 
                         } catch (Exception e) {
                             System.out.println("Skipping invalid row: " + e.getMessage());
@@ -96,13 +96,12 @@ public class BookDAO {
         } catch (CsvValidationException e1) {
             e1.printStackTrace();
         }
-        return bookList;
+        return bookTree;
     }
 
 
     public static void writeFile(String filePath, MapInterface<String, Book> bookTree) {
         try (CSVWriter writer = new CSVWriter(new FileWriter(filePath))) {
-            
             // Write Header
             String[] header = { "BookID", "Title", "Authors", "Description", "Category", "Publisher", "Price ($)", "Publish Month", "Publish Year","Available Quantity","Total Quantity" };
             writer.writeNext(header, false);
@@ -116,7 +115,7 @@ public class BookDAO {
                     book.getTitle(),
                     book.getAuthor(),
                     book.getDescription(),
-                    book.getCategories().toString(),
+                    DataProcessor.getKeysAsString(book.getCategories()),
                     book.getPublisher(),
                     String.valueOf(book.getPrice()),
                     String.valueOf(book.getPublishMonth()),
@@ -127,9 +126,6 @@ public class BookDAO {
 
                 writer.writeNext(data, false);
             }
-            
-            System.out.println("Data successfully saved to " + filePath);
-
         } catch (IOException e) {
             e.printStackTrace();
         }
