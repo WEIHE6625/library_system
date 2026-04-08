@@ -229,9 +229,16 @@ public class BookInfoController {
         UIGenerator.clearScreen();
         UIGenerator.titleBuilder("Delete Existing Book");
         String id = BookUI.inputBookID(bookTree);
+        if (id.equals("-1")) return null;
         Book book = bookTree.get(id);
         if(book != null) {
             if(book.getQtyAvailable() == book.getQtyTotal()) {
+
+                String confirm = UserPrompt.inputString("Are you sure you want to delete the book with ID " + id + "? (y/n) >> ", 1, false);
+                if (!confirm.equalsIgnoreCase("y")) {
+                    return null;
+                }
+
                 // Remove from secondary indexes
                 bookTitleTree.remove(IdGenerator.getKeyId(book.getTitle(), id));
                 bookAuthorTree.remove(IdGenerator.getKeyId(book.getAuthor(), id));

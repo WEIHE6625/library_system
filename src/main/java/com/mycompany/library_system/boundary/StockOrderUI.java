@@ -27,7 +27,7 @@ public class StockOrderUI {
         do {
             System.out.print("Enter Order ID* (0 to exit) >> ");
             id = scanner.nextLine();
-            if (id.equals("0")) return null;
+            if (id.equals("0")) return "-1";
             if (!stockOrderTree.containsKey(id)) {
                 System.out.println("Order with ID " + id + " does not exist. Please try again.");
             }else{
@@ -43,7 +43,9 @@ public class StockOrderUI {
     
     public static int inputReduceQty(int qtyAvailable) {
         System.out.println("\n Current Available Quantity : " + qtyAvailable);
-        return UserPrompt.inputInteger("Enter Total Quantity Reduced* >> ", 1, qtyAvailable);
+        int qty = UserPrompt.inputInteger("Enter Total Quantity Reduced* (or '0' to cancel) >> ", 1, qtyAvailable);
+        if (qty == 0) return -1;
+        return qty;
     }
 
     public static void displayCart(MapInterface<String, Book> bookTree, MapInterface<String, Integer> cart) {

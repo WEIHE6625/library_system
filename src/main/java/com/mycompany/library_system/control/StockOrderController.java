@@ -74,11 +74,11 @@ public class StockOrderController {
         Book book = null;
         boolean isValid = false;
         do {
-            String id = UserPrompt.inputString("Enter Book ID to reduce stock (or '0' to cancel) >> ", 8, false);
-            if (id.equals("0")) return;
+            String id = BookUI.inputBookID(bookTree);
+            if (id.equals("-1")) return;
             book = bookTree.get(id);
             if (book == null) {
-                System.out.println("Error: Book ID not found in the library system.");
+                System.out.println("Error: Book ID not found.");
             }
             isValid = true;
         } while (!isValid);
@@ -89,6 +89,7 @@ public class StockOrderController {
             System.out.println("The available book in stock is empty. Cannot reduce anymore.");
         } else {
             int qty = StockOrderUI.inputReduceQty(oldQtyA);
+            if (qty == -1) return;
             String confirmation = UserPrompt.inputString("Are you sure you want to reduce the stock of '" + book.getId() + "' by " + qty + "? (y/n) >> ", 1, false);
             if (!confirmation.equalsIgnoreCase("y")) {
                 return;
@@ -154,7 +155,7 @@ public class StockOrderController {
         boolean isValid = false;
         do {
             String bookId = UserPrompt.inputString("Enter Book ID to remove from cart (or '0' to cancel) >> ", 8, false);
-            if (bookId.equals("0")) return;
+            if (bookId.equals("-1")) return;
 
             if (cart.get(bookId) != null) {
                 isValid = true;
@@ -247,6 +248,7 @@ public class StockOrderController {
         boolean isValid = false;
         do {
             String id = StockOrderUI.inputOrderID(stockOrderTree);
+            if (id.equals("-1")) return false;
             StockOrder order = stockOrderTree.get(id);
             
             if (order != null && order.getStatus() == StockOrder.Status.PENDING) {

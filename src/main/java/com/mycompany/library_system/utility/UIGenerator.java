@@ -179,20 +179,22 @@ public class UIGenerator {
             int topHalfStep = level * 2;
             int bottomHalfStep = topHalfStep - 1;
 
-            // Draw the asterisks
+            // Draw the bars
             for (int i = 0; i < size; i++) {
-                // If the value reaches the top half, draw a Full Block
-                if (values[i] >= topHalfStep) {
-                    row.append(UIGenerator.centerText("X", columnWidth)); 
+                
+                if (values[i] == topHalfStep) {
+                    row.append(UIGenerator.centerText("TT", columnWidth));
                 } 
-                // If the value only reaches the bottom half, draw a Half Block
+                else if (values[i] > topHalfStep) {
+                    row.append(UIGenerator.centerText("||", columnWidth));
+                } 
                 else if (values[i] == bottomHalfStep) {
-                    row.append(UIGenerator.centerText("x", columnWidth)); 
+                    row.append(UIGenerator.centerText("__", columnWidth)); 
                 } 
-                // Otherwise, draw empty space
                 else {
                     row.append(" ".repeat(columnWidth));
                 }
+                
                 row.append(" ");
             }
             UIGenerator.appendCenteredLine(report, row.toString());

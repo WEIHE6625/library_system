@@ -29,7 +29,7 @@ public class BookUI {
         do {
             System.out.print("Enter Book ID* (BK000000) (0 to exit) >> ");
             id = scanner.nextLine();
-            if (id.equals("0")) return null;
+            if (id.equals("0")) return "-1";
             if (!bookTree.containsKey(id)) {
                 System.out.println("Book with ID " + id + " does not exist. Please try again.");
             }else{
@@ -202,53 +202,53 @@ public class BookUI {
         StringBuilder sBuilder = new StringBuilder();
         if (role.equals("member")) {
 
-            UIGenerator.appendCenteredLine(sBuilder, String.format("+-%-8s-+-%-45s-+-%-30s-+-%-30s-+-%-29s-+-%-13s-+", "-".repeat(8), "-".repeat(45), "-".repeat(30), "-".repeat(30), "-".repeat(29), "-".repeat(13)));
-            UIGenerator.appendCenteredLine(sBuilder, String.format("| %-8s | %-45s | %-30s | %-30s | %-29s | %-13s |", "Book ID ", "Book Title", "Category", "Author", "Publisher", "Available Qty"));
-            UIGenerator.appendCenteredLine(sBuilder, String.format("+-%-8s-+-%-45s-+-%-30s-+-%-30s-+-%-29s-+-%-13s-+", "-".repeat(8), "-".repeat(45), "-".repeat(30), "-".repeat(30), "-".repeat(29), "-".repeat(13)));
+            UIGenerator.appendCenteredLine(sBuilder, String.format("+-%-8s-+-%-40s-+-%-30s-+-%-25s-+-%-25s-+-%-13s-+", "-".repeat(8), "-".repeat(40), "-".repeat(30), "-".repeat(25), "-".repeat(25), "-".repeat(13)));
+            UIGenerator.appendCenteredLine(sBuilder, String.format("| %-8s | %-40s | %-30s | %-25s | %-25s | %-13s |", "Book ID ", "Book Title", "Category", "Author", "Publisher", "Available Qty"));
+            UIGenerator.appendCenteredLine(sBuilder, String.format("+-%-8s-+-%-40s-+-%-30s-+-%-25s-+-%-25s-+-%-13s-+", "-".repeat(8), "-".repeat(40), "-".repeat(30), "-".repeat(25), "-".repeat(25), "-".repeat(13)));
 
             for (int i = startIndex; i <= endIndex; i++) {
                 int actualIndex = pagination.isAscending() ? i : (totalRecords - 1 - i);
 
                 Book b = displayList.get(actualIndex);
-                String title = DataProcessor.truncate(b.getTitle(), 45);
+                String title = DataProcessor.truncate(b.getTitle(), 40);
                 String category = DataProcessor.truncate(DataProcessor.getKeysAsString(b.getCategories()), 30);
-                String author = DataProcessor.truncate(b.getAuthor(), 30);
-                String publisher = DataProcessor.truncate(b.getPublisher(), 29);
-                UIGenerator.appendCenteredLine(sBuilder, String.format("| %-8s | %-45s | %-30s | %-30s | %-29s | %13d |", b.getId(), title, category, author, publisher, b.getQtyAvailable()));
+                String author = DataProcessor.truncate(b.getAuthor(), 25);
+                String publisher = DataProcessor.truncate(b.getPublisher(), 25);
+                UIGenerator.appendCenteredLine(sBuilder, String.format("| %-8s | %-40s | %-30s | %-25s | %-25s | %13d |", b.getId(), title, category, author, publisher, b.getQtyAvailable()));
             }
-            UIGenerator.appendCenteredLine(sBuilder, String.format("+-%-8s-+-%-45s-+-%-30s-+-%-30s-+-%-29s-+-%-13s-+", "-".repeat(8), "-".repeat(45), "-".repeat(30), "-".repeat(30), "-".repeat(29), "-".repeat(13)));
+            UIGenerator.appendCenteredLine(sBuilder, String.format("+-%-8s-+-%-40s-+-%-30s-+-%-25s-+-%-25s-+-%-13s-+", "-".repeat(8), "-".repeat(40), "-".repeat(30), "-".repeat(25), "-".repeat(25), "-".repeat(13)));
         } else if (role.equals("admin")) {
-            UIGenerator.appendCenteredLine(sBuilder, String.format("+-%-8s-+-%-40s-+-%-30s-+-%-28s-+-%-26s-+-%-13s-+-%-9s-+", "-".repeat(8), "-".repeat(40), "-".repeat(30), "-".repeat(28), "-".repeat(26), "-".repeat(13), "-".repeat(9)));
-            UIGenerator.appendCenteredLine(sBuilder, String.format("| %-8s | %-40s | %-30s | %-28s | %-26s | %-13s | %-9s |", "Book ID ", "Book Title", "Category", "Author", "Publisher", "Available Qty", "Total Qty"));
-            UIGenerator.appendCenteredLine(sBuilder, String.format("+-%-8s-+-%-40s-+-%-30s-+-%-28s-+-%-26s-+-%-13s-+-%-9s-+", "-".repeat(8), "-".repeat(40), "-".repeat(30), "-".repeat(28), "-".repeat(26), "-".repeat(13), "-".repeat(9)));
+            UIGenerator.appendCenteredLine(sBuilder, String.format("+-%-8s-+-%-33s-+-%-25s-+-%-25s-+-%-25s-+-%-13s-+-%-9s-+", "-".repeat(8), "-".repeat(33), "-".repeat(25), "-".repeat(25), "-".repeat(25), "-".repeat(13), "-".repeat(9)));
+            UIGenerator.appendCenteredLine(sBuilder, String.format("| %-8s | %-33s | %-25s | %-25s | %-25s | %-13s | %-9s |", "Book ID ", "Book Title", "Category", "Author", "Publisher", "Available Qty", "Total Qty"));
+            UIGenerator.appendCenteredLine(sBuilder, String.format("+-%-8s-+-%-33s-+-%-25s-+-%-25s-+-%-25s-+-%-13s-+-%-9s-+", "-".repeat(8), "-".repeat(33), "-".repeat(25), "-".repeat(25), "-".repeat(25), "-".repeat(13), "-".repeat(9)));
 
             for (int i = startIndex; i <= endIndex; i++) {
                 int actualIndex = pagination.isAscending() ? i : (totalRecords - 1 - i);
 
                 Book b = displayList.get(actualIndex);
-                String title = DataProcessor.truncate(b.getTitle(), 40);
-                String category = DataProcessor.truncate(DataProcessor.getKeysAsString(b.getCategories()), 30);
-                String author = DataProcessor.truncate(b.getAuthor(), 30);
-                String publisher = DataProcessor.truncate(b.getPublisher(), 29);
-                UIGenerator.appendCenteredLine(sBuilder, String.format("| %-8s | %-40s | %-30s | %-30s | %-29s | %13d | %9d |", b.getId(), title, category, author, publisher, b.getQtyAvailable(), b.getQtyTotal()));
+                String title = DataProcessor.truncate(b.getTitle(), 33);
+                String category = DataProcessor.truncate(DataProcessor.getKeysAsString(b.getCategories()), 25);
+                String author = DataProcessor.truncate(b.getAuthor(), 25);
+                String publisher = DataProcessor.truncate(b.getPublisher(), 25);
+                UIGenerator.appendCenteredLine(sBuilder, String.format("| %-8s | %-33s | %-25s | %-25s | %-25s | %13d | %9d |", b.getId(), title, category, author, publisher, b.getQtyAvailable(), b.getQtyTotal()));
             }
-            UIGenerator.appendCenteredLine(sBuilder, String.format("+-%-8s-+-%-40s-+-%-30s-+-%-30s-+-%-29s-+-%-13s-+-%-9s-+", "-".repeat(8), "-".repeat(40), "-".repeat(30), "-".repeat(30), "-".repeat(29), "-".repeat(13), "-".repeat(9)));
+            UIGenerator.appendCenteredLine(sBuilder, String.format("+-%-8s-+-%-33s-+-%-25s-+-%-25s-+-%-25s-+-%-13s-+-%-9s-+", "-".repeat(8), "-".repeat(33), "-".repeat(25), "-".repeat(25), "-".repeat(25), "-".repeat(13), "-".repeat(9)));
         } else {
-            UIGenerator.appendCenteredLine(sBuilder, String.format("+-%-8s-+-%-40s-+-%-30s-+-%-10s-+-%-14s-+-%-21s-+", "-".repeat(8), "-".repeat(40), "-".repeat(30), "-".repeat(10), "-".repeat(14), "-".repeat(21)));
-            UIGenerator.appendCenteredLine(sBuilder, String.format("| %-8s | %-40s | %-30s | %-10s | %-14s | %-21s |", "Book ID", "Book Title", "Publisher", "Price ($)", "Stock Left (%)", "Qty Available / Total"));
-            UIGenerator.appendCenteredLine(sBuilder, String.format("+-%-8s-+-%-40s-+-%-30s-+-%-10s-+-%-14s-+-%-21s-+", "-".repeat(8), "-".repeat(40), "-".repeat(30), "-".repeat(10), "-".repeat(14), "-".repeat(21)));
+            UIGenerator.appendCenteredLine(sBuilder, String.format("+-%-8s-+-%-48s-+-%-40s-+-%-10s-+-%-14s-+-%-21s-+", "-".repeat(8), "-".repeat(48), "-".repeat(40), "-".repeat(10), "-".repeat(14), "-".repeat(21)));
+            UIGenerator.appendCenteredLine(sBuilder, String.format("| %-8s | %-48s | %-40s | %-10s | %-14s | %-21s |", "Book ID", "Book Title", "Publisher", "Price ($)", "Stock Left (%)", "Qty Available / Total"));
+            UIGenerator.appendCenteredLine(sBuilder, String.format("+-%-8s-+-%-48s-+-%-40s-+-%-10s-+-%-14s-+-%-21s-+", "-".repeat(8), "-".repeat(48), "-".repeat(40), "-".repeat(10), "-".repeat(14), "-".repeat(21)));
 
             for (int i = startIndex; i <= endIndex; i++) {
                 int actualIndex = pagination.isAscending() ? i : (totalRecords - 1 - i);
 
                 Book b = displayList.get(actualIndex);
-                String title = DataProcessor.truncate(b.getTitle(), 40);
-                String publisher = DataProcessor.truncate(b.getPublisher(), 30);
+                String title = DataProcessor.truncate(b.getTitle(), 48);
+                String publisher = DataProcessor.truncate(b.getPublisher(), 40);
                 String stockPercentage = b.getQtyTotal() > 0 ? String.format("%.2f", ((double) b.getQtyAvailable() / b.getQtyTotal()) * 100) : "0.00";
 
-                UIGenerator.appendCenteredLine(sBuilder, String.format("| %-8s | %-40s | %-30s | %-10s | %-14s | %13s / %-5s |", b.getId(), title, publisher, b.getPrice(), stockPercentage, String.valueOf(b.getQtyAvailable()), String.valueOf(b.getQtyTotal())));
+                UIGenerator.appendCenteredLine(sBuilder, String.format("| %-8s | %-48s | %-40s | %-10s | %-14s | %13s / %-5s |", b.getId(), title, publisher, b.getPrice(), stockPercentage, String.valueOf(b.getQtyAvailable()), String.valueOf(b.getQtyTotal())));
             }
-            UIGenerator.appendCenteredLine(sBuilder, String.format("+-%-8s-+-%-40s-+-%-30s-+-%-10s-+-%-14s-+-%-21s-+", "-".repeat(8), "-".repeat(40), "-".repeat(30), "-".repeat(10), "-".repeat(14), "-".repeat(21)));
+            UIGenerator.appendCenteredLine(sBuilder, String.format("+-%-8s-+-%-48s-+-%-40s-+-%-10s-+-%-14s-+-%-21s-+", "-".repeat(8), "-".repeat(48), "-".repeat(40), "-".repeat(10), "-".repeat(14), "-".repeat(21)));
         }
         UIGenerator.appendCenteredLine(sBuilder, String.format("Page: %d/%d ------ Total Records: %d\n\n", pagination.getCurrentPage(), pagination.getTotalPages(), displayList.size()));
         System.out.print(sBuilder.toString());
