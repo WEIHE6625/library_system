@@ -228,7 +228,6 @@ public class AnnouncementInfoControl {
 
         AnnouncementUI.getPagination().setCurrentPage(1);
 
-        System.out.println("DEBUG: Search complete. Results found: " + filteredResults.size());
     }
 
     public void resetSearch() {

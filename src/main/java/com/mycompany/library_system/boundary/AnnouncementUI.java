@@ -139,7 +139,6 @@ public class AnnouncementUI {
         MapInterface<String, Announcement> tree = pagination.getDisplayTree();
         int start = pagination.getStartIndex();
         int end = pagination.getEndIndex();
-        System.out.println("DEBUG: Total items in tree: " + aController.getAnnouncementList().size());
         UIGenerator.titleBuilder("Announcement Management");
 
         if (!pagination.getSearchingWord().isEmpty()) {
@@ -179,14 +178,14 @@ public class AnnouncementUI {
 
     public static String chooseTypeForSearch() {
         System.out.println("\nSelect Announcement Type to Filter:");
-        System.out.println("[1] General");
+        System.out.println("[1] Fine");
         System.out.println("[2] Broadcast");
         System.out.println("[3] Education Level");
 
         int choice = UserPrompt.inputInteger("Select type >> ", 1, 3);
 
         switch (choice) {
-            case 1: return "Announcement";
+            case 1: return "AnnouncementFines";
             case 2: return "AnnouncementBroadcast";
             case 3: return "AnnouncementEduLevel";
             default: return "";
