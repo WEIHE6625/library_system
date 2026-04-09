@@ -1,2 +1,3 @@
 Borrow ID,User ID,Fine Issued Date (yyyy-MM-dd),Fine amount (RM),Fine Payed ?,Payment Date (yyyy-MM-dd)
 BR000006,U0002,2026-04-03,4.99,true,2026-04-03
+BR000999,U0002,2026-03-30,0.00,false,-

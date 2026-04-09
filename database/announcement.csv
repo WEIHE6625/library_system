@@ -1,0 +1,10 @@
+Type,ID,Title,Content,AdminID,CreatedDate,EditAdminID,EditDate,ExtraData
+EDUCATION,A0002,abcd,lmaooooo,U0001,2026-04-09,N/A,2026-04-09,BACHELOR
+EDUCATION,A0003,test 3,33 test,U0001,2026-04-10,N/A,2026-04-10,OTHER
+BROADCAST,A0004,testing123,321testing,U0001,2026-04-10,N/A,2026-04-10,N/A
+FINE,A0005,Overdue Fine: BR000999,"You have an unpaid fine for Borrow ID BR000999.
+Current Total: RM 1.50
+Issued on: 2026-03-30
+
+Please visit the counter to settle.",SYSTEM,2026-04-10,-,-,U0002
+BROADCAST,A0006,new broadcast,broadcast,U0001,2026-04-10,U0001,2026-04-10,N/A
