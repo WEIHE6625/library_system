@@ -38,9 +38,9 @@ public class BookBorrowControl {
     private static final LocalDate BORROW_START_DATE = LocalDate.parse("2017-05-01");
     
 
-    public BookBorrowControl(String userId, MapInterface<String, Book> library) {
+    public BookBorrowControl(String userId, MapInterface<String, Book> library, MapInterface<String, User> userMap) {
         this.userId = userId; 
-        this.userMap = UserDAO.readFile(DEFAULT_USER_FILE_PATH);
+        this.userMap = userMap;
         this.library = library;
         this.borrowRecords = new BookBorrowRepo();
         this.borrowFineRecords = new BorrowFineRepo();
@@ -66,6 +66,7 @@ public class BookBorrowControl {
     public boolean isFineRecordExist(String borrowId) {return this.borrowFineRecords.getBorrowFineRecords().containsKey(borrowId);}
     public BorrowFineRecord getBorrowFineRecord(String boorowId) {return this.borrowFineRecords.getBorrowFineRecord(boorowId);}
     public MapInterface<String, Book> getBookTree() {return this.library;}
+    public MapInterface<String, User> getUserTree() {return this.userMap;}
 
     public LocalDate calculateReturnDate(String borrowId) {
         BookBorrowRecord record = borrowRecords.getBorrowRecord(borrowId);
