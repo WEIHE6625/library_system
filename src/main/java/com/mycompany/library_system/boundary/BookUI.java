@@ -168,8 +168,11 @@ public class BookUI {
                     "[1] Add New Book",
                     "[2] Edit Book Information",
                     "[3] Delete Book",
+                    "[4] View Book Details",
+                    "[5] Sort Books",
+                    "[6] Search Books",
                     " ",
-                    "[5] <- Previous Page          [6] Next Page ->",
+                    "[7] <- Previous Page          [8] Next Page ->",
                     "[0] Back to Main Menu"
                 },
                 "Select an option >> ",
@@ -177,6 +180,9 @@ public class BookUI {
                         () -> { bController.insertBook(); return false; },
                         () -> { bController.editBook(); return false; },
                         () -> { bController.deleteBook(); return false; },
+                        () -> { bController.viewBookDetails(); return false; },
+                        () -> { bController.sortBooks(); return false; },
+                        () -> { bController.searchBooks(); return false; },
                         () -> { pagination.previousPage(); return false; },
                         () -> { pagination.nextPage(); return false; },
                         () -> true

@@ -249,12 +249,12 @@ public class BookInfoController {
                 bookTree.remove(id);
 
                 saveToFile();
+                System.out.println("Book with ID " + id + " has been deleted.");
                 UIGenerator.pressEnterToContinue();
             }
             else{
                 System.out.println("Book with ID " + id + " cannot be removed because user are borrowing.");    
             }
-            System.out.println("Book with ID " + id + " has been deleted.");
         } else {
             System.out.println("Book with ID " + id + " not found.");
         }

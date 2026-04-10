@@ -6,15 +6,20 @@
   <component name="ChangeListManager">
     <list default="true" id="acdaa5b7-86ea-4e04-9a81-21e1133fe8e4" name="Changes" comment="Add User Report UI function, and general function for report in UIGenerator">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/borrowFineRecords.csv" beforeDir="false" afterPath="$PROJECT_DIR$/database/borrowFineRecords.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/users.csv" beforeDir="false" afterPath="$PROJECT_DIR$/database/users.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/library_system/boundary/UserUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/library_system/boundary/UserUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/library_system/control/UserInfoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/library_system/control/UserInfoController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/library_system/dao/ReportDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/library_system/dao/ReportDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/library_system/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/library_system/entity/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/library_system/utility/UIGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/library_system/utility/UIGenerator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/control/UserInfoController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/control/UserInfoController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/utility/UIGenerator.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/utility/UIGenerator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/announcement.csv" beforeDir="false" afterPath="$PROJECT_DIR$/database/announcement.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/library_system/boundary/AnnouncementUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/library_system/boundary/AnnouncementUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/mycompany/library_system/control/AnnouncementInfoControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/mycompany/library_system/control/AnnouncementInfoControl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/boundary/AnnouncementUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/boundary/AnnouncementUI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/control/AnnouncementInfoControl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/control/AnnouncementInfoControl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/control/AnnouncementReportControl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/control/AnnouncementReportControl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/dao/AnnouncementDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/dao/AnnouncementDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/dao/AnnouncementViewDAO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/dao/AnnouncementViewDAO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/entity/Announcement.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/entity/Announcement.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/entity/AnnouncementBroadcast.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/entity/AnnouncementBroadcast.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/entity/AnnouncementEduLevel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/entity/AnnouncementEduLevel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/entity/AnnouncementFines.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/entity/AnnouncementFines.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/entity/AnnouncementView.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/mycompany/library_system/entity/AnnouncementView.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,12 +60,12 @@
     &quot;assignee&quot;: &quot;Hao5234&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/WEIHE6625/library_system.git",
-    "accountId": "fc7fe25b-c9d2-4354-aa54-5fc3a5408bb5"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/WEIHE6625/library_system.git&quot;,
+    &quot;accountId&quot;: &quot;4424cf6a-ce63-49c0-b75b-5cf6d33d11e4&quot;
   }
-}]]></component>
+}</component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
@@ -69,7 +74,7 @@
   &quot;associatedIndex&quot;: 8
 }</component>
   <component name="ProjectId" id="39VCa2r5GUW9FSljfLexozbFkxF" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+  <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="1" id="Add" />
   </component>
   <component name="ProjectViewState">
@@ -83,7 +88,7 @@
     &quot;Maven.library_system.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;ZcePing&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/enton/Downloads/jfreechart-1.0.19/jfreechart-1.0.19/lib/jcommon-1.0.23.jar&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -91,7 +96,7 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Global Libraries&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;MavenSettings&quot;,
@@ -105,7 +110,7 @@
   </component>
   <component name="RunManager">
     <configuration name="Library_system" type="Application" factoryName="Application">
-      <option name="ALTERNATIVE_JRE_PATH" value="openjdk-23" />
+      <option name="ALTERNATIVE_JRE_PATH" value="jbr-25" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="com.mycompany.library_system.Library_system" />
       <module name="library_system" />
@@ -113,6 +118,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-30f59d01ecdd-2fc7cc6b9a17-intellij.indexing.shared.core-IU-253.31033.145" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -172,15 +184,10 @@
           <url>file://$PROJECT_DIR$/src/main/java/com/mycompany/library_system/Library_system.java</url>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/mycompany/library_system/utility/Pagination.java</url>
-          <line>19</line>
-          <option name="timeStamp" value="26" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/com/mycompany/library_system/adt/TreeMap.java</url>
           <line>131</line>
-          <properties class="com.mycompany.library_system.adt.TreeMap">
+          <properties class="com.mycompany.library_system.adt.TreeMap" method="getRange">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
@@ -189,7 +196,7 @@
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/com/mycompany/library_system/adt/TreeMap.java</url>
           <line>137</line>
-          <properties class="com.mycompany.library_system.adt.TreeMap">
+          <properties class="com.mycompany.library_system.adt.TreeMap" method="collectRangeValues">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>

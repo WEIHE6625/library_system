@@ -183,7 +183,7 @@ public class UIGenerator {
             for (int i = 0; i < size; i++) {
                 
                 if (values[i] == topHalfStep) {
-                    row.append(UIGenerator.centerText("TT", columnWidth));
+                    row.append(UIGenerator.centerText("--", columnWidth));
                 } 
                 else if (values[i] > topHalfStep) {
                     row.append(UIGenerator.centerText("||", columnWidth));
