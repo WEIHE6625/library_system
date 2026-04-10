@@ -133,7 +133,7 @@ public class BookReportController {
         if (costInfo.isEmpty()) {
             return title + "\nNo data available to generate report.\n";
         }
-        // Use the CLEAN map size for all math!
+
         int totalCategories = costInfo.size();
     
         int chartLimit = Math.min(topN, 10); 

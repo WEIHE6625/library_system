@@ -73,14 +73,14 @@ public class Book {
         qtyAvailable += qty;
     }
 
-    public boolean reduceQty(int qty) {
+    public int reduceQty(int qty) {
         
-        if((qtyAvailable - qty) <= 0) {
+        if((qtyAvailable - qty) >= 0) {
             qtyTotal -= qty;
             qtyAvailable -= qty;
-            return true;
+            return qtyAvailable;
         }else{
-            return false;
+            return -1;
         }
     }
 
