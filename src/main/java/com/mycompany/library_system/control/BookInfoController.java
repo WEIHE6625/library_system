@@ -277,7 +277,7 @@ public class BookInfoController {
         do {
             isBack = false;
             UIGenerator.clearScreen();
-            UIGenerator.titleBuilder("View Sorted Books"); 
+            UIGenerator.titleBuilder("Sorting Books"); 
 
             isBack = UIGenerator.optionMenu(
                 new String[]{
@@ -363,7 +363,7 @@ public class BookInfoController {
             isBack = false;
 
             UIGenerator.clearScreen();
-            UIGenerator.titleBuilder("View Sorted Books"); 
+            UIGenerator.titleBuilder("Searching Books"); 
             isBack = UIGenerator.optionMenu(
                 new String[]{
                     "[1] Show All Books",

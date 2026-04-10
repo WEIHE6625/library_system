@@ -8,6 +8,7 @@ import com.mycompany.library_system.dao.BookDAO;
 import com.mycompany.library_system.dao.StockOrderDAO;
 import com.mycompany.library_system.entity.Book;
 import com.mycompany.library_system.entity.StockOrder;
+import com.mycompany.library_system.entity.User;
 import com.mycompany.library_system.utility.IdGenerator;
 import com.mycompany.library_system.utility.UIGenerator;
 import com.mycompany.library_system.utility.UserPrompt;
@@ -71,8 +72,26 @@ public class StockOrderController {
     }
 
     public void reduceBookInStock() {
-        Book book = null;
+        boolean isContinue = false;
         boolean isValid = false;
+        Book book = null;
+
+        BookUI.getPagination().setDisplayTree(bookQtyATree);
+        BookUI.getPagination().setIsAscending(true);
+        BookUI.getPagination().setCurrentPage(1);
+
+        do {    
+            BookUI.bookListPage("order");
+
+            int option = UserPrompt.inputInteger("\n[1] Make Reduction\n[2] Previous Page          [3] Next Page\n[0] Back\nSelect an option >> ", 0, 3);
+            switch (option) {
+                case 1: isContinue = true; break;
+                case 2: BookUI.getPagination().previousPage(); break;
+                case 3: BookUI.getPagination().nextPage(); break;
+                default: break;
+            }
+        } while (!isContinue);
+
         do {
             String id = BookUI.inputBookID(bookTree);
             if (id.equals("-1")) return;
@@ -94,7 +113,7 @@ public class StockOrderController {
             if (!confirmation.equalsIgnoreCase("y")) {
                 return;
             }
-            book.reduceQty(qty);
+            int afterQty = book.reduceQty(qty);
 
             double oldStockLeftPercentage = book.getQtyTotal() == 0 ? 0 : (double) oldQtyA / oldQtyT;
             double stockLeftPercentage = book.getQtyTotal() == 0 ? 0 : (double) book.getQtyAvailable() / book.getQtyTotal();
@@ -105,8 +124,11 @@ public class StockOrderController {
             bookStoackLeftTree.put(IdGenerator.getKeyId(stockLeftPercentage, book.getId()), book);
             bookQtyATree.put(IdGenerator.getKeyId(book.getQtyAvailable(), book.getId()), book);
             bookQtyTTree.put(IdGenerator.getKeyId(book.getQtyTotal(), book.getId()), book);
+
+            System.out.println("Left Qty : " + afterQty + " --- Stock reduced successfully!");
         }
         saveToFile();
+        UIGenerator.pressEnterToContinue();
     }
 
     public MapInterface<String, StockOrder> getOrderTree() {
@@ -114,12 +136,25 @@ public class StockOrderController {
     }
 
     private void addBookToCart(MapInterface<String, Integer> cart) {
+        boolean isOrder = false;
+        boolean isValid = false;
+        Book book = null;
+
         BookUI.getPagination().setDisplayTree(bookStoackLeftTree);
         BookUI.getPagination().setIsAscending(true);
         BookUI.getPagination().setCurrentPage(1);
-        BookUI.bookListPage("order");
-        boolean isValid = false;
-        Book book = null;
+
+        do {    
+            BookUI.bookListPage("order");
+
+            int option = UserPrompt.inputInteger("\n[1] Make Order\n[2] Previous Page          [3] Next Page\n[0] Back\nSelect an option >> ", 0, 3);
+            switch (option) {
+                case 1: isOrder = true; break;
+                case 2: BookUI.getPagination().previousPage(); break;
+                case 3: BookUI.getPagination().nextPage(); break;
+                default: break;
+            }
+        } while (!isOrder);
 
         do {
             String bookId = UserPrompt.inputString("\nEnter Book ID to order (or '0' to cancel)  >> ", 8, false);
@@ -245,6 +280,7 @@ public class StockOrderController {
     }
 
     public boolean cancelOrder() {
+        refreshOrders();
         boolean isValid = false;
         do {
             String id = StockOrderUI.inputOrderID(stockOrderTree);
@@ -269,6 +305,13 @@ public class StockOrderController {
     
     public void deleteAllCancelOrders() {
         int deteledCount = 0;
+
+        String confirm = UserPrompt.inputString("Are you sure delete all cancelled orders? (y/n) >> ", 1, false);
+        if (!confirm.equalsIgnoreCase("y")) {
+            System.out.println("Operation cancelled. No orders were deleted.");
+            return;
+        }
+
         for (MapInterface.Entry<String, StockOrder> entry : stockOrderTree) {
             StockOrder order = entry.getValue();
             if (order.getStatus() == StockOrder.Status.CANCELLED) {

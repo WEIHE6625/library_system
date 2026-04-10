@@ -11,7 +11,7 @@ U0009,Grace Lim,grace.lim@gmail.com,FEMALE,21,MASTER,MEMBER,2026-01-01 08:08:00,
 U0010,Hector Chan,hector.chan@gmail.com,MALE,27,PHD,MEMBER,2026-01-01 08:09:00,0
 U0011,Ivy Ong,ivy.ong@gmail.com,FEMALE,22,BACHELOR,MEMBER,2026-01-01 08:10:00,0
 U0012,Jason Khoo,jason.khoo@gmail.com,MALE,24,DIPLOMA,MEMBER,2026-01-01 08:11:00,0
-U0013,Karen Yap,karen.yap@gmail.com,FEMALE,23,SECONDARY_SCHOOL,MEMBER,2026-01-01 08:12:00,0
+U0013,Karen Yap,karen.yap@gmail.com,FEMALE,23,SECONDARY_SCHOOL,MEMBER,2026-01-01 08:12:00,1
 U0014,Liam Goh,liam.goh@gmail.com,MALE,25,MASTER,MEMBER,2026-01-01 08:13:00,0
 U0015,Mia Chua,mia.chua@gmail.com,FEMALE,21,BACHELOR,MEMBER,2026-01-01 08:14:00,0
 U0016,Noah Tan,noah.tan@gmail.com,MALE,26,DIPLOMA,MEMBER,2026-01-01 08:15:00,0
@@ -52,7 +52,7 @@ U0050,Megan Tan,megan.tan50@gmail.com,FEMALE,25,DIPLOMA,MEMBER,2026-01-01 08:49:
 U0051,Aiden Goh,aiden.goh51@gmail.com,MALE,54,BACHELOR,MEMBER,2026-01-01 08:50:00,0
 U0052,Celine Lee,celine.lee52@gmail.com,FEMALE,52,MASTER,MEMBER,2026-01-01 08:51:00,0
 U0053,Nicole Ong,nicole.ong53@gmail.com,FEMALE,34,OTHER,MEMBER,2026-01-01 08:52:00,0
-U0054,Deborah Yeo,deborah.yeo54@gmail.com,FEMALE,52,MASTER,MEMBER,2026-01-01 08:53:00,0
+U0054,Deborah Yeo,deborah.yeo54@gmail.com,FEMALE,52,MASTER,MEMBER,2026-01-01 08:53:00,1
 U0055,Joyce Ang,joyce.ang55@gmail.com,FEMALE,59,PHD,MEMBER,2026-01-01 08:54:00,0
 U0056,Brenda Goh,brenda.goh56@gmail.com,FEMALE,32,BACHELOR,MEMBER,2026-01-01 08:55:00,0
 U0057,Owen Neo,owen.neo57@gmail.com,MALE,32,OTHER,MEMBER,2026-01-01 08:56:00,0
@@ -66,11 +66,11 @@ U0064,Janice Tay,janice.tay64@gmail.com,FEMALE,21,OTHER,MEMBER,2026-01-01 09:03:
 U0065,Aiden Chua,aiden.chua65@gmail.com,MALE,64,PHD,MEMBER,2026-01-01 09:04:00,0
 U0066,Daniel Chan,daniel.chan66@gmail.com,MALE,52,DIPLOMA,MEMBER,2026-01-01 09:05:00,0
 U0067,Claire Khoo,claire.khoo67@gmail.com,FEMALE,47,MASTER,MEMBER,2026-01-01 09:06:00,0
-U0068,Belinda See,belinda.see68@gmail.com,FEMALE,53,BACHELOR,MEMBER,2026-01-01 09:07:00,0
+U0068,Belinda See,belinda.see68@gmail.com,FEMALE,53,BACHELOR,MEMBER,2026-01-01 09:07:00,1
 U0069,Amir Yeo,amir.yeo69@gmail.com,MALE,33,MASTER,MEMBER,2026-01-01 09:08:00,0
 U0070,Lydia Chan,lydia.chan70@gmail.com,FEMALE,17,BACHELOR,MEMBER,2026-01-01 09:09:00,0
 U0071,Abigail Chua,abigail.chua71@gmail.com,FEMALE,34,DIPLOMA,MEMBER,2026-01-01 09:10:00,0
-U0072,Stephanie Tay,stephanie.tay72@gmail.com,FEMALE,53,DIPLOMA,MEMBER,2026-01-01 09:11:00,0
+U0072,Stephanie Tay,stephanie.tay72@gmail.com,FEMALE,53,DIPLOMA,MEMBER,2026-01-01 09:11:00,1
 U0073,Felix Chan,felix.chan73@gmail.com,MALE,21,OTHER,MEMBER,2026-01-01 09:12:00,0
 U0074,Yong Teo,yong.teo74@gmail.com,MALE,21,DIPLOMA,MEMBER,2026-01-01 09:13:00,0
 U0075,Melissa Yeo,melissa.yeo75@gmail.com,FEMALE,51,MASTER,MEMBER,2026-01-01 09:14:00,0
@@ -80,11 +80,11 @@ U0078,Samuel Lee,samuel.lee78@gmail.com,MALE,44,OTHER,MEMBER,2026-01-01 09:17:00
 U0079,Zoey Khoo,zoey.khoo79@gmail.com,FEMALE,31,PHD,MEMBER,2026-01-01 09:18:00,0
 U0080,Joyce Ng,joyce.ng80@gmail.com,FEMALE,60,PHD,MEMBER,2026-01-01 09:19:00,0
 U0081,Fiona Tan,fiona.tan81@gmail.com,FEMALE,29,BACHELOR,MEMBER,2026-01-01 09:20:00,0
-U0082,George Lim,george.lim82@gmail.com,MALE,34,MASTER,MEMBER,2026-01-01 09:21:00,0
+U0082,George Lim,george.lim82@gmail.com,MALE,34,MASTER,MEMBER,2026-01-01 09:21:00,1
 U0083,Hannah Ng,hannah.ng83@gmail.com,FEMALE,22,DIPLOMA,MEMBER,2026-01-01 09:22:00,0
 U0084,Ian Wright,ian.wright84@gmail.com,MALE,45,PHD,MEMBER,2026-01-01 09:23:00,0
 U0085,Jenny Seah,jenny.seah85@gmail.com,FEMALE,31,OTHER,MEMBER,2026-01-01 09:24:00,0
-U0086,Kevin Low,kevin.low86@gmail.com,MALE,27,BACHELOR,MEMBER,2026-01-01 09:25:00,0
+U0086,Kevin Low,kevin.low86@gmail.com,MALE,27,BACHELOR,MEMBER,2026-01-01 09:25:00,1
 U0087,Laura Quek,laura.quek87@gmail.com,FEMALE,38,MASTER,MEMBER,2026-01-01 09:26:00,0
 U0088,Marcus Aurelius,marcus.a88@gmail.com,MALE,50,PHD,ADMIN,2026-01-01 09:27:00,0
 U0089,Natalie Portman,natalie.p89@gmail.com,FEMALE,42,BACHELOR,MEMBER,2026-01-01 09:28:00,0
@@ -107,7 +107,7 @@ U0105,Donna Meagle,donna.m105@gmail.com,FEMALE,50,DIPLOMA,MEMBER,2026-01-01 09:4
 U0106,Elon Musk,elon.m106@gmail.com,MALE,52,PHD,MEMBER,2026-01-01 09:45:00,0
 U0107,Freya Allan,freya.a107@gmail.com,FEMALE,22,SECONDARY_SCHOOL,MEMBER,2026-01-01 09:46:00,0
 U0108,Geralt Rivia,geralt.r108@gmail.com,MALE,95,OTHER,MEMBER,2026-01-01 09:47:00,0
-U0109,Hedy Lamarr,hedy.l109@gmail.com,FEMALE,33,PHD,MEMBER,2026-01-01 09:48:00,0
+U0109,Hedy Lamarr,hedy.l109@gmail.com,FEMALE,33,PHD,MEMBER,2026-01-01 09:48:00,1
 U0110,Isaac Newton,isaac.n110@gmail.com,MALE,84,PHD,MEMBER,2026-01-01 09:49:00,0
 U0111,Jane Austen,jane.a111@gmail.com,FEMALE,41,MASTER,MEMBER,2026-01-01 09:50:00,0
 U0112,Karl Marx,karl.m112@gmail.com,MALE,64,PHD,MEMBER,2026-01-01 09:51:00,0
@@ -138,11 +138,11 @@ U0136,James Joyce,james.j136@gmail.com,MALE,58,PHD,MEMBER,2026-01-01 10:15:00,0
 U0137,Kurt Vonnegut,kurt.v137@gmail.com,MALE,84,BACHELOR,MEMBER,2026-01-01 10:16:00,0
 U0138,Leo Tolstoy,leo.t138@gmail.com,MALE,82,OTHER,MEMBER,2026-01-01 10:17:00,0
 U0139,Maya Angelou,maya.a139@gmail.com,FEMALE,86,PHD,MEMBER,2026-01-01 10:18:00,0
-U0140,Noam Chomsky,noam.c140@gmail.com,MALE,95,PHD,MEMBER,2026-01-01 10:19:00,0
+U0140,Noam Chomsky,noam.c140@gmail.com,MALE,95,PHD,MEMBER,2026-01-01 10:19:00,1
 U0141,Oscar Wilde,oscar.w141@gmail.com,MALE,46,MASTER,MEMBER,2026-01-01 10:20:00,0
 U0142,Plato Ancient,plato.a142@gmail.com,MALE,80,OTHER,MEMBER,2026-01-01 10:21:00,0
 U0143,Rainer Rilke,rainer.r143@gmail.com,MALE,51,MASTER,MEMBER,2026-01-01 10:22:00,0
-U0144,Sartre Jean,sartre.j144@gmail.com,MALE,74,PHD,MEMBER,2026-01-01 10:23:00,0
+U0144,Sartre Jean,sartre.j144@gmail.com,MALE,74,PHD,MEMBER,2026-01-01 10:23:00,1
 U0145,Toni Morrison,toni.m145@gmail.com,FEMALE,88,PHD,MEMBER,2026-01-01 10:24:00,0
 U0146,Umberto Eco,umberto.e146@gmail.com,MALE,84,PHD,MEMBER,2026-01-01 10:25:00,0
 U0147,Voltaire François,voltaire.f147@gmail.com,MALE,83,OTHER,MEMBER,2026-01-01 10:26:00,0
@@ -152,7 +152,7 @@ U0150,Zadie Smith,zadie.s150@gmail.com,FEMALE,48,BACHELOR,MEMBER,2026-01-01 10:2
 U0151,Arthur Miller,arthur.m151@gmail.com,MALE,89,BACHELOR,MEMBER,2026-01-01 10:30:00,0
 U0152,Bertolt Brecht,bertolt.b152@gmail.com,MALE,58,OTHER,MEMBER,2026-01-01 10:31:00,0
 U0153,Clarice Lispector,clarice.l153@gmail.com,FEMALE,56,MASTER,MEMBER,2026-01-01 10:32:00,0
-U0154,Dylan Thomas,dylan.t154@gmail.com,MALE,39,DIPLOMA,MEMBER,2026-01-01 10:33:00,0
+U0154,Dylan Thomas,dylan.t154@gmail.com,MALE,39,DIPLOMA,MEMBER,2026-01-01 10:33:00,1
 U0155,Edith Wharton,edith.w155@gmail.com,FEMALE,75,BACHELOR,MEMBER,2026-01-01 10:34:00,0
 U0156,Franz Kafka,franz.k156@gmail.com,MALE,40,PHD,MEMBER,2026-01-01 10:35:00,0
 U0157,Gabriel Garcia,gabriel.g157@gmail.com,MALE,87,OTHER,MEMBER,2026-01-01 10:36:00,0
@@ -171,7 +171,7 @@ U0169,Thomas Hardy,thomas.h169@gmail.com,MALE,87,OTHER,MEMBER,2026-01-01 10:48:0
 U0170,Victor Hugo,victor.h170@gmail.com,MALE,83,PHD,MEMBER,2026-01-01 10:49:00,0
 U0171,Willie Nelson,willie.n171@gmail.com,MALE,90,OTHER,MEMBER,2026-01-01 10:50:00,0
 U0172,Xenophon Greek,xenophon.g172@gmail.com,MALE,75,PHD,MEMBER,2026-01-01 10:51:00,0
-U0173,Yukio Mishima,yukio.m173@gmail.com,MALE,45,BACHELOR,MEMBER,2026-01-01 10:52:00,0
+U0173,Yukio Mishima,yukio.m173@gmail.com,MALE,45,BACHELOR,MEMBER,2026-01-01 10:52:00,1
 U0174,Zora Hurston,zora.h174@gmail.com,FEMALE,69,MASTER,MEMBER,2026-01-01 10:53:00,0
 U0175,Aristotle Greek,aristotle.g175@gmail.com,MALE,62,PHD,MEMBER,2026-01-01 10:54:00,0
 U0176,Beethoven Ludwig,beeth.l176@gmail.com,MALE,56,OTHER,MEMBER,2026-01-01 10:55:00,0
@@ -185,7 +185,7 @@ U0183,Ives Charles,ives.c183@gmail.com,MALE,79,BACHELOR,MEMBER,2026-01-01 11:02:
 U0184,Janacek Leos,janacek.l184@gmail.com,MALE,74,PHD,MEMBER,2026-01-01 11:03:00,0
 U0185,Kodaly Zoltan,kodaly.z185@gmail.com,MALE,84,PHD,MEMBER,2026-01-01 11:04:00,0
 U0186,Liszt Franz,liszt.f186@gmail.com,MALE,74,OTHER,MEMBER,2026-01-01 11:05:00,0
-U0187,Mahler Gustav,mahler.g187@gmail.com,MALE,51,MASTER,MEMBER,2026-01-01 11:06:00,0
+U0187,Mahler Gustav,mahler.g187@gmail.com,MALE,51,MASTER,MEMBER,2026-01-01 11:06:00,1
 U0188,Nielsen Carl,nielsen.c188@gmail.com,MALE,66,BACHELOR,MEMBER,2026-01-01 11:07:00,0
 U0189,Orff Carl,orff.c189@gmail.com,MALE,86,OTHER,MEMBER,2026-01-01 11:08:00,0
 U0190,Puccini Giacomo,puccini.g190@gmail.com,MALE,65,DIPLOMA,MEMBER,2026-01-01 11:09:00,0
@@ -199,7 +199,7 @@ U0197,Wagner Richard,wagner.r197@gmail.com,MALE,70,PHD,MEMBER,2026-01-01 11:16:0
 U0198,Xenakis Iannis,xenakis.i198@gmail.com,MALE,78,PHD,MEMBER,2026-01-01 11:17:00,0
 U0199,Young La Monte,young.l199@gmail.com,MALE,88,BACHELOR,MEMBER,2026-01-01 11:18:00,0
 U0200,Zimmermann Bernd,bernd.z200@gmail.com,MALE,52,MASTER,MEMBER,2026-01-01 11:19:00,0
-U0201,Mei Xin Hoo,meixin.hoo01@example.com,FEMALE,53,PHD,MEMBER,2026-01-01 11:24:00,0
+U0201,Mei Xin Hoo,meixin.hoo01@example.com,FEMALE,53,PHD,MEMBER,2026-01-01 11:24:00,1
 U0202,Kian Keong Lee,kiankeong.lee02@example.com,MALE,55,MASTER,MEMBER,2026-01-01 11:31:00,0
 U0203,Arvin Nadarajah,arvin.nadarajah03@example.com,MALE,47,BACHELOR,MEMBER,2026-01-01 11:40:00,0
 U0204,Dayang Meringai,dayang.meringai04@example.com,FEMALE,28,PHD,MEMBER,2026-01-01 11:49:00,0
@@ -214,13 +214,13 @@ U0212,Lawai Kumbau,lawai.kumbau12@example.com,MALE,59,DIPLOMA,MEMBER,2026-01-01 
 U0213,Kavitha Nadarajah,kavitha.nadarajah13@example.com,MALE,64,PHD,MEMBER,2026-01-01 12:55:00,0
 U0214,Karthik Rengasamy,karthik.rengasamy14@example.com,MALE,27,BACHELOR,MEMBER,2026-01-01 13:00:00,0
 U0215,Libau Empam,libau.empam15@example.com,MALE,28,DIPLOMA,MEMBER,2026-01-01 13:07:00,0
-U0216,Izzati Razak,izzati.razak16@example.com,MALE,49,PHD,MEMBER,2026-01-01 13:13:00,0
+U0216,Izzati Razak,izzati.razak16@example.com,MALE,49,PHD,MEMBER,2026-01-01 13:13:00,1
 U0217,Izzati Zainal,izzati.zainal17@example.com,MALE,57,MASTER,MEMBER,2026-01-01 13:22:00,0
 U0218,Zarith Bakri,zarith.bakri18@example.com,MALE,52,PHD,MEMBER,2026-01-01 13:26:00,0
 U0219,Ravin Nadarajah,ravin.nadarajah19@example.com,MALE,27,PHD,MEMBER,2026-01-01 13:31:00,0
 U0220,Dinesh Muniandy,dinesh.muniandy20@example.com,MALE,47,DIPLOMA,MEMBER,2026-01-01 13:40:00,0
 U0221,Dayang Meringai,dayang.meringai21@example.com,FEMALE,28,BACHELOR,MEMBER,2026-01-01 13:47:00,0
-U0222,Haziq Razak,haziq.razak22@example.com,MALE,59,DIPLOMA,MEMBER,2026-01-01 13:54:00,0
+U0222,Haziq Razak,haziq.razak22@example.com,MALE,59,DIPLOMA,MEMBER,2026-01-01 13:54:00,1
 U0223,Thivya Gopal,thivya.gopal23@example.com,MALE,28,PHD,MEMBER,2026-01-01 13:56:00,0
 U0224,Nadhira Bakri,nadhira.bakri24@example.com,MALE,40,BACHELOR,MEMBER,2026-01-01 13:59:00,0
 U0225,Arvin Subramaniam,arvin.subramaniam25@example.com,MALE,25,DIPLOMA,MEMBER,2026-01-01 14:06:00,0
@@ -230,7 +230,7 @@ U0228,Priyanka Nadarajah,priyanka.nadarajah28@example.com,FEMALE,60,PHD,MEMBER,2
 U0229,Awang Meringai,awang.meringai29@example.com,MALE,39,MASTER,MEMBER,2026-01-01 14:23:00,0
 U0230,Dayang Anak Jugah,dayang.anakjugah30@example.com,FEMALE,25,MASTER,MEMBER,2026-01-01 14:31:00,0
 U0231,Zarith Fadzil,zarith.fadzil31@example.com,MALE,35,DIPLOMA,MEMBER,2026-01-01 14:33:00,0
-U0232,Dayang Meringai,dayang.meringai32@example.com,FEMALE,48,BACHELOR,MEMBER,2026-01-01 14:37:00,0
+U0232,Dayang Meringai,dayang.meringai32@example.com,FEMALE,48,BACHELOR,MEMBER,2026-01-01 14:37:00,1
 U0233,Jia Hao Ng,jiahao.ng33@example.com,MALE,50,BACHELOR,MEMBER,2026-01-01 14:43:00,0
 U0234,Priyanka Krishnan,priyanka.krishnan34@example.com,FEMALE,22,PHD,MEMBER,2026-01-01 14:48:00,0
 U0235,Awang Meringai,awang.meringai35@example.com,MALE,60,BACHELOR,MEMBER,2026-01-01 14:50:00,0
@@ -269,7 +269,7 @@ U0267,Awang Empam,awang.empam67@example.com,MALE,56,PHD,MEMBER,2026-01-01 17:42:
 U0268,Usun Meringai,usun.meringai68@example.com,MALE,38,DIPLOMA,MEMBER,2026-01-01 17:51:00,0
 U0269,Libau Anak Patinggi,libau.anakpatinggi69@example.com,MALE,24,PHD,MEMBER,2026-01-01 17:53:00,0
 U0270,Usun Anak Jugah,usun.anakjugah70@example.com,MALE,21,BACHELOR,MEMBER,2026-01-01 18:03:00,0
-U0271,Mei Xin Chong,meixin.chong71@example.com,FEMALE,49,MASTER,MEMBER,2026-01-01 18:13:00,0
+U0271,Mei Xin Chong,meixin.chong71@example.com,FEMALE,49,MASTER,MEMBER,2026-01-01 18:13:00,1
 U0272,Siew Ling Ng,siewling.ng72@example.com,FEMALE,55,DIPLOMA,MEMBER,2026-01-01 18:15:00,0
 U0273,Karthik Muniandy,karthik.muniandy73@example.com,MALE,43,DIPLOMA,MEMBER,2026-01-01 18:21:00,0
 U0274,Firdaus Bakri,firdaus.bakri74@example.com,MALE,43,PHD,MEMBER,2026-01-01 18:27:00,0
@@ -287,21 +287,21 @@ U0285,Zarith Ibrahim,zarith.ibrahim85@example.com,MALE,27,PHD,MEMBER,2026-01-01 
 U0286,Izzati Hafiz,izzati.hafiz86@example.com,MALE,55,PHD,MEMBER,2026-01-01 19:30:00,0
 U0287,Nadhira Mansur,nadhira.mansur87@example.com,MALE,59,PHD,MEMBER,2026-01-01 19:38:00,0
 U0288,Karthik Rengasamy,karthik.rengasamy88@example.com,MALE,38,BACHELOR,MEMBER,2026-01-01 19:40:00,0
-U0289,Priyanka Nadarajah,priyanka.nadarajah89@example.com,FEMALE,18,DIPLOMA,MEMBER,2026-01-01 19:50:00,0
+U0289,Priyanka Nadarajah,priyanka.nadarajah89@example.com,FEMALE,18,DIPLOMA,MEMBER,2026-01-01 19:50:00,1
 U0290,Thivya Rengasamy,thivya.rengasamy90@example.com,MALE,58,BACHELOR,MEMBER,2026-01-01 19:52:00,0
 U0291,Awang Empam,awang.empam91@example.com,MALE,47,MASTER,MEMBER,2026-01-01 20:00:00,0
 U0292,Priyanka Muniandy,priyanka.muniandy92@example.com,FEMALE,58,MASTER,MEMBER,2026-01-01 20:07:00,0
 U0293,Ravin Nadarajah,ravin.nadarajah93@example.com,MALE,21,DIPLOMA,MEMBER,2026-01-01 20:14:00,0
 U0294,Thivya Muniandy,thivya.muniandy94@example.com,MALE,48,PHD,MEMBER,2026-01-01 20:18:00,0
 U0295,Kavitha Rengasamy,kavitha.rengasamy95@example.com,MALE,21,PHD,MEMBER,2026-01-01 20:23:00,0
-U0296,Yee Wen Chan,yeewen.chan96@example.com,MALE,20,PHD,MEMBER,2026-01-01 20:29:00,0
+U0296,Yee Wen Chan,yeewen.chan96@example.com,MALE,20,PHD,MEMBER,2026-01-01 20:29:00,1
 U0297,Bulan Layas,bulan.layas97@example.com,MALE,22,MASTER,MEMBER,2026-01-01 20:32:00,0
 U0298,Mei Xin Ng,meixin.ng98@example.com,FEMALE,46,BACHELOR,MEMBER,2026-01-01 20:37:00,0
 U0299,Yee Wen Liew,yeewen.liew99@example.com,MALE,59,BACHELOR,MEMBER,2026-01-01 20:45:00,0
 U0300,Jebat Anak Jugah,jebat.anakjugah100@example.com,MALE,45,MASTER,MEMBER,2026-01-01 20:51:00,0
-U0301,Arvin Rengasamy,arvin.rengasamy101@example.com,MALE,52,DIPLOMA,MEMBER,2026-01-01 20:58:00,0
+U0301,Arvin Rengasamy,arvin.rengasamy101@example.com,MALE,52,DIPLOMA,MEMBER,2026-01-01 20:58:00,1
 U0302,Dayang Meringai,dayang.meringai102@example.com,FEMALE,18,MASTER,MEMBER,2026-01-01 21:07:00,0
-U0303,Batrisyia Mansur,batrisyia.mansur103@example.com,FEMALE,27,BACHELOR,MEMBER,2026-01-01 21:16:00,0
+U0303,Batrisyia Mansur,batrisyia.mansur103@example.com,FEMALE,27,BACHELOR,MEMBER,2026-01-01 21:16:00,1
 U0304,Nadhira Bakri,nadhira.bakri104@example.com,MALE,48,BACHELOR,MEMBER,2026-01-01 21:26:00,0
 U0305,Thivya Subramaniam,thivya.subramaniam105@example.com,MALE,26,MASTER,MEMBER,2026-01-01 21:31:00,0
 U0306,Zi Xuan Liew,zixuan.liew106@example.com,MALE,60,MASTER,MEMBER,2026-01-01 21:34:00,0
@@ -310,7 +310,7 @@ U0308,Jebat Meringai,jebat.meringai108@example.com,MALE,44,PHD,MEMBER,2026-01-01
 U0309,Remaya Anak Patinggi,remaya.anakpatinggi109@example.com,MALE,54,PHD,MEMBER,2026-01-01 21:56:00,0
 U0310,Siew Ling Tan,siewling.tan110@example.com,FEMALE,39,BACHELOR,MEMBER,2026-01-01 21:59:00,0
 U0311,Ravin Subramaniam,ravin.subramaniam111@example.com,MALE,31,MASTER,MEMBER,2026-01-01 22:01:00,0
-U0312,Haziq Abdullah,haziq.abdullah112@example.com,MALE,56,PHD,MEMBER,2026-01-01 22:08:00,0
+U0312,Haziq Abdullah,haziq.abdullah112@example.com,MALE,56,PHD,MEMBER,2026-01-01 22:08:00,1
 U0313,Remaya Empam,remaya.empam113@example.com,MALE,45,DIPLOMA,MEMBER,2026-01-01 22:12:00,0
 U0314,Arvin Nadarajah,arvin.nadarajah114@example.com,MALE,45,PHD,MEMBER,2026-01-01 22:15:00,0
 U0315,Thivya Rengasamy,thivya.rengasamy115@example.com,MALE,50,BACHELOR,MEMBER,2026-01-01 22:17:00,0
@@ -350,13 +350,13 @@ U0348,Kavitha Krishnan,kavitha.krishnan148@example.com,MALE,27,MASTER,MEMBER,202
 U0349,Wei Ming Hoo,weiming.hoo149@example.com,MALE,62,MASTER,MEMBER,2026-01-02 02:25:00,0
 U0350,Bulan Empam,bulan.empam150@example.com,MALE,54,DIPLOMA,MEMBER,2026-01-02 02:27:00,0
 U0351,Priyanka Nadarajah,priyanka.nadarajah151@example.com,FEMALE,19,MASTER,MEMBER,2026-01-02 02:36:00,0
-U0352,Nadhira Fadzil,nadhira.fadzil152@example.com,MALE,20,DIPLOMA,MEMBER,2026-01-02 02:41:00,0
+U0352,Nadhira Fadzil,nadhira.fadzil152@example.com,MALE,20,DIPLOMA,MEMBER,2026-01-02 02:41:00,1
 U0353,Dinesh Muniandy,dinesh.muniandy153@example.com,MALE,20,DIPLOMA,MEMBER,2026-01-02 02:44:00,0
 U0354,Izzati Fadzil,izzati.fadzil154@example.com,MALE,22,MASTER,MEMBER,2026-01-02 02:47:00,0
 U0355,Jia Hao Lim,jiahao.lim155@example.com,MALE,46,MASTER,MEMBER,2026-01-02 02:57:00,0
 U0356,Haziq Bakri,haziq.bakri156@example.com,MALE,25,PHD,MEMBER,2026-01-02 03:02:00,0
-U0357,Karthik Subramaniam,karthik.subramaniam157@example.com,MALE,62,DIPLOMA,MEMBER,2026-01-02 03:12:00,0
-U0358,Wei Ming Choo,weiming.choo158@example.com,MALE,32,PHD,MEMBER,2026-01-02 03:15:00,0
+U0357,Karthik Subramaniam,karthik.subramaniam157@example.com,MALE,62,DIPLOMA,MEMBER,2026-01-02 03:12:00,1
+U0358,Wei Ming Choo,weiming.choo158@example.com,MALE,32,PHD,MEMBER,2026-01-02 03:15:00,2
 U0359,Ravin Rengasamy,ravin.rengasamy159@example.com,MALE,41,PHD,MEMBER,2026-01-02 03:23:00,0
 U0360,Dayang Meringai,dayang.meringai160@example.com,FEMALE,63,MASTER,MEMBER,2026-01-02 03:32:00,0
 U0361,Dinesh Rengasamy,dinesh.rengasamy161@example.com,MALE,47,BACHELOR,MEMBER,2026-01-02 03:41:00,0
@@ -378,7 +378,7 @@ U0376,Zarith Mansur,zarith.mansur176@example.com,MALE,35,MASTER,MEMBER,2026-01-0
 U0377,Bulan Anak Jugah,bulan.anakjugah177@example.com,MALE,64,DIPLOMA,MEMBER,2026-01-02 05:19:00,0
 U0378,Dayang Anak Jugah,dayang.anakjugah178@example.com,FEMALE,27,DIPLOMA,MEMBER,2026-01-02 05:28:00,0
 U0379,Zarith Fadzil,zarith.fadzil179@example.com,MALE,32,BACHELOR,MEMBER,2026-01-02 05:34:00,0
-U0380,Lawai Empam,lawai.empam180@example.com,MALE,52,DIPLOMA,MEMBER,2026-01-02 05:43:00,0
+U0380,Lawai Empam,lawai.empam180@example.com,MALE,52,DIPLOMA,MEMBER,2026-01-02 05:43:00,1
 U0381,Ravin Muniandy,ravin.muniandy181@example.com,MALE,65,MASTER,MEMBER,2026-01-02 05:45:00,0
 U0382,Izzati Fadzil,izzati.fadzil182@example.com,MALE,53,MASTER,MEMBER,2026-01-02 05:53:00,0
 U0383,Jebat Anak Jugah,jebat.anakjugah183@example.com,MALE,25,DIPLOMA,MEMBER,2026-01-02 05:56:00,0
@@ -397,17 +397,17 @@ U0395,Dinesh Gopal,dinesh.gopal195@example.com,MALE,46,BACHELOR,MEMBER,2026-01-0
 U0396,Thivya Rengasamy,thivya.rengasamy196@example.com,MALE,40,PHD,MEMBER,2026-01-02 07:15:00,0
 U0397,Haziq Hafiz,haziq.hafiz197@example.com,MALE,33,DIPLOMA,MEMBER,2026-01-02 07:17:00,0
 U0398,Mei Xin Choo,meixin.choo198@example.com,FEMALE,26,MASTER,MEMBER,2026-01-02 07:26:00,0
-U0399,Nadhira Bakri,nadhira.bakri199@example.com,MALE,24,BACHELOR,MEMBER,2026-01-02 07:31:00,0
+U0399,Nadhira Bakri,nadhira.bakri199@example.com,MALE,24,BACHELOR,MEMBER,2026-01-02 07:31:00,1
 U0400,Arvin Nadarajah,arvin.nadarajah200@example.com,MALE,47,DIPLOMA,MEMBER,2026-01-02 07:37:00,0
 U0401,Kavitha Nadarajah,kavitha.nadarajah201@example.com,MALE,45,DIPLOMA,MEMBER,2026-01-02 07:43:00,0
-U0402,Priyanka Rengasamy,priyanka.rengasamy202@example.com,FEMALE,42,DIPLOMA,MEMBER,2026-01-02 07:46:00,0
+U0402,Priyanka Rengasamy,priyanka.rengasamy202@example.com,FEMALE,42,DIPLOMA,MEMBER,2026-01-02 07:46:00,1
 U0403,Karthik Nadarajah,karthik.nadarajah203@example.com,MALE,33,MASTER,MEMBER,2026-01-02 07:48:00,0
-U0404,Thivya Gopal,thivya.gopal204@example.com,MALE,22,DIPLOMA,MEMBER,2026-01-02 07:50:00,0
+U0404,Thivya Gopal,thivya.gopal204@example.com,MALE,22,DIPLOMA,MEMBER,2026-01-02 07:50:00,1
 U0405,Ravin Nadarajah,ravin.nadarajah205@example.com,MALE,55,DIPLOMA,MEMBER,2026-01-02 07:54:00,0
 U0406,Aiman Hafiz,aiman.hafiz206@example.com,MALE,27,PHD,MEMBER,2026-01-02 08:04:00,0
 U0407,Wei Ming Lim,weiming.lim207@example.com,MALE,21,MASTER,MEMBER,2026-01-02 08:07:00,0
 U0408,Thivya Gopal,thivya.gopal208@example.com,MALE,40,BACHELOR,MEMBER,2026-01-02 08:14:00,0
-U0409,Wei Ming Chong,weiming.chong209@example.com,MALE,24,PHD,MEMBER,2026-01-02 08:20:00,0
+U0409,Wei Ming Chong,weiming.chong209@example.com,MALE,24,PHD,MEMBER,2026-01-02 08:20:00,1
 U0410,Bulan Layas,bulan.layas210@example.com,MALE,49,PHD,MEMBER,2026-01-02 08:24:00,0
 U0411,Lawai Layas,lawai.layas211@example.com,MALE,42,BACHELOR,MEMBER,2026-01-02 08:33:00,0
 U0412,Jia Hao Chan,jiahao.chan212@example.com,MALE,65,MASTER,MEMBER,2026-01-02 08:39:00,0
@@ -475,7 +475,7 @@ U0473,Kavitha Gopal,kavitha.gopal273@example.com,MALE,46,BACHELOR,MEMBER,2026-01
 U0474,Zi Xuan Lee,zixuan.lee274@example.com,MALE,60,BACHELOR,MEMBER,2026-01-02 14:54:00,0
 U0475,Remaya Empam,remaya.empam275@example.com,MALE,51,PHD,MEMBER,2026-01-02 15:03:00,0
 U0476,Haziq Bakri,haziq.bakri276@example.com,MALE,52,MASTER,MEMBER,2026-01-02 15:07:00,0
-U0477,Karthik Rengasamy,karthik.rengasamy277@example.com,MALE,42,DIPLOMA,MEMBER,2026-01-02 15:15:00,0
+U0477,Karthik Rengasamy,karthik.rengasamy277@example.com,MALE,42,DIPLOMA,MEMBER,2026-01-02 15:15:00,1
 U0478,Awang Layas,awang.layas278@example.com,MALE,25,DIPLOMA,MEMBER,2026-01-02 15:25:00,0
 U0479,Usun Anak Jugah,usun.anakjugah279@example.com,MALE,62,MASTER,MEMBER,2026-01-02 15:29:00,0
 U0480,Lawai Meringai,lawai.meringai280@example.com,MALE,55,BACHELOR,MEMBER,2026-01-02 15:33:00,0
@@ -490,19 +490,19 @@ U0488,Aiman Fadzil,aiman.fadzil288@example.com,MALE,39,DIPLOMA,MEMBER,2026-01-02
 U0489,Izzati Abdullah,izzati.abdullah289@example.com,MALE,27,BACHELOR,MEMBER,2026-01-02 16:25:00,0
 U0490,Jebat Layas,jebat.layas290@example.com,MALE,23,MASTER,MEMBER,2026-01-02 16:31:00,0
 U0491,Thivya Gopal,thivya.gopal291@example.com,MALE,19,MASTER,MEMBER,2026-01-02 16:34:00,0
-U0492,Izzati Bakri,izzati.bakri292@example.com,MALE,51,MASTER,MEMBER,2026-01-02 16:44:00,0
+U0492,Izzati Bakri,izzati.bakri292@example.com,MALE,51,MASTER,MEMBER,2026-01-02 16:44:00,1
 U0493,Mei Xin Chan,meixin.chan293@example.com,FEMALE,61,BACHELOR,MEMBER,2026-01-02 16:49:00,0
 U0494,Thivya Subramaniam,thivya.subramaniam294@example.com,MALE,53,PHD,MEMBER,2026-01-02 16:57:00,0
 U0495,Sangeetha Muniandy,sangeetha.muniandy295@example.com,MALE,25,BACHELOR,MEMBER,2026-01-02 17:00:00,0
 U0496,Thivya Rengasamy,thivya.rengasamy296@example.com,MALE,34,MASTER,MEMBER,2026-01-02 17:04:00,0
-U0497,Libau Anak Jugah,libau.anakjugah297@example.com,MALE,64,BACHELOR,MEMBER,2026-01-02 17:06:00,0
+U0497,Libau Anak Jugah,libau.anakjugah297@example.com,MALE,64,BACHELOR,MEMBER,2026-01-02 17:06:00,1
 U0498,Wei Ming Chan,weiming.chan298@example.com,MALE,44,BACHELOR,MEMBER,2026-01-02 17:10:00,0
 U0499,Dinesh Krishnan,dinesh.krishnan299@example.com,MALE,57,DIPLOMA,MEMBER,2026-01-02 17:19:00,0
 U0500,Rayyan Abdullah,rayyan.abdullah300@example.com,MALE,43,DIPLOMA,MEMBER,2026-01-02 17:24:00,0
 U0501,Haziq Zainal,haziq.zainal301@example.com,MALE,20,PHD,MEMBER,2026-01-02 17:31:00,0
 U0502,Nadhira Razak,nadhira.razak302@example.com,MALE,28,DIPLOMA,MEMBER,2026-01-02 17:37:00,0
 U0503,Sangeetha Nadarajah,sangeetha.nadarajah303@example.com,MALE,43,MASTER,MEMBER,2026-01-02 17:39:00,0
-U0504,Remaya Anak Jugah,remaya.anakjugah304@example.com,MALE,48,DIPLOMA,MEMBER,2026-01-02 17:49:00,0
+U0504,Remaya Anak Jugah,remaya.anakjugah304@example.com,MALE,48,DIPLOMA,MEMBER,2026-01-02 17:49:00,1
 U0505,Izzati Zainal,izzati.zainal305@example.com,MALE,25,MASTER,MEMBER,2026-01-02 17:59:00,0
 U0506,Usun Empam,usun.empam306@example.com,MALE,34,MASTER,MEMBER,2026-01-02 18:02:00,0
 U0507,Bulan Kumbau,bulan.kumbau307@example.com,MALE,18,BACHELOR,MEMBER,2026-01-02 18:10:00,0
@@ -513,19 +513,19 @@ U0511,Bulan Empam,bulan.empam311@example.com,MALE,35,BACHELOR,MEMBER,2026-01-02 
 U0512,Izzati Fadzil,izzati.fadzil312@example.com,MALE,20,DIPLOMA,MEMBER,2026-01-02 18:42:00,0
 U0513,Kavitha Muniandy,kavitha.muniandy313@example.com,MALE,47,DIPLOMA,MEMBER,2026-01-02 18:48:00,0
 U0514,Karthik Nadarajah,karthik.nadarajah314@example.com,MALE,21,BACHELOR,MEMBER,2026-01-02 18:58:00,0
-U0515,Sangeetha Gopal,sangeetha.gopal315@example.com,MALE,18,DIPLOMA,MEMBER,2026-01-02 19:02:00,0
+U0515,Sangeetha Gopal,sangeetha.gopal315@example.com,MALE,18,DIPLOMA,MEMBER,2026-01-02 19:02:00,1
 U0516,Kavitha Muniandy,kavitha.muniandy316@example.com,MALE,27,DIPLOMA,MEMBER,2026-01-02 19:04:00,0
 U0517,Awang Anak Jugah,awang.anakjugah317@example.com,MALE,61,BACHELOR,MEMBER,2026-01-02 19:13:00,0
 U0518,Zi Xuan Chan,zixuan.chan318@example.com,MALE,26,BACHELOR,MEMBER,2026-01-02 19:18:00,0
-U0519,Awang Anak Patinggi,awang.anakpatinggi319@example.com,MALE,56,MASTER,MEMBER,2026-01-02 19:26:00,0
+U0519,Awang Anak Patinggi,awang.anakpatinggi319@example.com,MALE,56,MASTER,MEMBER,2026-01-02 19:26:00,1
 U0520,Kavitha Gopal,kavitha.gopal320@example.com,MALE,60,MASTER,MEMBER,2026-01-02 19:31:00,0
 U0521,Priyanka Nadarajah,priyanka.nadarajah321@example.com,FEMALE,50,BACHELOR,MEMBER,2026-01-02 19:35:00,0
 U0522,Zi Xuan Tan,zixuan.tan322@example.com,MALE,56,MASTER,MEMBER,2026-01-02 19:38:00,0
 U0523,Wei Ming Wong,weiming.wong323@example.com,MALE,32,MASTER,MEMBER,2026-01-02 19:46:00,0
 U0524,Kian Keong Chong,kiankeong.chong324@example.com,MALE,60,MASTER,MEMBER,2026-01-02 19:51:00,0
-U0525,Firdaus Fadzil,firdaus.fadzil325@example.com,MALE,65,MASTER,MEMBER,2026-01-02 19:53:00,0
+U0525,Firdaus Fadzil,firdaus.fadzil325@example.com,MALE,65,MASTER,MEMBER,2026-01-02 19:53:00,1
 U0526,Kavitha Muniandy,kavitha.muniandy326@example.com,MALE,36,MASTER,MEMBER,2026-01-02 20:00:00,0
-U0527,Nadhira Ibrahim,nadhira.ibrahim327@example.com,MALE,53,MASTER,MEMBER,2026-01-02 20:02:00,0
+U0527,Nadhira Ibrahim,nadhira.ibrahim327@example.com,MALE,53,MASTER,MEMBER,2026-01-02 20:02:00,1
 U0528,Haziq Hafiz,haziq.hafiz328@example.com,MALE,49,PHD,MEMBER,2026-01-02 20:06:00,0
 U0529,Mei Xin Tan,meixin.tan329@example.com,FEMALE,43,DIPLOMA,MEMBER,2026-01-02 20:15:00,0
 U0530,Firdaus Abdullah,firdaus.abdullah330@example.com,MALE,22,DIPLOMA,MEMBER,2026-01-02 20:20:00,0
@@ -538,7 +538,7 @@ U0536,Mei Xin Hoo,meixin.hoo336@example.com,FEMALE,52,PHD,MEMBER,2026-01-02 20:5
 U0537,Lawai Anak Jugah,lawai.anakjugah337@example.com,MALE,56,BACHELOR,MEMBER,2026-01-02 21:00:00,0
 U0538,Karthik Nadarajah,karthik.nadarajah338@example.com,MALE,21,MASTER,MEMBER,2026-01-02 21:09:00,0
 U0539,Dinesh Rengasamy,dinesh.rengasamy339@example.com,MALE,25,BACHELOR,MEMBER,2026-01-02 21:18:00,0
-U0540,Arvin Rengasamy,arvin.rengasamy340@example.com,MALE,20,MASTER,MEMBER,2026-01-02 21:20:00,0
+U0540,Arvin Rengasamy,arvin.rengasamy340@example.com,MALE,20,MASTER,MEMBER,2026-01-02 21:20:00,1
 U0541,Siew Ling Chong,siewling.chong341@example.com,FEMALE,36,PHD,MEMBER,2026-01-02 21:30:00,0
 U0542,Wei Ming Chan,weiming.chan342@example.com,MALE,28,PHD,MEMBER,2026-01-02 21:36:00,0
 U0543,Dayang Empam,dayang.empam343@example.com,FEMALE,19,PHD,MEMBER,2026-01-02 21:43:00,0
@@ -559,7 +559,7 @@ U0557,Dayang Layas,dayang.layas357@example.com,FEMALE,49,DIPLOMA,MEMBER,2026-01-
 U0558,Karthik Krishnan,karthik.krishnan358@example.com,MALE,59,MASTER,MEMBER,2026-01-02 23:09:00,0
 U0559,Haziq Hafiz,haziq.hafiz359@example.com,MALE,32,BACHELOR,MEMBER,2026-01-02 23:17:00,0
 U0560,Kian Keong Chan,kiankeong.chan360@example.com,MALE,31,MASTER,MEMBER,2026-01-02 23:27:00,0
-U0561,Bulan Anak Patinggi,bulan.anakpatinggi361@example.com,MALE,20,DIPLOMA,MEMBER,2026-01-02 23:35:00,0
+U0561,Bulan Anak Patinggi,bulan.anakpatinggi361@example.com,MALE,20,DIPLOMA,MEMBER,2026-01-02 23:35:00,1
 U0562,Izzati Hafiz,izzati.hafiz362@example.com,MALE,45,BACHELOR,MEMBER,2026-01-02 23:38:00,0
 U0563,Dinesh Nadarajah,dinesh.nadarajah363@example.com,MALE,35,BACHELOR,MEMBER,2026-01-02 23:43:00,0
 U0564,Libau Empam,libau.empam364@example.com,MALE,29,MASTER,MEMBER,2026-01-02 23:52:00,0
@@ -571,19 +571,19 @@ U0569,Kian Keong Lim,kiankeong.lim369@example.com,MALE,36,PHD,MEMBER,2026-01-03 
 U0570,Wei Ming Ng,weiming.ng370@example.com,MALE,19,PHD,MEMBER,2026-01-03 00:29:00,0
 U0571,Zi Xuan Choo,zixuan.choo371@example.com,MALE,26,DIPLOMA,MEMBER,2026-01-03 00:33:00,0
 U0572,Kian Keong Lim,kiankeong.lim372@example.com,MALE,47,BACHELOR,MEMBER,2026-01-03 00:38:00,0
-U0573,Aiman Bakri,aiman.bakri373@example.com,MALE,42,MASTER,MEMBER,2026-01-03 00:47:00,0
+U0573,Aiman Bakri,aiman.bakri373@example.com,MALE,42,MASTER,MEMBER,2026-01-03 00:47:00,1
 U0574,Karthik Subramaniam,karthik.subramaniam374@example.com,MALE,35,MASTER,MEMBER,2026-01-03 00:56:00,0
-U0575,Zi Xuan Wong,zixuan.wong375@example.com,MALE,35,PHD,MEMBER,2026-01-03 01:04:00,0
+U0575,Zi Xuan Wong,zixuan.wong375@example.com,MALE,35,PHD,MEMBER,2026-01-03 01:04:00,1
 U0576,Zi Xuan Liew,zixuan.liew376@example.com,MALE,18,PHD,MEMBER,2026-01-03 01:10:00,0
 U0577,Priyanka Nadarajah,priyanka.nadarajah377@example.com,FEMALE,41,MASTER,MEMBER,2026-01-03 01:20:00,0
 U0578,Jia Hao Tan,jiahao.tan378@example.com,MALE,21,DIPLOMA,MEMBER,2026-01-03 01:23:00,0
 U0579,Remaya Anak Jugah,remaya.anakjugah379@example.com,MALE,27,BACHELOR,MEMBER,2026-01-03 01:28:00,0
-U0580,Sangeetha Nadarajah,sangeetha.nadarajah380@example.com,MALE,18,MASTER,MEMBER,2026-01-03 01:35:00,0
+U0580,Sangeetha Nadarajah,sangeetha.nadarajah380@example.com,MALE,18,MASTER,MEMBER,2026-01-03 01:35:00,1
 U0581,Awang Kumbau,awang.kumbau381@example.com,MALE,30,MASTER,MEMBER,2026-01-03 01:43:00,0
 U0582,Zi Xuan Lee,zixuan.lee382@example.com,MALE,22,MASTER,MEMBER,2026-01-03 01:49:00,0
 U0583,Siew Ling Lim,siewling.lim383@example.com,FEMALE,55,DIPLOMA,MEMBER,2026-01-03 01:56:00,0
 U0584,Haziq Abdullah,haziq.abdullah384@example.com,MALE,47,BACHELOR,MEMBER,2026-01-03 02:05:00,0
-U0585,Zi Xuan Wong,zixuan.wong385@example.com,MALE,36,DIPLOMA,MEMBER,2026-01-03 02:10:00,0
+U0585,Zi Xuan Wong,zixuan.wong385@example.com,MALE,36,DIPLOMA,MEMBER,2026-01-03 02:10:00,1
 U0586,Jia Hao Hoo,jiahao.hoo386@example.com,MALE,58,MASTER,MEMBER,2026-01-03 02:19:00,0
 U0587,Wei Ming Hoo,weiming.hoo387@example.com,MALE,47,BACHELOR,MEMBER,2026-01-03 02:24:00,0
 U0588,Usun Kumbau,usun.kumbau388@example.com,MALE,27,BACHELOR,MEMBER,2026-01-03 02:30:00,0
@@ -597,7 +597,7 @@ U0595,Remaya Kumbau,remaya.kumbau395@example.com,MALE,48,DIPLOMA,MEMBER,2026-01-
 U0596,Aiman Hafiz,aiman.hafiz396@example.com,MALE,48,DIPLOMA,MEMBER,2026-01-03 03:08:00,0
 U0597,Siew Ling Ng,siewling.ng397@example.com,FEMALE,41,PHD,MEMBER,2026-01-03 03:15:00,0
 U0598,Yee Wen Wong,yeewen.wong398@example.com,MALE,27,MASTER,MEMBER,2026-01-03 03:22:00,0
-U0599,Sangeetha Subramaniam,sangeetha.subramaniam399@example.com,MALE,18,MASTER,MEMBER,2026-01-03 03:24:00,0
+U0599,Sangeetha Subramaniam,sangeetha.subramaniam399@example.com,MALE,18,MASTER,MEMBER,2026-01-03 03:24:00,1
 U0600,Ravin Gopal,ravin.gopal400@example.com,MALE,43,DIPLOMA,MEMBER,2026-01-03 03:34:00,0
 U0601,Izzati Hafiz,izzati.hafiz401@example.com,MALE,22,DIPLOMA,MEMBER,2026-01-03 03:40:00,0
 U0602,Haziq Fadzil,haziq.fadzil402@example.com,MALE,45,MASTER,MEMBER,2026-01-03 03:45:00,0
@@ -615,7 +615,7 @@ U0613,Jebat Empam,jebat.empam413@example.com,MALE,64,BACHELOR,MEMBER,2026-01-03 
 U0614,Karthik Rengasamy,karthik.rengasamy414@example.com,MALE,23,BACHELOR,MEMBER,2026-01-03 04:36:00,0
 U0615,Thivya Krishnan,thivya.krishnan415@example.com,MALE,23,MASTER,MEMBER,2026-01-03 04:46:00,0
 U0616,Aiman Ibrahim,aiman.ibrahim416@example.com,MALE,51,BACHELOR,MEMBER,2026-01-03 04:54:00,0
-U0617,Usun Anak Patinggi,usun.anakpatinggi417@example.com,MALE,64,DIPLOMA,MEMBER,2026-01-03 04:58:00,0
+U0617,Usun Anak Patinggi,usun.anakpatinggi417@example.com,MALE,64,DIPLOMA,MEMBER,2026-01-03 04:58:00,1
 U0618,Yee Wen Lim,yeewen.lim418@example.com,MALE,30,MASTER,MEMBER,2026-01-03 05:08:00,0
 U0619,Mei Xin Tan,meixin.tan419@example.com,FEMALE,32,DIPLOMA,MEMBER,2026-01-03 05:16:00,0
 U0620,Dayang Meringai,dayang.meringai420@example.com,FEMALE,52,DIPLOMA,MEMBER,2026-01-03 05:19:00,0
@@ -627,27 +627,27 @@ U0625,Izzati Ibrahim,izzati.ibrahim425@example.com,MALE,37,MASTER,MEMBER,2026-01
 U0626,Awang Empam,awang.empam426@example.com,MALE,65,BACHELOR,MEMBER,2026-01-03 05:43:00,0
 U0627,Sangeetha Rengasamy,sangeetha.rengasamy427@example.com,MALE,63,DIPLOMA,MEMBER,2026-01-03 05:51:00,0
 U0628,Yee Wen Lim,yeewen.lim428@example.com,MALE,19,MASTER,MEMBER,2026-01-03 05:53:00,0
-U0629,Zarith Razak,zarith.razak429@example.com,MALE,43,BACHELOR,MEMBER,2026-01-03 06:03:00,0
+U0629,Zarith Razak,zarith.razak429@example.com,MALE,43,BACHELOR,MEMBER,2026-01-03 06:03:00,1
 U0630,Jia Hao Chong,jiahao.chong430@example.com,MALE,43,BACHELOR,MEMBER,2026-01-03 06:13:00,0
 U0631,Usun Anak Jugah,usun.anakjugah431@example.com,MALE,39,BACHELOR,MEMBER,2026-01-03 06:16:00,0
 U0632,Priyanka Subramaniam,priyanka.subramaniam432@example.com,FEMALE,58,BACHELOR,MEMBER,2026-01-03 06:24:00,0
 U0633,Dayang Anak Jugah,dayang.anakjugah433@example.com,FEMALE,37,MASTER,MEMBER,2026-01-03 06:28:00,0
 U0634,Wei Ming Chan,weiming.chan434@example.com,MALE,25,MASTER,MEMBER,2026-01-03 06:31:00,0
 U0635,Remaya Empam,remaya.empam435@example.com,MALE,39,BACHELOR,MEMBER,2026-01-03 06:35:00,0
-U0636,Zarith Razak,zarith.razak436@example.com,MALE,47,BACHELOR,MEMBER,2026-01-03 06:45:00,0
+U0636,Zarith Razak,zarith.razak436@example.com,MALE,47,BACHELOR,MEMBER,2026-01-03 06:45:00,1
 U0637,Dayang Empam,dayang.empam437@example.com,FEMALE,48,MASTER,MEMBER,2026-01-03 06:50:00,0
 U0638,Haziq Abdullah,haziq.abdullah438@example.com,MALE,54,MASTER,MEMBER,2026-01-03 06:53:00,0
 U0639,Jebat Meringai,jebat.meringai439@example.com,MALE,37,DIPLOMA,MEMBER,2026-01-03 06:58:00,0
 U0640,Zarith Ibrahim,zarith.ibrahim440@example.com,MALE,53,BACHELOR,MEMBER,2026-01-03 07:04:00,0
-U0641,Batrisyia Zainal,batrisyia.zainal441@example.com,FEMALE,63,DIPLOMA,MEMBER,2026-01-03 07:12:00,0
+U0641,Batrisyia Zainal,batrisyia.zainal441@example.com,FEMALE,63,DIPLOMA,MEMBER,2026-01-03 07:12:00,1
 U0642,Nadhira Abdullah,nadhira.abdullah442@example.com,MALE,35,PHD,MEMBER,2026-01-03 07:15:00,0
 U0643,Dayang Empam,dayang.empam443@example.com,FEMALE,42,DIPLOMA,MEMBER,2026-01-03 07:21:00,0
-U0644,Kian Keong Tan,kiankeong.tan444@example.com,MALE,21,BACHELOR,MEMBER,2026-01-03 07:27:00,0
+U0644,Kian Keong Tan,kiankeong.tan444@example.com,MALE,21,BACHELOR,MEMBER,2026-01-03 07:27:00,1
 U0645,Usun Meringai,usun.meringai445@example.com,MALE,25,PHD,MEMBER,2026-01-03 07:36:00,0
 U0646,Nadhira Bakri,nadhira.bakri446@example.com,MALE,39,DIPLOMA,MEMBER,2026-01-03 07:41:00,0
 U0647,Bulan Anak Patinggi,bulan.anakpatinggi447@example.com,MALE,30,MASTER,MEMBER,2026-01-03 07:44:00,0
 U0648,Usun Meringai,usun.meringai448@example.com,MALE,57,BACHELOR,MEMBER,2026-01-03 07:50:00,0
-U0649,Izzati Hafiz,izzati.hafiz449@example.com,MALE,62,MASTER,MEMBER,2026-01-03 07:58:00,0
+U0649,Izzati Hafiz,izzati.hafiz449@example.com,MALE,62,MASTER,MEMBER,2026-01-03 07:58:00,1
 U0650,Nadhira Mansur,nadhira.mansur450@example.com,MALE,65,MASTER,MEMBER,2026-01-03 08:03:00,0
 U0651,Libau Anak Patinggi,libau.anakpatinggi451@example.com,MALE,56,DIPLOMA,MEMBER,2026-01-03 08:05:00,0
 U0652,Usun Anak Patinggi,usun.anakpatinggi452@example.com,MALE,33,DIPLOMA,MEMBER,2026-01-03 08:14:00,0
@@ -655,7 +655,7 @@ U0653,Wei Ming Wong,weiming.wong453@example.com,MALE,19,DIPLOMA,MEMBER,2026-01-0
 U0654,Zi Xuan Liew,zixuan.liew454@example.com,MALE,28,MASTER,MEMBER,2026-01-03 08:22:00,0
 U0655,Siew Ling Choo,siewling.choo455@example.com,FEMALE,60,MASTER,MEMBER,2026-01-03 08:29:00,0
 U0656,Kian Keong Chan,kiankeong.chan456@example.com,MALE,18,DIPLOMA,MEMBER,2026-01-03 08:39:00,0
-U0657,Jia Hao Chan,jiahao.chan457@example.com,MALE,42,PHD,MEMBER,2026-01-03 08:41:00,0
+U0657,Jia Hao Chan,jiahao.chan457@example.com,MALE,42,PHD,MEMBER,2026-01-03 08:41:00,1
 U0658,Siew Ling Chan,siewling.chan458@example.com,FEMALE,23,BACHELOR,MEMBER,2026-01-03 08:50:00,0
 U0659,Lawai Layas,lawai.layas459@example.com,MALE,36,PHD,MEMBER,2026-01-03 08:58:00,0
 U0660,Batrisyia Fadzil,batrisyia.fadzil460@example.com,FEMALE,54,DIPLOMA,MEMBER,2026-01-03 09:04:00,0
@@ -669,7 +669,7 @@ U0667,Priyanka Krishnan,priyanka.krishnan467@example.com,FEMALE,33,PHD,MEMBER,20
 U0668,Bulan Meringai,bulan.meringai468@example.com,MALE,40,PHD,MEMBER,2026-01-03 09:39:00,0
 U0669,Wei Ming Hoo,weiming.hoo469@example.com,MALE,40,BACHELOR,MEMBER,2026-01-03 09:46:00,0
 U0670,Kian Keong Liew,kiankeong.liew470@example.com,MALE,43,MASTER,MEMBER,2026-01-03 09:54:00,0
-U0671,Ravin Nadarajah,ravin.nadarajah471@example.com,MALE,54,BACHELOR,MEMBER,2026-01-03 09:59:00,0
+U0671,Ravin Nadarajah,ravin.nadarajah471@example.com,MALE,54,BACHELOR,MEMBER,2026-01-03 09:59:00,1
 U0672,Zarith Bakri,zarith.bakri472@example.com,MALE,52,DIPLOMA,MEMBER,2026-01-03 10:04:00,0
 U0673,Zi Xuan Choo,zixuan.choo473@example.com,MALE,22,PHD,MEMBER,2026-01-03 10:09:00,0
 U0674,Zi Xuan Ng,zixuan.ng474@example.com,MALE,64,DIPLOMA,MEMBER,2026-01-03 10:19:00,0
@@ -708,7 +708,7 @@ U0706,Lawai Kumbau,lawai.kumbau506@example.com,MALE,33,BACHELOR,MEMBER,2026-01-0
 U0707,Jia Hao Chong,jiahao.chong507@example.com,MALE,64,MASTER,MEMBER,2026-01-03 13:36:00,0
 U0708,Jia Hao Ng,jiahao.ng508@example.com,MALE,28,MASTER,MEMBER,2026-01-03 13:45:00,0
 U0709,Aiman Razak,aiman.razak509@example.com,MALE,64,PHD,MEMBER,2026-01-03 13:49:00,0
-U0710,Mei Xin Hoo,meixin.hoo510@example.com,FEMALE,40,MASTER,MEMBER,2026-01-03 13:54:00,0
+U0710,Mei Xin Hoo,meixin.hoo510@example.com,FEMALE,40,MASTER,MEMBER,2026-01-03 13:54:00,1
 U0711,Rayyan Zainal,rayyan.zainal511@example.com,MALE,29,DIPLOMA,MEMBER,2026-01-03 13:56:00,0
 U0712,Kavitha Nadarajah,kavitha.nadarajah512@example.com,MALE,18,DIPLOMA,MEMBER,2026-01-03 14:02:00,0
 U0713,Karthik Muniandy,karthik.muniandy513@example.com,MALE,40,DIPLOMA,MEMBER,2026-01-03 14:08:00,0
@@ -726,9 +726,9 @@ U0724,Usun Anak Jugah,usun.anakjugah524@example.com,MALE,38,BACHELOR,MEMBER,2026
 U0725,Bulan Meringai,bulan.meringai525@example.com,MALE,37,MASTER,MEMBER,2026-01-03 15:17:00,0
 U0726,Usun Anak Patinggi,usun.anakpatinggi526@example.com,MALE,57,BACHELOR,MEMBER,2026-01-03 15:27:00,0
 U0727,Usun Meringai,usun.meringai527@example.com,MALE,26,MASTER,MEMBER,2026-01-03 15:35:00,0
-U0728,Kian Keong Choo,kiankeong.choo528@example.com,MALE,19,PHD,MEMBER,2026-01-03 15:44:00,0
+U0728,Kian Keong Choo,kiankeong.choo528@example.com,MALE,19,PHD,MEMBER,2026-01-03 15:44:00,1
 U0729,Zi Xuan Chong,zixuan.chong529@example.com,MALE,57,BACHELOR,MEMBER,2026-01-03 15:50:00,0
-U0730,Arvin Krishnan,arvin.krishnan530@example.com,MALE,46,MASTER,MEMBER,2026-01-03 15:53:00,0
+U0730,Arvin Krishnan,arvin.krishnan530@example.com,MALE,46,MASTER,MEMBER,2026-01-03 15:53:00,1
 U0731,Bulan Anak Patinggi,bulan.anakpatinggi531@example.com,MALE,41,PHD,MEMBER,2026-01-03 16:02:00,0
 U0732,Siew Ling Lim,siewling.lim532@example.com,FEMALE,20,PHD,MEMBER,2026-01-03 16:11:00,0
 U0733,Siew Ling Wong,siewling.wong533@example.com,FEMALE,37,BACHELOR,MEMBER,2026-01-03 16:19:00,0
@@ -739,7 +739,7 @@ U0737,Arvin Gopal,arvin.gopal537@example.com,MALE,31,DIPLOMA,MEMBER,2026-01-03 1
 U0738,Jebat Meringai,jebat.meringai538@example.com,MALE,23,BACHELOR,MEMBER,2026-01-03 16:57:00,0
 U0739,Usun Empam,usun.empam539@example.com,MALE,63,MASTER,MEMBER,2026-01-03 16:59:00,0
 U0740,Siew Ling Liew,siewling.liew540@example.com,FEMALE,50,MASTER,MEMBER,2026-01-03 17:02:00,0
-U0741,Awang Meringai,awang.meringai541@example.com,MALE,49,BACHELOR,MEMBER,2026-01-03 17:08:00,0
+U0741,Awang Meringai,awang.meringai541@example.com,MALE,49,BACHELOR,MEMBER,2026-01-03 17:08:00,1
 U0742,Wei Ming Lee,weiming.lee542@example.com,MALE,48,PHD,MEMBER,2026-01-03 17:13:00,0
 U0743,Zarith Bakri,zarith.bakri543@example.com,MALE,21,DIPLOMA,MEMBER,2026-01-03 17:22:00,0
 U0744,Lawai Meringai,lawai.meringai544@example.com,MALE,60,PHD,MEMBER,2026-01-03 17:28:00,0
@@ -761,8 +761,8 @@ U0759,Libau Layas,libau.layas559@example.com,MALE,47,DIPLOMA,MEMBER,2026-01-03 1
 U0760,Zi Xuan Chan,zixuan.chan560@example.com,MALE,30,DIPLOMA,MEMBER,2026-01-03 19:26:00,0
 U0761,Usun Kumbau,usun.kumbau561@example.com,MALE,53,PHD,MEMBER,2026-01-03 19:28:00,0
 U0762,Wei Ming Liew,weiming.liew562@example.com,MALE,56,DIPLOMA,MEMBER,2026-01-03 19:32:00,0
-U0763,Izzati Fadzil,izzati.fadzil563@example.com,MALE,36,MASTER,MEMBER,2026-01-03 19:37:00,0
-U0764,Dinesh Gopal,dinesh.gopal564@example.com,MALE,60,BACHELOR,MEMBER,2026-01-03 19:47:00,0
+U0763,Izzati Fadzil,izzati.fadzil563@example.com,MALE,36,MASTER,MEMBER,2026-01-03 19:37:00,1
+U0764,Dinesh Gopal,dinesh.gopal564@example.com,MALE,60,BACHELOR,MEMBER,2026-01-03 19:47:00,1
 U0765,Libau Empam,libau.empam565@example.com,MALE,25,PHD,MEMBER,2026-01-03 19:56:00,0
 U0766,Aiman Mansur,aiman.mansur566@example.com,MALE,55,PHD,MEMBER,2026-01-03 19:59:00,0
 U0767,Siew Ling Chan,siewling.chan567@example.com,FEMALE,56,MASTER,MEMBER,2026-01-03 20:09:00,0
@@ -782,17 +782,17 @@ U0780,Firdaus Fadzil,firdaus.fadzil580@example.com,MALE,41,PHD,MEMBER,2026-01-03
 U0781,Thivya Nadarajah,thivya.nadarajah581@example.com,MALE,40,DIPLOMA,MEMBER,2026-01-03 21:39:00,0
 U0782,Siew Ling Lee,siewling.lee582@example.com,FEMALE,21,PHD,MEMBER,2026-01-03 21:44:00,0
 U0783,Sangeetha Gopal,sangeetha.gopal583@example.com,MALE,24,MASTER,MEMBER,2026-01-03 21:47:00,0
-U0784,Wei Ming Hoo,weiming.hoo584@example.com,MALE,46,BACHELOR,MEMBER,2026-01-03 21:53:00,0
+U0784,Wei Ming Hoo,weiming.hoo584@example.com,MALE,46,BACHELOR,MEMBER,2026-01-03 21:53:00,1
 U0785,Firdaus Bakri,firdaus.bakri585@example.com,MALE,22,MASTER,MEMBER,2026-01-03 22:02:00,0
 U0786,Kian Keong Hoo,kiankeong.hoo586@example.com,MALE,60,BACHELOR,MEMBER,2026-01-03 22:12:00,0
 U0787,Remaya Anak Patinggi,remaya.anakpatinggi587@example.com,MALE,45,MASTER,MEMBER,2026-01-03 22:22:00,0
 U0788,Jebat Anak Patinggi,jebat.anakpatinggi588@example.com,MALE,64,MASTER,MEMBER,2026-01-03 22:26:00,0
 U0789,Ravin Rengasamy,ravin.rengasamy589@example.com,MALE,21,DIPLOMA,MEMBER,2026-01-03 22:28:00,0
-U0790,Firdaus Bakri,firdaus.bakri590@example.com,MALE,56,PHD,MEMBER,2026-01-03 22:34:00,0
+U0790,Firdaus Bakri,firdaus.bakri590@example.com,MALE,56,PHD,MEMBER,2026-01-03 22:34:00,2
 U0791,Priyanka Gopal,priyanka.gopal591@example.com,FEMALE,42,DIPLOMA,MEMBER,2026-01-03 22:39:00,0
 U0792,Firdaus Bakri,firdaus.bakri592@example.com,MALE,49,DIPLOMA,MEMBER,2026-01-03 22:47:00,0
 U0793,Kavitha Krishnan,kavitha.krishnan593@example.com,MALE,24,MASTER,MEMBER,2026-01-03 22:54:00,0
-U0794,Dayang Kumbau,dayang.kumbau594@example.com,FEMALE,35,PHD,MEMBER,2026-01-03 22:57:00,0
+U0794,Dayang Kumbau,dayang.kumbau594@example.com,FEMALE,35,PHD,MEMBER,2026-01-03 22:57:00,1
 U0795,Remaya Layas,remaya.layas595@example.com,MALE,38,DIPLOMA,MEMBER,2026-01-03 23:04:00,0
 U0796,Lawai Kumbau,lawai.kumbau596@example.com,MALE,34,BACHELOR,MEMBER,2026-01-03 23:11:00,0
 U0797,Rayyan Hafiz,rayyan.hafiz597@example.com,MALE,42,DIPLOMA,MEMBER,2026-01-03 23:19:00,0
@@ -816,7 +816,7 @@ U0814,Yee Wen Choo,yeewen.choo614@example.com,MALE,19,BACHELOR,MEMBER,2026-01-04
 U0815,Kian Keong Hoo,kiankeong.hoo615@example.com,MALE,35,BACHELOR,MEMBER,2026-01-04 00:59:00,0
 U0816,Kavitha Subramaniam,kavitha.subramaniam616@example.com,MALE,37,DIPLOMA,MEMBER,2026-01-04 01:04:00,0
 U0817,Priyanka Subramaniam,priyanka.subramaniam617@example.com,FEMALE,61,PHD,MEMBER,2026-01-04 01:09:00,0
-U0818,Libau Layas,libau.layas618@example.com,MALE,21,MASTER,MEMBER,2026-01-04 01:15:00,0
+U0818,Libau Layas,libau.layas618@example.com,MALE,21,MASTER,MEMBER,2026-01-04 01:15:00,1
 U0819,Libau Layas,libau.layas619@example.com,MALE,38,PHD,MEMBER,2026-01-04 01:22:00,0
 U0820,Yee Wen Tan,yeewen.tan620@example.com,MALE,56,MASTER,MEMBER,2026-01-04 01:29:00,0
 U0821,Jia Hao Hoo,jiahao.hoo621@example.com,MALE,62,MASTER,MEMBER,2026-01-04 01:35:00,0
@@ -826,7 +826,7 @@ U0824,Ravin Subramaniam,ravin.subramaniam624@example.com,MALE,19,DIPLOMA,MEMBER,
 U0825,Aiman Fadzil,aiman.fadzil625@example.com,MALE,19,DIPLOMA,MEMBER,2026-01-04 01:51:00,0
 U0826,Siew Ling Choo,siewling.choo626@example.com,FEMALE,30,MASTER,MEMBER,2026-01-04 02:00:00,0
 U0827,Haziq Ibrahim,haziq.ibrahim627@example.com,MALE,42,MASTER,MEMBER,2026-01-04 02:03:00,0
-U0828,Priyanka Subramaniam,priyanka.subramaniam628@example.com,FEMALE,42,DIPLOMA,MEMBER,2026-01-04 02:09:00,0
+U0828,Priyanka Subramaniam,priyanka.subramaniam628@example.com,FEMALE,42,DIPLOMA,MEMBER,2026-01-04 02:09:00,1
 U0829,Wei Ming Ng,weiming.ng629@example.com,MALE,63,MASTER,MEMBER,2026-01-04 02:12:00,0
 U0830,Awang Anak Jugah,awang.anakjugah630@example.com,MALE,39,BACHELOR,MEMBER,2026-01-04 02:21:00,0
 U0831,Thivya Krishnan,thivya.krishnan631@example.com,MALE,30,BACHELOR,MEMBER,2026-01-04 02:29:00,0
@@ -845,7 +845,7 @@ U0843,Dayang Layas,dayang.layas643@example.com,FEMALE,42,PHD,MEMBER,2026-01-04 0
 U0844,Nadhira Abdullah,nadhira.abdullah644@example.com,MALE,51,DIPLOMA,MEMBER,2026-01-04 03:46:00,0
 U0845,Izzati Razak,izzati.razak645@example.com,MALE,38,DIPLOMA,MEMBER,2026-01-04 03:54:00,0
 U0846,Priyanka Rengasamy,priyanka.rengasamy646@example.com,FEMALE,29,MASTER,MEMBER,2026-01-04 04:04:00,0
-U0847,Nadhira Abdullah,nadhira.abdullah647@example.com,MALE,55,MASTER,MEMBER,2026-01-04 04:09:00,0
+U0847,Nadhira Abdullah,nadhira.abdullah647@example.com,MALE,55,MASTER,MEMBER,2026-01-04 04:09:00,1
 U0848,Wei Ming Wong,weiming.wong648@example.com,MALE,35,DIPLOMA,MEMBER,2026-01-04 04:16:00,0
 U0849,Dinesh Subramaniam,dinesh.subramaniam649@example.com,MALE,42,MASTER,MEMBER,2026-01-04 04:18:00,0
 U0850,Zarith Abdullah,zarith.abdullah650@example.com,MALE,40,PHD,MEMBER,2026-01-04 04:21:00,0
@@ -884,13 +884,13 @@ U0882,Usun Kumbau,usun.kumbau682@example.com,MALE,34,MASTER,MEMBER,2026-01-04 07
 U0883,Batrisyia Bakri,batrisyia.bakri683@example.com,FEMALE,46,DIPLOMA,MEMBER,2026-01-04 07:44:00,0
 U0884,Bulan Anak Patinggi,bulan.anakpatinggi684@example.com,MALE,47,MASTER,MEMBER,2026-01-04 07:54:00,0
 U0885,Thivya Gopal,thivya.gopal685@example.com,MALE,53,PHD,MEMBER,2026-01-04 07:57:00,0
-U0886,Kavitha Rengasamy,kavitha.rengasamy686@example.com,MALE,48,BACHELOR,MEMBER,2026-01-04 08:07:00,0
+U0886,Kavitha Rengasamy,kavitha.rengasamy686@example.com,MALE,48,BACHELOR,MEMBER,2026-01-04 08:07:00,1
 U0887,Kavitha Gopal,kavitha.gopal687@example.com,MALE,21,MASTER,MEMBER,2026-01-04 08:14:00,0
 U0888,Awang Layas,awang.layas688@example.com,MALE,23,BACHELOR,MEMBER,2026-01-04 08:19:00,0
 U0889,Haziq Mansur,haziq.mansur689@example.com,MALE,29,BACHELOR,MEMBER,2026-01-04 08:24:00,0
 U0890,Bulan Kumbau,bulan.kumbau690@example.com,MALE,21,PHD,MEMBER,2026-01-04 08:26:00,0
 U0891,Bulan Kumbau,bulan.kumbau691@example.com,MALE,55,PHD,MEMBER,2026-01-04 08:36:00,0
-U0892,Priyanka Nadarajah,priyanka.nadarajah692@example.com,FEMALE,55,DIPLOMA,MEMBER,2026-01-04 08:45:00,0
+U0892,Priyanka Nadarajah,priyanka.nadarajah692@example.com,FEMALE,55,DIPLOMA,MEMBER,2026-01-04 08:45:00,1
 U0893,Awang Kumbau,awang.kumbau693@example.com,MALE,49,BACHELOR,MEMBER,2026-01-04 08:47:00,0
 U0894,Mei Xin Hoo,meixin.hoo694@example.com,FEMALE,63,BACHELOR,MEMBER,2026-01-04 08:51:00,0
 U0895,Priyanka Subramaniam,priyanka.subramaniam695@example.com,FEMALE,34,BACHELOR,MEMBER,2026-01-04 08:59:00,0
@@ -924,7 +924,7 @@ U0922,Firdaus Zainal,firdaus.zainal722@example.com,MALE,53,MASTER,MEMBER,2026-01
 U0923,Dayang Empam,dayang.empam723@example.com,FEMALE,24,BACHELOR,MEMBER,2026-01-04 11:35:00,0
 U0924,Lawai Kumbau,lawai.kumbau724@example.com,MALE,20,BACHELOR,MEMBER,2026-01-04 11:40:00,0
 U0925,Mei Xin Chong,meixin.chong725@example.com,FEMALE,64,MASTER,MEMBER,2026-01-04 11:48:00,0
-U0926,Zi Xuan Liew,zixuan.liew726@example.com,MALE,40,MASTER,MEMBER,2026-01-04 11:51:00,0
+U0926,Zi Xuan Liew,zixuan.liew726@example.com,MALE,40,MASTER,MEMBER,2026-01-04 11:51:00,1
 U0927,Yee Wen Choo,yeewen.choo727@example.com,MALE,42,PHD,MEMBER,2026-01-04 11:53:00,0
 U0928,Mei Xin Tan,meixin.tan728@example.com,FEMALE,37,BACHELOR,MEMBER,2026-01-04 11:56:00,0
 U0929,Haziq Fadzil,haziq.fadzil729@example.com,MALE,30,PHD,MEMBER,2026-01-04 11:59:00,0
@@ -936,7 +936,7 @@ U0934,Dinesh Muniandy,dinesh.muniandy734@example.com,MALE,63,MASTER,MEMBER,2026-
 U0935,Siew Ling Tan,siewling.tan735@example.com,FEMALE,37,DIPLOMA,MEMBER,2026-01-04 12:27:00,0
 U0936,Jebat Layas,jebat.layas736@example.com,MALE,33,PHD,MEMBER,2026-01-04 12:35:00,0
 U0937,Nadhira Mansur,nadhira.mansur737@example.com,MALE,34,BACHELOR,MEMBER,2026-01-04 12:39:00,0
-U0938,Wei Ming Wong,weiming.wong738@example.com,MALE,29,MASTER,MEMBER,2026-01-04 12:42:00,0
+U0938,Wei Ming Wong,weiming.wong738@example.com,MALE,29,MASTER,MEMBER,2026-01-04 12:42:00,1
 U0939,Batrisyia Mansur,batrisyia.mansur739@example.com,FEMALE,59,MASTER,MEMBER,2026-01-04 12:49:00,0
 U0940,Aiman Zainal,aiman.zainal740@example.com,MALE,25,DIPLOMA,MEMBER,2026-01-04 12:53:00,0
 U0941,Sangeetha Nadarajah,sangeetha.nadarajah741@example.com,MALE,38,PHD,MEMBER,2026-01-04 12:57:00,0
@@ -1002,15 +1002,15 @@ U1000,Kavitha Muniandy,kavitha.muniandy800@example.com,MALE,25,MASTER,MEMBER,202
 U1001,Jebat Anak Jugah,jebat.anakjugah801@example.com,MALE,22,PHD,MEMBER,2026-01-04 19:43:00,0
 U1002,Firdaus Mansur,firdaus.mansur802@example.com,MALE,42,PHD,MEMBER,2026-01-04 19:48:00,0
 U1003,Ravin Subramaniam,ravin.subramaniam803@example.com,MALE,19,PHD,MEMBER,2026-01-04 19:51:00,0
-U1004,Thivya Krishnan,thivya.krishnan804@example.com,MALE,35,PHD,MEMBER,2026-01-04 20:01:00,0
+U1004,Thivya Krishnan,thivya.krishnan804@example.com,MALE,35,PHD,MEMBER,2026-01-04 20:01:00,1
 U1005,Dinesh Krishnan,dinesh.krishnan805@example.com,MALE,54,PHD,MEMBER,2026-01-04 20:10:00,0
 U1006,Sangeetha Subramaniam,sangeetha.subramaniam806@example.com,MALE,65,MASTER,MEMBER,2026-01-04 20:12:00,0
 U1007,Usun Meringai,usun.meringai807@example.com,MALE,32,PHD,MEMBER,2026-01-04 20:14:00,0
-U1008,Zarith Abdullah,zarith.abdullah808@example.com,MALE,19,MASTER,MEMBER,2026-01-04 20:19:00,0
+U1008,Zarith Abdullah,zarith.abdullah808@example.com,MALE,19,MASTER,MEMBER,2026-01-04 20:19:00,1
 U1009,Priyanka Rengasamy,priyanka.rengasamy809@example.com,FEMALE,31,DIPLOMA,MEMBER,2026-01-04 20:24:00,0
 U1010,Arvin Rengasamy,arvin.rengasamy810@example.com,MALE,49,PHD,MEMBER,2026-01-04 20:31:00,0
 U1011,Libau Layas,libau.layas811@example.com,MALE,63,MASTER,MEMBER,2026-01-04 20:40:00,0
-U1012,Yee Wen Ng,yeewen.ng812@example.com,MALE,29,PHD,MEMBER,2026-01-04 20:49:00,0
+U1012,Yee Wen Ng,yeewen.ng812@example.com,MALE,29,PHD,MEMBER,2026-01-04 20:49:00,1
 U1013,Izzati Mansur,izzati.mansur813@example.com,MALE,19,PHD,MEMBER,2026-01-04 20:56:00,0
 U1014,Haziq Razak,haziq.razak814@example.com,MALE,19,PHD,MEMBER,2026-01-04 21:05:00,0
 U1015,Kavitha Muniandy,kavitha.muniandy815@example.com,MALE,52,DIPLOMA,MEMBER,2026-01-04 21:10:00,0
@@ -1035,11 +1035,11 @@ U1033,Jia Hao Ng,jiahao.ng833@example.com,MALE,37,PHD,MEMBER,2026-01-04 23:20:00
 U1034,Ravin Muniandy,ravin.muniandy834@example.com,MALE,36,BACHELOR,MEMBER,2026-01-04 23:23:00,0
 U1035,Usun Meringai,usun.meringai835@example.com,MALE,62,MASTER,MEMBER,2026-01-04 23:29:00,0
 U1036,Usun Layas,usun.layas836@example.com,MALE,48,DIPLOMA,MEMBER,2026-01-04 23:33:00,0
-U1037,Haziq Fadzil,haziq.fadzil837@example.com,MALE,18,BACHELOR,MEMBER,2026-01-04 23:35:00,0
+U1037,Haziq Fadzil,haziq.fadzil837@example.com,MALE,18,BACHELOR,MEMBER,2026-01-04 23:35:00,1
 U1038,Zi Xuan Ng,zixuan.ng838@example.com,MALE,56,PHD,MEMBER,2026-01-04 23:40:00,0
 U1039,Jebat Kumbau,jebat.kumbau839@example.com,MALE,47,MASTER,MEMBER,2026-01-04 23:43:00,0
 U1040,Arvin Nadarajah,arvin.nadarajah840@example.com,MALE,50,MASTER,MEMBER,2026-01-04 23:45:00,0
-U1041,Haziq Ibrahim,haziq.ibrahim841@example.com,MALE,51,BACHELOR,MEMBER,2026-01-04 23:51:00,0
+U1041,Haziq Ibrahim,haziq.ibrahim841@example.com,MALE,51,BACHELOR,MEMBER,2026-01-04 23:51:00,1
 U1042,Siew Ling Chong,siewling.chong842@example.com,FEMALE,39,PHD,MEMBER,2026-01-04 23:56:00,0
 U1043,Awang Meringai,awang.meringai843@example.com,MALE,59,BACHELOR,MEMBER,2026-01-05 00:00:00,0
 U1044,Aiman Ibrahim,aiman.ibrahim844@example.com,MALE,62,BACHELOR,MEMBER,2026-01-05 00:05:00,0
@@ -1049,7 +1049,7 @@ U1047,Yee Wen Chong,yeewen.chong847@example.com,MALE,20,PHD,MEMBER,2026-01-05 00
 U1048,Mei Xin Wong,meixin.wong848@example.com,FEMALE,44,PHD,MEMBER,2026-01-05 00:27:00,0
 U1049,Mei Xin Choo,meixin.choo849@example.com,FEMALE,43,BACHELOR,MEMBER,2026-01-05 00:32:00,0
 U1050,Yee Wen Chong,yeewen.chong850@example.com,MALE,35,MASTER,MEMBER,2026-01-05 00:37:00,0
-U1051,Dinesh Krishnan,dinesh.krishnan851@example.com,MALE,37,MASTER,MEMBER,2026-01-05 00:43:00,0
+U1051,Dinesh Krishnan,dinesh.krishnan851@example.com,MALE,37,MASTER,MEMBER,2026-01-05 00:43:00,1
 U1052,Bulan Anak Patinggi,bulan.anakpatinggi852@example.com,MALE,20,DIPLOMA,MEMBER,2026-01-05 00:49:00,0
 U1053,Lawai Empam,lawai.empam853@example.com,MALE,24,DIPLOMA,MEMBER,2026-01-05 00:54:00,0
 U1054,Rayyan Mansur,rayyan.mansur854@example.com,MALE,60,BACHELOR,MEMBER,2026-01-05 01:03:00,0
@@ -1069,7 +1069,7 @@ U1067,Batrisyia Hafiz,batrisyia.hafiz867@example.com,FEMALE,60,DIPLOMA,MEMBER,20
 U1068,Thivya Rengasamy,thivya.rengasamy868@example.com,MALE,25,BACHELOR,MEMBER,2026-01-05 02:25:00,0
 U1069,Mei Xin Tan,meixin.tan869@example.com,FEMALE,51,MASTER,MEMBER,2026-01-05 02:29:00,0
 U1070,Firdaus Fadzil,firdaus.fadzil870@example.com,MALE,28,MASTER,MEMBER,2026-01-05 02:33:00,0
-U1071,Batrisyia Hafiz,batrisyia.hafiz871@example.com,FEMALE,29,MASTER,MEMBER,2026-01-05 02:35:00,0
+U1071,Batrisyia Hafiz,batrisyia.hafiz871@example.com,FEMALE,29,MASTER,MEMBER,2026-01-05 02:35:00,1
 U1072,Kavitha Krishnan,kavitha.krishnan872@example.com,MALE,54,DIPLOMA,MEMBER,2026-01-05 02:37:00,0
 U1073,Karthik Gopal,karthik.gopal873@example.com,MALE,25,PHD,MEMBER,2026-01-05 02:39:00,0
 U1074,Bulan Kumbau,bulan.kumbau874@example.com,MALE,41,BACHELOR,MEMBER,2026-01-05 02:45:00,0
@@ -1077,16 +1077,16 @@ U1075,Haziq Zainal,haziq.zainal875@example.com,MALE,63,PHD,MEMBER,2026-01-05 02:
 U1076,Bulan Kumbau,bulan.kumbau876@example.com,MALE,37,BACHELOR,MEMBER,2026-01-05 02:51:00,0
 U1077,Awang Anak Jugah,awang.anakjugah877@example.com,MALE,44,BACHELOR,MEMBER,2026-01-05 03:00:00,0
 U1078,Libau Layas,libau.layas878@example.com,MALE,61,PHD,MEMBER,2026-01-05 03:07:00,0
-U1079,Batrisyia Bakri,batrisyia.bakri879@example.com,FEMALE,51,DIPLOMA,MEMBER,2026-01-05 03:12:00,0
+U1079,Batrisyia Bakri,batrisyia.bakri879@example.com,FEMALE,51,DIPLOMA,MEMBER,2026-01-05 03:12:00,1
 U1080,Haziq Razak,haziq.razak880@example.com,MALE,64,MASTER,MEMBER,2026-01-05 03:19:00,0
-U1081,Jia Hao Lim,jiahao.lim881@example.com,MALE,49,BACHELOR,MEMBER,2026-01-05 03:21:00,0
-U1082,Wei Ming Chan,weiming.chan882@example.com,MALE,58,DIPLOMA,MEMBER,2026-01-05 03:29:00,0
+U1081,Jia Hao Lim,jiahao.lim881@example.com,MALE,49,BACHELOR,MEMBER,2026-01-05 03:21:00,1
+U1082,Wei Ming Chan,weiming.chan882@example.com,MALE,58,DIPLOMA,MEMBER,2026-01-05 03:29:00,1
 U1083,Siew Ling Chong,siewling.chong883@example.com,FEMALE,27,MASTER,MEMBER,2026-01-05 03:39:00,0
 U1084,Arvin Gopal,arvin.gopal884@example.com,MALE,55,DIPLOMA,MEMBER,2026-01-05 03:48:00,0
-U1085,Usun Layas,usun.layas885@example.com,MALE,44,DIPLOMA,MEMBER,2026-01-05 03:55:00,0
+U1085,Usun Layas,usun.layas885@example.com,MALE,44,DIPLOMA,MEMBER,2026-01-05 03:55:00,1
 U1086,Awang Meringai,awang.meringai886@example.com,MALE,24,DIPLOMA,MEMBER,2026-01-05 03:57:00,0
 U1087,Aiman Abdullah,aiman.abdullah887@example.com,MALE,55,BACHELOR,MEMBER,2026-01-05 04:04:00,0
-U1088,Zi Xuan Hoo,zixuan.hoo888@example.com,MALE,55,BACHELOR,MEMBER,2026-01-05 04:06:00,0
+U1088,Zi Xuan Hoo,zixuan.hoo888@example.com,MALE,55,BACHELOR,MEMBER,2026-01-05 04:06:00,1
 U1089,Batrisyia Razak,batrisyia.razak889@example.com,FEMALE,63,BACHELOR,MEMBER,2026-01-05 04:12:00,0
 U1090,Haziq Fadzil,haziq.fadzil890@example.com,MALE,18,PHD,MEMBER,2026-01-05 04:16:00,0
 U1091,Yee Wen Chong,yeewen.chong891@example.com,MALE,56,MASTER,MEMBER,2026-01-05 04:24:00,0
@@ -1098,7 +1098,7 @@ U1096,Dayang Kumbau,dayang.kumbau896@example.com,FEMALE,22,MASTER,MEMBER,2026-01
 U1097,Libau Anak Jugah,libau.anakjugah897@example.com,MALE,21,PHD,MEMBER,2026-01-05 04:57:00,0
 U1098,Kavitha Nadarajah,kavitha.nadarajah898@example.com,MALE,44,PHD,MEMBER,2026-01-05 04:59:00,0
 U1099,Zi Xuan Lim,zixuan.lim899@example.com,MALE,22,BACHELOR,MEMBER,2026-01-05 05:04:00,0
-U1100,Libau Layas,libau.layas900@example.com,MALE,48,BACHELOR,MEMBER,2026-01-05 05:08:00,0
+U1100,Libau Layas,libau.layas900@example.com,MALE,48,BACHELOR,MEMBER,2026-01-05 05:08:00,1
 U1101,Kian Keong Wong,kiankeong.wong901@example.com,MALE,51,BACHELOR,MEMBER,2026-01-05 05:16:00,0
 U1102,Sangeetha Nadarajah,sangeetha.nadarajah902@example.com,MALE,61,MASTER,MEMBER,2026-01-05 05:25:00,0
 U1103,Jebat Empam,jebat.empam903@example.com,MALE,38,PHD,MEMBER,2026-01-05 05:34:00,0
@@ -1106,7 +1106,7 @@ U1104,Dayang Empam,dayang.empam904@example.com,FEMALE,21,PHD,MEMBER,2026-01-05 0
 U1105,Yee Wen Tan,yeewen.tan905@example.com,MALE,33,BACHELOR,MEMBER,2026-01-05 05:41:00,0
 U1106,Jebat Meringai,jebat.meringai906@example.com,MALE,64,MASTER,MEMBER,2026-01-05 05:49:00,0
 U1107,Jebat Anak Jugah,jebat.anakjugah907@example.com,MALE,54,BACHELOR,MEMBER,2026-01-05 05:51:00,0
-U1108,Zi Xuan Chan,zixuan.chan908@example.com,MALE,64,DIPLOMA,MEMBER,2026-01-05 05:57:00,0
+U1108,Zi Xuan Chan,zixuan.chan908@example.com,MALE,64,DIPLOMA,MEMBER,2026-01-05 05:57:00,1
 U1109,Batrisyia Razak,batrisyia.razak909@example.com,FEMALE,28,BACHELOR,MEMBER,2026-01-05 06:07:00,0
 U1110,Dayang Empam,dayang.empam910@example.com,FEMALE,23,PHD,MEMBER,2026-01-05 06:16:00,0
 U1111,Batrisyia Bakri,batrisyia.bakri911@example.com,FEMALE,58,DIPLOMA,MEMBER,2026-01-05 06:21:00,0
@@ -1137,7 +1137,7 @@ U1135,Siew Ling Lee,siewling.lee935@example.com,FEMALE,41,DIPLOMA,MEMBER,2026-01
 U1136,Dinesh Nadarajah,dinesh.nadarajah936@example.com,MALE,62,BACHELOR,MEMBER,2026-01-05 09:27:00,0
 U1137,Rayyan Bakri,rayyan.bakri937@example.com,MALE,21,MASTER,MEMBER,2026-01-05 09:32:00,0
 U1138,Kian Keong Liew,kiankeong.liew938@example.com,MALE,44,BACHELOR,MEMBER,2026-01-05 09:39:00,0
-U1139,Yee Wen Lim,yeewen.lim939@example.com,MALE,47,MASTER,MEMBER,2026-01-05 09:41:00,0
+U1139,Yee Wen Lim,yeewen.lim939@example.com,MALE,47,MASTER,MEMBER,2026-01-05 09:41:00,1
 U1140,Zarith Fadzil,zarith.fadzil940@example.com,MALE,54,MASTER,MEMBER,2026-01-05 09:51:00,0
 U1141,Arvin Subramaniam,arvin.subramaniam941@example.com,MALE,48,MASTER,MEMBER,2026-01-05 09:54:00,0
 U1142,Nadhira Bakri,nadhira.bakri942@example.com,MALE,36,DIPLOMA,MEMBER,2026-01-05 09:59:00,0
@@ -1145,9 +1145,9 @@ U1143,Aiman Fadzil,aiman.fadzil943@example.com,MALE,34,PHD,MEMBER,2026-01-05 10:
 U1144,Libau Layas,libau.layas944@example.com,MALE,39,PHD,MEMBER,2026-01-05 10:11:00,0
 U1145,Bulan Layas,bulan.layas945@example.com,MALE,55,DIPLOMA,MEMBER,2026-01-05 10:17:00,0
 U1146,Aiman Mansur,aiman.mansur946@example.com,MALE,47,BACHELOR,MEMBER,2026-01-05 10:21:00,0
-U1147,Arvin Nadarajah,arvin.nadarajah947@example.com,MALE,48,MASTER,MEMBER,2026-01-05 10:24:00,0
+U1147,Arvin Nadarajah,arvin.nadarajah947@example.com,MALE,48,MASTER,MEMBER,2026-01-05 10:24:00,1
 U1148,Batrisyia Mansur,batrisyia.mansur948@example.com,FEMALE,18,MASTER,MEMBER,2026-01-05 10:33:00,0
-U1149,Kian Keong Lee,kiankeong.lee949@example.com,MALE,32,DIPLOMA,MEMBER,2026-01-05 10:37:00,0
+U1149,Kian Keong Lee,kiankeong.lee949@example.com,MALE,32,DIPLOMA,MEMBER,2026-01-05 10:37:00,1
 U1150,Priyanka Rengasamy,priyanka.rengasamy950@example.com,FEMALE,22,DIPLOMA,MEMBER,2026-01-05 10:45:00,0
 U1151,Firdaus Bakri,firdaus.bakri951@example.com,MALE,24,DIPLOMA,MEMBER,2026-01-05 10:54:00,0
 U1152,Mei Xin Ng,meixin.ng952@example.com,FEMALE,60,MASTER,MEMBER,2026-01-05 11:01:00,0
@@ -1159,7 +1159,7 @@ U1157,Thivya Gopal,thivya.gopal957@example.com,MALE,53,PHD,MEMBER,2026-01-05 11:
 U1158,Karthik Krishnan,karthik.krishnan958@example.com,MALE,37,MASTER,MEMBER,2026-01-05 11:24:00,0
 U1159,Batrisyia Zainal,batrisyia.zainal959@example.com,FEMALE,39,PHD,MEMBER,2026-01-05 11:27:00,0
 U1160,Kavitha Krishnan,kavitha.krishnan960@example.com,MALE,64,DIPLOMA,MEMBER,2026-01-05 11:29:00,0
-U1161,Jia Hao Lim,jiahao.lim961@example.com,MALE,22,PHD,MEMBER,2026-01-05 11:36:00,0
+U1161,Jia Hao Lim,jiahao.lim961@example.com,MALE,22,PHD,MEMBER,2026-01-05 11:36:00,1
 U1162,Jia Hao Lim,jiahao.lim962@example.com,MALE,51,DIPLOMA,MEMBER,2026-01-05 11:43:00,0
 U1163,Zi Xuan Lee,zixuan.lee963@example.com,MALE,51,DIPLOMA,MEMBER,2026-01-05 11:49:00,0
 U1164,Dayang Anak Jugah,dayang.anakjugah964@example.com,FEMALE,24,PHD,MEMBER,2026-01-05 11:54:00,0
@@ -1178,7 +1178,7 @@ U1176,Thivya Gopal,thivya.gopal976@example.com,MALE,25,MASTER,MEMBER,2026-01-05 
 U1177,Rayyan Ibrahim,rayyan.ibrahim977@example.com,MALE,41,MASTER,MEMBER,2026-01-05 13:07:00,0
 U1178,Awang Meringai,awang.meringai978@example.com,MALE,45,PHD,MEMBER,2026-01-05 13:09:00,0
 U1179,Jebat Empam,jebat.empam979@example.com,MALE,60,DIPLOMA,MEMBER,2026-01-05 13:13:00,0
-U1180,Haziq Zainal,haziq.zainal980@example.com,MALE,33,DIPLOMA,MEMBER,2026-01-05 13:18:00,0
+U1180,Haziq Zainal,haziq.zainal980@example.com,MALE,33,DIPLOMA,MEMBER,2026-01-05 13:18:00,2
 U1181,Firdaus Fadzil,firdaus.fadzil981@example.com,MALE,65,PHD,MEMBER,2026-01-05 13:23:00,0
 U1182,Mei Xin Tan,meixin.tan982@example.com,FEMALE,64,BACHELOR,MEMBER,2026-01-05 13:33:00,0
 U1183,Zi Xuan Tan,zixuan.tan983@example.com,MALE,57,BACHELOR,MEMBER,2026-01-05 13:39:00,0
@@ -1190,7 +1190,7 @@ U1188,Jebat Empam,jebat.empam988@example.com,MALE,45,BACHELOR,MEMBER,2026-01-05 
 U1189,Libau Kumbau,libau.kumbau989@example.com,MALE,21,MASTER,MEMBER,2026-01-05 14:22:00,0
 U1190,Bulan Empam,bulan.empam990@example.com,MALE,61,PHD,MEMBER,2026-01-05 14:32:00,0
 U1191,Arvin Krishnan,arvin.krishnan991@example.com,MALE,32,PHD,MEMBER,2026-01-05 14:34:00,0
-U1192,Mei Xin Chan,meixin.chan992@example.com,FEMALE,38,DIPLOMA,MEMBER,2026-01-05 14:44:00,0
+U1192,Mei Xin Chan,meixin.chan992@example.com,FEMALE,38,DIPLOMA,MEMBER,2026-01-05 14:44:00,1
 U1193,Yee Wen Tan,yeewen.tan993@example.com,MALE,44,PHD,MEMBER,2026-01-05 14:46:00,0
 U1194,Sangeetha Nadarajah,sangeetha.nadarajah994@example.com,MALE,62,BACHELOR,MEMBER,2026-01-05 14:51:00,0
 U1195,Haziq Hafiz,haziq.hafiz995@example.com,MALE,55,BACHELOR,MEMBER,2026-01-05 14:54:00,0
