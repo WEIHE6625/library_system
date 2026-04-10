@@ -35,7 +35,7 @@ public class UserReportController {
                             "[1] Users by Education Level",
                             "[2] Users by Age Group",
                             "[3] Top Borrowing Users",
-                            "[4] Retrieve Saved Report",
+                            // "[4] Retrieve Saved Report",
                             "[0] Back"
                     },
                     "Select an option >> ",
@@ -43,7 +43,7 @@ public class UserReportController {
                             () -> { handleEducationReport(); return false; },
                             () -> { handleAgeGroupReport(); return false; },
                             () -> { handleTopBorrowingUsersReport(); return false; },
-                            () -> { retrieveSavedReportMenu(); return false; },
+                            // () -> { retrieveSavedReportMenu(); return false; },
                             () -> true
                     }
             );
@@ -510,39 +510,39 @@ public class UserReportController {
         return new String[]{maxLabels.toString(), minLabels.toString()};
     }
 
-    private String safeCut(String text, int maxLen) {
-        if (text == null) {
-            return "";
-        }
-        if (text.length() <= maxLen) {
-            return text;
-        }
-        return text.substring(0, maxLen - 3) + "...";
-    }
+    // private String safeCut(String text, int maxLen) {
+    //     if (text == null) {
+    //         return "";
+    //     }
+    //     if (text.length() <= maxLen) {
+    //         return text;
+    //     }
+    //     return text.substring(0, maxLen - 3) + "...";
+    // }
 
-    @SuppressWarnings("unchecked")
-    public void retrieveSavedReportMenu() {
-        UIGenerator.clearScreen();
-        boolean isExit = false;
+    // @SuppressWarnings("unchecked")
+    // public void retrieveSavedReportMenu() {
+    //     UIGenerator.clearScreen();
+    //     boolean isExit = false;
 
-        do {
-            UIGenerator.titleBuilder("Retrieve Saved User Reports");
-            isExit = UIGenerator.optionMenu(
-                    new String[]{
-                            "[1] Users by Education Reports",
-                            "[2] Users by Age Group Reports",
-                            "[3] Top Borrowing Users Reports",
-                            "[4] All User Reports",
-                            "[0] Back"
-                    },
-                    "Select an option >> ",
-                    new Supplier[]{
-                            () -> { ReportDAO.retrieveSavedReportByPrefix("users_by_education", savedReportTree, REPORT_FOLDER); return false; },
-                            () -> { ReportDAO.retrieveSavedReportByPrefix("users_by_age_group", savedReportTree, REPORT_FOLDER); return false; },
-                            () -> { ReportDAO.retrieveSavedReportByPrefix("top_borrowing_users", savedReportTree, REPORT_FOLDER); return false; },
-                            () -> { ReportDAO.retrieveSavedReportByPrefix("", savedReportTree, REPORT_FOLDER); return false; }
-                    }
-            );
-        } while (!isExit);
-    }
+    //     do {
+    //         UIGenerator.titleBuilder("Retrieve Saved User Reports");
+    //         isExit = UIGenerator.optionMenu(
+    //                 new String[]{
+    //                         "[1] Users by Education Reports",
+    //                         "[2] Users by Age Group Reports",
+    //                         "[3] Top Borrowing Users Reports",
+    //                         "[4] All User Reports",
+    //                         "[0] Back"
+    //                 },
+    //                 "Select an option >> ",
+    //                 new Supplier[]{
+    //                         () -> { ReportDAO.retrieveSavedReportByPrefix("users_by_education", savedReportTree, REPORT_FOLDER); return false; },
+    //                         () -> { ReportDAO.retrieveSavedReportByPrefix("users_by_age_group", savedReportTree, REPORT_FOLDER); return false; },
+    //                         () -> { ReportDAO.retrieveSavedReportByPrefix("top_borrowing_users", savedReportTree, REPORT_FOLDER); return false; },
+    //                         () -> { ReportDAO.retrieveSavedReportByPrefix("", savedReportTree, REPORT_FOLDER); return false; }
+    //                 }
+    //         );
+    //     } while (!isExit);
+    // }
 }

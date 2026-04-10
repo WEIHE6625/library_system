@@ -8,6 +8,7 @@ import java.time.format.DateTimeFormatter;
 
 import com.mycompany.library_system.adt.MapInterface;
 import com.mycompany.library_system.adt.TreeMap;
+import com.mycompany.library_system.boundary.BookReportUI;
 import com.mycompany.library_system.entity.Book;
 import com.mycompany.library_system.utility.DataProcessor;
 import com.mycompany.library_system.utility.IdGenerator;
@@ -18,7 +19,7 @@ public class BookReportController {
     
     private MapInterface<String, Book> bookTree;
     private final String REPORT_DIRECTORY = "./database/reports/book_reports/";
-    final int COLUMN_WIDTH = 13;  
+    public static final int COLUMN_WIDTH = 13;
 
     public BookReportController(MapInterface<String, Book> bookTree) {
         this.bookTree = bookTree;    
@@ -45,9 +46,6 @@ public class BookReportController {
             return title + "\nNo data available to generate report.\n";
         }
 
-        StringBuilder reportBuilder = new StringBuilder();
-        UIGenerator.appendHeader(reportBuilder, "BOOK INVENTORY ANALYSIS", title);
-
         int lowStockCount = lowStockInfo.size();
         int healthyCount = totalBooksInLibrary - lowStockCount;
         
@@ -55,50 +53,21 @@ public class BookReportController {
         int maxScale = Math.max(lowStockCount, healthyCount);
         int MAX_BAR_LENGTH = 40;
 
-        UIGenerator.appendCenteredLine(reportBuilder, "--- INVENTORY HEALTH SUMMARY ---\n");
-
         // Draw Healthy Books Bar
+        StringBuilder barBuilder = new StringBuilder();
+
         int healthyBarLen = (maxScale == 0) ? 0 : (int) Math.round(((double) healthyCount / maxScale) * MAX_BAR_LENGTH);
         StringBuilder healthyBar = new StringBuilder();
         for (int i = 0; i < healthyBarLen; i++) healthyBar.append("#");
-        reportBuilder.append(String.format("%-20s | %-40s | %d Books\n", "Healthy Stock", healthyBar.toString(), healthyCount));
+        barBuilder.append(String.format("%-20s | %-40s | %d Books\n", "Healthy Stock", healthyBar.toString(), healthyCount));
 
         // Draw Low Stock Books Bar
         int lowBarLen = (maxScale == 0) ? 0 : (int) Math.round(((double) lowStockCount / maxScale) * MAX_BAR_LENGTH);
         StringBuilder lowBar = new StringBuilder();
         for (int i = 0; i < lowBarLen; i++) lowBar.append("#");
-        reportBuilder.append(String.format("%-20s | %-40s | %d Books\n\n\n", "Low Stock", lowBar.toString(), lowStockCount));
+        barBuilder.append(String.format("%-20s | %-40s | %d Books\n\n\n", "Low Stock", lowBar.toString(), lowStockCount));
         
-        UIGenerator.appendCenteredLine(reportBuilder, "--- BOOKS REQUIRING RESTOCKING ---");
-
-        // Table Header
-        UIGenerator.appendCenteredLine(reportBuilder, String.format("+-%-8s-+-%-60s-+-%-10s-+-%-21s-+", "-".repeat(8), "-".repeat(60), "-".repeat(10), "-".repeat(21)));
-        UIGenerator.appendCenteredLine(reportBuilder, String.format("| %-8s | %-60s | %-10s | %-21s |", "BOOK ID", "TITLE", "STOCK (%)", "QTY AVAILABLE / TOTAL"));
-        UIGenerator.appendCenteredLine(reportBuilder, String.format("+-%-8s-+-%-60s-+-%-10s-+-%-21s-+", "-".repeat(8), "-".repeat(60), "-".repeat(10), "-".repeat(21)));
-
-        double totalLowStockPercentage = 0.0; 
-        int totalLowStockBooks = 0;
-        for (MapInterface.Entry<String, Book> entry : lowStockInfo) {
-            Book book = entry.getValue();
-            double stockPercentage = Double.parseDouble(entry.getKey().split("-")[0]);
-            UIGenerator.appendCenteredLine(reportBuilder, String.format("| %-8s | %-60s | %9.2f%% | %13s / %-5s |", 
-                book.getId(), 
-                DataProcessor.truncate(book.getTitle(), 60), 
-                stockPercentage, 
-                book.getQtyAvailable(),
-                book.getQtyTotal())
-            );
-            totalLowStockPercentage += stockPercentage;
-            totalLowStockBooks++;
-        }
-        UIGenerator.appendCenteredLine(reportBuilder, String.format("+-%-8s-+-%-60s-+-%-10s-+-%-21s-+", "-".repeat(8), "-".repeat(60), "-".repeat(10), "-".repeat(21)));
-        double avgLowStockPercentage = (totalLowStockBooks == 0) ? 0.0 : (totalLowStockPercentage / totalLowStockBooks);
-        UIGenerator.appendCenteredLine(reportBuilder, String.format("| %-8s | %-60s | %-3s %5.2f%% | %-21s |", " ", "Total Low Stock Books : " + totalLowStockBooks, "Avg", avgLowStockPercentage, " "));
-        UIGenerator.appendCenteredLine(reportBuilder, String.format("+-%-8s-+-%-60s-+-%-10s-+-%-21s-+", "-".repeat(8), "-".repeat(60), "-".repeat(10), "-".repeat(21)));
-        reportBuilder.append("\n");
-        UIGenerator.appendFooter(reportBuilder);
-
-        return reportBuilder.toString();
+        return BookReportUI.displayLowStockGraph(title, barBuilder, lowStockInfo, totalBooksInLibrary);
     }
 
     public String generateAdminReport1() {
@@ -110,7 +79,6 @@ public class BookReportController {
             lowStockData, 
             bookTree.size()
         );
-
         return report;
     }
 
@@ -162,9 +130,9 @@ public class BookReportController {
     }
 
     private String generateCostByCategoryGraph(String title, MapInterface<String, Integer> costInfo, int topN) {
-        StringBuilder reportBuilder = new StringBuilder();
-        UIGenerator.appendHeader(reportBuilder, "BOOK INVENTORY ANALYSIS", title);
-        
+        if (costInfo.isEmpty()) {
+            return title + "\nNo data available to generate report.\n";
+        }
         // Use the CLEAN map size for all math!
         int totalCategories = costInfo.size();
     
@@ -222,32 +190,8 @@ public class BookReportController {
             currentIndex++;
         }
 
-        // Vertical bar chart
-        UIGenerator.appendCenteredLine(reportBuilder, String.format("--- TOP %d CATEGORIES BY COST ---", chartSize));
-        reportBuilder.append("\n");
-
-        UIGenerator.appendVerticalBarChart(reportBuilder, labels, scaledValues, chartSize, chartHeight, COLUMN_WIDTH, standMaxCost, false);
-        reportBuilder.append("\n\n");
-
-        // Table
-        UIGenerator.appendCenteredLine(reportBuilder, String.format("--- TOP %d CATEGORIES BY COST ---", tableSize));
-        UIGenerator.appendCenteredLine(reportBuilder, String.format("+-%-40s-+-%-20s-+-%-11s-+", "-".repeat(40), "-".repeat(20), "-".repeat(11)));
-        UIGenerator.appendCenteredLine(reportBuilder, String.format("| %-40s | %-20s | %-11s |", "CATEGORY", "TOTAL COST", "TOTAL BOOKS"));
-        UIGenerator.appendCenteredLine(reportBuilder, String.format("+-%-40s-+-%-20s-+-%-11s-+", "-".repeat(40), "-".repeat(20), "-".repeat(11)));
-
-        // Print the perfectly sorted rows
-        for (int i = 0; i < tableRows.length; i++) {
-            UIGenerator.appendCenteredLine(reportBuilder, tableRows[i]);
-        }
-        
-        UIGenerator.appendCenteredLine(reportBuilder, String.format("+-%-40s-+-%-20s-+-%-11s-+", "-".repeat(40), "-".repeat(20), "-".repeat(11)));
-        UIGenerator.appendCenteredLine(reportBuilder, String.format("| %-40s | %-20s | %-11s |", "Total (Top " + tableSize + ")", String.format("$ %,18.2f", totalTopNCost), String.format("%11d", totalTopNCount)));
-        UIGenerator.appendCenteredLine(reportBuilder, String.format("+-%-40s-+-%-20s-+-%-11s-+", "-".repeat(40), "-".repeat(20), "-".repeat(11)));
-
-        reportBuilder.append("\n");
-
-        System.out.println(reportBuilder);
-        return reportBuilder.toString();
+        return BookReportUI.displayCostByCategoryGraph(title, labels, scaledValues, 
+            tableRows, chartSize, chartHeight, tableSize, standMaxCost, totalTopNCost, totalTopNCount);
     }
 
     public String generateAdminReport2() {
@@ -256,13 +200,9 @@ public class BookReportController {
 
         MapInterface<String, Integer> costData = getInventoryCostByCategory(ignoreUnknown);
 
-        String report = generateCostByCategoryGraph(
+        return generateCostByCategoryGraph(
             "Total Cost and Book Count by Category", 
-            costData, 
-            topN
-        );
-
-        return report;
+            costData, topN);
     }
 
     public void exportToFile(String reportContent, String fileName) {        
