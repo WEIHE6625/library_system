@@ -65,7 +65,7 @@ public class LibrarySystemUI {
                             new Supplier[] {
                                     () -> UserUI.menu(userInfoController, sessionUser),
                                     () -> { BookUI.menu(); return false; },
-                                    () -> { BorrowBookUI.adminMenu(sessionUser.getUserId()); return false; },
+                                    () -> { BorrowBookUI.adminMenu(sessionUser.getUserId(), userInfoController.getUserList()); return false; },
                                     () -> { AnnouncementUI.menu(sessionUser.getUserId()); return false; },
                                     () -> { return true; } // Returns true to trigger isLogout
                             }
@@ -82,7 +82,7 @@ public class LibrarySystemUI {
                             "Select an option >> ",
                             new Supplier[] {
                                     () -> UserUI.menu(userInfoController, sessionUser),
-                                    () -> { BorrowBookUI.memberMenu(sessionUser.getUserId()); return false; },
+                                    () -> { BorrowBookUI.memberMenu(sessionUser.getUserId(), userInfoController.getUserList()); return false; },
                                     () -> { AnnouncementUI.studentMenu(sessionUser); return false; },
                                     () -> { return true; } // Returns true to trigger isLogout
                             }
