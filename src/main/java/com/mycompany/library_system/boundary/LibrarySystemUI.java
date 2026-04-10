@@ -24,7 +24,7 @@ public class LibrarySystemUI {
             while (currentUser == null) {
 
                 UIGenerator.clearScreen();
-                UIGenerator.titleBuilder("Welcome to TARUMT Online Library");
+                UIGenerator.titleBuilder("W e l c o m e     t o     T A R U M T     O n l i n e     L i b r a r y");
 
                 System.out.println("[0] Exit Program");
                 System.out.print("Enter your user ID to login: ");
@@ -58,15 +58,15 @@ public class LibrarySystemUI {
                                     "[1] User Module",
                                     "[2] Book Module",
                                     "[3] Borrow Module",
-                                    "[4] Module",
+                                    "[4] Announcement Module",
                                     "[0] Logout"
                             },
                             "Select an option >> ",
                             new Supplier[] {
                                     () -> UserUI.menu(userInfoController, sessionUser),
                                     () -> { BookUI.menu(); return false; },
-                                    () -> { BorrowBookUI.adminMenu(sessionUser.getUserId()); return false; },
-                                    () -> { return false; },
+                                    () -> { BorrowBookUI.adminMenu(sessionUser.getUserId(), userInfoController.getUserList()); return false; },
+                                    () -> { AnnouncementUI.menu(sessionUser.getUserId()); return false; },
                                     () -> { return true; } // Returns true to trigger isLogout
                             }
                     );
@@ -76,12 +76,14 @@ public class LibrarySystemUI {
                             new String[]{
                                     "[1] User Module",
                                     "[2] Book Borrow Module",
+                                    "[3] Announcement Module",
                                     "[0] Logout"
                             },
                             "Select an option >> ",
                             new Supplier[] {
                                     () -> UserUI.menu(userInfoController, sessionUser),
-                                    () -> { BorrowBookUI.memberMenu(sessionUser.getUserId()); return false; },
+                                    () -> { BorrowBookUI.memberMenu(sessionUser.getUserId(), userInfoController.getUserList()); return false; },
+                                    () -> { AnnouncementUI.studentMenu(sessionUser); return false; },
                                     () -> { return true; } // Returns true to trigger isLogout
                             }
                     );

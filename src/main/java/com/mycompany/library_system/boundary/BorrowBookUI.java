@@ -8,9 +8,12 @@ import java.time.LocalDate;
 import java.util.function.Supplier;
 
 import com.mycompany.library_system.adt.ListInterface;
+import com.mycompany.library_system.adt.MapInterface;
 import com.mycompany.library_system.control.BookBorrowControl;
 import com.mycompany.library_system.control.BookInfoController;
+import com.mycompany.library_system.control.BorrowReportController;
 import com.mycompany.library_system.entity.Book;
+import com.mycompany.library_system.entity.User;
 import com.mycompany.library_system.entity.BookBorrowRecord;
 import com.mycompany.library_system.entity.BorrowFineRecord;
 import com.mycompany.library_system.utility.DataProcessor;
@@ -25,11 +28,9 @@ public class BorrowBookUI {
     private static BookBorrowControl borrowController;
     private static BookInfoController bookInfoController = new BookInfoController();
 
-     
 
-    public static void startNewBorrowSession(String userId) {
-        borrowController = new BookBorrowControl(userId, bookInfoController.getbookTree());
-
+    public static void startNewBorrowSession(String userId, MapInterface<String, User> userMap) {
+        borrowController = new BookBorrowControl(userId, bookInfoController.getbookTree(), userMap);
     }
 
     
@@ -40,8 +41,8 @@ public class BorrowBookUI {
      */
 
     @SuppressWarnings("unchecked")
-    public static void memberMenu(String userId) {
-        startNewBorrowSession(userId);
+    public static void memberMenu(String userId, MapInterface<String, User> userMap) {
+        startNewBorrowSession(userId, userMap);
         boolean quitMemberMenu = false;
 
         do {
@@ -1075,8 +1076,8 @@ public class BorrowBookUI {
      */
 
     @SuppressWarnings("unchecked")
-    public static void adminMenu(String adminId) {
-        startNewBorrowSession(adminId);
+    public static void adminMenu(String adminId, MapInterface<String, User> userMap) {
+        startNewBorrowSession(adminId, userMap);
         boolean quitAdminMenu = false;
 
         do {
@@ -1085,7 +1086,8 @@ public class BorrowBookUI {
             quitAdminMenu = UIGenerator.optionMenu(
                 new String[] {
                     "[1] Display Borrow Records",                    
-                    "[2] Display Fine Records", 
+                    "[2] Display Fine Records",
+                    "[3] Generate Reports", 
                     "",
                     "[0] Go Back"
                 }, 
@@ -1093,6 +1095,7 @@ public class BorrowBookUI {
                 new Supplier[] {
                     () -> {adminBorrowMenu(); return false;},
                     () -> {adminFineMenu(); return false;},
+                    () -> {reportMenuUI(); return false;},
                     () -> true
                 }
             );
@@ -1642,6 +1645,48 @@ public class BorrowBookUI {
         System.out.println("The 'Book Lost ?' status of record " + borrowId + " have been set to No");
 
         
+    }
+    
+    public static void reportMenuUI() {
+        boolean quitReportMenu = false;
+        do {
+            UIGenerator.clearScreen();
+            UIGenerator.titleBuilder("Admin Dashboard --- Borrow Reports");
+            quitReportMenu = UIGenerator.optionMenu(
+                new String[] {
+                    "[1] Generate Most High In-demand books report",
+                    "[2] Generate Average Borrow Duration by Users",
+                    "",
+                    "[0] Go Back"
+                }, 
+                "Select an option >>> ", 
+                new Supplier[] {
+                    () -> {generatedReportUI(1); return false;},
+                    () -> {generatedReportUI(2); return false;},
+                    () -> true
+                });
+        }while(!quitReportMenu);
+    }
+
+    public static void generatedReportUI(int reportType) {
+        BorrowReportController reportController = new BorrowReportController(borrowController.getBorrowRepo().getBookBorrowRecords());
+        UIGenerator.clearScreen();
+        UIGenerator.titleBuilder("Borrow Reports");
+        String report = "";
+        String fileName = "";
+        switch(reportType) {
+            case 1: report = reportController.generateMostBorrowedBooksReport(borrowController.getBookTree()); fileName = "High_Demand_Books_Report"; break;
+            case 2: report = reportController.generateUserAverageBorrowTimeReport(borrowController.getUserTree()); fileName = "User_Borrow_Duration_Report"; break;
+        }
+        System.out.println(report);
+        String choice = UserPrompt.inputString("\nWould you like to export this report to a text file? (Y/N) >>> ", 1, false);
+
+        if(choice.equalsIgnoreCase("Y")) {
+            reportController.exportToFile(report, fileName);
+        }
+        else {
+            UIGenerator.pressEnterToContinue();
+        }
     }
     //==============================================================================================    
     

@@ -103,57 +103,13 @@ public class BookUI {
                         () -> { bController.viewBookDetails(); return false; },
                         () -> { bController.sortBooks(); return false; },
                         () -> { bController.searchBooks(); return false; },
-                        () -> { reportMenu(bController); return false; },
+                        () -> { BookReportUI.reportMenu(bController); return false; },
                         () -> { pagination.previousPage(); return false; },
                         () -> { pagination.nextPage(); return false; },
                         () -> true
                 }
             );
         }while (!isExit);
-    }
-
-    @SuppressWarnings("unchecked")
-    public static void reportMenu(BookInfoController bController) {
-        boolean isExit = false;
-        do {
-            UIGenerator.clearScreen();
-            UIGenerator.titleBuilder("Admin Dashboard --- Book Reports");
-            isExit = UIGenerator.optionMenu(
-                new String[]{
-                    "[1] Low Stock Alert Report",
-                    "[2] Total Inventory Cost Report",
-                    " ",
-                    "[0] Back to Main Menu"
-                },
-                "Select an option >> ",
-                new Supplier[] {
-                        () -> { reportMainPage(bController, 1); return false; },
-                        () -> { reportMainPage(bController, 2); return false; },
-                        () -> true
-                }
-            );
-        }while (!isExit);
-    }
-
-    private static void reportMainPage(BookInfoController bController, int reportType) {
-        BookReportController reportController = new BookReportController(bController.getbookTree());
-        UIGenerator.clearScreen();
-        UIGenerator.titleBuilder("Book Inventory Reports");
-        String report = "";
-        String fileName = "";
-        switch (reportType) {
-            case 1: report = reportController.generateAdminReport1(); fileName = "Low_Stock_Report"; break;
-            case 2: report = reportController.generateAdminReport2(); fileName = "Inventory_Cost_Report"; break;
-        }
-
-        System.out.println(report);
-        String choice = UserPrompt.inputString("\nWould you like to export this report to a text file? (Y/N) >> ", 1, false);
-
-        if ("Y".equalsIgnoreCase(choice)) {
-            reportController.exportToFile(report, fileName);
-        } else {
-            UIGenerator.pressEnterToContinue();
-        }
     }
 
     @SuppressWarnings("unchecked")
@@ -168,8 +124,11 @@ public class BookUI {
                     "[1] Add New Book",
                     "[2] Edit Book Information",
                     "[3] Delete Book",
+                    "[4] View Book Details",
+                    "[5] Sort Books",
+                    "[6] Search Books",
                     " ",
-                    "[5] <- Previous Page          [6] Next Page ->",
+                    "[7] <- Previous Page          [8] Next Page ->",
                     "[0] Back to Main Menu"
                 },
                 "Select an option >> ",
@@ -177,6 +136,9 @@ public class BookUI {
                         () -> { bController.insertBook(); return false; },
                         () -> { bController.editBook(); return false; },
                         () -> { bController.deleteBook(); return false; },
+                        () -> { bController.viewBookDetails(); return false; },
+                        () -> { bController.sortBooks(); return false; },
+                        () -> { bController.searchBooks(); return false; },
                         () -> { pagination.previousPage(); return false; },
                         () -> { pagination.nextPage(); return false; },
                         () -> true

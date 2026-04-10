@@ -20,22 +20,29 @@ of efficiency and ordering features.
 -----------------------------------------------------------
 Program Instruction
 -----------------------------------------------------------
-User Module Instructions
+Library System Instructions
     Login
         - First, log in with your account credentials.
-    Access User Module
-        - Select 1 from the main menu to enter the User Module.
-    Admin Users
+
+    Access Module
+        - Select one of the options from the main menu to enter each module.
+
+    Admin Users (eg. UserId = U0001)
         Admins can:
-            - View a list of all users.
-            - Perform CRUD operations (Create, Read, Update, Delete).
-            - Sort and search user records.
+            - View a list of all users, books, borrow transatcions, fine, annoucements.
+            - View all details of a record in each module.
+            - Perform CRUD operations (Create, Read, Update, Delete) for each module.
+            - Sort and search each module records.
             - Generate and view reports.
-            - Navigate through pages using pagination if the user list is too long.
-    Member Users
+            - View borrow record details and return book, or cancel book missing status.
+
+    Member Users (eg. UserId = U0002)
         Members can:
             - Modify, delete, or view only their own information.
-            - Have access limited to three options for personal account management.
+            - View and borrow books.
+            - View borrow record details, and Report book missing.
+            - View annoucements.
+            - Pay fine.
 
 -----------------------------------------------------------
 Project Folder Structure:
@@ -45,7 +52,9 @@ Project Folder Structure:
 ├── database/
 │   ├── reports/
 │   │   ├── book_reports/
-│   │   └── user_reposts/
+│   │   ├── user_reports/
+│   │   ├── borrow_reports/
+│   │   └── annoucement_reports/
 │   │
 │   ├── book.csv
 │   ├── borrowBookRecords.csv
