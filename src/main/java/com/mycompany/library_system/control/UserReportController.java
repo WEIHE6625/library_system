@@ -12,95 +12,8 @@ public class UserReportController {
         this.userTree = userTree;
     }
 
-<<<<<<< HEAD
-    @SuppressWarnings("unchecked")
-    public void displayReportMenu() {
-        UIGenerator.clearScreen();
-        boolean isExit = false;
-
-        do {
-            UIGenerator.titleBuilder("User Report Menu");
-            isExit = UIGenerator.optionMenu(
-                    new String[]{
-                            "[1] Users by Education Level",
-                            "[2] Users by Age Group",
-                            "[3] Top Borrowing Users",
-                            // "[4] Retrieve Saved Report",
-                            "[0] Back"
-                    },
-                    "Select an option >> ",
-                    new Supplier[] {
-                            () -> { handleEducationReport(); return false; },
-                            () -> { handleAgeGroupReport(); return false; },
-                            () -> { handleTopBorrowingUsersReport(); return false; },
-                            // () -> { retrieveSavedReportMenu(); return false; },
-                            () -> true
-                    }
-            );
-        } while (!isExit);
-    }
-
-    private void handleEducationReport() {
-        UIGenerator.clearScreen();
-        UIGenerator.titleBuilder("Users by Education Level Report");
-
-        String genderFilter = promptGenderFilter();
-
-        generateUsersByEducationReport(genderFilter);
-    }
-
-    private void handleAgeGroupReport() {
-        UIGenerator.clearScreen();
-        UIGenerator.titleBuilder("Users by Age Group Report");
-
-        String genderFilter = promptGenderFilter();
-
-        System.out.println("[1] Default Age Groups");
-        System.out.println("[2] Custom Age Groups");
-        int choice = UserPrompt.inputInteger("Select grouping type >> ", 1, 2);
-
-        if (choice == 1) {
-            int[] groupBounds = {17, 25, 40, 60}; // <18, 18-25, 26-40, 41-60, 60+
-            String[] labels = {"<18", "18-25", "26-40", "41-60", "60+"};
-            generateUsersByAgeGroupReport(genderFilter, labels, groupBounds);
-        } else {
-            int[] customBounds = promptCustomAgeBounds();
-            String[] customLabels = buildCustomAgeLabels(customBounds);
-            generateUsersByAgeGroupReport(genderFilter, customLabels, customBounds);
-        }
-    }
-
-    private void handleTopBorrowingUsersReport() {
-        UIGenerator.clearScreen();
-        UIGenerator.titleBuilder("Top Borrowing Users Report");
-
-        if (userTree.isEmpty()) {
-            System.out.println("No user records found.");
-            return;
-        }
-
-        int topN = UserPrompt.inputInteger("Enter number of top users to display (1 - 10) >> ", 1, 10);
-
-        generateTopBorrowingUsersReport(topN);
-    }
-
-
-    public void generateUsersByEducationReport(String genderFilter) {
-        String[] labels = {
-                "PRIMARY",
-                "SECONDARY",
-                "DIPLOMA",
-                "BACHELOR",
-                "MASTER",
-                "PHD",
-                "OTHER"
-        };
-
-        int[] counts = new int[labels.length];
-=======
     public int[] getEducationCounts(String genderFilter, int length) {
         int[] counts = new int[length];
->>>>>>> 6b78099032c896c382c780ec5dd649f82072ae9b
 
         for (MapInterface.Entry<String, User> entry : userTree) {
             User user = entry.getValue();
@@ -255,8 +168,4 @@ public class UserReportController {
 
         return new String[]{maxLabels.toString(), minLabels.toString()};
     }
-<<<<<<< HEAD
-
-=======
->>>>>>> 6b78099032c896c382c780ec5dd649f82072ae9b
 }
