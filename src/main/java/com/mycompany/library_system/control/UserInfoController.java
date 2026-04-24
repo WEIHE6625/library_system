@@ -3,6 +3,7 @@ package com.mycompany.library_system.control;
 import java.util.function.Supplier;
 import com.mycompany.library_system.adt.TreeMap;
 import com.mycompany.library_system.boundary.UserUI;
+import com.mycompany.library_system.boundary.UserReportUI;
 import com.mycompany.library_system.dao.UserDAO;
 import com.mycompany.library_system.entity.User;
 import com.mycompany.library_system.utility.DateUtil;
@@ -19,7 +20,7 @@ public class UserInfoController {
     private TreeMap<String, User> userCreatedDateTimeTree;
     private TreeMap<String, User> userNumOfBooksBorrowing;
     private TreeMap<String, User> searchTree = new TreeMap<>();
-    private UserReportController userReportController;
+    private UserReportUI userReportUI;
     private static final String USER_FILE_PATH = "database/users.csv";
 
     public UserInfoController() {
@@ -30,7 +31,7 @@ public class UserInfoController {
         this.userEducationTree = new TreeMap<>();
         this.userCreatedDateTimeTree = new TreeMap<>();
         this.userNumOfBooksBorrowing = new TreeMap<>();
-        this.userReportController = new UserReportController(userTree);
+        this.userReportUI =  new UserReportUI(userTree);
 
         // Loop through every book in the main bookTree
         for (User user : userTree.values()) {
@@ -447,7 +448,7 @@ public class UserInfoController {
     }
 
     public void displayUserReport() {
-        userReportController.displayReportMenu();
+        userReportUI.displayReportMenu();
     }
 
     public void saveToFile() {
