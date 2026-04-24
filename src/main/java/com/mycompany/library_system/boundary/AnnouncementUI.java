@@ -20,7 +20,7 @@ public class AnnouncementUI {
 
     static Scanner scanner = new Scanner(System.in);
     private static AnnouncementInfoControl aController = new AnnouncementInfoControl();
-    private static Pagination pagination = new Pagination();
+    private static Pagination<String, Announcement> pagination = new Pagination<>();
 
     public static String inputAnnouncementID(MapInterface<String, Announcement>announcementTree){
         boolean isValid = false;
@@ -97,6 +97,7 @@ public class AnnouncementUI {
         return pagination;
     }
 
+    @SuppressWarnings("unchecked")
     public static void menu(String loggedInID) {
         boolean isExit = false;
 
@@ -193,6 +194,7 @@ public class AnnouncementUI {
     }
 
 
+    @SuppressWarnings("unchecked")
     public static void studentMenu(User loggedInUser) {
         aController.checkAndNotifyFines(loggedInUser);
         MapInterface<String, Announcement> userView = aController.getFilteredAnnouncementsForUser(loggedInUser);

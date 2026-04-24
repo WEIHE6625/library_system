@@ -1647,6 +1647,7 @@ public class BorrowBookUI {
         
     }
     
+    @SuppressWarnings("unchecked")
     public static void reportMenuUI() {
         boolean quitReportMenu = false;
         do {

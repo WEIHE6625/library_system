@@ -17,7 +17,6 @@ import java.time.format.DateTimeFormatter;
  * @author ZhenHao
  */
 public class AnnouncementReportControl {
-    private final int MAX_BAR_LENGTH = 40;
     private MapInterface<String, Announcement> announcementTree;
     private final String VIEW_LOG_PATH;
     private final String REPORT_DIR = "./database/reports/announcement_reports/";

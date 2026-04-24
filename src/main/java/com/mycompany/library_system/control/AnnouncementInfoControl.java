@@ -236,6 +236,7 @@ public class AnnouncementInfoControl {
         AnnouncementUI.getPagination().clearSearchingWord();
     }
 
+    @SuppressWarnings("unchecked")
     public void searchAnnouncements() {
         boolean isBack = false;
         do {

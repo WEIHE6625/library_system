@@ -165,7 +165,7 @@ public class UIGenerator {
      */
     public static void appendVerticalBarChart(StringBuilder report, String[] labels, int[] values, int size, int chartHeight, int columnWidth, double maxValue, boolean isDiscrete) {
         int yAxisWidth = 8;
-        int leftPrefixWidth = yAxisWidth + 2;
+        // int leftPrefixWidth = yAxisWidth + 2;
 
         for (int level = chartHeight; level >= 1; level--) {
             StringBuilder row = new StringBuilder();

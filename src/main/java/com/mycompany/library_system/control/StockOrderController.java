@@ -8,7 +8,6 @@ import com.mycompany.library_system.dao.BookDAO;
 import com.mycompany.library_system.dao.StockOrderDAO;
 import com.mycompany.library_system.entity.Book;
 import com.mycompany.library_system.entity.StockOrder;
-import com.mycompany.library_system.entity.User;
 import com.mycompany.library_system.utility.IdGenerator;
 import com.mycompany.library_system.utility.UIGenerator;
 import com.mycompany.library_system.utility.UserPrompt;
